@@ -1643,6 +1643,29 @@ $id_usuario = $_SESSION["sesion_id_panel"];
                                         <?php
                                     }
 
+                                    $consulta = 
+                                        "
+                                        SELECT 
+                                            usu.id_mod 
+                                        FROM 
+                                            usuario_usuario_proceso AS usu,
+                                            usuario_proceso AS proceso
+                                        WHERE 
+                                            usu.id_usu = ".$id_usuario." AND
+                                            usu.id_mod = ".$fila["id_mod"]." AND
+                                            proceso.opcion_pro = 7 AND
+                                            proceso.id_pro = usu.id_pro AND
+                                            proceso.id_mod = ".$fila["id_mod"]." 
+                                        ";
+                                    $conexion->consulta($consulta);
+                                    $cantidad_opcion = $conexion->total();
+                                    if($cantidad_opcion > 0){
+                                        ?>
+                                        <li id="vendedor-cliente"><a href="<?php echo _MODULO?>vendedor/form_meta.php"><i class="fa fa-plus" aria-hidden="true"></i> Asignar Meta</a></li>
+                                        <?php
+                                    }
+
+
                                     ?>
                                 </ul>
                             </li>

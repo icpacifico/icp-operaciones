@@ -339,12 +339,6 @@ require_once _INCLUDE."head.php";
                 sexo: {
                     required: true
                 },
-                civil: {
-                    required: true
-                },
-                estudio: {
-                    required: true
-                },
                 tipo_cuenta: {
                     required: true
                 },
@@ -395,12 +389,6 @@ require_once _INCLUDE."head.php";
                 },
                 sexo: {
                     required: "Seleccione sexo"
-                },
-                civil: {
-                    required: "Seleccione civil"
-                },
-                estudio: {
-                    required: "Seleccione estudio"
                 },
                 tipo_cuenta: {
                     required: "Seleccione tipo cuenta"
