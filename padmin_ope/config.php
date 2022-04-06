@@ -12,7 +12,6 @@ require "parametros.php";
 if (!defined('_RUTA')) {
 	define('_RUTA', "https://".$inicioruta."00ppsav.cl/");
 
-
     //DESARROLLO
 	// define('_RUTA', "http://localhost/icp-operaciones/");
 }

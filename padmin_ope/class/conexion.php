@@ -19,7 +19,6 @@ class conexion
 		$this->base_datos = "ppsavcl_ssoopp_digital";
         
 		// DESARROLLO
-
 		// $this->servidor = "localhost";
 		// $this->usuario = "root";
 		// $this->pass = "";
