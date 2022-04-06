@@ -10,8 +10,11 @@ if ($rutausada=="www") {
 
 require "parametros.php"; 
 if (!defined('_RUTA')) {
-	define('_RUTA', "https://".$inicioruta."00ppsav.cl/");
-	//define('_RUTA', "http://localhost/");
+	//define('_RUTA', "https://".$inicioruta."00ppsav.cl/");
+
+
+    //DESARROLLO
+	define('_RUTA', "http://localhost/icp-operaciones/");
 }
 if (!defined('_ADMIN')) {
 	define('_ADMIN', _RUTA."padmin_ope/");
