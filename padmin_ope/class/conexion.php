@@ -13,16 +13,16 @@ class conexion
 	
 	//-------PARAMETROS DE CONEXION
 	function __construct(){
-		$this->servidor = "localhost";
-		$this->usuario = "root";
-		$this->pass = "Proyectarse2022!!";
-		$this->base_datos = "ppsavcl_ssoopp_digital";
-        
-		// DESARROLLO
 		// $this->servidor = "localhost";
 		// $this->usuario = "root";
-		// $this->pass = "";
+		// $this->pass = "Proyectarse2022!!";
 		// $this->base_datos = "ppsavcl_ssoopp_digital";
+        
+		// DESARROLLO
+		$this->servidor = "localhost";
+		$this->usuario = "root";
+		$this->pass = "";
+		$this->base_datos = "ppsavcl_ssoopp_digital";
 		$this->conectar_base_datos();
 	}
 	//-------CONEXION A UNA BASE DE DATOS
