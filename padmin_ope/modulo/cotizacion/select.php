@@ -3,6 +3,7 @@
 	include '../../class/class_fecha.php';
 	//include '../../class/conexion_tabla.php';
 	require '../../class/conexion.php';
+	$acciones = "";
 	$fecha = new fecha();
 	$conexion = new conexion();
 	/* Array of database columns which should be read and sent back to DataTables. Use a space where
@@ -201,7 +202,7 @@
 	 * Output
 	 */
 	$output = array(
-		"sEcho" => intval($_GET['sEcho']),
+		// "sEcho" => intval($_GET['sEcho']),
 		"iTotalRecords" => $iTotal,
 		"iTotalDisplayRecords" => $iFilteredTotal,
 		"aaData" => array()

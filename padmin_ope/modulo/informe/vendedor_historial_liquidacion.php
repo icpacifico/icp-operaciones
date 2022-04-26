@@ -435,6 +435,10 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                                     "; //echo $consulta;
                                                                 $conexion->consulta($consulta);
                                                                 $fila_consulta = $conexion->extraer_registro();
+                                                                
+                                                                // echo '<pre>';
+                                                                //         var_dump($fila_consulta[0]);
+                                                                //         echo '</pre>';
                                                                 if(is_array($fila_consulta)){
                                                                     foreach ($fila_consulta as $fila) {
                                                                         $consulta = 
@@ -494,12 +498,13 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                                         $monto_bono = $fila_detalle["bono_monto"] + $promesa_bono_monto + $escritura_bono_monto;
 
                                                                         $total_monto = 0;
-                                                                        if ($fila['fecha_ven'] == '0000-00-00') {
-                                                                            $fecha_venta = "";
-                                                                        }
-                                                                        else{
-                                                                            $fecha_venta = date("d/m/Y",strtotime($fila['fecha_ven']));
-                                                                        }
+                                                                        
+                                                                        // if ($fila['fecha_ven'] == '0000-00-00') {
+                                                                        //     $fecha_venta = "";
+                                                                        // }
+                                                                        // else{
+                                                                        //     $fecha_venta = date("d/m/Y",strtotime($fila['fecha_ven']));
+                                                                        // }
                                                                         
 
                                                                         $total_periodo = $total_comision + $monto_bono; 

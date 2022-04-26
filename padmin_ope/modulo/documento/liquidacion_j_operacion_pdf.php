@@ -1,4 +1,5 @@
 <?php 
+ob_start();//Enables Output Buffering
 session_start(); 
 date_default_timezone_set('Chile/Continental');
 
@@ -315,6 +316,7 @@ $mpdf->writeHTML($html);
 // $mpdf->WriteHTML($html2);
 $nombre = 'documentos/liquidacion-operacion-'.date('dmYHi').'.pdf';
 // $fecha = date('Y-m-d H:i:s');
+ob_end_clean();
 $pdf = $mpdf->output($nombre ,'I');
 
 ?>

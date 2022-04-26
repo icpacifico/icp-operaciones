@@ -502,6 +502,9 @@ $ANIO_ACTUAL = date("Y");
 
 						                                                    $consulta .= " ORDER BY fecha_his ASC";
 						                                                    $conexion->consulta($consulta);
+																			$pie_por_recup_his = 0;
+																			$contado_por_recup_his = 0;
+																			$ch_por_recup_his = 0;
 						                                                    $fila_consulta = $conexion->extraer_registro();
 																			if(is_array($fila_consulta)){
 						                                                        foreach ($fila_consulta as $fila) {

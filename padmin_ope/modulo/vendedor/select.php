@@ -5,7 +5,8 @@
 	$fecha = new fecha();
 	//include '../../class/conexion_tabla.php';
 	require '../../class/conexion.php';
-	
+	$acciones = "";
+	$filtro = "";
 	$conexion = new conexion();
 
 	date_default_timezone_set('America/Santiago');
@@ -137,7 +138,7 @@
 	 * Output
 	 */
 	$output = array(
-		"sEcho" => intval($_GET['sEcho']),
+		// "sEcho" => intval($_GET['sEcho']),
 		"iTotalRecords" => $iTotal,
 		"iTotalDisplayRecords" => $iFilteredTotal,
 		"aaData" => array()

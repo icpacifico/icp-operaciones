@@ -57,7 +57,7 @@ $_SESSION['sesion_anio_uf_panel'] = date("Y");
                             <div class="box-header with-border">
                                 <h3 class="box-title"></h3>
                                 <?php 
-                                $actual = $_SESSION["sesion_periodo_filtro_panel"];
+                                // $actual = $_SESSION["sesion_periodo_filtro_panel"];
                                 $actual = date("Y");
                                 $anterior = $actual-1;
                                 $futuro = $actual+1;

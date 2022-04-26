@@ -25,8 +25,6 @@ $id_vend = isset($_POST["id"]) ? utf8_decode($_POST["id"]) : 0;
 <?php 
 
 
-
-
 ?>
 <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/iCheck/all.css">
 <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/bootstrap3-editable/css/bootstrap-editable.css">
@@ -43,7 +41,7 @@ $id_vend = isset($_POST["id"]) ? utf8_decode($_POST["id"]) : 0;
     <div class="box-header with-border">
         <h3 class="box-title"></h3>
         <?php 
-        $actual = $_SESSION["sesion_periodo_filtro_panel"];
+        // $actual = $_SESSION["sesion_periodo_filtro_panel"];
         $actual = date("Y");
         $anterior = $actual-1;
         $futuro = $actual+1;

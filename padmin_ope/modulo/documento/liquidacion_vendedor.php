@@ -155,6 +155,7 @@ function get_uf_disistimiento($id_ven){
 <body>
 <a class="btn no-print" href="liquidacion_vendedor_pdf.php?id=<?php echo $id_cierre; ?>&id_vend=<?php echo $id_vendedor; ?>" target="_blank">PDF</a>
 <?php  
+// obtención de datos del vendedor junto con el id de usuarios
 $consulta = 
     "
     SELECT
@@ -390,6 +391,7 @@ if(is_array($fila_consulta_cierre)){
                                 ven_cie.id_est_ven = 3
                         )
                     ";
+                echo $id_vendedor;
                 $conexion->consulta_form($consulta,array($id_con,$id_vendedor,$id_cierre));
                 $fila_consulta_detalle = $conexion->extraer_registro();
                 $contador_promesa = 0;
@@ -484,6 +486,7 @@ if(is_array($fila_consulta_cierre)){
                             <td><?php echo date("d/m/Y",strtotime($fila_det['fecha_ven'])); ?></td>
                             <td><?php echo $porcentaje_comision_venta; ?></td>
                             <?php  
+                            $monto_acumulado_promesa_desi = 0;
                             if($cantidad_estado_promesa > 0){
                             	$monto_uf_acumulado_promesa_desi = $monto_uf_acumulado_promesa_desi - $fila_det['promesa_monto_comision_ven'];
                             	$monto_acumulado_promesa_desi = $monto_acumulado_promesa_desi - $monto_comision_promesa_desi;
@@ -522,7 +525,11 @@ if(is_array($fila_consulta_cierre)){
                     }
                 }
                 ?>
-        		
+        		 <!-- TR PARA DAR ESPACIO ENTRE SECCIONES -->
+                 <tr>
+                    <td colspan="12" style="height:30px;"></td>
+                    
+                </tr>
         		<!-- Ventas del Mes -->
         		<tr class="separa">
         			<td colspan="2"></td>
@@ -763,7 +770,11 @@ if(is_array($fila_consulta_cierre)){
                 }
                  
                 ?>
-        		
+        		 <!-- TR PARA DAR ESPACIO ENTRE SECCIONES -->
+                 <tr>
+                            <td colspan="12" style="height:30px;"></td>
+                           
+                        </tr>
         		
         		
         		<!-- bonos al precio -->
@@ -771,6 +782,9 @@ if(is_array($fila_consulta_cierre)){
         			<td colspan="2"></td>
         			<td colspan="10">Bono al Precio</td>
         		</tr>
+                
+                
+
         		<?php  
 
                 $monto_acumulado_a_pagar = 0;
@@ -837,8 +851,11 @@ if(is_array($fila_consulta_cierre)){
 
                         ?>
                         <tr class="lista">
-                        	<td><?php echo utf8_encode($alias_con);?></td>
+                            <!-- Alias del condominio -->
+                        	<td><?php echo utf8_encode($alias_con);?></td> 
+                            <!-- Monto de la venta con descuento si es que hay un pie de abono existente -->
                         	<td><?php echo number_format($valor_venta_comision, 2, ',', '.');?></td>
+                            <!-- Nombre completo de el(la) propietario(a) -->
                             <td class="nombre"><?php echo utf8_encode($fila_det['nombre_pro']." ".$fila_det['apellido_paterno_pro']." ".$fila_det['apellido_materno_pro']);?></td>
                             <td></td>
                             <td></td>
@@ -907,6 +924,20 @@ if(is_array($fila_consulta_cierre)){
                             ?>
                             <td></td>
                             <td></td>
+                        </tr>
+                        <!-- TR PARA DAR ESPACIO ENTRE SECCIONES -->
+                        <tr>
+                            <td colspan="12" style="height:30px;"></td>
+                           
+                        </tr>
+                        <tr class="separa">
+                            <td colspan="2"></td>
+                            <td colspan="10">Bono Cumplimiento Meta Individual (C2)</td>
+                        </tr>
+                         <!-- TR PARA DAR ESPACIO ENTRE SECCIONES -->
+                         <tr>
+                            <td colspan="12" style="height:30px;"></td>
+                           
                         </tr>
                         <?php
                     }

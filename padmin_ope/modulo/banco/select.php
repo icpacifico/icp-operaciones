@@ -125,6 +125,7 @@
 	/*
 	 * Output
 	 */
+	$acciones = '';
 	$output = array(
 		"sEcho" => intval($_GET['sEcho']),
 		"iTotalRecords" => $iTotal,

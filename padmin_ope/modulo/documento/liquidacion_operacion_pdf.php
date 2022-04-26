@@ -1,4 +1,5 @@
 <?php 
+ob_start();//Enables Output Buffering
 session_start(); 
 date_default_timezone_set('Chile/Continental');
 
@@ -229,12 +230,12 @@ if(is_array($fila_consulta_cierre)){
 		        $consulta = 
 		            "
 		            SELECT
+					    DISTINCT ven.id_ven,
 		                usu.id_usu,
 		                pro.nombre_pro,
 		                pro.nombre2_pro,
 		                pro.apellido_paterno_pro,
-		                pro.apellido_materno_pro,
-		                ven.id_ven,
+		                pro.apellido_materno_pro,		                
 		                ven.id_for_pag,
 		                ven.id_est_ven,
 		                ven.monto_ven,
@@ -266,12 +267,13 @@ if(is_array($fila_consulta_cierre)){
 		                )
 		                
 		            ";
+					
 		        $conexion->consulta_form($consulta,array($id_con,$id_usuario,$id_cierre));
 		        $fila_consulta_detalle = $conexion->extraer_registro();
 		        
 		        if(is_array($fila_consulta_detalle)){
 		            foreach ($fila_consulta_detalle as $fila_det) {
-		                $valor_uf = 0;
+		                // $valor_uf = 0;
 						
 						$consulta = 
 	                        "
@@ -285,7 +287,7 @@ if(is_array($fila_consulta_cierre)){
 	                    $conexion->consulta_form($consulta,array($fila_det['fecha_escritura_ven']));
 	                    $fila = $conexion->extraer_registro_unico();
 	                    $fecha_escritura_ven = $fila_det['fecha_escritura_ven'];
-	                    $valor_uf = $fila["valor_uf"];
+	                    // $valor_uf = $fila["valor_uf"];
 		                $monto_comision_escritura = round($fila_det['escritura_monto_comision_operacion_ven'] * $valor_uf);
 		                
 
@@ -332,7 +334,8 @@ if(is_array($fila_consulta_cierre)){
 	}
 }
 
-$html .= '</body>
+$html .= '
+</body>
 </html>';
 
 $mpdf = new mPDF('c','A4-L'); 
@@ -342,6 +345,7 @@ $mpdf->writeHTML($html);
 // $mpdf->AddPage();
 // $mpdf->WriteHTML($html2);
 $nombre = 'documentos/liquidacion-operacion-'.date('dmYHi').'.pdf';
+ob_end_clean();
 // $fecha = date('Y-m-d H:i:s');
 $pdf = $mpdf->output($nombre ,'I');
 

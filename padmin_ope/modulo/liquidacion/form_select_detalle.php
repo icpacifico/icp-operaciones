@@ -75,7 +75,7 @@ $id_cie = $_GET["id"];
 			                $fila = $conexion->extraer_registro_unico();
 			                $id_mes = utf8_encode($fila['id_mes']);
 			                $anio_cie = utf8_encode($fila['anio_cie']);
-
+                           
 			                $consulta = 
 							    "
 							    SELECT
@@ -89,7 +89,7 @@ $id_cie = $_GET["id"];
 							$conexion->consulta_form($consulta,array($id_cie));
                             $filauf = $conexion->extraer_registro_unico();
                             $valor_uf_liq = $filauf["valor_uf"];
-
+                            
                         	 ?>
                             <div class="box-header with-border">
                                 <h3 class="box-title">Cierre: <?php echo $id_mes; ?>/<?php echo $anio_cie; ?> </h3>
@@ -116,6 +116,7 @@ $id_cie = $_GET["id"];
                                     </thead>
                                     <tbody>
                                         <?php
+                                       
                                         $total_acumulado = 0;
 
                                         $consulta = 
@@ -148,6 +149,7 @@ $id_cie = $_GET["id"];
                                                 vend.apellido_paterno_vend,
                                                 vend.apellido_materno_vend
                                             ";
+                                            
                                         $conexion->consulta($consulta);
                                         $fila_consulta = $conexion->extraer_registro();
                                         if(is_array($fila_consulta)){
@@ -178,6 +180,7 @@ $id_cie = $_GET["id"];
                                                         ven.id_vend
                                                     "; 
                                                 // echo $consulta;
+                                                
                                                 $conexion->consulta($consulta);
                                                 $fila_detalle = $conexion->extraer_registro_unico();
                                                 $cantidad_venta = $fila_detalle["cantidad_venta"];
@@ -237,16 +240,17 @@ $id_cie = $_GET["id"];
                                                 // $monto_bono_uf = $fila_detalle["bono_uf"];
                                                 
                                                 // $monto_bono = $fila_detalle["bono_monto"] + $promesa_bono_monto + $escritura_bono_monto;
-
-                                                $total_monto = 0;
-                                                if ($fila['fecha_ven'] == '0000-00-00') {
-                                                    $fecha_venta = "";
-                                                }
-                                                else{
-                                                    $fecha_venta = date("d/m/Y",strtotime($fila['fecha_ven']));
-                                                }
                                                 
-
+                                                $total_monto = 0;
+                                                if(isset($fila['fecha_ven'])){
+                                                    if ($fila['fecha_ven'] == '0000-00-00') {
+                                                        $fecha_venta = "";
+                                                    }
+                                                    else{
+                                                        $fecha_venta = date("d/m/Y",strtotime($fila['fecha_ven']));
+                                                    }
+                                                }
+                                                                                                
 
                                                 $liquidacionVendTotales = get_liquidacion_vend($fila["id_vend"],$id_cie,$conexion);
 
@@ -514,14 +518,15 @@ $id_cie = $_GET["id"];
                                                 // $monto_bono = $fila_detalle["bono_monto"] + $promesa_bono_monto + $escritura_bono_monto;
 
                                                 // $total_monto = 0;
-                                                if ($fila['fecha_ven'] == '0000-00-00') {
-                                                    $fecha_venta = "";
+                                                if(isset($fila['fecha_ven'])){
+                                                    if ($fila['fecha_ven'] == '0000-00-00') {
+                                                        $fecha_venta = "";
+                                                    }
+                                                    else{
+                                                        $fecha_venta = date("d/m/Y",strtotime($fila['fecha_ven']));
+                                                    }
                                                 }
-                                                else{
-                                                    $fecha_venta = date("d/m/Y",strtotime($fila['fecha_ven']));
-                                                }
-                                                
-
+                
                                                 $liquidacionJVendTotales = get_liquidacion_j_vend($fila["id_usu"],$id_cie,$conexion);
 
                                                 $total_periodo = $liquidacionJVendTotales[0]; 
@@ -531,7 +536,7 @@ $id_cie = $_GET["id"];
                                                 $cantidad_venta_prom = $liquidacionJVendTotales[1]; 
                                                 $cantidad_venta_escr = $liquidacionJVendTotales[2]; 
                                                 ?>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td>Jefe de Ventas</td>
                                                     <td style="text-align: left;"><?php echo utf8_encode($fila['nombre_usu']." ".$fila['apellido1_usu']." ".$fila['apellido2_usu']); ?></td>
                                                     <td><?php echo utf8_encode($fila['nombre_mes']."/".$fila['anio_cie']); ?></td>
@@ -547,7 +552,7 @@ $id_cie = $_GET["id"];
                                                     
                                                     
                                                     
-                                                </tr>
+                                                </tr> -->
                                                 <?php
                                             }
                                         }
