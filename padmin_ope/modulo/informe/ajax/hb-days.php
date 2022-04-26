@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require "../../../config.php";
 include '../../../class/conexion.php';
 $conexion = new conexion(); 
 $mes = $_POST['currentMonth'];

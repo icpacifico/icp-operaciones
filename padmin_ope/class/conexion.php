@@ -1,4 +1,5 @@
 <?php
+
 class conexion
 {
 	private static $conexionDB;
@@ -13,16 +14,10 @@ class conexion
 	
 	//-------PARAMETROS DE CONEXION
 	function __construct(){
-		// $this->servidor = "localhost";
-		// $this->usuario = "root";
-		// $this->pass = "Proyectarse2022!!";
-		// $this->base_datos = "ppsavcl_ssoopp_digital";
-        
-		// DESARROLLO
-		$this->servidor = "localhost";
-		$this->usuario = "root";
-		$this->pass = "";
-		$this->base_datos = "ppsavcl_ssoopp_digital";
+		$this->servidor = _SERVER;
+		$this->usuario = _USER;
+		$this->pass = _PASS;
+		$this->base_datos = _DB;
 		$this->conectar_base_datos();
 	}
 	//-------CONEXION A UNA BASE DE DATOS

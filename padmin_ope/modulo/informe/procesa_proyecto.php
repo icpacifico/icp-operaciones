@@ -3,7 +3,7 @@ session_start();
 if(!isset($_SESSION["sesion_usuario_panel"])){
     header("Location: ../../index.php");
 }
-
+require "../../config.php";
 include("../../class/conexion.php");
 $conexion = new conexion();
 

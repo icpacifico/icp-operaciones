@@ -1,4 +1,5 @@
 <?php
+require "../../config.php";
 include("../../class/conexion.php");
 require '../../class/phpmailer/class.phpmailer.php';
 class liquidacion

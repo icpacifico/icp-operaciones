@@ -8,7 +8,7 @@ if(!isset($_POST["fecha_editar"])){
 	header("Location: ../../panel.php");
 	exit();
 }
-
+require "../../config.php";
 include("../../class/conexion.php");
 $conexion = new conexion();
 

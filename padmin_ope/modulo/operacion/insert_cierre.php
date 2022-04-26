@@ -10,7 +10,7 @@ if(!isset($_POST["fecha_cierre"])){
 	exit();
 }
 
-
+require "../../config.php";
 include("../../class/conexion.php");
 $conexion = new conexion();
 

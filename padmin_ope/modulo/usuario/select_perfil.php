@@ -1,4 +1,5 @@
 <?php
+require "../../config.php";
 include '../../class/conexion.php';
 $conexion = new conexion();
 $perfil_usu = $_POST["perfil_usu"];

@@ -9,7 +9,7 @@ if(!isset($_POST["id_ven"])){
 	exit();
 }
 
-
+require "../../config.php";
 include("../../class/conexion.php");
 $conexion = new conexion();
 

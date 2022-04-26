@@ -1,4 +1,5 @@
 <?php
+require "../../config.php";
 include("../../class/conexion.php");
 date_default_timezone_set('America/Santiago');
 class venta

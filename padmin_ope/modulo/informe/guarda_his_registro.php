@@ -8,7 +8,7 @@ if(!isset($_POST["id_con"])){
 	header("Location: "._ADMIN."index.php");
 	exit();
 }
-
+require "../../config.php";
 require '../../class/conexion.php';
 $conexion = new conexion();
 

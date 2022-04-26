@@ -1,6 +1,6 @@
 <?php
 	session_start();
-
+    require "../../config.php";
 	require '../../class/class_fecha.php';
 	$fecha = new fecha();
 	//include '../../class/conexion_tabla.php';
