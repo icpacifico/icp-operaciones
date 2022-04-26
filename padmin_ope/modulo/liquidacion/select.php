@@ -128,7 +128,7 @@
 	 * Output
 	 */
 	$output = array(
-		"sEcho" => intval($_GET['sEcho']),
+		// "sEcho" => intval($_GET['sEcho']),
 		"iTotalRecords" => $iTotal,
 		"iTotalDisplayRecords" => $iFilteredTotal,
 		"aaData" => array()

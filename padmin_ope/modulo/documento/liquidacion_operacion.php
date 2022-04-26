@@ -208,7 +208,7 @@ if(is_array($fila_consulta_cierre)){
 		    </tr>
 		</table>
 
-		<table class="liquida">
+		<table class="liquida" style="text-align:center;">
 			<thead>
 				<tr>
 					<th colspan="4" style="border:1px solid #000000;">CONDOMINIO <?php echo utf8_encode($nombre_con);?></th>
@@ -281,7 +281,7 @@ if(is_array($fila_consulta_cierre)){
 		        
 		        if(is_array($fila_consulta_detalle)){
 		            foreach ($fila_consulta_detalle as $fila_det) {
-		                $valor_uf = 0;
+		                // $valor_uf = 0;
 						
 						$consulta = 
 	                        "
@@ -295,7 +295,7 @@ if(is_array($fila_consulta_cierre)){
 	                    $conexion->consulta_form($consulta,array($fila_det['fecha_escritura_ven']));
 	                    $fila = $conexion->extraer_registro_unico();
 	                    $fecha_escritura_ven = $fila_det['fecha_escritura_ven'];
-	                    $valor_uf = $fila["valor_uf"];
+	                    // $valor_uf = $fila["valor_uf"];
 
 		                // if($fila_det['id_for_pag'] == 1){
 		                //     $consulta = 
@@ -352,6 +352,7 @@ if(is_array($fila_consulta_cierre)){
 
 		                    
 		                    <?php
+							$monto_uf_acumulado_escritura = 0;
 		                	$monto_uf_acumulado_escritura = $monto_uf_acumulado_escritura + $fila_det['escritura_monto_comision_operacion_ven'];
 		            		$monto_acumulado_escritura = $monto_acumulado_escritura + $monto_comision_escritura;
 		            		// $monto_acumulado_a_pagar = $monto_acumulado_a_pagar + $monto_comision_escritura;

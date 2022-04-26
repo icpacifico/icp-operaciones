@@ -285,7 +285,7 @@ function get_liquidacion_vend($id_vend,$id_cierre,$conexion){
                     } else {
                     	$valor_venta_comision = $fila_det['monto_ven'];
                     }
-
+                    $monto_acumulado_promesa_desi = 0;
                     if($cantidad_estado_promesa > 0){
                         	$monto_uf_acumulado_promesa_desi = $monto_uf_acumulado_promesa_desi - $fila_det['promesa_monto_comision_ven'];
                         	$monto_acumulado_promesa_desi = $monto_acumulado_promesa_desi - $monto_comision_promesa_desi;

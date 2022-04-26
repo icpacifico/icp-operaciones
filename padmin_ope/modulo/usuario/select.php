@@ -4,6 +4,8 @@
 	include '../../class/class_fecha.php';
 	//include '../../class/conexion_tabla.php';
 	require '../../class/conexion.php';
+	$filtro = "";
+	$cantidad_eliminar = "";
 	$fecha = new fecha();
 	$conexion = new conexion();
 	/* Array of database columns which should be read and sent back to DataTables. Use a space where

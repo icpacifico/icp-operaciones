@@ -4,6 +4,8 @@
 	include '../../class/class_fecha.php';
 	//include '../../class/conexion_tabla.php';
 	require '../../class/conexion.php';
+	$acciones = "";
+	$filtro = 0;
 	$fecha = new fecha();
 	$conexion = new conexion();
 
@@ -144,7 +146,7 @@
 	 * Output
 	 */
 	$output = array(
-		"sEcho" => intval($_GET['sEcho']),
+		// "sEcho" => intval($_GET['sEcho']),
 		"iTotalRecords" => $iTotal,
 		"iTotalDisplayRecords" => $iFilteredTotal,
 		"aaData" => array()

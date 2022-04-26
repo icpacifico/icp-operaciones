@@ -31,6 +31,11 @@
 	            },
 		        categories: [
 		        <?php
+				$tvlc = '';
+				$tvpc = '';
+				$tvec = '';
+				$tvdc = '';
+				$tvdic = '';
 		        $HOY = date("Y-m-d");
 		        
 		        $consulta_con = 

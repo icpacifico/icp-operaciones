@@ -257,7 +257,7 @@ function get_liquidacion_j_vend($id_usu,$id_cierre,$conexion){
                     }
 
                     $porcentaje_jefe = $total_comision_jefe_ven * 100 /$valor_venta_comision;
-
+                    $monto_acumulado_promesa_desi = 0;
                     if($cantidad_estado_promesa > 0){
                     	$monto_uf_acumulado_promesa_desi = $monto_uf_acumulado_promesa_desi - $fila_det['promesa_monto_comision_jefe_ven'];
                     	$monto_acumulado_promesa_desi = $monto_acumulado_promesa_desi - $monto_comision_promesa_desi;

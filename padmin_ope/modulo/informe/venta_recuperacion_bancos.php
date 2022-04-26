@@ -132,7 +132,6 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
             <li class="active">informe</li>
         </ol>
       </section>
-
     <section class="content">
         <div class="col-sm-12">
             <!-- general form elements -->
@@ -640,7 +639,8 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 															                           
 															                        }
 															                    }
-
+																				$acumula_saldos_ch_total_escri = 0;
+																				$acumula_saldos_ch_total_no_escri = 0;
 															                    $acumula_pie_pagado_total = $acumula_pie_pagado_total + $acumula_pie_pagados;
 															                    $acumula_ch_rec_pesos = $acumula_ch_rec_pesos + $acumula_pesos_recuperado;
 															                    $acumula_ch_rec_uf = $acumula_ch_rec_uf + $acumula_uf_recuperado;
@@ -650,8 +650,8 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 															                    $acumula_saldos_ch_total_escri = $acumula_saldos_ch_total_escri + $acumula_saldos_ch_escri;
 
 															                    $acumula_saldos_ch_total_no_escri = $acumula_saldos_ch_total_no_escri + $acumula_saldos_ch_no_escri;
-
-															                    if ($_SESSION["sesion_filtro_ciudad_panel"]<>100) {
+																				if(isset($_SESSION["sesion_filtro_ciudad_panel"])){
+															                      if ($_SESSION["sesion_filtro_ciudad_panel"]<>100) {
 
 																                    if($acumula_pie_pagados<>0 || $acumula_pesos_recuperado<>0 || $acumula_uf_recuperado<>0 || $acumula_saldos_ch<>0 || $acumula_saldos_ch_escri<>0 || $acumula_saldos_ch_no_escri<>0){
 																                    ?>
@@ -667,7 +667,10 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 		                                                                            </tr>
 		                                                                            <?php
 		                                                                        	}
-		                                                                        }
+		                                                                          }
+
+																			    }
+
 	                                                                        }
 	                                                                    }
 	                                                                    ?>
@@ -791,7 +794,8 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 																					// } else {
 																					// 	$saldos_pagado_efectivo = $saldos_pagado_efectivo + $abono_uf; 
 																					// }
-
+																					$total_pagado_pesos_pie = 0;
+																					$total_pagado_pesos_saldo = 0;
 																					if($fila_pag["id_cat_pag"] <> 3) {
 																						$pie_pagado_efectivo = $pie_pagado_efectivo + $abono_uf;
 																						$total_pagado_pesos_pie = $total_pagado_pesos_pie + $monto_pag;   
@@ -845,6 +849,7 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 	                                                                    // echo $consulta;
 	                                                                    $conexion->consulta($consulta);
 	                                                                    $fila_consulta = $conexion->extraer_registro();
+																		$acumula_uf_recuperado_contado = 0;
 	                                                                    if(is_array($fila_consulta)){
 	                                                                        foreach ($fila_consulta as $fila) {
 	                                                                        	$credito_hipo = 0;
@@ -933,63 +938,68 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 	                                                                    $total_contados_por_recibir = $acumula_por_recibir_deptos;
 	                                                                    // $total_contados_por_recibir = $acumula_monto_por_recibir;
 	                                                                    // $total_contados_por_recibir = $pie_pagado_porcobrar + $total_por_pagar_uf_saldo;
+																		$acumula_ch_saldos_por_recuperar = 0;
+																		$acumula_ch_saldos_por_recuperar_no_escri = 0;
+																		$acumula_ch_saldos_por_recuperar_escri = 0;
+																		if(isset($_SESSION["sesion_filtro_ciudad_panel"])){
+																				if ($_SESSION["sesion_filtro_ciudad_panel"]==100) {
+
+																					?>
+																					<tr>
+																						<td>CONTADO</td>
+																						<td><?php echo number_format($acumula_pie_pagados, 2, ',', '.');?></td>
+																						<td><?php echo number_format($acumula_pesos_recuperado, 2, ',', '.');?></td>
+																						<td></td>
+																						<td><?php echo number_format($total_contados_por_recibir, 2, ',', '.'); ?></td>
+																						<td><?php echo number_format($total_contados_por_recibir_no_escri, 2, ',', '.'); ?></td>
+																						<td><?php echo number_format($total_contados_por_recibir_escri, 2, ',', '.'); ?></td>
+																						<td><?php echo number_format($acumula_uf_recuperado_contado, 2, ',', '.'); ?></td>
+																					</tr>
+
+																					<?php 
+																					$acumula_pie_pagado_total = $acumula_pie_pagados;
+
+																					$acumula_ch_saldos_por_recuperar = $total_contados_por_recibir;
+																					$acumula_ch_saldos_por_recuperar_escri = $total_contados_por_recibir_escri;
+																					$acumula_ch_saldos_por_recuperar_no_escri = $total_contados_por_recibir_no_escri;
 
 
-	                                                                    if ($_SESSION["sesion_filtro_ciudad_panel"]==100) {
+																					$acumula_ch_rec_pesos = $acumula_pesos_recuperado;
+																					$acumula_ch_rec_uf = 0;
 
-		                                                                    ?>
-		                                                                    <tr>
-		                                                                    	<td>CONTADO</td>
-		                                                                    	<td><?php echo number_format($acumula_pie_pagados, 2, ',', '.');?></td>
-		                                                                    	<td><?php echo number_format($acumula_pesos_recuperado, 2, ',', '.');?></td>
-		                                                                    	<td></td>
-		                                                                    	<td><?php echo number_format($total_contados_por_recibir, 2, ',', '.'); ?></td>
-		                                                                    	<td><?php echo number_format($total_contados_por_recibir_no_escri, 2, ',', '.'); ?></td>
-		                                                                    	<td><?php echo number_format($total_contados_por_recibir_escri, 2, ',', '.'); ?></td>
-		                                                                    	<td><?php echo number_format($acumula_uf_recuperado_contado, 2, ',', '.'); ?></td>
-		                                                                    </tr>
+																				}else if($_SESSION["sesion_filtro_ciudad_panel"] =='') {
+																					?>
+																					<tr>
+																						<td>CONTADO</td>
+																						<td><?php echo number_format($acumula_pie_pagados, 2, ',', '.');?></td>
+																						<td><?php echo number_format($acumula_pesos_recuperado, 2, ',', '.');?></td>
+																						<td></td>
+																						<td><?php echo number_format($total_contados_por_recibir, 2, ',', '.'); ?></td>
+																						<td><?php echo number_format($total_contados_por_recibir_no_escri, 2, ',', '.'); ?></td>
+																						<td><?php echo number_format($total_contados_por_recibir_escri, 2, ',', '.'); ?></td>
+																						<td><?php echo number_format($acumula_uf_recuperado_contado, 2, ',', '.'); ?></td>
+																					</tr>
 
-		                                                                    <?php 
-		                                                                    $acumula_pie_pagado_total = $acumula_pie_pagados;
+																					<?php 
+																					// $acumula_pie_pagado_total = $acumula_pie_pagados;
+																					$acumula_pie_pagado_total = $acumula_pie_pagado_total + $acumula_pie_pagados;
 
-		                                                                    $acumula_ch_saldos_por_recuperar = $total_contados_por_recibir;
-		                                                                    $acumula_ch_saldos_por_recuperar_escri = $total_contados_por_recibir_escri;
-		                                                                    $acumula_ch_saldos_por_recuperar_no_escri = $total_contados_por_recibir_no_escri;
+																					$acumula_ch_rec_pesos = $acumula_ch_rec_pesos + $acumula_pesos_recuperado;
 
+																					// $acumula_ch_saldos_por_recuperar = $total_contados_por_recibir;
+																					
+																					$acumula_ch_saldos_por_recuperar = $acumula_saldos_ch_total + $total_contados_por_recibir;
+																					$acumula_ch_saldos_por_recuperar_escri = $acumula_saldos_ch_total_escri + $total_contados_por_recibir_escri;
+																					$acumula_ch_saldos_por_recuperar_no_escri = $acumula_saldos_ch_total_no_escri + $total_contados_por_recibir_no_escri;
 
-		                                                                    $acumula_ch_rec_pesos = $acumula_pesos_recuperado;
-		                                                                    $acumula_ch_rec_uf = 0;
+																				} else {
+																					$acumula_ch_saldos_por_recuperar = $acumula_saldos_ch_total;
+																					$acumula_ch_saldos_por_recuperar_no_escri = $acumula_saldos_ch_total_no_escri;
+																					$acumula_ch_saldos_por_recuperar_escri = $acumula_saldos_ch_total_escri;
+																					$acumula_uf_recuperado_contado = 0;
+																				}
 
-		                                                                }else if($_SESSION["sesion_filtro_ciudad_panel"]=='') {
-			                                                                ?>
-		                                                                    <tr>
-		                                                                    	<td>CONTADO</td>
-		                                                                    	<td><?php echo number_format($acumula_pie_pagados, 2, ',', '.');?></td>
-		                                                                    	<td><?php echo number_format($acumula_pesos_recuperado, 2, ',', '.');?></td>
-		                                                                    	<td></td>
-		                                                                    	<td><?php echo number_format($total_contados_por_recibir, 2, ',', '.'); ?></td>
-		                                                                    	<td><?php echo number_format($total_contados_por_recibir_no_escri, 2, ',', '.'); ?></td>
-		                                                                    	<td><?php echo number_format($total_contados_por_recibir_escri, 2, ',', '.'); ?></td>
-		                                                                    	<td><?php echo number_format($acumula_uf_recuperado_contado, 2, ',', '.'); ?></td>
-		                                                                    </tr>
-
-		                                                                    <?php 
-		                                                                    // $acumula_pie_pagado_total = $acumula_pie_pagados;
-		                                                                    $acumula_pie_pagado_total = $acumula_pie_pagado_total + $acumula_pie_pagados;
-
-		                                                                    $acumula_ch_rec_pesos = $acumula_ch_rec_pesos + $acumula_pesos_recuperado;
-
-		                                                                    // $acumula_ch_saldos_por_recuperar = $total_contados_por_recibir;
-		                                                                    $acumula_ch_saldos_por_recuperar = $acumula_saldos_ch_total + $total_contados_por_recibir;
-		                                                                    $acumula_ch_saldos_por_recuperar_escri = $acumula_saldos_ch_total_escri + $total_contados_por_recibir_escri;
-		                                                                    $acumula_ch_saldos_por_recuperar_no_escri = $acumula_saldos_ch_total_no_escri + $total_contados_por_recibir_no_escri;
-
-		                                                                } else {
-		                                                                	$acumula_ch_saldos_por_recuperar = $acumula_saldos_ch_total;
-		                                                                	$acumula_ch_saldos_por_recuperar_no_escri = $acumula_saldos_ch_total_no_escri;
-		                                                                	$acumula_ch_saldos_por_recuperar_escri = $acumula_saldos_ch_total_escri;
-		                                                                	$acumula_uf_recuperado_contado = 0;
-		                                                                }
+																		}
 	                                                                    ?>
 
 																		<tr class="bg-light-blue color-palette">
@@ -1003,22 +1013,24 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 																			<td><?php echo number_format($acumula_uf_recuperado_contado, 2, ',', '.'); ?></td>
 																		</tr>
 																		<?php 
+																		$suma_total = 0;
+																		    if(isset($_SESSION["sesion_filtro_ciudad_panel"])){
+																				if ($_SESSION["sesion_filtro_ciudad_panel"]==100) {
+																					
+																					$suma_total = $acumula_pie_pagado_total + $acumula_ch_saldos_por_recuperar + $acumula_uf_recuperado_contado;
+																					// $suma_total = $acumula_pie_pagado_total + $acumula_ch_saldos_por_recuperar_no_escri + $acumula_ch_saldos_por_recuperar_escri + $acumula_uf_recuperado_contado;
 
-																		if ($_SESSION["sesion_filtro_ciudad_panel"]==100) {
-																			
-																			$suma_total = $acumula_pie_pagado_total + $acumula_ch_saldos_por_recuperar + $acumula_uf_recuperado_contado;
-																			// $suma_total = $acumula_pie_pagado_total + $acumula_ch_saldos_por_recuperar_no_escri + $acumula_ch_saldos_por_recuperar_escri + $acumula_uf_recuperado_contado;
+																				} else if($_SESSION["sesion_filtro_ciudad_panel"]=='') {
 
-																		} else if($_SESSION["sesion_filtro_ciudad_panel"]=='') {
+																					$suma_total = $acumula_pie_pagado_total + $acumula_ch_rec_uf + $acumula_ch_saldos_por_recuperar + $acumula_uf_recuperado_contado;
+																					// $suma_total = $acumula_pie_pagado_total + $acumula_ch_rec_uf + $acumula_ch_saldos_por_recuperar_escri + $acumula_ch_saldos_por_recuperar_no_escri + $acumula_uf_recuperado_contado;
 
-																			$suma_total = $acumula_pie_pagado_total + $acumula_ch_rec_uf + $acumula_ch_saldos_por_recuperar + $acumula_uf_recuperado_contado;
-																			// $suma_total = $acumula_pie_pagado_total + $acumula_ch_rec_uf + $acumula_ch_saldos_por_recuperar_escri + $acumula_ch_saldos_por_recuperar_no_escri + $acumula_uf_recuperado_contado;
+																				} else {
 
-																		} else {
-
-																			$suma_total = $acumula_pie_pagado_total + $acumula_ch_rec_uf + $acumula_ch_saldos_por_recuperar;
-																			// $suma_total = $acumula_pie_pagado_total + $acumula_ch_rec_uf + $acumula_ch_saldos_por_recuperar_escri + $acumula_ch_saldos_por_recuperar_no_escri;
-																		}
+																					$suma_total = $acumula_pie_pagado_total + $acumula_ch_rec_uf + $acumula_ch_saldos_por_recuperar;
+																					// $suma_total = $acumula_pie_pagado_total + $acumula_ch_rec_uf + $acumula_ch_saldos_por_recuperar_escri + $acumula_ch_saldos_por_recuperar_no_escri;
+																				}
+																		    }
 																		?>
 																		<tr>
 																			<td class="bg-light-blue color-palette">Total UF</td>
@@ -1033,7 +1045,7 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 																	</table>
 																	<?php 
 
-																	if ($_SESSION["sesion_filtro_ciudad_panel"]<>'') {
+																	if (isset($_SESSION["sesion_filtro_ciudad_panel"])) {
 																	?>
 																	<!-- TABLA RECUPERACIÓN -->
 																		<table class="table table-bordered">

@@ -5,7 +5,7 @@ class carrito {
     var $array_detalle_ite;
     var $array_valor_ite;
 
-    function carrito () {
+    function __construct() {
 		//$_SESSION["numero_producto"]=0;
        	//$this->num_productos=0;
     }

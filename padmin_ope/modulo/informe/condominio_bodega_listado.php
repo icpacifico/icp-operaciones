@@ -575,6 +575,7 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                                     "; 
                                                                 $conexion->consulta($consulta);
                                                                 $fila_consulta = $conexion->extraer_registro();
+                                                                $acumulado_monto = 0;
                                                                 if(is_array($fila_consulta)){
                                                                     foreach ($fila_consulta as $fila) {
                                                                         $acumulado_monto = $acumulado_monto + $fila['valor_bod'];

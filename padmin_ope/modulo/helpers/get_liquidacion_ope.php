@@ -113,7 +113,7 @@ function get_liquidacion_ope($id_usu,$id_cierre,$conexion){
 	            ";
 	        $conexion->consulta_form($consulta,array($id_con,$id_usuario,$id_cierre));
 	        $fila_consulta_detalle = $conexion->extraer_registro();
-	        
+	        $monto_uf_acumulado_escritura = 0;
 	        if(is_array($fila_consulta_detalle)){
 	            foreach ($fila_consulta_detalle as $fila_det) {
 	                $valor_uf = 0;
