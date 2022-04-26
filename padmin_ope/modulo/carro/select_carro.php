@@ -1,5 +1,6 @@
 <?php
 include("../../class/carro.php");
+require "../../config.php";
 include("../../class/conexion.php");
 
 session_start();

@@ -1,4 +1,5 @@
 <?php
+require "../../config.php";
 include '../../class/conexion.php';
 $conexion = new conexion();
 $usuario_usu = $_POST["usuario_usu"];

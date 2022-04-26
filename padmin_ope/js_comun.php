@@ -23,7 +23,7 @@
 $(function () {
   $('[data-toggle="popover"]').popover()
 })
-
+ var dominio = '<?php echo _DOMINIO?>';
  var url = "<?php echo _ADMIN?>";
  var url_web=window.location.href;
  // var arr=url_web.split('.')[0];

@@ -10,6 +10,7 @@ if(!empty($buscar)) {
 }
 
 function buscar($b,$buscar,$unidad) {
+	require "../../config.php";
 	include ("../../class/conexion.php");	
 	$conexion = new conexion();
 	if(!empty($unidad)){

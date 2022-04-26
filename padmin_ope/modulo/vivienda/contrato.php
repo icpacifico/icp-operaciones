@@ -6,7 +6,7 @@ require_once dirname(__FILE__).'/PHPWord-master/src/PhpWord/Autoloader.php';
 use PhpOffice\PhpWord\TemplateProcessor;
 
 $templateWord = new TemplateProcessor('contrato/contrato.docx');
- 
+require "../../config.php";
 include "../../class/conexion.php";
 $conexion = new conexion();
 $id = $_GET["id"];

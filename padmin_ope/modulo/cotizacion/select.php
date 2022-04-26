@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	include '../../class/class_fecha.php';
+	require "../../config.php";
 	//include '../../class/conexion_tabla.php';
 	require '../../class/conexion.php';
 	$acciones = "";

@@ -12,6 +12,7 @@ if(!isset($_POST["id"])){
 	header("Location: "._ADMIN."index.php");
 	exit();
 }
+require "../../config.php";
 include '../../class/conexion.php';
 $conexion = new conexion();
 

@@ -9,6 +9,7 @@ if(!empty($buscar)) {
 }
 
 function buscar($b,$buscar) {
+	require "../../config.php";
 	include ("../../class/conexion.php");	
 	$conexion = new conexion();
 	

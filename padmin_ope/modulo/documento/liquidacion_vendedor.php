@@ -391,7 +391,7 @@ if(is_array($fila_consulta_cierre)){
                                 ven_cie.id_est_ven = 3
                         )
                     ";
-                echo $id_vendedor;
+                
                 $conexion->consulta_form($consulta,array($id_con,$id_vendedor,$id_cierre));
                 $fila_consulta_detalle = $conexion->extraer_registro();
                 $contador_promesa = 0;

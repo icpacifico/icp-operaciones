@@ -19,6 +19,7 @@ session_start();
 <![endif]-->
 
 <?php
+require "../../config.php";
 include 'class/conexion.php';
 $conexion = new conexion();
 ?>

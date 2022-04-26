@@ -1,5 +1,6 @@
 <?php
 session_start();
+require "../../config.php";
 include("../../class/conexion.php");
 class evento
 {

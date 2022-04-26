@@ -1,5 +1,5 @@
 <?php 
-
+require "../../config.php";
 include "../../class/conexion.php";
 include "../../parametros.php";
 $conexion = new conexion();

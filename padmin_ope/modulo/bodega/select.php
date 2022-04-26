@@ -2,6 +2,7 @@
 	session_start();
 
 	date_default_timezone_set('America/Santiago');
+	require "../../config.php";
 	include '../../class/class_fecha.php';
 	//include '../../class/conexion_tabla.php';
 	require '../../class/conexion.php';

@@ -1,7 +1,7 @@
 <?php
 session_start();
 date_default_timezone_set('America/Santiago');
-
+require "../../../config.php";
 include '../../../class/conexion.php';
 $conexion = new conexion(); 
 $mes = $_POST['currentMonth'];

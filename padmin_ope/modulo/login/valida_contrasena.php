@@ -1,5 +1,6 @@
 <?
 session_start();
+require "../../config.php";
 include '../../class/conexion.php';
 $conexion = new conexion();
 $correo_usu = $_POST["correo_usu"];
