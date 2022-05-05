@@ -13,19 +13,31 @@
 	 * you want to insert a non-database field (for example a counter or static image)
 	 */
 	$field = "CONCAT(pro.nombre_pro,' ',pro.nombre2_pro,' ',pro.apellido_paterno_pro,' ',pro.apellido_materno_pro) AS fullName";
-	$aColumns = array('pro.id_pro',$field,'viv.id_viv','pro.rut_pro','pro.nombre_pro', 'pro.nombre2_pro','pro.apellido_paterno_pro','pro.apellido_materno_pro','pro.fono_pro','pro.direccion_pro','pro.correo_pro','prof.nombre_prof','sex.nombre_sex','civ.nombre_civ','reg.descripcion_reg','com.nombre_com','est_pro.nombre_est_pro','pro.id_est_pro');
+	// $aColumns = array('pro.id_pro',$field,'viv.id_viv','pro.rut_pro','pro.nombre_pro', 'pro.nombre2_pro','pro.apellido_paterno_pro','pro.apellido_materno_pro','pro.fono_pro','pro.direccion_pro','pro.correo_pro','prof.nombre_prof','sex.nombre_sex','-- civ.nombre_civ','reg.descripcion_reg','com.nombre_com','est_pro.nombre_est_pro','pro.id_est_pro');
+	$aColumns = array('pro.id_pro',$field,'viv.id_viv','pro.rut_pro','pro.nombre_pro', 'pro.nombre2_pro','pro.apellido_paterno_pro','pro.apellido_materno_pro','pro.fono_pro','pro.direccion_pro','pro.correo_pro','prof.nombre_prof','sex.nombre_sex','reg.descripcion_reg','com.nombre_com','est_pro.nombre_est_pro','pro.id_est_pro');
 	
 	/* Indexed column (used for fast and accurate table cardinality) */
 	$sIndexColumn = "pro.id_pro";
 	
 	/* DB table to use */
+	// $sTable = 
+	// 	"
+	// 	propietario_propietario AS pro
+	// 	INNER JOIN propietario_estado_propietario AS est_pro ON est_pro.id_est_pro = pro.id_est_pro
+	// 	LEFT JOIN vendedor_propietario_vendedor AS ven_pro ON ven_pro.id_pro = pro.id_pro
+	// 	INNER JOIN profesion_profesion AS prof ON prof.id_prof = pro.id_prof
+	// 	INNER JOIN civil_civil AS civ ON civ.id_civ = pro.id_civ
+	// 	INNER JOIN sexo_sexo AS sex ON sex.id_sex = pro.id_sex
+	// 	INNER JOIN region_region AS reg ON reg.id_reg = pro.id_reg
+	// 	INNER JOIN comuna_comuna AS com ON com.id_com = pro.id_com
+	// 	LEFT JOIN propietario_vivienda_propietario AS viv ON viv.id_pro = pro.id_pro
+	// 	";
 	$sTable = 
 		"
 		propietario_propietario AS pro
 		INNER JOIN propietario_estado_propietario AS est_pro ON est_pro.id_est_pro = pro.id_est_pro
 		LEFT JOIN vendedor_propietario_vendedor AS ven_pro ON ven_pro.id_pro = pro.id_pro
-		INNER JOIN profesion_profesion AS prof ON prof.id_prof = pro.id_prof
-		INNER JOIN civil_civil AS civ ON civ.id_civ = pro.id_civ
+		INNER JOIN profesion_profesion AS prof ON prof.id_prof = pro.id_prof		
 		INNER JOIN sexo_sexo AS sex ON sex.id_sex = pro.id_sex
 		INNER JOIN region_region AS reg ON reg.id_reg = pro.id_reg
 		INNER JOIN comuna_comuna AS com ON com.id_com = pro.id_com
@@ -368,9 +380,9 @@
 				else if( $aColumns[$i] == "sex.nombre_sex") {
 					$row[] =  utf8_encode($aRow["nombre_sex"]);
 				}
-				else if( $aColumns[$i] == "civ.nombre_civ") {
-					$row[] =  utf8_encode($aRow["nombre_civ"]);
-				}
+				// else if( $aColumns[$i] == "civ.nombre_civ") {
+				// 	$row[] =  utf8_encode($aRow["nombre_civ"]);
+				// }
 				else if( $aColumns[$i] == "reg.descripcion_reg") {
 					$row[] =  utf8_encode($aRow["descripcion_reg"]);
 				}

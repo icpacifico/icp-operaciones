@@ -19,107 +19,107 @@ require_once _INCLUDE."head_informe.php";
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 <style type="text/css">
-.container-fluid .content .filtros .form-control {
-    display: block;
-    width: 100%;
-    height: 24px;
-    padding: 8px 4px;
-    font-size: 12px;
-    line-height: 1.3;
-    height: 35px;
-}
+    .container-fluid .content .filtros .form-control {
+        display: block;
+        width: 100%;
+        height: 24px;
+        padding: 8px 4px;
+        font-size: 12px;
+        line-height: 1.3;
+        height: 35px;
+    }
 
-.container-fluid .content .input-group .form-control.chico {
-    display: block;
-    width: 100%;
-    /*height: 24px;*/
-    padding: 3px 4px;
-    font-size: 12px;
-    line-height: 1.3;
-    height: 24px;
-}
+    .container-fluid .content .input-group .form-control.chico {
+        display: block;
+        width: 100%;
+        /*height: 24px;*/
+        padding: 3px 4px;
+        font-size: 12px;
+        line-height: 1.3;
+        height: 24px;
+    }
 
-.container-fluid .content .filtros .form-control.chico {
-    display: block;
-    width: 100%;
-    padding: 3px 4px;
-    font-size: 12px;
-    line-height: 1.3;
-    height: 24px;
-}
+    .container-fluid .content .filtros .form-control.chico {
+        display: block;
+        width: 100%;
+        padding: 3px 4px;
+        font-size: 12px;
+        line-height: 1.3;
+        height: 24px;
+    }
 
-.filtros .input-group-addon {
-    padding: 4px 12px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1;
-    color: #555;
-    text-align: center;
-    background-color: #eee;
-    border: 1px solid #ccc;
-    border-radius: 0px;
-}
+    .filtros .input-group-addon {
+        padding: 4px 12px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1;
+        color: #555;
+        text-align: center;
+        background-color: #eee;
+        border: 1px solid #ccc;
+        border-radius: 0px;
+    }
 
-#contenedor_filtro .label {
-    display: inline;
-    padding: .6em .8em .6em;
-    font-size: 80%;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: .25em;
-}
+    #contenedor_filtro .label {
+        display: inline;
+        padding: .6em .8em .6em;
+        font-size: 80%;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
 
-.bg-grays{
-  background-color: #e8f0f5;
-}
+    .bg-grays{
+    background-color: #e8f0f5;
+    }
 
-.filtros label {
-    display: inline-block;
-    max-width: 100%;
-    margin-bottom: 0px;
-    font-weight: 600;
-    font-size: 90%;
-}
+    .filtros label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 0px;
+        font-weight: 600;
+        font-size: 90%;
+    }
 
-h4.titulo_informe{
-  margin-top: 0;
-}
+    h4.titulo_informe{
+    margin-top: 0;
+    }
 
-.form-group.filtrar {
-    margin-bottom: 0px;
-    padding-top: 20px;
-}
+    .form-group.filtrar {
+        margin-bottom: 0px;
+        padding-top: 20px;
+    }
 
-.container-fluid .content .form-control {
-    display: inline-block;
-    width: auto;
-}
+    .container-fluid .content .form-control {
+        display: inline-block;
+        width: auto;
+    }
 
-.info-box-number2 {
-    display: inline-block;
-    font-weight: normal;
-    font-size: 15px;
-    margin-top: 10px;
-}
+    .info-box-number2 {
+        display: inline-block;
+        font-weight: normal;
+        font-size: 15px;
+        margin-top: 10px;
+    }
 
-.bg-verde{
-	background-color: #DCE7BF;
-	text-align:center;
-}
+    .bg-verde{
+        background-color: #DCE7BF;
+        text-align:center;
+    }
 
-.bg-verdeclaro{
-	background-color: #E6EED2;
-}
+    .bg-verdeclaro{
+        background-color: #E6EED2;
+    }
 
-.btn-aqui{
-	font-weight: bold;
-	text-decoration: underline;
-	cursor: pointer;
-	font-size: 10px;
-}
+    .btn-aqui{
+        font-weight: bold;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 10px;
+    }
 </style>
 <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/datepicker/datepicker3.css">
 </head>
@@ -551,6 +551,8 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 																			<th>Cliente</th>
 																			<th>RUT</th>
 																			<th>Depto.</th>
+                                                                            <th>Fecha de Firma de Escritura.</th>
+                                                                            <th>Fecha de Entrega.</th>																			
 																			<th>Valor FPM</th>
 																			<th>Fecha Pago Cliente</th>
 																			<th>Monto Pago Cliente</th>
@@ -558,12 +560,14 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 																			<!-- <th style="width: 10%">Fecha Tentativa Pag. Adm. Condominio</th> -->
 																			<th>Fecha Pago Adm. Condominio</th>
 																			<th>Monto Pagado Adm.</th>
+																			
 																		</tr>
 																	</thead>
 																	<tbody>
 																		<?php 
 																		$acumulado_monto_pago_cliente = 0;
 																		$acumulado_monto_pago_adm = 0;
+                                                                        $acumulado_total_prorrateo_depto = 0;
 									                                    $consulta = "SELECT 
 									                                    				viv.nombre_viv,
 									                                    				viv.id_viv,
@@ -576,6 +580,7 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 																						tor.id_con = ".$_SESSION["sesion_filtro_condominio_panel"]."
 									                                    			ORDER BY
 									                                    				id_pis ASC, nombre_viv ASC";
+                                                                        echo $consulta." ***";
 			                                                            $conexion->consulta($consulta);
 			                                                            $fila_consulta = $conexion->extraer_registro();
 			                                                            if(is_array($fila_consulta)){
@@ -594,109 +599,88 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 																					WHERE
 																						ven.id_viv = ".$fila['id_viv']." AND
 																						ven.id_est_ven > 3 AND
-																						ven.id_pro = pro.id_pro";
-					                                                            $conexion->consulta($consultaventa);
-					                                                            $vendido = $conexion->total();
-					                                                            $filaventa = $conexion->extraer_registro_unico();
-																				if ($vendido>0) {
-																					$id_ven = $filaventa['id_ven'];
-																					$id_for_pag = $filaventa['id_for_pag'];
-																					$nombre_propietario = utf8_encode($filaventa['nombre_pro']." ".$filaventa['nombre2_pro']." ".$filaventa['apellido_paterno_pro']." ".$filaventa['apellido_materno_pro']);
-																					$rut_propietario = $filaventa['rut_pro'];
-																					// lo que paga de prorrateo
-																					$total_prorrateo_depto = ($fila['prorrateo_viv'] * $porcentaje_prorrateo) / 100;
-																					$total_prorrateo_depto = $total_prorrateo_depto*2;
-																					$acumulado_total_prorrateo_depto = $acumulado_total_prorrateo_depto + $total_prorrateo_depto;
-																					$pagado_valor = $total_prorrateo_depto;
-																					$total_prorrateo_depto = number_format($total_prorrateo_depto, 0, ',', '.');
-																					// fecha pago
-																					// $consultafecha = "SELECT 
-										           //                          				fecha_hasta_eta_ven
-										           //                          			FROM
-										           //                          				venta_etapa_venta
-																					// 	WHERE
-																					// 		id_ven = ".$id_ven." AND
-																					// 		id_est_eta_ven = 1";
-																					// if ($id_for_pag==1) {
-																					// 	$consultafecha .= " AND id_eta = ".$n_etacr_inf_adm_con."";
-																					// } else {
-																					// 	$consultafecha .= " AND id_eta = ".$n_etaco_inf_adm_con."";
-																					// }
-						               //                                              $conexion->consulta($consultafecha);
-						               //                                              $filafecha = $conexion->extraer_registro_unico();
-						               //                                              $fecha_cierre = $filafecha['fecha_hasta_eta_ven'];
-						               //                                              if ($fecha_cierre<>'' || $fecha_cierre<>null) {
-						               //                                              	$fecha_cierre = date("d-m-Y",strtotime($fecha_cierre));
-						               //                                              } else {
-						               //                                              	$fecha_cierre = "--";
-						               //                                              }
-																					$puedecargar = 0;
-						                                                            $consultafechas = "SELECT 
-										                                    				id_cam_ven
-										                                    			FROM
-										                                    				venta_campo_venta
-																						WHERE
-																							id_ven = ".$id_ven."";
-						                                                            $conexion->consulta($consultafechas);
-						                                                            $hayregistro = $conexion->total();
-						                                                            if ($hayregistro>0) {
-						                                                            	$puedecargar = 1;
-						                                                            }
+																						ven.id_pro = pro.id_pro";                                                                                                                                                                      
+                                                                                    $conexion->consulta($consultaventa);
+                                                                                    $vendido = $conexion->total();                                                                                    
+                                                                                    $filaventa = $conexion->extraer_registro_unico();
+                                                                                    if ($vendido>0) {
+                                                                                        $id_ven = $filaventa['id_ven'];
+                                                                                        $id_for_pag = $filaventa['id_for_pag'];
+                                                                                        $nombre_propietario = utf8_encode($filaventa['nombre_pro']." ".$filaventa['nombre2_pro']." ".$filaventa['apellido_paterno_pro']." ".$filaventa['apellido_materno_pro']);
+                                                                                        $rut_propietario = $filaventa['rut_pro'];
+                                                                                        // lo que paga de prorrateo
+                                                                                        $total_prorrateo_depto = ($fila['prorrateo_viv'] * $porcentaje_prorrateo) / 100;
+                                                                                        $total_prorrateo_depto = $total_prorrateo_depto*2;
+                                                                                        $acumulado_total_prorrateo_depto = $acumulado_total_prorrateo_depto + $total_prorrateo_depto;
+                                                                                        $pagado_valor = $total_prorrateo_depto;
+                                                                                        $total_prorrateo_depto = number_format($total_prorrateo_depto, 0, ',', '.');																				        
+                                                                                        $puedecargar = 0;
+                                                                                        $consultafechas = "SELECT 
+                                                                                                id_cam_ven
+                                                                                            FROM
+                                                                                                venta_campo_venta
+                                                                                            WHERE
+                                                                                                id_ven = ".$id_ven."";
+                                                                                        $conexion->consulta($consultafechas);
+                                                                                        $hayregistro = $conexion->total();
+                                                                                        if ($hayregistro>0) {
+                                                                                            $puedecargar = 1;
+                                                                                        }
 
-
-						                                                            // Fecha Pago Adm. Condominio, con etapa cerrada, ver si está la fecha
-																					// $consultafechatentativa = "SELECT 
-										           //                          				cam_eta.valor_campo_eta_cam_ven
-										           //                          			FROM
-										           //                          				venta_etapa_venta as ven_eta,
-										           //                          				venta_etapa_campo_venta as cam_eta
-																					// 	WHERE
-																					// 		ven_eta.id_ven = ".$id_ven." AND
-																					// 		ven_eta.id_est_eta_ven = 1 AND 
-																					// 		ven_eta.id_eta_ven = cam_eta.id_eta_ven";
-																					// if ($id_for_pag==1) {
-																					// 	$consultafechatentativa .= " AND cam_eta.id_cam_eta = ".$n_cam_etacr_fecha_adm_con."";
-																					// } else {
-																					// 	$consultafechatentativa .= " AND cam_eta.id_cam_eta = ".$n_cam_etaco_fecha_adm_con."";
-																					// }
-						                                                            // $conexion->consulta($consultafechatentativa);
-						                                                            // $haycampo = $conexion->total();
-						                                                            // $hay_pagado = 0;
-						                                                            // if ($haycampo>0) {
-						                                                            // 	$filaftentativa = $conexion->extraer_registro_unico();
-							                                                           //  $fecha_pago_tentativa = $filaftentativa['valor_campo_eta_cam_ven'];
-							                                                           //  if ($fecha_pago_tentativa<>'' || $fecha_pago_tentativa<>null) {
-							                                                           //  	$fecha_pago_tentativa = date("d-m-Y",strtotime($fecha_pago_tentativa));
-							                                                           //  	// $hay_pagado = 1;
-							                                                           //  	// $acumula_pagado = $acumula_pagado + $pagado_valor;
-							                                                           //  }
-						                                                            // } else {
-						                                                            // 	$fecha_pago_tentativa = "Etapa no cerrada";
-						                                                            // }
-						                                                            
-
-																				} else {
-																					$nombre_propietario = "--";
-																					$rut_propietario = "--";
-																					// $total_prorrateo_depto = "--";
-																					$total_prorrateo_depto = ($fila['prorrateo_viv'] * $porcentaje_prorrateo) / 100;
-																					$total_prorrateo_depto = $total_prorrateo_depto*2;
-																					$acumulado_total_prorrateo_depto = $acumulado_total_prorrateo_depto + $total_prorrateo_depto;
-																					$total_prorrateo_depto = number_format($total_prorrateo_depto, 0, ',', '.');
-																					$fecha_cierre = "--";
-																					// $fecha_pago_tentativa = "--";
-																				}
-																			$pagado = 0;
-																		 	?>
-																		<tr>
-																			<td><?php echo $nombre_propietario; ?></td>
-																			<td><?php echo $rut_propietario; ?></td>
-																			<td><?php echo $fila['nombre_viv']; ?></td>
-																			<!-- <td><?php //echo $fecha_cierre; ?></td> -->
-																			<td><?php echo $total_prorrateo_depto; ?></td>
-																			<td>
-																				<?php
-																				if ($vendido>0) {
+                                                                                    } else {
+                                                                                        $nombre_propietario = "--";
+                                                                                        $rut_propietario = "--";                                                                                       
+                                                                                        $total_prorrateo_depto = ($fila['prorrateo_viv'] * $porcentaje_prorrateo) / 100;
+                                                                                        $total_prorrateo_depto = $total_prorrateo_depto*2;
+                                                                                        $acumulado_total_prorrateo_depto = $acumulado_total_prorrateo_depto + $total_prorrateo_depto;
+                                                                                        $total_prorrateo_depto = number_format($total_prorrateo_depto, 0, ',', '.');
+                                                                                        $fecha_cierre = "--";                                                                                        
+                                                                                    }
+                                                                                    $pagado = 0;
+                                                                                ?>
+                                                                                <tr>
+                                                                                <td><?php echo $nombre_propietario; ?></td>
+                                                                                <td><?php echo $rut_propietario; ?></td>
+                                                                                <td><?php echo $fila['nombre_viv']; ?></td>                                                                            
+                                                                                <td>
+                                                                                <?php
+                                                                                // Consulta para fecha de escritura                                                                              
+                                                                                $consultaFirmaEscritura="
+                                                                                SELECT
+                                                                                    venta.fecha_escritura_ven
+                                                                                FROM
+                                                                                    venta_venta as venta
+                                                                                WHERE
+                                                                                    venta.id_ven = ".$id_ven."";                                                                                                                                                                
+                                                                                    $conexion->consulta($consultaFirmaEscritura);
+                                                                                    $firma = $conexion->extraer_registro_unico();
+                                                                                    echo (isset($firma['fecha_escritura_ven']))?$firma['fecha_escritura_ven']:'';                                                                                   
+                                                                               
+                                                                                ?>
+                                                                                </td>
+                                                                                <td>
+                                                                                <?php                                                                               
+                                                                                // consulta fecha de entrega                                                                                
+                                                                                $consultaEntrega="
+                                                                                SELECT 
+	                                                                                    ven_eta.fecha_hasta_eta_ven
+	                                                                                FROM
+	                                                                                    venta_etapa_venta AS ven_eta,
+	                                                                                    venta_etapa_campo_venta AS eta_cam_ven
+	                                                                                WHERE
+	                                                                                    ven_eta.id_ven = ".$id_ven." AND 
+	                                                                                    ven_eta.id_eta = 29 AND 
+	                                                                                    ven_eta.id_eta_ven = eta_cam_ven.id_eta_ven AND 
+	                                                                                    valor_campo_eta_cam_ven <> ''
+                                                                                        ";
+                                                                                    $conexion->consulta($consultaEntrega);
+                                                                                    $filaentrega = $conexion->extraer_registro_unico();
+                                                                                    echo (isset($filaentrega['fecha_hasta_eta_ven']))?date("d/m/Y",strtotime($filaentrega['fecha_hasta_eta_ven'])):'';                                                                               
+                                                                                ?>
+                                                                                </td>                                                                               
+                                                                                <td><?php echo $total_prorrateo_depto; ?></td>
+                                                                                <td>
+																				<?php																				
 																					$consultafechapagocliente = "SELECT 
 											                                    				fecha_pago_cliente_fondo_expotacion
 											                                    			FROM
@@ -724,16 +708,11 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 																							echo "al ingresar a operaciones se habilita aquí para cargar";
 																						}
 																					}
-																				} else {
+																				
 																				?>
-
-																				<?php
-																				}
-																				?>
-																			</td>
-																			<td>
-																				<?php 
-																				if ($vendido>0) {
+                                                                                </td>
+                                                                                <td>
+																				<?php 																				
 																					$consultamontopagocliente = "
 																						SELECT 
 										                                    				monto_pago_fpm_cliente_ven
@@ -762,13 +741,12 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 																							echo "al ingresar a operaciones se habilita aquí para cargar";
 																						}
 																					}
-																				}
+																				
 																				 ?>
-																			</td>
-																			<!-- <td><?php //echo $fecha_pago_tentativa; ?></td> -->
-																			<td>
+                                                                                </td>                                                                               
+                                                                                <td>
 																				<?php 
-																				if ($vendido>0) {
+																			
 																					$consultafechareal = "SELECT 
 											                                    				fecha_pago_fondo_expotacion
 											                                    			FROM
@@ -797,22 +775,11 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 																							echo "al ingresar a operaciones se habilita aquí para cargar";
 																						}
 																					}
-																				} else {
+																				
 																				?>
-
-																				<?php
-																				}
-																				?>
-																			</td>
-																			<?php 
-																			// if ($hay_pagado==1) {
-																			// 	$pagado = $total_prorrateo_depto;
-																			// } else {
-																			// 	$pagado = 0;
-																			// }
-																			 ?>
-																			<td><?php
-																				if ($vendido>0) {
+																			    </td>                                                                                
+																			    <td><?php
+																				
 																					$consultamontopagoadm = "
 																						SELECT 
 										                                    				monto_pago_fpm_adm_ven
@@ -841,10 +808,11 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 																							echo "al ingresar a operaciones se habilita aquí para cargar";
 																						}
 																					}
-																				}
-																			?></td>
-																		</tr>
-																		<?php 
+																				
+																			    ?></td>
+                                                                            
+                                                                                </tr>
+                                                                                <?php 
 																			}
 																		}
 																		 ?>

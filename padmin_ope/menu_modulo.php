@@ -2356,6 +2356,7 @@ $id_usuario = $_SESSION["sesion_id_panel"];
                                             proceso.id_pro = usu.id_pro AND
                                             proceso.id_mod = ".$fila["id_mod"]." 
                                         ";
+                                       
                                     $conexion->consulta($consulta);
                                     $cantidad_opcion = $conexion->total();
                                     if($cantidad_opcion > 0){

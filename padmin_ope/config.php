@@ -2,7 +2,7 @@
 date_default_timezone_set('America/Santiago');
 // Rutas para referencias
 
-$PROD = false;
+$PROD = false; // si es falso, entrata en modo de desarrollo
 
 $rutausada = substr($_SERVER['HTTP_HOST'], 0, 3);
 if ($rutausada=="www") {
@@ -12,7 +12,10 @@ if ($rutausada=="www") {
 }
 
 require "parametros.php"; 
+
+// Definición de rutas globales
 if (!defined('_RUTA')) {
+	// PRODUCCIÓN
 	if($PROD){
 	  define('_RUTA', "https://".$inicioruta."00ppsav.cl/");
 	}else{
@@ -20,6 +23,7 @@ if (!defined('_RUTA')) {
 	  define('_RUTA', "http://localhost/icp-operaciones/");
 	}   
 }
+// Obtención del nombre de dominio
 if(!defined('_DOMINIO')){
 	$protocolos = array('http://', 'https://', 'ftp://', 'www.');
     $url = explode('/', str_replace($protocolos, '', _RUTA));
@@ -43,17 +47,19 @@ if (!defined('_INCLUDE')) {
 	define('_INCLUDE',dirname(__FILE__) . '/');
 }
 
-// BASE DE DATOS
-
+// PARAMETROS DE BASE DE DATOS
 if($PROD){
 	if(!defined('_SERVER')) define('_SERVER','localhost');
 	if(!defined('_USER')) define('_USER','root');
 	if(!defined('_PASS')) define('_PASS','Proyectarse2022!!');
 	if(!defined('_DB')) define('_DB','ppsavcl_ssoopp_digital');
 }else{
+	
+	// if(!defined('_SERVER')) define('_SERVER','144.202.84.205');
 	if(!defined('_SERVER')) define('_SERVER','localhost');
 	if(!defined('_USER')) define('_USER','root');
 	if(!defined('_PASS')) define('_PASS','');
+	// if(!defined('_PASS')) define('_PASS','Proyectarse2022!!');
 	if(!defined('_DB')) define('_DB','ppsavcl_ssoopp_digital');
 }
 

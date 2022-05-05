@@ -16,43 +16,43 @@ require_once _INCLUDE."head.php";
 <link rel="stylesheet" href="<?php echo _ASSETS?>dist/css/ajustes.css">
 <style type="text/css">
     .select2-container--default .select2-selection--single {
-    background-color: #fff;
-    border: 1px solid #d2d6de;
-    border-radius: 0px;
-}
+        background-color: #fff;
+        border: 1px solid #d2d6de;
+        border-radius: 0px;
+    }
 
-.select2-container .select2-selection--single {
-    box-sizing: border-box;
-    cursor: pointer;
-    display: block;
-    height: 34px;
-    user-select: none;
-    -webkit-user-select: none;
-}
+    .select2-container .select2-selection--single {
+        box-sizing: border-box;
+        cursor: pointer;
+        display: block;
+        height: 34px;
+        user-select: none;
+        -webkit-user-select: none;
+    }
 
-table#example{
-	width: 160% !important;
-}
+    table#example{
+        width: 160% !important;
+    }
 
-.wmd-view-topscroll, .wmd-view {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    width: 100%;
-    border: none 0px RED;
-}
+    .wmd-view-topscroll, .wmd-view {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        width: 100%;
+        border: none 0px RED;
+    }
 
-.wmd-view-topscroll { height: 20px; }
-.wmd-view { height: 100%; }
-.scroll-div1 { 
-    width: 160%; 
-    overflow-x: scroll;
-    overflow-y: hidden;
-    height:20px;
-}
-.scroll-div2 { 
-    width: 3000px; 
-    height:20px;
-}
+    .wmd-view-topscroll { height: 20px; }
+    .wmd-view { height: 100%; }
+    .scroll-div1 { 
+        width: 160%; 
+        overflow-x: scroll;
+        overflow-y: hidden;
+        height:20px;
+    }
+    .scroll-div2 { 
+        width: 3000px; 
+        height:20px;
+    }
 </style>
 <?php 
 // if ($_SESSION["sesion_perfil_panel"]==4 || $_SESSION["sesion_perfil_panel"]==6 || $_SESSION["sesion_id_panel"]==30) { //le oculta al vendedor los botontes tabla
@@ -298,7 +298,7 @@ table#example{
                                             <th>Correo</th>
                                             <th>Profesión</th>
                                             <th>Género</th>
-                                            <th>Est. Civil</th>
+                                            
                                             <th>Región</th>
                                             <th>Comuna</th>
                                             <th>Estado</th>
@@ -322,7 +322,7 @@ table#example{
                                             <th></th>
                                             <th></th>
                                             <th></th>
-                                            <th></th>
+                                            
                                             <th></th>
                                             <th></th>
                                             <th></th>
@@ -506,7 +506,7 @@ table#example{
                 { "bSortable": false },
                 { "bSortable": false },
                 { "bSortable": false },
-                { "bSortable": false },
+                // { "bSortable": false },
                 { "bSortable": false }
             ]
         });
