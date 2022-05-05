@@ -93,6 +93,7 @@ if ($_SESSION["sesion_id_panel"]==30) { //le oculta al vendedor los botontes tab
 	                                            <option value="">Todos los condominios</option>
 	                                            <?php  
 	                                            $consulta = "SELECT id_con, nombre_con, fecha_venta_con FROM condominio_condominio ORDER BY nombre_con";
+	                                            // $consulta = "SELECT * FROM ver_condominios";
 	                                            $conexion->consulta($consulta);
 	                                            $fila_consulta_condominio_original = $conexion->extraer_registro();
 	                                            if(is_array($fila_consulta_condominio_original)){

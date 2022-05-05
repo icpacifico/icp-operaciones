@@ -129,12 +129,14 @@
 	/*
 	 * Output
 	 */
+	$sEcho = (isset($_GET['sEcho']))?intval($_GET['sEcho']):'';
 	$output = array(
-		"sEcho" => intval($_GET['sEcho']),
+		"sEcho" => $sEcho,
 		"iTotalRecords" => $iTotal,
 		"iTotalDisplayRecords" => $iFilteredTotal,
 		"aaData" => array()
 	);
+	$acciones = '';
 	if(is_array($fila_consulta)) {
 		$consulta = 
 			"

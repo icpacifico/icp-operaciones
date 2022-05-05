@@ -7,7 +7,6 @@ $id_cierre = $_GET["id"];
 $id_vendedor = $_GET["id_vend"];
 
 // $nombre = 'liquidacion_reserva_'.$id_res.'-'.date('d-m-Y');
-
 // header('Content-type: application/vnd.ms-excel');
 // header("Content-Disposition: attachment;filename=".$nombre.".xls");
 // header("Pragma: no-cache");
@@ -179,6 +178,8 @@ $total_liquidacion_bonos = 0;
 $total_liquidacion_comisiones = 0;
 $total_liquidacion_a_pagar = 0;
 
+//  Datos del cierre con id de cierre y id de vendedor
+
 $consulta = 
     "
     SELECT
@@ -252,9 +253,13 @@ if(is_array($fila_consulta_cierre)){
 
                 if(is_array($fila_consulta)){
                     foreach ($fila_consulta as $fila) {
+
+                        // valor2_par = 6 da un valor_par de 60 que se refiere al % de Promesa
+
                     	if($fila["valor2_par"] == 6){
                     		$porcentaje_promesa = $fila["valor_par"];
                     	}
+                         // valor2_par = 7 da un valor_par de 40 que se refiere al % de Escritura
                     	else if($fila["valor2_par"] == 7){
                     		$porcentaje_escritura = $fila["valor_par"];
                     	}
@@ -772,19 +777,15 @@ if(is_array($fila_consulta_cierre)){
                 ?>
         		 <!-- TR PARA DAR ESPACIO ENTRE SECCIONES -->
                  <tr>
-                            <td colspan="12" style="height:30px;"></td>
-                           
-                        </tr>
-        		
-        		
+                    <td colspan="12" style="height:30px;"></td>                    
+                </tr>
+        		        		
         		<!-- bonos al precio -->
         		<tr class="separa">
         			<td colspan="2"></td>
         			<td colspan="10">Bono al Precio</td>
         		</tr>
-                
-                
-
+                                
         		<?php  
 
                 $monto_acumulado_a_pagar = 0;
@@ -925,25 +926,37 @@ if(is_array($fila_consulta_cierre)){
                             <td></td>
                             <td></td>
                         </tr>
-                        <!-- TR PARA DAR ESPACIO ENTRE SECCIONES -->
-                        <tr>
-                            <td colspan="12" style="height:30px;"></td>
-                           
-                        </tr>
-                        <tr class="separa">
-                            <td colspan="2"></td>
-                            <td colspan="10">Bono Cumplimiento Meta Individual (C2)</td>
-                        </tr>
-                         <!-- TR PARA DAR ESPACIO ENTRE SECCIONES -->
-                         <tr>
-                            <td colspan="12" style="height:30px;"></td>
-                           
-                        </tr>
+                       
+                        
                         <?php
                     }
                 }
                 ?>
-        		
+                 <!-- TR PARA DAR ESPACIO ENTRE SECCIONES -->
+                 <tr>
+                    <td colspan="12" style="height:30px;"></td>
+                    
+                 </tr>
+        	     <tr class="separa">
+                    <td colspan="2"></td>
+                    <td colspan="10">Bono Cumplimiento Meta Individual (C2)</td>
+                 </tr>
+                 <?php
+                 $query = '
+                 SELECT 
+                     *
+                 FROM vendedor_vendedor as vende
+                 INNER JOIN vendedor_meta_vendedor as meta ON vende.id_vend = meta.id_vend
+                 INNER JOIN bono ON 
+                 
+                 
+                 ';
+                 ?>
+                         <!-- TR PARA DAR ESPACIO ENTRE SECCIONES -->
+                    <tr>
+                        <td colspan="12" style="height:30px;"></td>                        
+                    </tr>
+
         		<!-- Totales -->
         		<tr class="separa total">
         			<td colspan="2"></td>

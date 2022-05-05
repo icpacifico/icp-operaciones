@@ -227,6 +227,8 @@ $conexion = new conexion();
 																			<th>Cliente</th>
 																			<th>RUT</th>
 																			<th>Depto.</th>
+																			<th>Fecha de Firma de Escritura.</th>
+																			<th>Fecha de Entrega.</th>																			
 																			<th>Valor FPM</th>
 																			<th>Fecha Pago Cliente</th>
 																			<th>Monto Pago Cliente</th>
@@ -242,6 +244,7 @@ $conexion = new conexion();
 																		$acumula_colores = 0;
 																		$acumulado_monto_pago_cliente = 0;
 																		$acumulado_monto_pago_adm = 0;
+																		$acumulado_total_prorrateo_depto = 0;
 									                                    $consulta = "SELECT 
 									                                    				viv.nombre_viv,
 									                                    				viv.id_viv,
@@ -359,7 +362,50 @@ $conexion = new conexion();
 																			<td><?php echo $contador; ?></td>
 																			<td><?php echo $nombre_propietario; ?></td>
 																			<td><?php echo $rut_propietario; ?></td>
-																			<td><?php echo $fila['nombre_viv']; ?></td>
+																			<td><?php echo $fila['nombre_viv']; ?></td>																			
+                                                                            <td style="text-align:center;">
+                                                                                <?php
+                                                                                // Consulta para fecha de escritura
+                                                                                if ($vendido>0) {
+                                                                                $consultaFirmaEscritura="
+                                                                                SELECT
+                                                                                    venta.fecha_escritura_ven
+                                                                                FROM
+                                                                                    venta_venta as venta
+                                                                                WHERE
+                                                                                    venta.id_ven = ".$id_ven."";                                                                                                                                                                
+                                                                                    $conexion->consulta($consultaFirmaEscritura);
+                                                                                    $firma = $conexion->extraer_registro_unico();
+                                                                                    echo (isset($firma['fecha_escritura_ven']))?$firma['fecha_escritura_ven']:'';                                                                                   
+                                                                                }else{
+                                                                                    echo '';
+                                                                                }
+                                                                                ?>
+                                                                            </td>
+																			<td style="text-align:center;">
+                                                                                <?php                                                                               
+                                                                                // consulta fecha de entrega
+                                                                                // if ($vendido>0) {
+                                                                                $consultaEntrega="
+                                                                                SELECT 
+	                                                                                    ven_eta.fecha_hasta_eta_ven
+	                                                                                FROM
+	                                                                                    venta_etapa_venta AS ven_eta,
+	                                                                                    venta_etapa_campo_venta AS eta_cam_ven
+	                                                                                WHERE
+	                                                                                    ven_eta.id_ven = ".$id_ven." AND 
+	                                                                                    ven_eta.id_eta = 29 AND 
+	                                                                                    ven_eta.id_eta_ven = eta_cam_ven.id_eta_ven AND 
+	                                                                                    valor_campo_eta_cam_ven <> ''
+																						";
+                                                                                    $conexion->consulta($consultaEntrega);
+                                                                                    $filaentrega = $conexion->extraer_registro_unico();
+                                                                                    echo (isset($filaentrega['fecha_hasta_eta_ven']))?$filaentrega['fecha_hasta_eta_ven']:'';                                                                                   
+                                                                                // }else{
+                                                                                //     echo '';
+                                                                                // }
+                                                                                ?>
+                                                                            </td>
 																			<td><?php echo $total_prorrateo_depto; ?></td>
 																			<td>
 																				<?php
