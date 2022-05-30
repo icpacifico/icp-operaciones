@@ -221,7 +221,7 @@ $id = $_GET["id"];
 				<br><br><br><br><br>
 				<p><?php echo $nombre_gerente_operacion;?><br>
 				Gerente de Ventas y Operaciones<br>
-				Inmobiliaria Cordillera SpA</p>
+				Inmobiliaria Costanera Pacífico SpA</p>
 	    	</td>
 	    </tr>
 	</table>

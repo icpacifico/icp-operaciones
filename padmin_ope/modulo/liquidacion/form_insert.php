@@ -1,6 +1,7 @@
 <?php 
 include("../../class/carro.php");
 session_start(); 
+unset($_SESSION['c2']);
 require "../../config.php"; 
 require_once _INCLUDE."head.php";
 if (!isset($_SESSION["sesion_usuario_panel"])) {
@@ -281,16 +282,52 @@ unset($_SESSION["numero_item"]);
                 confirmButtonColor: '#DD6B55',
                 confirmButtonText: 'Aceptar',
                 cancelButtonText: "Cancelar",
-                closeOnConfirm: false,
+                closeOnConfirm: true,
             },
             function(){
+                // $('#start_form').hide();
+                // $('#sending').show();
+                // $('#sended').text(0);
+                // $('#total').text($('#total_comments').val());
+        
+                //reset progress bar
+                // $('.progress-bar').css('width', '0%');
+                // $('.progress-bar').text('0%');
+                // $('.progress-bar').attr('data-progress', '0');
+               
+               let arrayc2 = '<?php echo (isset($_SESSION['c2']))? $_SESSION['c2']:''?>';
                 $.ajax({
                     type: 'POST',
                     url: ("insert.php"),
                     //data:"valor="+valor+"&cantidad="+var_check+"&reserva="+var_reserva+"&fecha_dep="+var_fecha_dep+"&programa_base="+var_programa_base,
-                    dataType: 'json',
-                    success: function (data) {
-                        resultado(data);
+                    data: "c2bono="+arrayc2,
+                    dataType: 'json',                    
+                    success: function (response) {
+                      
+                        // $('.progress-bar').css('width', response.percentage+'%');
+                        // $('.progress-bar').text(response.percentage+'%');
+                        // $('.progress-bar').attr('data-progress', response.percentage);
+            
+                        // $('#done').text(response.executed);
+                        // $('.execute-time').text(response.execute_time);
+            
+                        // if (response.percentage == 100) {
+                        //     $('.end-process').show();
+                            resultado(response);
+                        // } else {
+                        //    console.log(response);
+                        //    console.log(response.percentage);
+                        //    console.log(response.executed);
+                        //    console.log(response.execute_time);
+                        // }
+                        
+                       
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        // if (textStatus == 'parsererror') {
+                        //     textStatus = 'Technical error: Unexpected response returned by server. Sending stopped.';
+                        // }
+                        alert('Error de sistema : '+textStatus+' favor contactar con el administrador de sistemas.');
                     }       
                 })
             });

@@ -32,7 +32,8 @@ $rr=array("/","/","/");
 $destino =  "../../../archivo/condominio/carga/".$_FILES['file_condominio']['name'];
 copy($_FILES['file_condominio']['tmp_name'],$destino);
 	  
-
+$rol_viv = 0;
+$rol_bod = 0;
 $aCadena = file($destino);
 	$resultado = count($aCadena);
 	$resultado = $resultado-1; // para eliminar la última línea vacia

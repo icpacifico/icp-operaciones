@@ -387,6 +387,7 @@ if(is_array($fila_consulta)){
 			        $conexion->consulta_form($consulta_termino,array(26,$fila['id_con']));
 			        $fila_term = $conexion->extraer_registro_unico();
 			        $fecha_termino = $fila_term['valor_par'];
+					$mes_termino = '';
 			        if ($fecha_termino<>'' & $fecha_termino<>null) {
 			        	$mes_termino = date("n",strtotime($fecha_termino));
 			        } else {
@@ -864,22 +865,23 @@ if(is_array($fila_consulta)){
 			if(is_array($fila_consulta)){
 			    foreach ($fila_consulta as $fila) {
 			        $acumulado_venta = 0;
-			        $consulta = 
-			            "
-			            SELECT
-			                id_vend
-			            FROM
-			                vendedor_jefe_vendedor
-			            WHERE
-			                id_usu = ?
-			            ";
-			        $conexion->consulta_form($consulta,array($fila['id_usu']));
-			        $fila_consulta_detalle = $conexion->extraer_registro();
-			        if(is_array($fila_consulta_detalle)){
-			            foreach ($fila_consulta_detalle as $fila_detalle) {
-			                $acumulado_venta = $acumulado_venta + $arreglo_vendedor_promesa[$fila_detalle['id_vend']][$fila['id_con']];
-			            }
-			        }
+			        // $consulta = 
+			        //     "
+			        //     SELECT
+			        //         id_vend
+			        //     FROM
+			        //         vendedor_jefe_vendedor
+			        //     WHERE
+			        //         id_usu = ?
+			        //     ";
+					// echo $consulta;
+			        // $conexion->consulta_form($consulta,array($fila['id_usu']));
+			        // $fila_consulta_detalle = $conexion->extraer_registro();
+			        // if(is_array($fila_consulta_detalle)){
+			        //     foreach ($fila_consulta_detalle as $fila_detalle) {
+			        //         $acumulado_venta = $acumulado_venta + $arreglo_vendedor_promesa[$fila_detalle['id_vend']][$fila['id_con']];
+			        //     }
+			        // }
 			        
 
 			        
@@ -1514,10 +1516,73 @@ if(is_array($fila_consulta)){
 
             }
         }
+
+		// proceso de loading de espera en construcción 
+		// $conexion->consulta('SELECT * FROM process WHERE id_process = 1');
+		// 				$row_process = $conexion->extraer_registro();
+		// 			    // var_dump($row_process);
+		// 				$percentage = round(($row_process[0]['executed'] * 100) / $row_process[0]['total'], 2);
+					
+		// 				$date_add = new DateTime($row_process[0]['date_add']);
+		// 				$date_upd = new DateTime($row_process[0]['date_upd']);
+		// 				$diff = $date_add->diff($date_upd);
+					
+		// 				$execute_time = '';
+					
+		// 				if ($diff->days > 0) {
+		// 					$execute_time .= $diff->days.' dias';
+		// 				}
+		// 				if ($diff->h > 0) {
+		// 					$execute_time .= ' '.$diff->h.' horas';
+		// 				}
+		// 				if ($diff->i > 0) {
+		// 					$execute_time .= ' '.$diff->i.' minutos';
+		// 				}
+					
+		// 				if ($diff->s > 1) {
+		// 					$execute_time .= ' '.$diff->s.' segundos';
+		// 				} else {
+		// 					$execute_time .= ' 1 segundo';
+		// 				}
+					
+		// 				$update_process = 'UPDATE process SET percentage = '.$percentage.', execute_time = "'.(string)$execute_time.'" WHERE id_process = 1';
+		// 				$conexion->consulta($update_process);
+					
+		// 				$row = array(
+		// 					'executed' => $row_process[0]['executed'],
+		// 					'total' => $row_process[0]['total'],
+		// 					'percentage' => round($percentage, 0),
+		// 					'execute_time' => $execute_time
+		// 				);
+		// 				die(json_encode($row));
 	}
+
+    // guardado de bono C2
+
+		$bonos = $_SESSION['c2'];	
+		$c2 = array();
+		$contenedor = array();
+		$count = 0;
+		foreach ($bonos as $k => $v) 
+		{
+			foreach ($v as $c => $d) {
+				array_push($c2, $d);						
+			}
+			$contenedor[$count]=$c2;
+			unset($c2);
+			$c2 = array();
+			$count+=1;
+		}
+		$consulta = "INSERT INTO bonos(nombre,porcentaje,monto,id_vendedor,id_cierre,mes) VALUES(?,?,?,?,?,?)";
+		for ($i=0; $i < count($contenedor); $i++) { $conexion->consulta_form($consulta,array($contenedor[$i][0] , $contenedor[$i][1], $contenedor[$i][2], $contenedor[$i][3], $ultimo_id, $contenedor[$i][4]));}
+
+
+	// fin guardado de bono C2
+				
 }
 
 $jsondata['envio'] = 1;
 echo json_encode($jsondata);
 exit();
+
 ?>

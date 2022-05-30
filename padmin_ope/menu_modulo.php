@@ -166,7 +166,7 @@ $id_usuario = $_SESSION["sesion_id_panel"];
                                     $cantidad_opcion = $conexion->total();
                                     if($cantidad_opcion > 0){
                                         ?>
-                                        <li id="usuario-privilegio"><a href="<?php echo _MODULO?>usuario/form_insert_privilegio.php"><i class="fa ion-ios-shuffle-strong" aria-hidden="true"></i> Privilegios</a></li>
+                                        <li id="usuario-insert_privilegio"><a href="<?php echo _MODULO?>usuario/form_insert_privilegio.php"><i class="fa ion-ios-shuffle-strong" aria-hidden="true"></i> Privilegios</a></li>
                                         <?php
                                     }
                                     $consulta = 
@@ -187,7 +187,7 @@ $id_usuario = $_SESSION["sesion_id_panel"];
                                     $cantidad_opcion = $conexion->total();
                                     if($cantidad_opcion > 0){
                                         ?>
-                                        <li id="usuario-unidad"><a href="<?php echo _MODULO?>usuario/form_insert_unidad.php"><i class="fa ion-android-home" aria-hidden="true"></i> Asignar Unidad / Proyecto</a></li>
+                                        <li id="usuario-insert_unidad"><a href="<?php echo _MODULO?>usuario/form_insert_unidad.php"><i class="fa ion-android-home" aria-hidden="true"></i> Asignar Unidad / Proyecto</a></li>
                                         <?php
                                     }
                                     ?>
@@ -1639,7 +1639,7 @@ $id_usuario = $_SESSION["sesion_id_panel"];
                                     $cantidad_opcion = $conexion->total();
                                     if($cantidad_opcion > 0){
                                         ?>
-                                        <li id="vendedor-cliente"><a href="<?php echo _MODULO?>vendedor/form_lista.php"><i class="fa fa-plus" aria-hidden="true"></i> Asignar Listas</a></li>
+                                        <li id="vendedor-lista"><a href="<?php echo _MODULO?>vendedor/form_lista.php"><i class="fa fa-plus" aria-hidden="true"></i> Asignar Listas</a></li>
                                         <?php
                                     }
 
@@ -1661,7 +1661,7 @@ $id_usuario = $_SESSION["sesion_id_panel"];
                                     $cantidad_opcion = $conexion->total();
                                     if($cantidad_opcion > 0){
                                         ?>
-                                        <li id="vendedor-cliente"><a href="<?php echo _MODULO?>vendedor/form_meta.php"><i class="fa fa-plus" aria-hidden="true"></i> Asignar Meta</a></li>
+                                        <li id="vendedor-meta"><a href="<?php echo _MODULO?>vendedor/form_meta.php"><i class="fa fa-plus" aria-hidden="true"></i> Asignar Meta</a></li>
                                         <?php
                                     }
 
@@ -2409,7 +2409,7 @@ $id_usuario = $_SESSION["sesion_id_panel"];
                                     $cantidad_opcion = $conexion->total();
                                     if($cantidad_opcion > 0){
                                         ?>
-                                        <li id="mailing-select"><a href="<?php echo _MODULO?>mailing/form_select_envios.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Mis Envíos Masivos</a></li>
+                                        <li id="mailing-select_envios"><a href="<?php echo _MODULO?>mailing/form_select_envios.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Mis Envíos Masivos</a></li>
 
 
                                         <?php

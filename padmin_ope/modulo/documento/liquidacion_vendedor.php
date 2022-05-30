@@ -937,24 +937,10 @@ if(is_array($fila_consulta_cierre)){
                     <td colspan="12" style="height:30px;"></td>
                     
                  </tr>
-        	     <tr class="separa">
-                    <td colspan="2"></td>
-                    <td colspan="10">Bono Cumplimiento Meta Individual (C2)</td>
-                 </tr>
-                 <?php
-                 $query = '
-                 SELECT 
-                     *
-                 FROM vendedor_vendedor as vende
-                 INNER JOIN vendedor_meta_vendedor as meta ON vende.id_vend = meta.id_vend
-                 INNER JOIN bono ON 
-                 
-                 
-                 ';
-                 ?>
+        	    
                          <!-- TR PARA DAR ESPACIO ENTRE SECCIONES -->
                     <tr>
-                        <td colspan="12" style="height:30px;"></td>                        
+                        <td colspan="12" style="height:20px;"></td>                        
                     </tr>
 
         		<!-- Totales -->
@@ -1018,14 +1004,53 @@ if(is_array($fila_consulta_cierre)){
         $contador_pagina++; 
     }
 }
-
+$bonos ="
+    SELECT 
+        *
+    FROM 
+        bonos
+    WHERE
+        id_vendedor = ? and
+        id_cierre = ? and
+        nombre = 'Bono C2'
+    ";
+$conexion->consulta_form($bonos,array($id_vendedor,$id_cierre));
+$bonos_detalle = $conexion->extraer_registro();
+$total_liquidacion_bonos += $bonos_detalle[0]['monto'];
 $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
 ?>
 <!-- nuevo resumen final -->
 <?php 
 if($id_vendedor<>3){
+    
+   
+    if(is_array($bonos_detalle)){     
  ?>
-<table class="liquida">
+    <table class="liquida" style=" margin-bottom:50px;">
+        <thead>
+            <tr>
+                <th colspan="11" style="text-align:center;border:1px solid #000000; font-weight: 700;">BONO C2.</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="4" style="text-align:right;border:1px solid #000000;">% Cumplimiento : <?php echo $bonos_detalle[0]['porcentaje']?>%</td>                
+                <td colspan="2" style="text-align:center;border:1px solid #000000;">Mes de <?php echo $bonos_detalle[0]['mes']?></td>
+                <?php
+                $rango  = "";
+                if($bonos_detalle[0]['porcentaje'] == 100){ $rango = "Igual a 100%";}else if($bonos_detalle[0]['porcentaje'] >100){ $rango = "desde 101% a 150%";}else if($bonos_detalle[0]['porcentaje'] >150){ $rango = " de 150% en adelante";}
+                ?>
+                <td colspan="2" style="text-align:center;border:1px solid #000000;">Rango de cumplimiento <?php echo $rango?></td>
+                <td colspan="3" style="text-align:left;border:1px solid #000000;">Total $<?php echo $bonos_detalle[0]['monto']?></td>               
+            </tr>
+        </tbody>
+    </table>
+<?php
+    }
+?>
+
+<table class="liquida" style="margin: bottom 50px;">
+    
 	<thead>
 		<tr>
 			<th colspan="4" style="border:1px solid #000000;">RESUMEN TOTAL</th>
@@ -1046,7 +1071,7 @@ if($id_vendedor<>3){
 <?php 
 } else {
  ?>
-<table class="liquida">
+<table class="liquida" style="margin: bottom 50px;">
 	<thead>
 		<tr>
 			<th colspan="4" style="border:1px solid #000000;">RESUMEN TOTAL</th>

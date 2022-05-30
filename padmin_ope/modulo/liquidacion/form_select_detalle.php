@@ -138,7 +138,8 @@ $id_cie = $_GET["id"];
                                                 INNER JOIN venta_venta AS ven ON ven.id_ven = ven_cie.id_ven
                                                 INNER JOIN vendedor_vendedor AS vend ON vend.id_vend = ven.id_vend
                                             WHERE
-                                                cie.id_cie = '".$id_cie."'
+                                                cie.id_cie = '".$id_cie."' and
+                                                vend.id_est_vend = 1
                                             GROUP BY
                                                 vend.id_vend,
                                                 cie.id_cie,
