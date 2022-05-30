@@ -16,9 +16,9 @@ $id_viv = $_POST["valor"];
 	        FROM
 	            bodega_bodega
 	        WHERE
-	            id_viv = " . $id_viv . "
+	            id_viv = ?
 	        ";
-	    $conexion->consulta_form($consulta,array($id));
+	    $conexion->consulta_form($consulta,array($id_viv));
 	    $fila_consulta = $conexion->extraer_registro();
 	    $cantidad = $conexion->total();
 	    if(is_array($fila_consulta)){
@@ -40,9 +40,9 @@ $id_viv = $_POST["valor"];
 	        FROM
 	            estacionamiento_estacionamiento
 	        WHERE
-	            id_viv = " . $id_viv . "
+	            id_viv = ?
 	        ";
-	    $conexion->consulta_form($consulta,array($id));
+	    $conexion->consulta_form($consulta,array($id_viv));
 	    $fila_consulta = $conexion->extraer_registro();
 	    $cantidad = $conexion->total();
 	    if(is_array($fila_consulta)){

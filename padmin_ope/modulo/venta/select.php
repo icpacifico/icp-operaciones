@@ -94,7 +94,7 @@
 			$sWhere .= $aColumns[$i]." LIKE '%".$_GET['sSearch_'.$i]."%' ";
 		}
 	}
-	
+	$filtro = 0;
 	if (isset($_SESSION["sesion_filtro_condominio_panel"])) {
 		if($filtro == 1 || $filtro == 2){
 			$sWhere .= "AND (con.id_con = ".$_SESSION["sesion_filtro_condominio_panel"]." )";

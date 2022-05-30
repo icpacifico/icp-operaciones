@@ -912,9 +912,43 @@ if(is_array($fila_consulta_cierre)){
         $contador_pagina++; 
     }
 }
+if($id_vendedor<>3){
+    $bonos ="
+    SELECT 
+        *
+    FROM 
+        bonos
+    WHERE
+        id_vendedor = ? and
+        id_cierre = ? and
+        nombre = 'Bono C2'
+    ";
+    $conexion->consulta_form($bonos,array($id_vendedor,$id_cierre));
+    $bonos_detalle = $conexion->extraer_registro();
+    $total_liquidacion_bonos += $bonos_detalle[0]['monto'];
 $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
 
-if($id_vendedor<>3){
+
+    if(is_array($bonos_detalle)){
+        $rango  = "";
+        if($bonos_detalle[0]['porcentaje'] == 100){ $rango = "Igual a 100%";}else if($bonos_detalle[0]['porcentaje'] >100){ $rango = "desde 101% a 150%";}else if($bonos_detalle[0]['porcentaje'] >150){ $rango = " de 150% en adelante";}
+  $html .= '      
+    <table class="liquida" style=" margin-bottom:50px;">
+        <thead>
+            <tr>
+                <th colspan="11" style="text-align:center;border:1px solid #000000; font-weight: 700;">BONO C2.</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="4" style="text-align:right;border:1px solid #000000;">% Cumplimiento : '.$bonos_detalle[0]['porcentaje'].'%</td>                
+                <td colspan="2" style="text-align:center;border:1px solid #000000;">Mes de '.$bonos_detalle[0]['mes'].'</td>               
+                <td colspan="2" style="text-align:center;border:1px solid #000000;">Rango de cumplimiento '.$rango.'</td>
+                <td colspan="3" style="text-align:left;border:1px solid #000000;">Total $'.$bonos_detalle[0]['monto'].'</td>               
+            </tr>
+        </tbody>
+    </table>';
+    }
 $html .= '<table class="liquida">
 	<thead>
 		<tr>
