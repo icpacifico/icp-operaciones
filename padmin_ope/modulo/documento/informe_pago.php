@@ -553,8 +553,8 @@ $id = $_GET["id"];
 					//  pie cancelado + pie por cobrar + credito es igual a total
 					$total = $pie_cancelado + $fila["pie_cobrar_ven"] + $credito_suma;
 					$saldo_pie = $total - ($credito_suma + $pie_pagado_porcobrar + $pie_pagado_efectivo);		
-					echo '<br> <b>Calculo Saldo Pie</b> <br>';
-					echo $saldo_pie." = ".$total." (valor total) - (".$credito_suma."(Credito) + ".number_format($pie_pagado_porcobrar, 2, ',', '.')."(pie por cobrar) + ".$pie_pagado_efectivo."(pie pagado)) <br>"; 		
+					// echo '<br> <b>Calculo Saldo Pie</b> <br>';
+					// echo $saldo_pie." = ".$total." (valor total) - (".$credito_suma."(Credito) + ".number_format($pie_pagado_porcobrar, 2, ',', '.')."(pie por cobrar) + ".$pie_pagado_efectivo."(pie pagado)) <br>"; 		
 					
 					if ($id_for_pag==1) {
 						?>
