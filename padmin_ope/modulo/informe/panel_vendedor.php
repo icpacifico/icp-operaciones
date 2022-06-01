@@ -221,7 +221,7 @@ $consulta =
   ";
 $conexion->consulta($consulta);
 $fila = $conexion->extraer_registro_unico();
-$estacionamiento_numero = $fila["total"];
+$estacionamiento_numero = $fila["total_vendido"];
 $estacionamiento_numero_vendido = $fila["total_vendido"];
 
 $consulta = 
@@ -239,7 +239,7 @@ $consulta =
   ";
 $conexion->consulta($consulta);
 $fila = $conexion->extraer_registro_unico();
-$bodega_numero = $fila["total"];
+$bodega_numero = $fila["total_vendido"];
 $bodega_numero_vendido = $fila["total_vendido"];
 
 

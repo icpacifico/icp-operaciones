@@ -316,19 +316,7 @@ if (!isset($_SESSION["modulo_cotizacion_panel"])) {
                                                 <div class="form-group">
                                                     <label for="modelo">Modelo:</label>
                                                     <select class="form-control select2" id="modelo" name="modelo"> 
-                                                        <option value="">Seleccione Modelo</option>
-                                                        <?php  
-                                                        $consulta = "SELECT * FROM modelo_modelo WHERE id_est_mod = 1 ORDER BY nombre_mod";
-                                                        $conexion->consulta($consulta);
-                                                        $fila_consulta = $conexion->extraer_registro();
-                                                        if(is_array($fila_consulta)){
-                                                            foreach ($fila_consulta as $fila) {
-                                                                ?>
-                                                                <option value="<?php echo $fila['id_mod'];?>"><?php echo utf8_encode($fila['nombre_mod']);?></option>
-                                                                <?php
-                                                            }
-                                                        }
-                                                        ?>
+                                                        <option value="">Seleccione Modelo</option>                                                       
                                                     </select>
                                                 </div>
                                             </div>
@@ -678,7 +666,7 @@ if (!isset($_SESSION["modulo_cotizacion_panel"])) {
                     url: ("procesa_torre.php"),
                     data:"valor="+valor,
                     success: function(data) {
-                         $('#vivienda').html(data);
+                         $('#modelo').html(data);
                     }
                 })
             }

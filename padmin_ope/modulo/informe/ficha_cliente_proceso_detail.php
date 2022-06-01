@@ -14,10 +14,10 @@ require_once _INCLUDE."head_informe.php";
 
 // recibe los get
 $opc = $_GET["opc"];
-$id_pro = d64($_GET["id_pro"]);
-$id_cot = d64($_GET["id_cot"]);
-$id_ven = d64($_GET["id_ven"]);
-$id_pag = d64($_GET["id_pag"]);
+$id_pro = d64(isset($_GET["id_pro"]));
+$id_cot = d64(isset($_GET["id_cot"]));
+$id_ven = d64(isset($_GET["id_ven"]));
+$id_pag = d64(isset($_GET["id_pag"]));
 ?>
 <title>Cliente - Ficha</title>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

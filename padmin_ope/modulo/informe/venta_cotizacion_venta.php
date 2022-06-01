@@ -754,7 +754,7 @@ $hoy = date("Y-m-d");
                                                                         cot.id_cot DESC
                                                                     ";
 
-                                                                if ($_GET['sin']<>'') {
+                                                                if (isset($_GET['sin'])) {
                                                                 	$consulta = 
                                                                     "
                                                                     SELECT 
@@ -827,7 +827,7 @@ $hoy = date("Y-m-d");
                                                                         else{
                                                                             $fecha_cotizacion = date("d/m/Y",strtotime($fila['fecha_cot']));
                                                                         }
-                                                                        $acumulado_monto = $acumulado_monto + $fila['monto_ven'];
+                                                                        $acumulado_monto = $acumulado_monto + (isset($fila['monto_ven']))?$fila['monto_ven']:0;
                                                                         $consulta = "SELECT
                                                                         				seg_cot.id_seg_cot
                                                                         			FROM
