@@ -84,8 +84,7 @@ $id = $_GET["id"];
 <body>
 	<a class="btn no-print" href="informe_pago_excel.php?id=<?php echo $id; ?>" target="_blank">Excel</a>
 	<?php
-	$monto = 0;
-    $monto_gas_ven = 0;
+    $monto = 0;
 	$consulta = 
 		"
 		SELECT 
@@ -159,8 +158,7 @@ $id = $_GET["id"];
  //    }
 
     // 
-    $consultafecha = "
-	    SELECT 
+    $consultafecha = "SELECT 
 			fecha_pago_cliente_fondo_expotacion
 		FROM
 			venta_campo_venta
@@ -176,7 +174,6 @@ $id = $_GET["id"];
     }
 
 	// Fondo GOP
-	$fecha_gas = 0;
 	if ($id_for_pag==2) {
 		$consultahay = 
 		    "
@@ -296,14 +293,13 @@ $id = $_GET["id"];
                     $contador = 1;
                     $conexion->consulta_form($consulta,array($id));
                     $fila_consulta = $conexion->extraer_registro();
-					$pie_pagado_efectivo = 0;
-					$abono_uf = 0;
                     if(is_array($fila_consulta)){
                         foreach ($fila_consulta as $fila) {
-							$valor_uf_efectivo = 0;							
-							$pie_pagado_porcobrar = 0;                        	                        	
+							$valor_uf_efectivo = 0;
+							$pie_agado_efectivo = 0;
+							$pie_pagado_porcobrar = 0;
                         	
-                            if ($fila["fecha_real_pag"]=="0000-00-00" || $fila["fecha_real_pag"]==NULL) { //abonos no cancelados aún
+                            if ($fila["fecha_real_pag"]=="0000-00-00" || $fila["fecha_real_pag"]==null) { //abonos no cancelados aún
                                 $fecha_real_mostrar = "";
 
                                 $consulta = 
@@ -314,20 +310,20 @@ $id = $_GET["id"];
 								        uf_uf
 								    WHERE
 								        fecha_uf = '".date("Y-m-d",strtotime($fila["fecha_ven"]))."'
-								";
+								    ";
 								$conexion->consulta($consulta);
 								$cantidaduf = $conexion->total();
 								if($cantidaduf > 0){
 	                    			$filauf = $conexion->extraer_registro_unico();
-									$valor_uf = (isset($filauf["valor_uf"]))?$filauf["valor_uf"]:0;
-									if (isset($fila["id_for_pag"]) && $fila["id_for_pag"]==6) { // si es pago contra escritura UF
-										$monto_pag = (isset($fila["monto_pag"]))?$fila["monto_pag"] * $valor_uf:0;
-										$abono_uf = (isset($fila["monto_pag"]))?$fila["monto_pag"]:0;
+									$valor_uf = $filauf["valor_uf"];
+									if ($fila["id_for_pag"]==6) { // si es pago contra escritura UF
+										$monto_pag = $fila["monto_pag"] * $valor_uf;
+										$abono_uf = $fila["monto_pag"];
 										// $abono_uf = 0;
-										// $monto_pag = 0;
-									} else {										
-										$monto_pag = (isset($fila["monto_pag"]))?$fila["monto_pag"]:0;
-										// $abono_uf = (isset($fila["monto_pag"]))? ($fila["monto_pag"] / $valor_uf):0;
+										$monto_pag = 0;
+									} else {
+										$monto_pag = $fila["monto_pag"];
+										$abono_uf = $fila["monto_pag"] / $valor_uf;
 										$abono_uf = 0;
 									}
 									
@@ -335,10 +331,10 @@ $id = $_GET["id"];
 									$valor_uf = 0;
 								}
 
-								$pie_pagado_porcobrar += $abono_uf;
+								$pie_pagado_porcobrar = $pie_pagado_porcobrar + $abono_uf;
 
-                            }else{ // abonos cancelados
-
+                            }
+                            else{
                                 $fecha_real_mostrar = date("d/m/Y",strtotime($fila["fecha_real_pag"]));
                                 
                                 $consulta = 
@@ -354,23 +350,23 @@ $id = $_GET["id"];
 								$cantidad_uf = $conexion->total();
 								if($cantidad_uf > 0){
 									$filauf = $conexion->extraer_registro_unico();
-									$valor_uf_efectivo = (isset($filauf['valor_uf']))?$filauf['valor_uf']:0;
+									$valor_uf_efectivo = $filauf['valor_uf'];
 									if ($fila["id_for_pag"]==6) { // si es pago contra escritura UF
-										$monto_pag = (isset($fila["monto_pag"]))?$fila["monto_pag"] * $valor_uf:0;
-										$abono_uf = (isset($fila["monto_pag"]))?$fila["monto_pag"] * $valor_uf_efectivo:0;
+										$monto_pag = $fila["monto_pag"] * $valor_uf;
+										$abono_uf = $fila["monto_pag"] * $valor_uf_efectivo;
 										// para que no sume
 									} else {
-										$monto_pag = (isset($fila["monto_pag"]))?$fila["monto_pag"]:0;
-										$abono_uf = (isset($fila["monto_pag"]))?$fila["monto_pag"] / $valor_uf_efectivo:0;
+										$monto_pag = $fila["monto_pag"];
+										$abono_uf = $fila["monto_pag"] / $valor_uf_efectivo;
 									}
 								} else {
 									$valor_uf_efectivo = 0;
 								} 
 
-								$pie_pagado_efectivo += $abono_uf;          
+								$pie_pagado_efectivo = $pie_pagado_efectivo + $abono_uf;          
                             }
-                            $total_abono += $monto_pag;
-							$total_uf += $abono_uf;
+                            $total_abono = $total_abono + $monto_pag;
+							$total_uf = $total_uf + $abono_uf;
                             ?>
                             <!-- lista de pagos -->
 							<tr class="borde">
@@ -452,20 +448,11 @@ $id = $_GET["id"];
                 $contador = 1;
                 $conexion->consulta_form($consulta,array($id));
                 $fila = $conexion->extraer_registro_unico();
-
-				//validaciones
-
-				$monto_vivienda = (isset($fila["monto_vivienda_ven"]))?$fila["monto_vivienda_ven"]:0;
-				$monto_reserva = (isset($fila["monto_reserva_ven"]))?$fila["monto_reserva_ven"]:0;
-				$descuento = (isset($fila["descuento_ven"]))?$fila["descuento_ven"]:0;
-				$monto_estacionamiento = (isset($fila["monto_estacionamiento_ven"]))?$fila["monto_estacionamiento_ven"]:0;
-				$monto_bodega = (isset($fila["monto_bodega_ven"]))?$fila["monto_bodega_ven"]:0;
-				$pie_cancelado_ven = (isset($fila["pie_cancelado_ven"]))?$fila["pie_cancelado_ven"]:0;
-				$id_pie_abo_ven = (isset($fila["id_pie_abo_ven"]))?$fila["id_pie_abo_ven"]:0;
-                
-                $total_general = $monto_vivienda - $descuento;				
-                $total_general_total = ($monto_vivienda + $monto_estacionamiento + $monto_bodega) - $descuento;
-                $pie_cancelado = $pie_cancelado_ven + $monto_reserva;               
+                $total_general = $fila["monto_vivienda_ven"] - $fila["descuento_ven"];
+				$monto = $fila["monto_vivienda_ven"];
+                $total_general_total = ($fila["monto_vivienda_ven"] + $fila["monto_estacionamiento_ven"] + $fila["monto_bodega_ven"]) - $fila["descuento_ven"];
+                $pie_cancelado = $fila["pie_cancelado_ven"] + $fila["monto_reserva_ven"];
+                $id_pie_abo_ven = $fila["id_pie_abo_ven"];
                 ?>
 				<table class="tabla">
 					<tr>
@@ -475,22 +462,19 @@ $id = $_GET["id"];
 						<td class="borde centrado">Valor Depto.</td>
 						<td class="borde centrado">
 							<?php 
-							if ($id_pie_abo_ven==1) { // 1=si; 2=no;
-								// abono al pie
-								echo number_format($monto_vivienda, 2, ',', '.');
+							if ($id_pie_abo_ven==1) {
+								echo number_format($fila["monto_vivienda_ven"], 2, ',', '.');
 							} else {
-								//abono al total
 								echo number_format($total_general, 2, ',', '.');
 							}
 							?>
 						</td>
 					</tr>
 					<?php 
-					if ($monto_estacionamiento>0 || $monto_bodega>0) {
-					$adicional = $monto_estacionamiento + $monto_bodega;
+					if ($fila["monto_estacionamiento_ven"]>0 || $fila["monto_bodega_ven"]>0) {
+					$adicional = $fila["monto_estacionamiento_ven"] + $fila["monto_bodega_ven"];
 					 ?>
 					<tr>
-						<!-- cuando se paga estacionamiento y bodega -->
 						<td class="borde centrado">Adicionales</td>
 						<td class="borde centrado"><?php echo number_format($adicional, 2, ',', '.');?></td>
 					</tr>
@@ -499,38 +483,33 @@ $id = $_GET["id"];
 					  ?>
 					  <!-- si es contado, calcula si el pie está justo -->
 					<?php 
-					if ($id_for_pag==2) { // 2 = Contado; 1 = Credito;
-						$pie_pagado_efectivo = $pie_cancelado;			
-					}		
+					if ($id_for_pag==2) {
+						// $pie_pagado_efectivo = $pie_cancelado;
+					}
 					 ?>
 
 					  <!-- muestra el pie cancelado real en base a los pagos -->
 					<tr>
 						<td class="borde centrado">Pie Cancelado</td>
-						<td class="borde centrado"><?php echo number_format($pie_cancelado, 2, ',', '.');?><?php // echo number_format($pie_cancelado, 2, ',', '.');?></td>
-						<!-- <td class="borde centrado"><?php echo number_format($pie_pagado_efectivo, 2, ',', '.');?><?php // echo number_format($pie_cancelado, 2, ',', '.');?></td> -->
+						<td class="borde centrado"><?php echo number_format($pie_pagado_efectivo, 2, ',', '.');?><?php // echo number_format($pie_cancelado, 2, ',', '.');?></td>
 					</tr>
-
-
 					<?php 
-					
 					if ($id_pie_abo_ven==1) {
 					 ?>
 					<tr>
 						<td class="borde centrado">Abono Inmobiliaria</td>
-						<td class="borde centrado"><?php echo number_format($descuento, 2, ',', '.');?></td>
+						<td class="borde centrado"><?php echo number_format($fila["descuento_ven"], 2, ',', '.');?></td>
 					</tr>
 					<?php 
 					}
 
 					// pie por cobrar real
-					// $pie cancelado es igual a pie cancelado + monto de la reserva
 					$pie_por_cobrar = $pie_cancelado + $fila["pie_cobrar_ven"] - $total_uf;
 
 					if ($id_for_pag==2) {
 						$pie_pagado_porcobrar = $pie_cancelado - $pie_pagado_efectivo;
 					}
-					if ( number_format($pie_pagado_porcobrar, 2, ',', '.') > 0.00 && $id_for_pag==1) {
+					if ($pie_pagado_porcobrar > 0 && $id_for_pag==1) {
 					 ?>
 					<tr>
 						<td class="borde centrado">Pie por Cobrar</td>
@@ -541,26 +520,25 @@ $id = $_GET["id"];
 					}
 					
 					if ($fila["monto_credito_real_ven"]<>0) {
-						// $credito hipo se le asigna el credito si este tuvo cambios en el tiempo
 						$credito_hipo = number_format($fila["monto_credito_real_ven"], 2, ',', '.');
 						$credito_suma = $fila["monto_credito_real_ven"];
 					} else {
-						// $credito hipo se le asigna el credito sin cambios
 						$credito_hipo = number_format($fila["monto_credito_ven"], 2, ',', '.');
 						$credito_suma = $fila["monto_credito_ven"];
 					}
 	
-					//  pie cancelado + pie por cobrar + credito es igual a total
+
 					$total = $pie_cancelado + $fila["pie_cobrar_ven"] + $credito_suma;
-					$saldo_pie = $total - ($credito_suma + $pie_pagado_porcobrar + $pie_pagado_efectivo);		
-					echo '<br> <b>Calculo Saldo Pie</b> <br>';
-					echo $saldo_pie." = ".$total." (valor total) - (".$credito_suma."(Credito) + ".number_format($pie_pagado_porcobrar, 2, ',', '.')."(pie por cobrar) + ".$pie_pagado_efectivo."(pie pagado)) <br>"; 		
 					
+					
+					$saldo_pie = $total - ($credito_suma + $pie_pagado_porcobrar + $pie_pagado_efectivo);
+					// $saldo_pie = $total - ($credito_suma + $fila["descuento_ven"]);
+
+
 					if ($id_for_pag==1) {
 						?>
 						<tr>
 							<td class="borde centrado">Saldo Pie</td>
-						
 							<td class="borde centrado"><?php echo number_format($saldo_pie, 2, ',', '.');?></td>
 						</tr>
 						<tr>
