@@ -130,6 +130,7 @@ $id = $_GET["id"];
         ";
     $conexion->consulta_form($consulta,array(14,$id_con));
     $fila = $conexion->extraer_registro_unico();
+	$monto_gas_ven = 0;
     $porcentaje_prorrateo = utf8_encode($fila['valor_par']);
     $total_prorrateo = ($prorrateo_viv * $porcentaje_prorrateo) / 100;
     $total_prorrateo = $total_prorrateo*2;
@@ -158,6 +159,7 @@ $id = $_GET["id"];
  //    }
 
     // 
+	$fecha_gas = '--';
     $consultafecha = "SELECT 
 			fecha_pago_cliente_fondo_expotacion
 		FROM
@@ -188,6 +190,7 @@ $id = $_GET["id"];
 		    ";
 		$conexion->consulta_form($consultahay,array($id));
 		$insert = $conexion->total();
+		
 		if ($insert>0) {
 			$fila = $conexion->extraer_registro_unico();
 			$monto_gas_ven = utf8_encode($fila['valor_campo_eta_cam_ven']);
@@ -288,11 +291,13 @@ $id = $_GET["id"];
                             INNER JOIN pago_forma_pago AS for_pag ON for_pag.id_for_pag = pag.id_for_pag
                             INNER JOIN venta_venta AS ven ON ven.id_ven = pag.id_ven
                         WHERE 
-                            pag.id_ven = ?
+                            pag.id_ven = ? 
+							ORDER BY  pag.fecha_real_pag
                         ";
                     $contador = 1;
                     $conexion->consulta_form($consulta,array($id));
                     $fila_consulta = $conexion->extraer_registro();
+					$pie_pagado_efectivo = 0;
                     if(is_array($fila_consulta)){
                         foreach ($fila_consulta as $fila) {
 							$valor_uf_efectivo = 0;
@@ -400,17 +405,15 @@ $id = $_GET["id"];
 						<td></td>
 						<td colspan="2" style="text-align: center">Fondo gastos OOPP Contado</td>
 					</tr>
-					<tr class="borde">
+					<tr class="borde" style="text-align:center;">
 						<td>Monto</td>
-						<td>Fecha Pago</td>
-						<td></td>
+						<td>Fecha Pago</td>						
 						<td>Monto</td>
 						<td>Fecha Pago</td>
 					</tr>
-					<tr class="borde">
+					<tr class="borde" style="text-align:center;">
 						<td>$ <?php echo number_format($total_prorrateo, 0, ',', '.');?></td>
-						<td><?php echo $fecha_cierre; ?></td>
-						<td></td>
+						<td><?php echo $fecha_cierre; ?></td>						
 						<td><?php echo number_format($monto_gas_ven, 0, ',', '.');?></td>
 						<td><?php echo $fecha_gas; ?></td>
 					</tr>
