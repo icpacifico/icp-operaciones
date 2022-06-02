@@ -53,7 +53,7 @@ if($PROD){
 	if(!defined('_SERVER')) define('_SERVER','localhost');
 	if(!defined('_USER')) define('_USER','root');
 	if(!defined('_PASS')) define('_PASS','Proyectarse2022!!');
-	if(!defined('_DB')) define('_DB','ppsavcl_ssoopp_digital');
+	if(!defined('_DB')) define('_DB','ppsavcl_ssoopp_digital_test');
 }else{
 	
 	// if(!defined('_SERVER')) define('_SERVER','144.202.84.205');
