@@ -17,7 +17,7 @@ require "parametros.php";
 if (!defined('_RUTA')) {
 	// PRODUCCIÓN
 	if($PROD){
-	  define('_RUTA', "http://".$inicioruta."00ppsav.cl/");
+	  define('_RUTA', "https://".$inicioruta."00ppsav.cl/");
 	}else{
 	  //DESARROLLO
 	  define('_RUTA', "http://localhost/icp-operaciones/");
