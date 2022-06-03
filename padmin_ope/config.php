@@ -2,8 +2,7 @@
 date_default_timezone_set('America/Santiago');
 // Rutas para referencias
 
-$PROD = true; // si es falso, entrara en modo de desarrollo
-
+$PROD = true; // si es falso, entrata en modo de desarrollo
 
 $rutausada = substr($_SERVER['HTTP_HOST'], 0, 3);
 if ($rutausada=="www") {
@@ -18,7 +17,7 @@ require "parametros.php";
 if (!defined('_RUTA')) {
 	// PRODUCCIÓN
 	if($PROD){
-	  define('_RUTA', "https://".$inicioruta."00ppsav.cl/");
+	  define('_RUTA', "http://".$inicioruta."00ppsav.cl/");
 	}else{
 	  //DESARROLLO
 	  define('_RUTA', "http://localhost/icp-operaciones/");

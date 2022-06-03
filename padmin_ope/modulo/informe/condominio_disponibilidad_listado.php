@@ -566,7 +566,8 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                                                         viv.id_pis,
                                                                                         viv.nombre_viv
                                                                                     ";//echo $consulta." <br>";
-                                                                                $conexion->consulta_form($consulta,array($id_con,$id_vendedor,$id_cierre));
+                                                                                // $conexion->consulta_form($consulta,array($id_con,$id_vendedor,$id_cierre));
+                                                                                $conexion->consulta($consulta);
                                                                                 $fila_consulta_detalle = $conexion->extraer_registro();
                                                                                 $contador_piso = $conexion->total();
                                                                                 if(is_array($fila_consulta_detalle)){
