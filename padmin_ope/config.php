@@ -17,7 +17,7 @@ require "parametros.php";
 if (!defined('_RUTA')) {
 	// PRODUCCIÓN
 	if($PROD){
-	  define('_RUTA', "http://".$inicioruta."test.00ppsav.cl/");
+	  define('_RUTA', "http://".$inicioruta."00ppsav.cl/");
 	}else{
 	  //DESARROLLO
 	  define('_RUTA', "http://localhost/icp-operaciones/");
@@ -52,7 +52,7 @@ if($PROD){
 	if(!defined('_SERVER')) define('_SERVER','localhost');
 	if(!defined('_USER')) define('_USER','root');
 	if(!defined('_PASS')) define('_PASS','Proyectarse2022!!');
-	if(!defined('_DB')) define('_DB','ppsavcl_ssoopp_digital_test');
+	if(!defined('_DB')) define('_DB','ppsavcl_ssoopp_digital');
 }else{
 	
 	// if(!defined('_SERVER')) define('_SERVER','144.202.84.205');
