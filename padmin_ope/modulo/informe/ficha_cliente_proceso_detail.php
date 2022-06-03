@@ -14,7 +14,7 @@ require_once _INCLUDE."head_informe.php";
 
 // recibe los get
 $opc = $_GET["opc"];
-$id_pro = d64(isset($_GET["id_pro"]));
+$id_pro = d64($_GET["id_pro"]);
 $id_cot = d64(isset($_GET["id_cot"]));
 $id_ven = d64(isset($_GET["id_ven"]));
 $id_pag = d64(isset($_GET["id_pag"]));
@@ -27,74 +27,6 @@ $id_pag = d64(isset($_GET["id_pag"]));
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 <link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>dist/css/cotizador.css">
-<style type="text/css">
-/*.container-fluid .content .form-control {
-    display: block;
-    width: 100%;
-    height: 24px;
-    padding: 8px 4px;
-    font-size: 12px;
-    line-height: 1.3;
-    height: 35px;
-}
-
-.container-fluid .content .input-group .form-control.chico {
-    display: block;
-    width: 100%;
-    /*height: 24px;*/
-   /* padding: 3px 4px;
-    font-size: 12px;
-    line-height: 1.3;
-    height: 24px;
-}
-
-.filtros .input-group-addon {
-    padding: 4px 12px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1;
-    color: #555;
-    text-align: center;
-    background-color: #eee;
-    border: 1px solid #ccc;
-    border-radius: 0px;
-}
-.cabecera_tabla{
-    width: 11%;
-}
-#contenedor_filtro .label {
-    display: inline;
-    padding: .6em .8em .6em;
-    font-size: 80%;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: .25em;
-}
-
-.bg-grays{
-  background-color: #e8f0f5;
-}
-
-.filtros label {
-    display: inline-block;
-    max-width: 100%;
-    margin-bottom: 0px;
-    font-weight: 600;
-    font-size: 90%;
-}
-
-h4.titulo_informe{
-  margin-top: 0;
-}
-
-.form-group.filtrar {
-    margin-bottom: 0px;
-    padding-top: 15px;
-}*/
-</style>
 <?php include_once _INCLUDE."js_comun.php";?>
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->

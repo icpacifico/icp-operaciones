@@ -27,7 +27,7 @@
 	        	<input type="hidden" name="no-crea-pro" id="no-crea-pro" value="0"></input>
                 <div class="box-body">
                     <div class="row">
-                    	<?php
+                    	<?php                    
                     	$consulta_pro = 
 				            "
 				            SELECT
