@@ -2,7 +2,7 @@
 date_default_timezone_set('America/Santiago');
 // Rutas para referencias
 
-$PROD = true; // si es falso, entrata en modo de desarrollo
+$PROD = false; // si es falso, entrara en modo de desarrollo
 
 $rutausada = substr($_SERVER['HTTP_HOST'], 0, 3);
 if ($rutausada=="www") {
