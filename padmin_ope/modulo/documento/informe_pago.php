@@ -292,12 +292,13 @@ $id = $_GET["id"];
                             INNER JOIN venta_venta AS ven ON ven.id_ven = pag.id_ven
                         WHERE 
                             pag.id_ven = ? 
-							ORDER BY  pag.fecha_real_pag
+							ORDER BY  pag.fecha_real_pag 
                         ";
                     $contador = 1;
                     $conexion->consulta_form($consulta,array($id));
                     $fila_consulta = $conexion->extraer_registro();
 					$pie_pagado_efectivo = 0;
+					$fecha_real_mostrar = "";
                     if(is_array($fila_consulta)){
                         foreach ($fila_consulta as $fila) {
 							$valor_uf_efectivo = 0;
@@ -305,7 +306,7 @@ $id = $_GET["id"];
 							$pie_pagado_porcobrar = 0;
                         	
                             if ($fila["fecha_real_pag"]=="0000-00-00" || $fila["fecha_real_pag"]==null) { //abonos no cancelados aún
-                                $fecha_real_mostrar = "";
+                                
 
                                 $consulta = 
     							"

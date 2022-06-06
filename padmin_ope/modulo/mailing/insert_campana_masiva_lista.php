@@ -16,6 +16,7 @@ if(!isset($_POST["enlace_imagen"])){
 
 include("../class/mailing_clase.php");
 $mailing = new mailing();
+$describe_masiva = "";
 $ids = isset($_POST["ids"]) ? utf8_encode($_POST["ids"]) : 0;
 $ids_cant = isset($_POST["ids_cant"]) ? utf8_encode($_POST["ids_cant"]) : 0;
 
@@ -63,7 +64,7 @@ if($cantidad_mes_actual == 1) {
 		if ($respuesta_sendgrid[0]==1) {
 			$jsondata['envio'] = 1;
 		} else {
-			$jsondata['envio'] = 5;
+			$jsondata['envio'] = 5;			
 			$jsondata['respuesta'] = $respuesta_sendgrid[1];
 		}
 	} else {
