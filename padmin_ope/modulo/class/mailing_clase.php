@@ -245,7 +245,7 @@ class mailing
 			  CURLOPT_CUSTOMREQUEST => "POST",
 			  CURLOPT_POSTFIELDS => $fields,
 			  CURLOPT_HTTPHEADER => array(
-			    "authorization: Bearer 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",
+			    "authorization: Bearer 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",
 			    "content-type: application/json"
 			  ),
 			));
