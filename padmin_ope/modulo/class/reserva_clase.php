@@ -307,7 +307,7 @@ class reserva
 		// //Set the hostname of the mail server
 		// $mail->Host = 'smtp.gmail.com';
 		// $mail->Port = 587;
-		// //Set the encryption system to use - ssl (deprecated) or tls
+		// Set the encryption system to use - ssl (deprecated) or tls
 		// $mail->SMTPSecure = 'tls';
 		// //Whether to use SMTP authentication
 		// $mail->SMTPAuth = true;

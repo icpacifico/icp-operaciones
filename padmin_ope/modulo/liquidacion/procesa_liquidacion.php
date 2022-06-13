@@ -18,7 +18,9 @@ $mes = $_POST["mes"];
 $anio = $_POST["anio"];
 $vendedores = array();
 $C2 = array();
+$C3 = array();
 $contendorBonos = array();
+$contendorBonosC3 = array();
 $condominio = (isset($_POST["condominio"]))?$_POST["condominio"]:0;
 $_SESSION["sesion_fecha_desde_liquidacion_panel"] = $fecha_desde;
 $_SESSION["sesion_fecha_hasta_liquidacion_panel"] = $fecha_hasta;
@@ -1111,12 +1113,147 @@ if(is_array($fila_consulta)){
 
 									}
 								}
-							?>
-							<!-- 
+							
+							/*
 
 							aqui termina el bono c2
 
-						    -->
+						    */
+
+							/**************************/
+
+							// Comienzo de bono c3
+
+							// definir total de metas y ventas según el mes en progreso
+							// definir porcentajes a regir en el resultado de total de metas y ventas
+							// si el mes es 6 sacar total de metas y ventas desde el 1 al 6, si el mes es 12 sacar el total desde el 7 al 12 
+							$messc3 = explode("-", $fecha_hasta);
+							$metac3="";
+							$numVentas = "";
+							if($messc3[1]==6 || $messc3[1]==12){
+								if($messc3[1]==6){
+									$metac3 = '
+										SELECT 
+										SUM(valor_met_ven) as totalMeta
+										FROM vendedor_meta_vendedor
+										WHERE id_vend = '.$fila["id_vend"].' and
+										anio_mes = '.$messc3[2].' and
+										id_mes >= 1 and id_mes <= 6 
+									'; 
+									$numVentas = '
+									SELECT 
+									COUNT(DISTINCT(venta.id_ven)) as numeroVentas
+									FROM vendedor_vendedor as vende
+									INNER JOIN vendedor_meta_vendedor as meta ON vende.id_vend = meta.id_vend
+									INNER JOIN venta_venta as venta ON venta.id_vend = vende.id_vend
+									WHERE vende.id_vend = '.$fila["id_vend"].' and
+									vende.id_est_vend = 1 and                                              
+									DATE(venta.fecha_promesa_ven) >= "'.$messc3[2].'-01-01" and
+									DATE(venta.fecha_promesa_ven) <= "'.formateoFecha( $fecha_hasta ).'" and
+									venta.id_est_ven >= 4                                  
+									';
+
+
+								}else if($messc3[1]==12){
+									$metac3 = '
+										SELECT 
+										SUM(valor_met_ven) as totalMeta
+										FROM vendedor_meta_vendedor
+										WHERE id_vend = '.$fila["id_vend"].' and
+										anio_mes = '.$messc3[2].' and
+										id_mes >= 7 and id_mes <= 12
+									'; 
+									$numVentas = '
+									SELECT 
+									COUNT(DISTINCT(venta.id_ven)) as numeroVentas
+									FROM vendedor_vendedor as vende
+									INNER JOIN vendedor_meta_vendedor as meta ON vende.id_vend = meta.id_vend
+									INNER JOIN venta_venta as venta ON venta.id_vend = vende.id_vend
+									WHERE vende.id_vend = '.$fila["id_vend"].' and
+									vende.id_est_vend = 1 and                                              
+									DATE(venta.fecha_promesa_ven) >= "'.$messc3[2].'-07-01" and
+									DATE(venta.fecha_promesa_ven) <= "'.formateoFecha( $fecha_hasta ).'" and
+									venta.id_est_ven = 4                                  
+									';
+								}										
+																										
+									$conexion->consulta($metac3);
+									$consulta_meta_total = $conexion->extraer_registro();
+									// total de metas de los últimos 6 meses dependiendo de si es junio o diciembre
+									$total_metas = $consulta_meta_total[0]['totalMeta'];
+
+									$conexion->consulta($numVentas);
+									$consulta_ventas_total = $conexion->extraer_registro(); 
+									// total de ventas de los últimos 6 meses dependiendo de si es junio o diciembre
+									$total_ventas = $consulta_ventas_total[0]['numeroVentas'];
+
+									$resultadoc3 = ($total_ventas / $total_metas) * 100;
+										$bonoC3 = 0;	
+										echo round($resultadoc3,0)." = ( ".$total_ventas." / ".$total_metas." ) * 100;";								
+										if($resultadoc3>=100){
+											switch ($resultadoc3) {
+												case ($resultadoc3==100):
+													$bonoC3 = ($sueldoBase * 12) / 100;
+													break;
+												case ($resultadoc3>=101 && $resultadoc3<=150):
+													$bonoC3 = ($sueldoBase * 16) / 100;
+													break;
+												case ($resultadoc3>=151):
+													$bonoC3 = ($sueldoBase * 17) / 100;
+													break;
+												default:
+													# code...
+													break;
+											}
+								
+										?>
+											<tr>
+											<td class="active" colspan="1"><b>Bono C3	:</b></td>
+											<td colspan="1">Cumplimiento : %<?php echo round($resultadoc3,0)?> </td>	
+											<?php 
+											$nombre_mes_c3 = "";
+											$consulta_mesc3 = "
+											SELECT nombre_mes
+											FROM mes_mes
+											WHERE id_mes = ".$mes."										
+											";
+											$conexion->consulta($consulta_mesc3);
+											$nombre_mes_c3 = $conexion->extraer_registro(); 
+
+											?>							
+											<td colspan="1" class="text-center">Mes : <?php echo $nombre_mes_c3[0]['nombre_mes']?> </td>
+											<td colspan="1" class="text-left">Total $<?php echo $bonoC3?> </td>
+											<td colspan="8"></td>
+											</tr>
+										
+											<?php
+											
+											if(count($contendorBonosC3)>0){
+												for ($i=0; $i < count($contendorBonosC3); $i++) { 
+													
+														if(strcmp($contendorBonosC3[$i]["id_vendedor"],$fila["id_vend"])===0){}else{
+															$C3 = array(
+																'nombre' => 'Bono C3',
+																'porcentaje' => $resultadoc3,
+																'monto' => $bonoC3,
+																'id_vendedor' => $fila["id_vend"],
+																'mes' =>  $nombre_mes_c3[0]['nombre_mes']
+															 );
+														}	
+												}
+											 }else{
+												$C3 = array(
+													'nombre' => 'Bono C3',
+													'porcentaje' => $resultadoc3,
+													'monto' => $bonoC3,
+													'id_vendedor' => $fila["id_vend"],
+													'mes' =>  $nombre_mes_c3[0]['nombre_mes']
+												 );
+											 } 
+											}
+
+							}
+							?>
 		                    <tr class="success">
 		                        <td colspan="2"><b>Total a Pagar</b></td>
 		                        <td colspan="2"><?php echo number_format($monto_acumulado_a_pagar, 0, ',', '.');?>.-</td>
@@ -1128,12 +1265,16 @@ if(is_array($fila_consulta)){
 				
 				 
 		          $contendorBonos[$cont]= $C2;				 
+		          $contendorBonosC3[$cont]= $C3;				 
 				  $cont += 1;
 				  
 			   }  
 		    }
+
 			$contendor = array_unique($contendorBonos, SORT_REGULAR);
+			$contendorc3 = array_unique($contendorBonosC3, SORT_REGULAR);
 			$_SESSION["c2"]=$contendor;
+			$_SESSION["c3"]=$contendorc3;
 			//--------- VENDEDORES FIN ---------
 
 		    //--------- OPERACIONES ---------

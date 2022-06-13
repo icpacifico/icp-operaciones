@@ -1557,27 +1557,54 @@ if(is_array($fila_consulta)){
 		// 				die(json_encode($row));
 	}
 
-    // guardado de bono C2
+  
 
 		$bonos = $_SESSION['c2'];	
+		$bonoc3 = $_SESSION['c3'];	
 		$c2 = array();
+		$c3 = array();
 		$contenedor = array();
+		$contenedorc3 = array();
 		$count = 0;
-		foreach ($bonos as $k => $v) 
-		{
-			foreach ($v as $c => $d) {
-				array_push($c2, $d);						
+		$countc3 = 0;
+
+		// guardado de bono C2
+		if(count($_SESSION['c2'][0])>0){
+			var_dump($_SESSION['c2'][0]);
+			foreach ($bonos as $k => $v) 
+			{
+				foreach ($v as $c => $d) {
+					array_push($c2, $d);						
+				}
+				$contenedor[$count]=$c2;
+				unset($c2);
+				$c2 = array();
+				$count+=1;
 			}
-			$contenedor[$count]=$c2;
-			unset($c2);
-			$c2 = array();
-			$count+=1;
+			$consulta = "INSERT INTO bonos(nombre,porcentaje,monto,id_vendedor,id_cierre,mes) VALUES(?,?,?,?,?,?)";
+			for ($i=0; $i < count($contenedor); $i++) { $conexion->consulta_form($consulta,array($contenedor[$i][0] , $contenedor[$i][1], $contenedor[$i][2], $contenedor[$i][3], $ultimo_id, $contenedor[$i][4]));}
+
 		}
-		$consulta = "INSERT INTO bonos(nombre,porcentaje,monto,id_vendedor,id_cierre,mes) VALUES(?,?,?,?,?,?)";
-		for ($i=0; $i < count($contenedor); $i++) { $conexion->consulta_form($consulta,array($contenedor[$i][0] , $contenedor[$i][1], $contenedor[$i][2], $contenedor[$i][3], $ultimo_id, $contenedor[$i][4]));}
+		
+    	// fin guardado de bono C2
 
+		// guardado de bono c3
+		if(count($_SESSION['c3'][0])>0){
+			foreach ($bonoc3 as $k => $v) 
+			{
+				foreach ($v as $c => $d) {
+					array_push($c3, $d);						
+				}
+				$contenedorc3[$countc3]=$c3;
+				unset($c3);
+				$c3 = array();
+				$countc3+=1;
+			}
+			$consultac3 = "INSERT INTO bonos(nombre,porcentaje,monto,id_vendedor,id_cierre,mes) VALUES(?,?,?,?,?,?)";
+			for ($i=0; $i < count($contenedorc3); $i++) { $conexion->consulta_form($consultac3,array($contenedorc3[$i][0] , $contenedorc3[$i][1], $contenedorc3[$i][2], $contenedorc3[$i][3], $ultimo_id, $contenedorc3[$i][4]));}
+		}
+		
 
-	// fin guardado de bono C2
 				
 }
 

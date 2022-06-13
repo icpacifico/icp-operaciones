@@ -920,8 +920,7 @@ if($id_vendedor<>3){
         bonos
     WHERE
         id_vendedor = ? and
-        id_cierre = ? and
-        nombre = 'Bono C2'
+        id_cierre = ? 
     ";
     $conexion->consulta_form($bonos,array($id_vendedor,$id_cierre));
     $bonos_detalle = $conexion->extraer_registro();
@@ -936,7 +935,7 @@ $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_
     <table class="liquida" style=" margin-bottom:50px;">
         <thead>
             <tr>
-                <th colspan="11" style="text-align:center;border:1px solid #000000; font-weight: 700;">BONO C2.</th>
+                <th colspan="11" style="text-align:center;border:1px solid #000000; font-weight: 700;">'.$bonos_detalle[0]['nombre'].'</th>
             </tr>
         </thead>
         <tbody>
