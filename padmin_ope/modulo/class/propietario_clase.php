@@ -517,7 +517,7 @@ class propietario
 		  // CURLOPT_POSTFIELDS => "{\"personalizations\":[{\"to\":[{\"email\":\"brunomailcasa@gmail.com\",\"name\":\"John Doe\"}],\"dynamic_template_data\":{\"verb\":\"HOLA\"\"subject\":\"Asunto Dinámico 1\",\"adjective\":\"CHAU\",\"link_image\":\"https://icpacifico.cl/\"},\"subject\":\"Asunto Dinámico 2\"}],\"from\":{\"email\":\"kmiranda@icpacifico.cl\",\"name\":\"Jeannise\"},\"reply_to\":{\"email\":\"kmiranda@icpacifico.cl\",\"name\":\"Jeannise\"},\"template_id\":\"d-a09b82088125446da5439024687ce688\"}",
 		  CURLOPT_POSTFIELDS => $fields,
 		  CURLOPT_HTTPHEADER => array(
-		    "authorization: Bearer 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",
+		    "authorization: Bearer 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",
 		    "content-type: application/json"
 		  ),
 		));
