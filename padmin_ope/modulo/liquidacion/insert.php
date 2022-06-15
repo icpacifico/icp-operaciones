@@ -1559,12 +1559,16 @@ if(is_array($fila_consulta)){
 
   
 
+		$bonosc1 = $_SESSION['c1'];	
 		$bonos = $_SESSION['c2'];	
 		$bonoc3 = $_SESSION['c3'];	
+		$c1 = array();
 		$c2 = array();
 		$c3 = array();
+		$contenedorc1 = array();
 		$contenedor = array();
 		$contenedorc3 = array();
+		$countc1 = 0;
 		$count = 0;
 		$countc3 = 0;
 
@@ -1603,6 +1607,26 @@ if(is_array($fila_consulta)){
 			$consultac3 = "INSERT INTO bonos(nombre,porcentaje,monto,id_vendedor,id_cierre,mes) VALUES(?,?,?,?,?,?)";
 			for ($i=0; $i < count($contenedorc3); $i++) { $conexion->consulta_form($consultac3,array($contenedorc3[$i][0] , $contenedorc3[$i][1], $contenedorc3[$i][2], $contenedorc3[$i][3], $ultimo_id, $contenedorc3[$i][4]));}
 		}
+
+		// fin guardado de bono C3
+
+		// guardado de bono c1
+		if(count($_SESSION['c1'][0])>0){
+			foreach ($bonosc1 as $k => $v) 
+			{
+				foreach ($v as $c => $d) {
+					array_push($c1, $d);						
+				}
+				$contenedorc1[$countc1]=$c1;
+				unset($c1);
+				$c1 = array();
+				$countc1+=1;
+			}
+			$consultac1 = "INSERT INTO bonos(nombre,porcentaje,monto,id_vendedor,id_cierre,mes) VALUES(?,?,?,?,?,?)";
+			for ($i=0; $i < count($contenedorc1); $i++) { $conexion->consulta_form($consultac1,array($contenedorc1[$i][0] , $contenedorc1[$i][1], $contenedorc1[$i][2], $contenedorc1[$i][3], $ultimo_id, $contenedorc1[$i][4]));}
+		}
+		// fin guardado de bono C1
+
 		
 
 				

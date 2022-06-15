@@ -17,8 +17,10 @@ $fecha_hasta = $_POST["fecha_hasta"];
 $mes = $_POST["mes"];
 $anio = $_POST["anio"];
 $vendedores = array();
+$C1 = array();
 $C2 = array();
 $C3 = array();
+$contendorBonosC1 = array();
 $contendorBonos = array();
 $contendorBonosC3 = array();
 $condominio = (isset($_POST["condominio"]))?$_POST["condominio"]:0;
@@ -1063,7 +1065,7 @@ if(is_array($fila_consulta)){
 											}
 											?>
 											<tr>
-											<td class="active" colspan="1"><b>Bono C2	:</b></td>
+											<td class="active" colspan="2"><b>Bono C2	:</b></td>
 											<td colspan="1">Cumplimiento : %<?php echo $resultado?> </td>	
 											<?php 
 											$consulta_mes = "
@@ -1077,7 +1079,7 @@ if(is_array($fila_consulta)){
 											?>							
 											<td colspan="1" class="text-center">Mes : <?php echo $nombre_mes[0]['nombre_mes']?> </td>
 											<td colspan="1" class="text-left">Total $<?php echo $bonoC2?> </td>
-											<td colspan="8"></td>
+											<td colspan="7"></td>
 											</tr>
 										
 											<?php 
@@ -1188,8 +1190,7 @@ if(is_array($fila_consulta)){
 									$total_ventas = $consulta_ventas_total[0]['numeroVentas'];
 
 									$resultadoc3 = ($total_ventas / $total_metas) * 100;
-										$bonoC3 = 0;	
-										echo round($resultadoc3,0)." = ( ".$total_ventas." / ".$total_metas." ) * 100;";								
+										$bonoC3 = 0;																	
 										if($resultadoc3>=100){
 											switch ($resultadoc3) {
 												case ($resultadoc3==100):
@@ -1208,7 +1209,7 @@ if(is_array($fila_consulta)){
 								
 										?>
 											<tr>
-											<td class="active" colspan="1"><b>Bono C3	:</b></td>
+											<td class="active" colspan="2"><b>Bono C3	:</b></td>
 											<td colspan="1">Cumplimiento : %<?php echo round($resultadoc3,0)?> </td>	
 											<?php 
 											$nombre_mes_c3 = "";
@@ -1223,7 +1224,7 @@ if(is_array($fila_consulta)){
 											?>							
 											<td colspan="1" class="text-center">Mes : <?php echo $nombre_mes_c3[0]['nombre_mes']?> </td>
 											<td colspan="1" class="text-left">Total $<?php echo $bonoC3?> </td>
-											<td colspan="8"></td>
+											<td colspan="7"></td>
 											</tr>
 										
 											<?php
@@ -1253,6 +1254,62 @@ if(is_array($fila_consulta)){
 											}
 
 							}
+
+							// Comienzo de bono c1
+							
+							$messc1 = explode("-", $fecha_hasta);
+																					
+							if($messc1[1]==3 || $messc1[1]==6 || $messc1[1]==9 || $messc1[1]==12){
+								if($fila["id_vend"] == 13 || $fila["id_vend"] == 15){																								
+									$bonoC1=0;
+										?>
+											<tr>
+											<td class="active" colspan="2"><b>Bono C1	:</b></td>
+											<td colspan="2">Cumplimiento de evaluación de desempeño sobresaliente.</td>	
+											<?php 
+											$nombre_mes_c1 = "";
+											$consulta_mesc1 = "
+											SELECT nombre_mes
+											FROM mes_mes
+											WHERE id_mes = ".$mes."										
+											";
+											$conexion->consulta($consulta_mesc1);
+											$nombre_mes_c1 = $conexion->extraer_registro(); 
+
+											$bonoC1 = ($sueldoBase * 0.50) + $sueldoBase;
+											?>							
+											<td colspan="1" class="text-center">Mes : <?php echo $nombre_mes_c1[0]['nombre_mes']?> </td>
+											<td colspan="1" class="text-left">Total $<?php echo $bonoC1?> </td>
+											<td colspan="6"></td>
+											</tr>
+										
+											<?php
+											
+											if(count($contendorBonosC1)>0){
+												for ($i=0; $i < count($contendorBonosC1); $i++) { 
+													
+														if(strcmp($contendorBonosC1[$i]["id_vendedor"],$fila["id_vend"])===0){}else{
+															$C1 = array(
+																'nombre' => 'Bono C1',
+																'porcentaje' => 50,
+																'monto' => $bonoC1,
+																'id_vendedor' => $fila["id_vend"],
+																'mes' =>  $nombre_mes_c1[0]['nombre_mes']
+															 );
+														}	
+												}
+											 }else{
+												$C1 = array(
+													'nombre' => 'Bono C1',
+													'porcentaje' => 50,
+													'monto' => $bonoC1,
+													'id_vendedor' => $fila["id_vend"],
+													'mes' =>  $nombre_mes_c1[0]['nombre_mes']
+												 );
+											 } 
+											
+								}
+							}
 							?>
 		                    <tr class="success">
 		                        <td colspan="2"><b>Total a Pagar</b></td>
@@ -1264,6 +1321,7 @@ if(is_array($fila_consulta)){
 		            <?php
 				
 				 
+		          $contendorBonosC1[$cont]= $C1;				 
 		          $contendorBonos[$cont]= $C2;				 
 		          $contendorBonosC3[$cont]= $C3;				 
 				  $cont += 1;
@@ -1271,8 +1329,10 @@ if(is_array($fila_consulta)){
 			   }  
 		    }
 
+			$contendorC1 = array_unique($contendorBonosC1, SORT_REGULAR);
 			$contendor = array_unique($contendorBonos, SORT_REGULAR);
 			$contendorc3 = array_unique($contendorBonosC3, SORT_REGULAR);
+			$_SESSION["c1"]=$contendorC1;
 			$_SESSION["c2"]=$contendor;
 			$_SESSION["c3"]=$contendorc3;
 			//--------- VENDEDORES FIN ---------

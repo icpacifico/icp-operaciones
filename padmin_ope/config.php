@@ -8,7 +8,7 @@ date_default_timezone_set('America/Santiago');
 	2) .- es para el ambiente de pruebas
 	3) .- es para el ambiente de desarrollo 
 */
-$MOD = 3; // si es falso, entrata en modo de desarrollo
+$MOD = 2; 
 
 $rutausada = substr($_SERVER['HTTP_HOST'], 0, 3);
 if ($rutausada=="www") {

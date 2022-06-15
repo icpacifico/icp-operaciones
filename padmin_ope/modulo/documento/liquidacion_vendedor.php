@@ -1015,8 +1015,7 @@ $bonos ="
     ";
 $conexion->consulta_form($bonos,array($id_vendedor,$id_cierre));
 $bonos_detalle = $conexion->extraer_registro();
-$total_liquidacion_bonos += $bonos_detalle[0]['monto'];
-$total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
+
 ?>
 <!-- nuevo resumen final -->
 <?php 
@@ -1024,27 +1023,33 @@ if($id_vendedor<>3){
     
    
     if(is_array($bonos_detalle)){     
+        for ($i=0; $i < count($bonos_detalle); $i++) { 
+            
+            $total_liquidacion_bonos += $bonos_detalle[$i]['monto'];
+            $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
  ?>
+
     <table class="liquida" style=" margin-bottom:50px;">
         <thead>
             <tr>
-                <th colspan="11" style="text-align:center;border:1px solid #000000; font-weight: 700;"><?php echo $bonos_detalle[0]['nombre']?></th>
+                <th colspan="11" style="text-align:center;border:1px solid #000000; font-weight: 700;"><?php echo $bonos_detalle[$i]['nombre']?></th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td colspan="4" style="text-align:right;border:1px solid #000000;">% Cumplimiento : <?php echo $bonos_detalle[0]['porcentaje']?>%</td>                
-                <td colspan="2" style="text-align:center;border:1px solid #000000;">Mes de <?php echo $bonos_detalle[0]['mes']?></td>
+                <td colspan="4" style="text-align:right;border:1px solid #000000;">% Cumplimiento : <?php echo $bonos_detalle[$i]['porcentaje']?>%</td>                
+                <td colspan="2" style="text-align:center;border:1px solid #000000;">Mes de <?php echo $bonos_detalle[$i]['mes']?></td>
                 <?php
                 $rango  = "";
-                if($bonos_detalle[0]['porcentaje'] == 100){ $rango = "Igual a 100%";}else if($bonos_detalle[0]['porcentaje'] >100){ $rango = "desde 101% a 150%";}else if($bonos_detalle[0]['porcentaje'] >150){ $rango = " de 150% en adelante";}
+                if($bonos_detalle[$i]['porcentaje'] == 100){ $rango = "Igual a 100%";}else if($bonos_detalle[$i]['porcentaje'] >100){ $rango = "desde 101% a 150%";}else if($bonos_detalle[$i]['porcentaje'] >150){ $rango = " de 150% en adelante";}else{ $rango ="por desempeño";}
                 ?>
                 <td colspan="2" style="text-align:center;border:1px solid #000000;">Rango de cumplimiento <?php echo $rango?></td>
-                <td colspan="3" style="text-align:left;border:1px solid #000000;">Total $<?php echo $bonos_detalle[0]['monto']?></td>               
+                <td colspan="3" style="text-align:left;border:1px solid #000000;">Total $<?php echo $bonos_detalle[$i]['monto']?></td>               
             </tr>
         </tbody>
     </table>
 <?php
+       }
     }
 ?>
 

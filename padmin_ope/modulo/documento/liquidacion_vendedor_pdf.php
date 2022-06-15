@@ -924,29 +924,32 @@ if($id_vendedor<>3){
     ";
     $conexion->consulta_form($bonos,array($id_vendedor,$id_cierre));
     $bonos_detalle = $conexion->extraer_registro();
-    $total_liquidacion_bonos += $bonos_detalle[0]['monto'];
-$total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
+    
 
 
     if(is_array($bonos_detalle)){
+        for ($i=0; $i < count($bonos_detalle); $i++) {
+            $total_liquidacion_bonos += $bonos_detalle[$i]['monto'];
+            $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
         $rango  = "";
-        if($bonos_detalle[0]['porcentaje'] == 100){ $rango = "Igual a 100%";}else if($bonos_detalle[0]['porcentaje'] >100){ $rango = "desde 101% a 150%";}else if($bonos_detalle[0]['porcentaje'] >150){ $rango = " de 150% en adelante";}
-  $html .= '      
-    <table class="liquida" style=" margin-bottom:50px;">
-        <thead>
-            <tr>
-                <th colspan="11" style="text-align:center;border:1px solid #000000; font-weight: 700;">'.$bonos_detalle[0]['nombre'].'</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td colspan="4" style="text-align:right;border:1px solid #000000;">% Cumplimiento : '.$bonos_detalle[0]['porcentaje'].'%</td>                
-                <td colspan="2" style="text-align:center;border:1px solid #000000;">Mes de '.$bonos_detalle[0]['mes'].'</td>               
-                <td colspan="2" style="text-align:center;border:1px solid #000000;">Rango de cumplimiento '.$rango.'</td>
-                <td colspan="3" style="text-align:left;border:1px solid #000000;">Total $'.$bonos_detalle[0]['monto'].'</td>               
-            </tr>
-        </tbody>
-    </table>';
+        if($bonos_detalle[$i]['porcentaje'] == 100){ $rango = "Igual a 100%";}else if($bonos_detalle[$i]['porcentaje'] >100){ $rango = "desde 101% a 150%";}else if($bonos_detalle[$i]['porcentaje'] >150){ $rango = " de 150% en adelante";}else{ $rango ="por desempeño";}
+       $html .= '      
+        <table class="liquida" style=" margin-bottom:50px;">
+            <thead>
+                <tr>
+                    <th colspan="11" style="text-align:center;border:1px solid #000000; font-weight: 700;">'.$bonos_detalle[$i]['nombre'].'</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4" style="text-align:right;border:1px solid #000000;">% Cumplimiento : '.$bonos_detalle[$i]['porcentaje'].'%</td>                
+                    <td colspan="2" style="text-align:center;border:1px solid #000000;">Mes de '.$bonos_detalle[$i]['mes'].'</td>               
+                    <td colspan="2" style="text-align:center;border:1px solid #000000;">Rango de cumplimiento '.$rango.'</td>
+                    <td colspan="3" style="text-align:left;border:1px solid #000000;">Total $'.$bonos_detalle[$i]['monto'].'</td>               
+                </tr>
+            </tbody>
+        </table>';
+        }
     }
 $html .= '<table class="liquida">
 	<thead>
