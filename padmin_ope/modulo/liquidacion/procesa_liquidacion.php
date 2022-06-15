@@ -1152,7 +1152,7 @@ if(is_array($fila_consulta)){
 									vende.id_est_vend = 1 and                                              
 									DATE(venta.fecha_promesa_ven) >= "'.$messc3[2].'-01-01" and
 									DATE(venta.fecha_promesa_ven) <= "'.formateoFecha( $fecha_hasta ).'" and
-									venta.id_est_ven >= 4                                  
+									venta.id_est_ven = 4                                  
 									';
 
 
