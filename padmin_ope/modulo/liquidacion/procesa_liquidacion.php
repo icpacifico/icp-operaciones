@@ -1276,7 +1276,7 @@ if(is_array($fila_consulta)){
 											$conexion->consulta($consulta_mesc1);
 											$nombre_mes_c1 = $conexion->extraer_registro(); 
 
-											$bonoC1 = ($sueldoBase * 0.50) + $sueldoBase;
+											$bonoC1 = $sueldoBase * 0.50;
 											?>							
 											<td colspan="1" class="text-center">Mes : <?php echo $nombre_mes_c1[0]['nombre_mes']?> </td>
 											<td colspan="1" class="text-left">Total $<?php echo $bonoC1?> </td>
