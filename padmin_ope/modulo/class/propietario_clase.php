@@ -262,28 +262,28 @@ class propietario
 	}
 
     private function calcula_cantidad_mensual_mails($cant_a_enviar){
-    	$mes_actual = date("n");
-    	$anio_actual = date("Y");
-		$conexion = new conexion();
-		$consulta = "SELECT SUM(cantidad_cam) AS cant_enviados FROM campana_mail_campana WHERE MONTH(fecha_cam)=".$mes_actual." AND YEAR(fecha_cam) = ".$anio_actual."";
-		$conexion->consulta($consulta);
-		$fila = $conexion->extraer_registro_unico();
-		$cantidad_enviados_mes = $fila["cant_enviados"];
+    	// $mes_actual = date("n");
+    	// $anio_actual = date("Y");
+		// $conexion = new conexion();
+		// $consulta = "SELECT SUM(cantidad_cam) AS cant_enviados FROM campana_mail_campana WHERE MONTH(fecha_cam)=".$mes_actual." AND YEAR(fecha_cam) = ".$anio_actual."";
+		// $conexion->consulta($consulta);
+		// $fila = $conexion->extraer_registro_unico();
+		// $cantidad_enviados_mes = $fila["cant_enviados"];
 		
-		// busca parámetro cantidad
-		$consulta = "SELECT valor_par FROM parametro_parametro WHERE id_par = 109";
-		$conexion->consulta($consulta);
-		$fila = $conexion->extraer_registro_unico();
-		$tope_mensual = $fila["valor_par"];
-		$conexion->cerrar();
-		// calcula
-		$total_envios = $cantidad_enviados_mes + $cant_a_enviar;
-		if($total_envios > $tope_mensual) {
-			return $total_envios;
-		} else {
-			return 1;
-		}
-		
+		// // busca parámetro cantidad
+		// $consulta = "SELECT valor_par FROM parametro_parametro WHERE id_par = 109";
+		// $conexion->consulta($consulta);
+		// $fila = $conexion->extraer_registro_unico();
+		// $tope_mensual = $fila["valor_par"];
+		// $conexion->cerrar();
+		// // calcula
+		// $total_envios = $cantidad_enviados_mes + $cant_a_enviar;
+		// if($total_envios > $tope_mensual) {
+		// 	return $total_envios;
+		// } else {
+		// 	return 1;
+		// }
+		return 1;
     }
 
 	// Método GET para calcular cantidad mensual de mails
