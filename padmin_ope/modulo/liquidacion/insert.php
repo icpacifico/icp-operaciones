@@ -1559,9 +1559,9 @@ if(is_array($fila_consulta)){
 
   
 
-		$bonosc1 = $_SESSION['c1'];	
-		$bonos = $_SESSION['c2'];	
-		$bonoc3 = $_SESSION['c3'];	
+		$bonosc1 = (count($_SESSION['c1'])>0) ? $_SESSION['c1'] : '';	
+		$bonos = (count($_SESSION['c2'])>0) ? $_SESSION['c2'] : '';
+		$bonoc3 = (count($_SESSION['c3'])>0) ? $_SESSION['c3'] : '';	
 		$c1 = array();
 		$c2 = array();
 		$c3 = array();
@@ -1573,8 +1573,7 @@ if(is_array($fila_consulta)){
 		$countc3 = 0;
 
 		// guardado de bono C2
-		if(count($_SESSION['c2'][0])>0){
-			var_dump($_SESSION['c2'][0]);
+		if($bonos != ''){			
 			foreach ($bonos as $k => $v) 
 			{
 				foreach ($v as $c => $d) {
@@ -1593,12 +1592,13 @@ if(is_array($fila_consulta)){
     	// fin guardado de bono C2
 
 		// guardado de bono c3
-		if(count($_SESSION['c3'][0])>0){
+		if($bonoc3 != ''){
 			foreach ($bonoc3 as $k => $v) 
 			{
 				foreach ($v as $c => $d) {
 					array_push($c3, $d);						
 				}
+				
 				$contenedorc3[$countc3]=$c3;
 				unset($c3);
 				$c3 = array();
@@ -1610,18 +1610,20 @@ if(is_array($fila_consulta)){
 
 		// fin guardado de bono C3
 
-		// guardado de bono c1
-		if(count($_SESSION['c1'][0])>0){
+		// guardado de bono c1	
+		if($bonosc1 != ''){
 			foreach ($bonosc1 as $k => $v) 
 			{
-				foreach ($v as $c => $d) {
-					array_push($c1, $d);						
+				foreach ($v as $c => $d) {				
+						array_push($c1, $d);															
 				}
-				$contenedorc1[$countc1]=$c1;
-				unset($c1);
-				$c1 = array();
-				$countc1+=1;
-			}
+				if(isset($c1[$countc1])){
+					$contenedorc1[$countc1]=$c1;
+					unset($c1);
+					$c1 = array();
+					$countc1+=1;
+				}								
+			}			
 			$consultac1 = "INSERT INTO bonos(nombre,porcentaje,monto,id_vendedor,id_cierre,mes) VALUES(?,?,?,?,?,?)";
 			for ($i=0; $i < count($contenedorc1); $i++) { $conexion->consulta_form($consultac1,array($contenedorc1[$i][0] , $contenedorc1[$i][1], $contenedorc1[$i][2], $contenedorc1[$i][3], $ultimo_id, $contenedorc1[$i][4]));}
 		}

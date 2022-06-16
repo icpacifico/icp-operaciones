@@ -1232,7 +1232,7 @@ if(is_array($fila_consulta)){
 											if(count($contendorBonosC3)>0){
 												for ($i=0; $i < count($contendorBonosC3); $i++) { 
 													
-														if(strcmp($contendorBonosC3[$i]["id_vendedor"],$fila["id_vend"])===0){}else{
+														
 															$C3 = array(
 																'nombre' => 'Bono C3',
 																'porcentaje' => $resultadoc3,
@@ -1240,7 +1240,7 @@ if(is_array($fila_consulta)){
 																'id_vendedor' => $fila["id_vend"],
 																'mes' =>  $nombre_mes_c3[0]['nombre_mes']
 															 );
-														}	
+															
 												}
 											 }else{
 												$C3 = array(
@@ -1276,7 +1276,7 @@ if(is_array($fila_consulta)){
 											$conexion->consulta($consulta_mesc1);
 											$nombre_mes_c1 = $conexion->extraer_registro(); 
 
-											$bonoC1 = $sueldoBase * 0.50;
+											$bonoC1 = ($sueldoBase * 0.50)+$sueldoBase;
 											?>							
 											<td colspan="1" class="text-center">Mes : <?php echo $nombre_mes_c1[0]['nombre_mes']?> </td>
 											<td colspan="1" class="text-left">Total $<?php echo $bonoC1?> </td>
@@ -1288,7 +1288,7 @@ if(is_array($fila_consulta)){
 											if(count($contendorBonosC1)>0){
 												for ($i=0; $i < count($contendorBonosC1); $i++) { 
 													
-														if(strcmp($contendorBonosC1[$i]["id_vendedor"],$fila["id_vend"])===0){}else{
+														
 															$C1 = array(
 																'nombre' => 'Bono C1',
 																'porcentaje' => 50,
@@ -1296,7 +1296,7 @@ if(is_array($fila_consulta)){
 																'id_vendedor' => $fila["id_vend"],
 																'mes' =>  $nombre_mes_c1[0]['nombre_mes']
 															 );
-														}	
+															
 												}
 											 }else{
 												$C1 = array(
