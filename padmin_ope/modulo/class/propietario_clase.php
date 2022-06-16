@@ -212,6 +212,7 @@ class propietario
 		return $id;
     }
 
+	// Método GET para recuperar campaña
 	public function getRecuperaIdCampana(){
 		$this->recupera_id_campana();
 	}

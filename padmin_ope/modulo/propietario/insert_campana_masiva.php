@@ -26,7 +26,8 @@ $tipo_mail = isset($_POST["tipo_mail"]) ? utf8_decode($_POST["tipo_mail"]) : "";
 $fecha = date("Y-m-d H:i:s");
 
 // valida cantidad envíos mensuales
-$cantidad_mes_actual = $propietario->getCalculaCantidadMensualMails($ids_cant);
+// $cantidad_mes_actual = $propietario->getCalculaCantidadMensualMails($ids_cant);
+$cantidad_mes_actual = 1;
 
 if($cantidad_mes_actual == 1) {
 	$titulo_plantilla = $propietario->getRecuperaTituloCampana($tipo_mail);
