@@ -162,10 +162,10 @@ class mailing
         $contador_errores = 0;
 
         while($contador <= $cantidad ){
-   //      	$consulta = "INSERT INTO campana_destinatario_campana VALUES(?,?,?)";
+          //      	$consulta = "INSERT INTO campana_destinatario_campana VALUES(?,?,?)";
 			// $conexion->consulta_form($consulta,array(0,$id_emp[$contador],$id_cam));
 
-	  //       $consulta = "INSERT INTO propietario_observacion_propietario VALUES(?,?,?,?,?)";
+	      //       $consulta = "INSERT INTO propietario_observacion_propietario VALUES(?,?,?,?,?)";
 			// $conexion->consulta_form($consulta,array(0,$id_emp[$contador],$id_usu,$fecha,$descripcion));
 			$array_to = '[';
 
