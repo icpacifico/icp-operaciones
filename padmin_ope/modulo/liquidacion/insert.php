@@ -1579,14 +1579,17 @@ if(is_array($fila_consulta)){
 				foreach ($v as $c => $d) {
 					array_push($c2, $d);						
 				}
-				$contenedor[$count]=$c2;
-				unset($c2);
-				$c2 = array();
-				$count+=1;
+				if(isset($c2[$count])){
+					$contenedor[$count]=$c2;
+					unset($c2);
+					$c2 = array();
+					$count+=1;
+				}
 			}
-			$consulta = "INSERT INTO bonos(nombre,porcentaje,monto,id_vendedor,id_cierre,mes) VALUES(?,?,?,?,?,?)";
-			for ($i=0; $i < count($contenedor); $i++) { $conexion->consulta_form($consulta,array($contenedor[$i][0] , $contenedor[$i][1], $contenedor[$i][2], $contenedor[$i][3], $ultimo_id, $contenedor[$i][4]));}
-
+			if(isset($contenedorc[0])){
+				$consulta = "INSERT INTO bonos(nombre,porcentaje,monto,id_vendedor,id_cierre,mes) VALUES(?,?,?,?,?,?)";
+				for ($i=0; $i < count($contenedor); $i++) { $conexion->consulta_form($consulta,array($contenedor[$i][0] , $contenedor[$i][1], $contenedor[$i][2], $contenedor[$i][3], $ultimo_id, $contenedor[$i][4]));}
+			}
 		}
 		
     	// fin guardado de bono C2
@@ -1598,14 +1601,17 @@ if(is_array($fila_consulta)){
 				foreach ($v as $c => $d) {
 					array_push($c3, $d);						
 				}
-				
-				$contenedorc3[$countc3]=$c3;
-				unset($c3);
-				$c3 = array();
-				$countc3+=1;
+				if(isset($c3[$countc3])){
+					$contenedorc3[$countc3]=$c3;
+					unset($c3);
+					$c3 = array();
+					$countc3+=1;
+				}
 			}
-			$consultac3 = "INSERT INTO bonos(nombre,porcentaje,monto,id_vendedor,id_cierre,mes) VALUES(?,?,?,?,?,?)";
-			for ($i=0; $i < count($contenedorc3); $i++) { $conexion->consulta_form($consultac3,array($contenedorc3[$i][0] , $contenedorc3[$i][1], $contenedorc3[$i][2], $contenedorc3[$i][3], $ultimo_id, $contenedorc3[$i][4]));}
+			if(isset($contenedorc3[0])){
+				$consultac3 = "INSERT INTO bonos(nombre,porcentaje,monto,id_vendedor,id_cierre,mes) VALUES(?,?,?,?,?,?)";
+				for ($i=0; $i < count($contenedorc3); $i++) { $conexion->consulta_form($consultac3,array($contenedorc3[$i][0] , $contenedorc3[$i][1], $contenedorc3[$i][2], $contenedorc3[$i][3], $ultimo_id, $contenedorc3[$i][4]));}
+			}
 		}
 
 		// fin guardado de bono C3
@@ -1623,9 +1629,12 @@ if(is_array($fila_consulta)){
 					$c1 = array();
 					$countc1+=1;
 				}								
-			}			
-			$consultac1 = "INSERT INTO bonos(nombre,porcentaje,monto,id_vendedor,id_cierre,mes) VALUES(?,?,?,?,?,?)";
-			for ($i=0; $i < count($contenedorc1); $i++) { $conexion->consulta_form($consultac1,array($contenedorc1[$i][0] , $contenedorc1[$i][1], $contenedorc1[$i][2], $contenedorc1[$i][3], $ultimo_id, $contenedorc1[$i][4]));}
+			}	
+			if(isset($contenedorc1[0])){
+				$consultac1 = "INSERT INTO bonos(nombre,porcentaje,monto,id_vendedor,id_cierre,mes) VALUES(?,?,?,?,?,?)";
+			    for ($i=0; $i < count($contenedorc1); $i++) { $conexion->consulta_form($consultac1,array($contenedorc1[$i][0] , $contenedorc1[$i][1], $contenedorc1[$i][2], $contenedorc1[$i][3], $ultimo_id, $contenedorc1[$i][4]));}
+			}		
+			
 		}
 		// fin guardado de bono C1
 

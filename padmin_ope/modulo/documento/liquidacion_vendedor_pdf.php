@@ -930,7 +930,7 @@ if($id_vendedor<>3){
     if(is_array($bonos_detalle)){
         for ($i=0; $i < count($bonos_detalle); $i++) {
             $total_liquidacion_bonos += $bonos_detalle[$i]['monto'];
-            $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
+            
         $rango  = "";
         if($bonos_detalle[$i]['porcentaje'] == 100){ $rango = "Igual a 100%";}else if($bonos_detalle[$i]['porcentaje'] >100){ $rango = "desde 101% a 150%";}else if($bonos_detalle[$i]['porcentaje'] >150){ $rango = " de 150% en adelante";}else{ $rango ="por desempeño";}
        $html .= '      
@@ -951,6 +951,7 @@ if($id_vendedor<>3){
         </table>';
         }
     }
+    $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
 $html .= '<table class="liquida">
 	<thead>
 		<tr>

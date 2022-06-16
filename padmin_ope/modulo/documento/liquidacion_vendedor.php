@@ -1026,7 +1026,7 @@ if($id_vendedor<>3){
         for ($i=0; $i < count($bonos_detalle); $i++) { 
             
             $total_liquidacion_bonos += $bonos_detalle[$i]['monto'];
-            $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
+            
  ?>
 
     <table class="liquida" style=" margin-bottom:50px;">
@@ -1051,6 +1051,7 @@ if($id_vendedor<>3){
 <?php
        }
     }
+    $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
 ?>
 
 <table class="liquida" style="margin: bottom 50px;">
