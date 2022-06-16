@@ -43,13 +43,12 @@ if($cantidad_mes_actual == 1) {
 		$contador = 0;
 		$propietario->getPropietarioInsertCampana($_SESSION["sesion_id_panel"],$fecha,$asunto,$enlace_imagen,$titulo_plantilla,$ids_cant);
 
-		$ultimo_id = $propietario->getRecuperaIdCampana();
+		$ultimo_id = $propietario->recupera_id_campana();
 
-		$email_vendedor = $propietario->getRecuperaEmailVendedor($_SESSION["sesion_id_panel"]);
+		$email_vendedor = $propietario->recupera_email_vendedor($_SESSION["sesion_id_panel"]);
 
-		$nombre_vendedor = $propietario->getRecuperaNombreVendedor($_SESSION["sesion_id_panel"]);
-
-
+		$nombre_vendedor = $propietario->recupera_nombre_vendedor($_SESSION["sesion_id_panel"]);
+		
 		$ejecucion_masiva = $propietario->getPropietarioInsertEnvioMasivo($ultimo_id,$id_emp,$cantidad,$asunto,$enlace_imagen,$tipo_mail,$nombre_vendedor,$email_vendedor,$_SESSION["sesion_id_panel"],$fecha,$describe_masiva);
 
 		// while($contador <= $cantidad ){

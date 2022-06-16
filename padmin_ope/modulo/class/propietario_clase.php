@@ -202,7 +202,7 @@ class propietario
 		return $id;
     }
 
-    private function recupera_id_campana(){
+    public function recupera_id_campana(){
 		$conexion = new conexion();
 		$consulta="SELECT id_cam FROM campana_mail_campana ORDER BY id_cam DESC LIMIT 0,1";
 		$conexion->consulta($consulta);
@@ -232,7 +232,7 @@ class propietario
 		$this->recupera_titulo_campana($codigo);
 	}
 
-    private function recupera_email_vendedor($id){
+    public function recupera_email_vendedor($id){
 		$conexion = new conexion();
 		$consulta = "SELECT correo_vend FROM vendedor_vendedor WHERE id_usu = ?";
 		$conexion->consulta_form($consulta,array($id));
@@ -247,7 +247,7 @@ class propietario
 		$this->recupera_email_vendedor($id);
 	}
 
-    private function recupera_nombre_vendedor($id){
+    public function recupera_nombre_vendedor($id){
 		$conexion = new conexion();
 		$consulta = "SELECT nombre_vend, apellido_paterno_vend FROM vendedor_vendedor WHERE id_usu = ?";
 		$conexion->consulta_form($consulta,array($id));
