@@ -694,8 +694,7 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 											                                    			FROM
 											                                    				venta_campo_venta
 																							WHERE
-																								id_ven = ".$id_ven."";
-																					// echo $consultafechareal;
+																								id_ven = ".$id_ven."";																					
 																					$conexion->consulta($consultafechapagocliente);
 							                                                        $filareal = $conexion->extraer_registro_unico();
 							                                                        if ($filareal['fecha_pago_cliente_fondo_expotacion']<>'' && $filareal['fecha_pago_cliente_fondo_expotacion']<> null) {
@@ -766,8 +765,7 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 											                                    			FROM
 											                                    				venta_campo_venta
 																							WHERE
-																								id_ven = ".$id_ven."";
-																					// echo $consultafechareal;
+																								id_ven = ".$id_ven."";																					
 																					$conexion->consulta($consultafechareal);
 							                                                        $filareal = $conexion->extraer_registro_unico();
 							                                                        if ($filareal['fecha_pago_fondo_expotacion']<>'' && $filareal['fecha_pago_fondo_expotacion']<> null) {
