@@ -147,7 +147,7 @@ $conexion = new conexion();
                 $('#contenedor_boton').html('<button type="submit" class="btn btn-primary pull-right">Ingresar</button>');
             }
             if (data.envio == 5) {
-            	// alert(data.respuesta);
+            	console.log(data.respuesta);
                 swal("Error!", "Campaña NO Enviada. (ERROR: "+data.respuesta+")", "error");
                 $('#contenedor_boton').html('<button type="submit" class="btn btn-primary pull-right">Ingresar</button>');
             }
@@ -165,6 +165,7 @@ $conexion = new conexion();
             if ($("#formulario").validate().form() == true){
                 $('#contenedor_boton').html('<img src="../../assets/img/loading.gif">');
                 var dataString = $('#formulario').serialize();
+                console.log(dataString);
                 $.ajax({
                     data: dataString,
                     type: 'POST',

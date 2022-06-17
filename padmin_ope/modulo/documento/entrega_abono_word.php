@@ -156,7 +156,7 @@ header("Content-Disposition: attachment; filename= $nombre.doc");
 	$apellido_materno_pro = $fila["apellido_materno_pro"];
 	$rut_pro = $fila["rut_pro"];
 	$nombre_con = $fila["nombre_con"];
-	$fecha_promesa_ven = $fila["fecha_ven"];
+	$fecha_promesa_ven = $fila["fecha_promesa_ven"];
 	$nombre_viv = $fila["nombre_viv"];
 	$id_viv = $fila["id_viv"];
 	$nombre_mod = $fila["nombre_mod"];
@@ -267,7 +267,9 @@ header("Content-Disposition: attachment; filename= $nombre.doc");
 	?>
 	<table class="sin-borde" width="100%">
 	    <tr>
-			<td style="text-align: left"><img src="https://00ppsav.cl/padmin_ope/assets/img/<?php echo $logo;?>" style="margin-right: 24%" width="103" height="108"> 
+			<!-- <td style="text-align: left"><img src="https://00ppsav.cl/padmin_ope/assets/img/<?php echo $logo;?>" style="margin-right: 24%" width="103" height="108">  -->
+			<td><img src="<?php echo _ASSETS."img/".$logo."";?>" style="margin-right: 24%" width="103" height="108"> </td>
+			<td style="text-align:right;">
 			<?php 
 			$consulta = 
                 "
@@ -286,7 +288,7 @@ header("Content-Disposition: attachment; filename= $nombre.doc");
             	$fila = $conexion->extraer_registro_unico();
             	$nombre_doc_con = $fila["nombre_doc_con"];
             	?>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img style="margin-left: 200px" src="http://00ppsav.cl/archivo/condominio/documento/<?php echo $id_con; ?>/<?php echo $nombre_doc_con; ?>" width="200" height="102">	
+				<img src="<?php echo _RUTA."archivo/condominio/documento/";?><?php echo $id_con; ?>/<?php echo $nombre_doc_con; ?>" width="250" height="108" style="left:200px">	
 
             	<?php
             }
@@ -294,7 +296,7 @@ header("Content-Disposition: attachment; filename= $nombre.doc");
 			</td>
 	    </tr>
 	    <tr>
-	    	<td>
+	    	<td colspan="2">
 	    		<!-- <h3 style="text-align: center">DETALLE CIERRE NEGOCIO<br><?php // echo utf8_encode($nombre_con);?></h3> -->
 	    		<br><br>
 	    		<!-- <p style="text-align: right">La Serena, <?php //echo utf8_encode($dia);?> de <?php //echo utf8_encode($nombre_mes);?> <?php //echo utf8_encode($anio);?></p><br> -->
