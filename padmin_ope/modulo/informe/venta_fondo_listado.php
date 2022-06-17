@@ -579,10 +579,10 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 																						viv.id_tor = tor.id_tor AND
 																						tor.id_con = ".$_SESSION["sesion_filtro_condominio_panel"]."
 									                                    			ORDER BY
-									                                    				id_pis ASC, nombre_viv ASC";
-                                                                        echo $consulta." ***";
+									                                    				id_pis ASC, nombre_viv ASC";                                                                                                                                           
 			                                                            $conexion->consulta($consulta);
 			                                                            $fila_consulta = $conexion->extraer_registro();
+                                                                        $id_ven='';
 			                                                            if(is_array($fila_consulta)){
 			                                                                foreach ($fila_consulta as $fila) {
 			                                                                	$consultaventa = "SELECT 
@@ -644,23 +644,27 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                                                 <td><?php echo $fila['nombre_viv']; ?></td>                                                                            
                                                                                 <td>
                                                                                 <?php
-                                                                                // Consulta para fecha de escritura                                                                              
+                                                                                // Consulta para fecha de escritura  
+                                                                                if($id_ven!=''){                                                                            
                                                                                 $consultaFirmaEscritura="
                                                                                 SELECT
                                                                                     venta.fecha_escritura_ven
                                                                                 FROM
                                                                                     venta_venta as venta
                                                                                 WHERE
-                                                                                    venta.id_ven = ".$id_ven."";                                                                                                                                                                
+                                                                                    venta.id_ven = ".$id_ven."";                                                                                                                                                                                                                                                 
                                                                                     $conexion->consulta($consultaFirmaEscritura);
                                                                                     $firma = $conexion->extraer_registro_unico();
-                                                                                    echo (isset($firma['fecha_escritura_ven']))?$firma['fecha_escritura_ven']:'';                                                                                   
-                                                                               
+                                                                                    echo $firma['fecha_escritura_ven'];                                                                                   
+                                                                                }else{
+                                                                                    echo '--';
+                                                                                }
                                                                                 ?>
                                                                                 </td>
                                                                                 <td>
                                                                                 <?php                                                                               
-                                                                                // consulta fecha de entrega                                                                                
+                                                                                // consulta fecha de entrega    
+                                                                                if($id_ven!=''){                                                                        
                                                                                 $consultaEntrega="
                                                                                 SELECT 
 	                                                                                    ven_eta.fecha_hasta_eta_ven
@@ -675,12 +679,16 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                                                         ";
                                                                                     $conexion->consulta($consultaEntrega);
                                                                                     $filaentrega = $conexion->extraer_registro_unico();
-                                                                                    echo (isset($filaentrega['fecha_hasta_eta_ven']))?date("d/m/Y",strtotime($filaentrega['fecha_hasta_eta_ven'])):'';                                                                               
+                                                                                    echo $filaentrega['fecha_hasta_eta_ven'];   
+                                                                                }else{
+                                                                                    echo '--';
+                                                                                }                                                                            
                                                                                 ?>
                                                                                 </td>                                                                               
                                                                                 <td><?php echo $total_prorrateo_depto; ?></td>
                                                                                 <td>
-																				<?php																				
+																				<?php	
+                                                                                if($id_ven!=''){																			
 																					$consultafechapagocliente = "SELECT 
 											                                    				fecha_pago_cliente_fondo_expotacion
 											                                    			FROM
@@ -708,11 +716,15 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 																							echo "al ingresar a operaciones se habilita aquí para cargar";
 																						}
 																					}
+                                                                                }else{
+                                                                                    echo '--';
+                                                                                }
 																				
 																				?>
                                                                                 </td>
                                                                                 <td>
-																				<?php 																				
+																				<?php 	
+                                                                                if($id_ven!=''){																			
 																					$consultamontopagocliente = "
 																						SELECT 
 										                                    				monto_pago_fpm_cliente_ven
@@ -741,12 +753,14 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 																							echo "al ingresar a operaciones se habilita aquí para cargar";
 																						}
 																					}
-																				
+																				}else{
+                                                                                    echo '--';
+                                                                                }
 																				 ?>
                                                                                 </td>                                                                               
                                                                                 <td>
 																				<?php 
-																			
+                                                                                    if($id_ven!=''){
 																					$consultafechareal = "SELECT 
 											                                    				fecha_pago_fondo_expotacion
 											                                    			FROM
@@ -775,11 +789,13 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 																							echo "al ingresar a operaciones se habilita aquí para cargar";
 																						}
 																					}
-																				
+																				}else{
+                                                                                    echo '--';
+                                                                                }
 																				?>
 																			    </td>                                                                                
 																			    <td><?php
-																				
+																				if($id_ven!=''){
 																					$consultamontopagoadm = "
 																						SELECT 
 										                                    				monto_pago_fpm_adm_ven
@@ -808,7 +824,9 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 																							echo "al ingresar a operaciones se habilita aquí para cargar";
 																						}
 																					}
-																				
+																				}else{
+                                                                                    echo '--';
+                                                                                }
 																			    ?></td>
                                                                             
                                                                                 </tr>
