@@ -1042,7 +1042,8 @@ if(is_array($fila_consulta)){
 										DATE(venta.fecha_promesa_ven) >= "'.formateoFecha( $fecha_desde ).'" and
 										DATE(venta.fecha_promesa_ven) <= "'.formateoFecha( $fecha_hasta ).'" and
 										venta.id_est_ven = 4                                  
-										';  								          
+										';  	
+															          
 										$conexion->consulta($query);
 										$consulta_ventas = $conexion->extraer_registro(); 										
 										$numeroVentas = $consulta_ventas[0]['numeroVentas'];
@@ -1081,7 +1082,7 @@ if(is_array($fila_consulta)){
 
 											?>							
 											<td colspan="1" class="text-center">Mes : <?php echo $nombre_mes[0]['nombre_mes']?> </td>
-											<td colspan="1" class="text-left">Total $<?php echo $bonoC2?> </td>
+											<td colspan="1" class="text-left">Total $<?php if($resultado==0){ echo '0'; $bonoC2 = 0;}else{ echo $bonoC2;}?> </td>
 											<td colspan="7"></td>
 											</tr>
 										
