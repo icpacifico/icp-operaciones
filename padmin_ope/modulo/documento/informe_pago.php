@@ -551,10 +551,14 @@ $id = $_GET["id"];
 						</tr>
 						<?php
 					} else {
-						$total = $pie_cancelado + $fila["pie_cobrar_ven"] ;
+						// $total = $pie_cancelado + $fila["pie_cobrar_ven"] ;
+						// echo $total.'($total) = '.$pie_cancelado.'($pie_cancelado) +  '.$fila["pie_cobrar_ven"].'($fila["pie_cobrar_ven"])';
 						$saldo_total = $saldo_pie + $credito_suma;
 
+
 						$saldo_total = $total_general - $pie_pagado_efectivo;
+
+						$total = $saldo_total + $pie_pagado_efectivo;
 						?>
 						<tr>
 							<td class="borde centrado">Saldo a Pagar</td>
