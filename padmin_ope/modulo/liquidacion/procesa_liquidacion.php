@@ -1048,8 +1048,11 @@ if(is_array($fila_consulta)){
 										$numeroVentas = $consulta_ventas[0]['numeroVentas'];
 										$resultado = ($numeroVentas / $numero_meta) * 100;
 										$bonoC2 = 0;										
-										if($resultado>=100){
+										// if($resultado>=100){
 											switch ($resultado) {
+												case ($resultado<100):
+													$bonoC2 = 0;
+													break;
 												case ($resultado==100):
 													$bonoC2 = ($sueldoBase * 15) / 100;
 													break;
@@ -1066,7 +1069,7 @@ if(is_array($fila_consulta)){
 											?>
 											<tr>
 											<td class="active" colspan="2"><b>Bono C2	:</b></td>
-											<td colspan="1">Cumplimiento : %<?php echo $resultado?> </td>	
+											<td colspan="1">Cumplimiento : <?php echo $resultado?> %</td>	
 											<?php 
 											$consulta_mes = "
 											SELECT nombre_mes
@@ -1087,7 +1090,7 @@ if(is_array($fila_consulta)){
 										     if(count($contendorBonos)>0){
 												for ($i=0; $i < count($contendorBonos); $i++) { 
 													
-														if(strcmp($contendorBonos[$i]["id_vendedor"],$fila["id_vend"])===0){}else{
+														
 															$C2 = array(
 																'nombre' => 'Bono C2',
 																'porcentaje' => $resultado,
@@ -1095,7 +1098,7 @@ if(is_array($fila_consulta)){
 																'id_vendedor' => $fila["id_vend"],
 																'mes' =>  $nombre_mes[0]['nombre_mes']
 															 );
-														}	
+															
 												}
 											 }else{
 												$C2 = array(
@@ -1111,9 +1114,9 @@ if(is_array($fila_consulta)){
 											
 
 
-										}else{
+										// }else{
 
-									}
+									// }
 								}
 							
 							/*
@@ -1191,8 +1194,11 @@ if(is_array($fila_consulta)){
 
 									$resultadoc3 = ($total_ventas / $total_metas) * 100;
 										$bonoC3 = 0;																	
-										if($resultadoc3>=100){
+										// if($resultadoc3>=100){
 											switch ($resultadoc3) {
+												case ($resultadoc3<100):
+													$bonoC3 = 0;
+													break;
 												case ($resultadoc3==100):
 													$bonoC3 = ($sueldoBase * 12) / 100;
 													break;
@@ -1207,10 +1213,10 @@ if(is_array($fila_consulta)){
 													break;
 											}
 								
-										?>
+										    ?>
 											<tr>
 											<td class="active" colspan="2"><b>Bono C3	:</b></td>
-											<td colspan="1">Cumplimiento : %<?php echo round($resultadoc3,0)?> </td>	
+											<td colspan="1">Cumplimiento : <?php echo round($resultadoc3,0)?> %</td>	
 											<?php 
 											$nombre_mes_c3 = "";
 											$consulta_mesc3 = "
@@ -1251,7 +1257,7 @@ if(is_array($fila_consulta)){
 													'mes' =>  $nombre_mes_c3[0]['nombre_mes']
 												 );
 											 } 
-											}
+										// }
 
 							}
 
@@ -1260,12 +1266,20 @@ if(is_array($fila_consulta)){
 							$messc1 = explode("-", $fecha_hasta);
 																					
 							if($messc1[1]==3 || $messc1[1]==6 || $messc1[1]==9 || $messc1[1]==12){
-								if($fila["id_vend"] == 13 || $fila["id_vend"] == 15){																								
+								// if($fila["id_vend"] == 13 || $fila["id_vend"] == 15){																								
 									$bonoC1=0;
+									$cumple="";
+									if($fila["id_vend"] == 13 || $fila["id_vend"] == 15){
+										$bonoC1 = ($sueldoBase * 0.50)+$sueldoBase;
+										$cumple="<p style='color:#229954;'>Cumple con evaluación de desempeño sobresaliente.</p>";
+									}else{
+										$bonoC1 = 0;
+										$cumple="<p style='color:#E74C3C;'>No cumple con evaluación de desempeño sobresaliente.</p>";
+									}
 										?>
 											<tr>
 											<td class="active" colspan="2"><b>Bono C1	:</b></td>
-											<td colspan="2">Cumplimiento de evaluación de desempeño sobresaliente.</td>	
+											<td colspan="2"><?php echo $cumple;?></td>	
 											<?php 
 											$nombre_mes_c1 = "";
 											$consulta_mesc1 = "
@@ -1275,8 +1289,7 @@ if(is_array($fila_consulta)){
 											";
 											$conexion->consulta($consulta_mesc1);
 											$nombre_mes_c1 = $conexion->extraer_registro(); 
-
-											$bonoC1 = ($sueldoBase * 0.50)+$sueldoBase;
+											
 											?>							
 											<td colspan="1" class="text-center">Mes : <?php echo $nombre_mes_c1[0]['nombre_mes']?> </td>
 											<td colspan="1" class="text-left">Total $<?php echo $bonoC1?> </td>
@@ -1308,7 +1321,7 @@ if(is_array($fila_consulta)){
 												 );
 											 } 
 											
-								}
+								// }
 							}
 							?>
 		                    <tr class="success">
