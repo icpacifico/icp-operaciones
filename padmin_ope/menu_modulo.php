@@ -2420,6 +2420,66 @@ $id_usuario = $_SESSION["sesion_id_panel"];
                             </li>
                         <?php
                         break;
+                        case 501:
+                            $_SESSION["modulo_evaluacion_panel"] = 1;
+                            ?>
+                            <li class="treeview" id="menu_evaluacion">
+                                <a href="#">
+                                    <i class="fa fa-file-text"></i> <span>Evaluación de desempeño</span> <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <?php
+                                    $consulta = 
+                                        "
+                                        SELECT 
+                                            usu.id_mod 
+                                        FROM 
+                                            usuario_usuario_proceso AS usu,
+                                            usuario_proceso AS proceso
+                                        WHERE 
+                                            usu.id_usu = ".$id_usuario." AND
+                                            usu.id_mod = ".$fila["id_mod"]." AND
+                                            proceso.opcion_pro = 1 AND
+                                            proceso.id_pro = usu.id_pro AND
+                                            proceso.id_mod = ".$fila["id_mod"]." 
+                                        ";
+                                    
+                                    $conexion->consulta($consulta);
+                                    $cantidad_opcion = $conexion->total();
+                                    if($cantidad_opcion > 0){
+                                        ?>
+                                        <li id="evaluacion-insert"><a href="<?php echo _MODULO?>evaluacion/form_insert.php"><i class="fa fa-plus" aria-hidden="true"></i> Agregar evaluación</a></li>
+                                        <?php
+                                    }
+                                    $consulta = 
+                                        "
+                                        SELECT 
+                                            usu.id_mod 
+                                        FROM 
+                                            usuario_usuario_proceso AS usu,
+                                            usuario_proceso AS proceso
+                                        WHERE 
+                                            usu.id_usu = ".$id_usuario." AND
+                                            usu.id_mod = ".$fila["id_mod"]." AND
+                                            proceso.opcion_pro = 2 AND
+                                            proceso.id_pro = usu.id_pro AND
+                                            proceso.id_mod = ".$fila["id_mod"]." 
+                                        ";
+                                       
+                                    $conexion->consulta($consulta);
+                                    $cantidad_opcion = $conexion->total();
+                                    if($cantidad_opcion > 0){
+                                        ?>
+                                        <li id="evaluacion-select"><a href="<?php echo _MODULO?>evaluacion/form_select.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Listar evaluaciones</a></li>
+
+
+                                        <?php
+                                    }                                    
+                                    ?>
+                                </ul>
+                            </li>
+                        <?php
+                        break;
                     }
                 }
             }
