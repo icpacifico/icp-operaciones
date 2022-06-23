@@ -1040,14 +1040,14 @@ if(is_array($fila_consulta)){
 										WHERE vende.id_vend = '.$fila["id_vend"].' and
 										vende.id_est_vend = 1 and                                              
 										DATE(venta.fecha_promesa_ven) >= "'.formateoFecha( $fecha_desde ).'" and
-										DATE(venta.fecha_promesa_ven) <= "'.formateoFecha( $fecha_hasta ).'" and
-										venta.id_est_ven = 4                                  
+										DATE(venta.fecha_promesa_ven) <= "'.formateoFecha( $fecha_hasta ).'" and 
+										venta.id_est_ven <> 3
 										';  	
 															          
 										$conexion->consulta($query);
 										$consulta_ventas = $conexion->extraer_registro(); 										
 										$numeroVentas = $consulta_ventas[0]['numeroVentas'];
-										$resultado = ($numeroVentas / $numero_meta) * 100;
+										$resultado = ($numeroVentas / $numero_meta) * 100;										
 										$bonoC2 = 0;										
 										// if($resultado>=100){
 											switch ($resultado) {
@@ -1155,8 +1155,8 @@ if(is_array($fila_consulta)){
 									WHERE vende.id_vend = '.$fila["id_vend"].' and
 									vende.id_est_vend = 1 and                                              
 									DATE(venta.fecha_promesa_ven) >= "'.$messc3[2].'-01-01" and
-									DATE(venta.fecha_promesa_ven) <= "'.formateoFecha( $fecha_hasta ).'" and
-									venta.id_est_ven = 4                                  
+									DATE(venta.fecha_promesa_ven) <= "'.formateoFecha( $fecha_hasta ).'" and 
+									venta.id_est_ven <> 3
 									';
 
 
@@ -1178,8 +1178,8 @@ if(is_array($fila_consulta)){
 									WHERE vende.id_vend = '.$fila["id_vend"].' and
 									vende.id_est_vend = 1 and                                              
 									DATE(venta.fecha_promesa_ven) >= "'.$messc3[2].'-07-01" and
-									DATE(venta.fecha_promesa_ven) <= "'.formateoFecha( $fecha_hasta ).'" and
-									venta.id_est_ven = 4                                  
+									DATE(venta.fecha_promesa_ven) <= "'.formateoFecha( $fecha_hasta ).'" and 
+									venta.id_est_ven <> 3
 									';
 								}										
 																										
