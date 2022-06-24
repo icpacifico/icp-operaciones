@@ -1194,6 +1194,9 @@ if(is_array($fila_consulta)){
 									$total_ventas = $consulta_ventas_total[0]['numeroVentas'];
 
 									$resultadoc3 = ($total_ventas / $total_metas) * 100;
+									// echo 'numero de ventas total : '.$total_ventas;
+									// echo 'numero de metas total : '.$total_metas;
+									// echo 'resultado : '.$resultadoc3." <br>";									
 										$bonoC3 = 0;																	
 										// if($resultadoc3>=100){
 											switch ($resultadoc3) {
