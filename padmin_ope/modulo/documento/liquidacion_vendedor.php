@@ -956,12 +956,14 @@ if(is_array($fila_consulta_cierre)){
         		$total_comisiones = 0;
         		$total_pago = ($monto_acumulado_promesa + $monto_acumulado_escritura) - $total_desistimiento_acumulado;
 
-                $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
+                
                 $total_bonos = $monto_acumulado_bonos + $monto_acumulado_a_pagar;
                 $total_comisiones = $total_pago - $total_bonos;
 
                 $total_liquidacion_bonos = $total_liquidacion_bonos + $total_bonos;
                 $total_liquidacion_comisiones = $total_liquidacion_comisiones + $total_comisiones;
+
+                
         		        		
         		?>
         		<tr>
@@ -1042,7 +1044,7 @@ $bonos_detalle = $conexion->extraer_registro();
 <?php
        }
     }
-    
+    $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
 ?>
 
 <table class="liquida" style="margin: bottom 50px;">
