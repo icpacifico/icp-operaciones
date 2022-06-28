@@ -1034,7 +1034,7 @@ $bonos_detalle = $conexion->extraer_registro();
                 <td colspan="2" style="text-align:center;border:1px solid #000000;">Mes de <?php echo $bonos_detalle[$i]['mes']?></td>
                 <?php
                 $rango  = "";
-                if($bonos_detalle[$i]['porcentaje'] == 100){ $rango = "Igual a 100%";}else if($bonos_detalle[$i]['porcentaje'] >100){ $rango = "desde 101% a 150%";}else if($bonos_detalle[$i]['porcentaje'] >150){ $rango = " de 150% en adelante";}else{ $rango ="por desempeño sobresaliente";}
+                if($bonos_detalle[$i]['porcentaje'] == 100){ $rango = "Igual a 100%";}else if($bonos_detalle[$i]['porcentaje'] >100){ $rango = "desde 101% a 150%";}else if($bonos_detalle[$i]['porcentaje'] >150){ $rango = " de 150% en adelante";}else{ $rango ="por desempeño";}
                 ?>
                 <td colspan="2" style="text-align:center;border:1px solid #000000;">Rango de cumplimiento <?php echo $rango?></td>
                 <td colspan="3" style="text-align:left;border:1px solid #000000;">Total $<?php echo $bonos_detalle[$i]['monto']?></td>               
