@@ -10,13 +10,10 @@ $id_cierre = $_GET["id"];
 $id_vendedor = $_GET["id_vend"];
 
 // cambio de textos
-if($id_vendedor==3){
-	$texto_tabla = "Bono";
-	$texto_titulo = "Bonos";
-} else {
+
 	$texto_tabla = "Comisión";
 	$texto_titulo = "Comisión";
-}
+
 
 function get_uf_disistimiento($id_ven){
 
@@ -867,12 +864,17 @@ if(is_array($fila_consulta_cierre)){
         		$total_bonos = 0;
         		$total_comisiones = 0;
         		$total_pago = ($monto_acumulado_promesa + $monto_acumulado_escritura) - $total_desistimiento_acumulado;
+                $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
+                $total_bonos = $monto_acumulado_bonos + $monto_acumulado_a_pagar;
+                $total_comisiones = $total_pago - $total_bonos;
 
+                $total_liquidacion_bonos = $total_liquidacion_bonos + $total_bonos;
+                $total_liquidacion_comisiones = $total_liquidacion_comisiones + $total_comisiones;
 
 
         		
 
-        		if($id_vendedor<>3){
+        		
 
         		$html .= '<tr>
         			<td colspan="2"></td>
@@ -891,7 +893,7 @@ if(is_array($fila_consulta_cierre)){
         			<td colspan="6"></td>
         		</tr>';
 
-        		}
+        		
 
 
         		$html .= '<tr class="separa">
@@ -908,7 +910,7 @@ if(is_array($fila_consulta_cierre)){
         $contador_pagina++; 
     }
 }
-if($id_vendedor<>3){
+
     $bonos ="
     SELECT 
         *
@@ -947,12 +949,7 @@ if($id_vendedor<>3){
         </table>';
         }
     }
-    $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
-    $total_bonos = $monto_acumulado_bonos + $monto_acumulado_a_pagar;
-    $total_comisiones = $total_pago - $total_bonos;
-
-    $total_liquidacion_bonos = $total_liquidacion_bonos + $total_bonos;
-    $total_liquidacion_comisiones = $total_liquidacion_comisiones + $total_comisiones;
+    
 $html .= '<table class="liquida">
 	<thead>
 		<tr>
@@ -971,23 +968,6 @@ $html .= '<table class="liquida">
 		</tr>
 	</tbody>
 </table>';
-} else {
-$html .= '<table class="liquida">
-	<thead>
-		<tr>
-			<th colspan="4" style="border:1px solid #000000;">RESUMEN TOTAL</th>
-			<th colspan="2" style="text-align: center; border:1px solid #000000;">TOTAL BONOS</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr class="cabecera">
-			<td colspan="4"></td>
-			<td colspan="2" class="bl-1">$ '.number_format($total_liquidacion_a_pagar, 0, ',', '.').'</td>
-		</tr>
-	</tbody>
-</table>';
-}
-
 $html .= '
 </body>
 </html>';

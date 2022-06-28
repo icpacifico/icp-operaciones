@@ -13,13 +13,8 @@ $id_vendedor = $_GET["id_vend"];
 // header("Expires: 0");
 
 // cambio de textos
-if($id_vendedor==3){
-	$texto_tabla = "Bono";
-	$texto_titulo = "Bonos";
-} else {
 	$texto_tabla = "Comisión";
 	$texto_titulo = "Comisión";
-}
 
 function get_uf_disistimiento($id_ven){
 
@@ -961,10 +956,13 @@ if(is_array($fila_consulta_cierre)){
         		$total_comisiones = 0;
         		$total_pago = ($monto_acumulado_promesa + $monto_acumulado_escritura) - $total_desistimiento_acumulado;
 
+                $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
+                $total_bonos = $monto_acumulado_bonos + $monto_acumulado_a_pagar;
+                $total_comisiones = $total_pago - $total_bonos;
 
-        		
-
-        		if($id_vendedor<>3){
+                $total_liquidacion_bonos = $total_liquidacion_bonos + $total_bonos;
+                $total_liquidacion_comisiones = $total_liquidacion_comisiones + $total_comisiones;
+        		        		
         		?>
         		<tr>
         			<td colspan="2"></td>
@@ -981,10 +979,7 @@ if(is_array($fila_consulta_cierre)){
         			<td></td>
         			<td><?php echo number_format($total_bonos, 0, ',', '.');?></td>
         			<td colspan="6"></td>
-        		</tr>
-        		<?php 
-        		}
-        		 ?>
+        		</tr>        		
         		<tr class="separa">
         			<td colspan="2"></td>
         			<td colspan="3">TOTAL A PAGAR</td>
@@ -1015,7 +1010,7 @@ $bonos_detalle = $conexion->extraer_registro();
 ?>
 <!-- nuevo resumen final -->
 <?php 
-if($id_vendedor<>3){
+
     
    
     if(is_array($bonos_detalle)){     
@@ -1047,12 +1042,7 @@ if($id_vendedor<>3){
 <?php
        }
     }
-    $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
-    $total_bonos = $monto_acumulado_bonos + $monto_acumulado_a_pagar;
-    $total_comisiones = $total_pago - $total_bonos;
-
-    $total_liquidacion_bonos = $total_liquidacion_bonos + $total_bonos;
-    $total_liquidacion_comisiones = $total_liquidacion_comisiones + $total_comisiones;
+    
 ?>
 
 <table class="liquida" style="margin: bottom 50px;">
@@ -1074,29 +1064,5 @@ if($id_vendedor<>3){
 		</tr>
 	</tbody>
 </table>
-<?php 
-} else {
- ?>
-<table class="liquida" style="margin: bottom 50px;">
-	<thead>
-		<tr>
-			<th colspan="4" style="border:1px solid #000000;">RESUMEN TOTAL</th>
-			<!-- <th colspan="3" style="text-align: center; border:1px solid #000000;">COMISIONES</th> -->
-			<!-- <th colspan="2" style="text-align: center; border:1px solid #000000;">BONOS</th> -->
-			<th colspan="2" style="text-align: center; border:1px solid #000000;">TOTAL BONOS</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr class="cabecera">
-			<td colspan="4"></td>
-			<!-- <td colspan="3" class="bl-1">$ <?php //echo number_format($total_liquidacion_comisiones, 0, ',', '.');?></td> -->
-			<!-- <td colspan="2" class="bl-1">$ <?php //echo number_format($total_liquidacion_bonos, 0, ',', '.');?></td> -->
-			<td colspan="2" class="bl-1">$ <?php echo number_format($total_liquidacion_a_pagar, 0, ',', '.');?></td>
-		</tr>
-	</tbody>
-</table>
-<?php 
-}
- ?>
 </body>
 </html>
