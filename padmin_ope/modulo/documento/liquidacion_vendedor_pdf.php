@@ -870,11 +870,7 @@ if(is_array($fila_consulta_cierre)){
 
 
 
-        		$total_bonos = $monto_acumulado_bonos + $monto_acumulado_a_pagar;
-        		$total_comisiones = $total_pago - $total_bonos;
-
-        		$total_liquidacion_bonos = $total_liquidacion_bonos + $total_bonos;
-        		$total_liquidacion_comisiones = $total_liquidacion_comisiones + $total_comisiones;
+        		
 
         		if($id_vendedor<>3){
 
@@ -952,6 +948,11 @@ if($id_vendedor<>3){
         }
     }
     $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
+    $total_bonos = $monto_acumulado_bonos + $monto_acumulado_a_pagar;
+    $total_comisiones = $total_pago - $total_bonos;
+
+    $total_liquidacion_bonos = $total_liquidacion_bonos + $total_bonos;
+    $total_liquidacion_comisiones = $total_liquidacion_comisiones + $total_comisiones;
 $html .= '<table class="liquida">
 	<thead>
 		<tr>

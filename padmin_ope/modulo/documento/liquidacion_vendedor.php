@@ -962,11 +962,7 @@ if(is_array($fila_consulta_cierre)){
         		$total_pago = ($monto_acumulado_promesa + $monto_acumulado_escritura) - $total_desistimiento_acumulado;
 
 
-        		$total_bonos = $monto_acumulado_bonos + $monto_acumulado_a_pagar;
-        		$total_comisiones = $total_pago - $total_bonos;
-
-        		$total_liquidacion_bonos = $total_liquidacion_bonos + $total_bonos;
-        		$total_liquidacion_comisiones = $total_liquidacion_comisiones + $total_comisiones;
+        		
 
         		if($id_vendedor<>3){
         		?>
@@ -1052,6 +1048,11 @@ if($id_vendedor<>3){
        }
     }
     $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
+    $total_bonos = $monto_acumulado_bonos + $monto_acumulado_a_pagar;
+    $total_comisiones = $total_pago - $total_bonos;
+
+    $total_liquidacion_bonos = $total_liquidacion_bonos + $total_bonos;
+    $total_liquidacion_comisiones = $total_liquidacion_comisiones + $total_comisiones;
 ?>
 
 <table class="liquida" style="margin: bottom 50px;">

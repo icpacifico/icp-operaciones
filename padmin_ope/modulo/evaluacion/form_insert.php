@@ -63,7 +63,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) header("Location: "._ADMIN."pa
                                 ?>
                                 <label for="vende">
                                     Vendedor a evaluar : 
-                                    <select name="" id="" class="form-control">
+                                    <select name="vendedor" id="vendedor" class="form-control">
                                         <option value="">Seleccione un vendedor : </option>
                                         <?php
                                         $queryVende="SELECT * FROM vendedor_vendedor WHERE id_est_vend=1 and id_vend not in(3,5)";
@@ -181,8 +181,8 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) header("Location: "._ADMIN."pa
                                 </div>
                             </div>
                                             
-                           <div class="col-2 col-md-offset-10">
-                                <button class="btn btn-primary">Enviar evaluación</button>
+                           <div class="col-2 col-md-offset-9">
+                                <button class="btn btn-primary btn-lg">Enviar evaluación</button>
                            </div>
                           </form> 
                         </div>                    
