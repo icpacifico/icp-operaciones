@@ -173,37 +173,34 @@ class mailing
 					return strpos($haystack, $needle) !== false;
 				}
 
-				$contador = 0;				
-				$contador_errores = 0;
+        $contador_errores = 0;
 
-				while($contador <= $cantidad ){
-					// $consulta = "INSERT INTO campana_destinatario_campana VALUES(?,?,?)";
-					// $conexion->consulta_form($consulta,array(0,$id_emp[$contador],$id_cam));
-					// $consulta = "INSERT INTO propietario_observacion_propietario VALUES(?,?,?,?,?)";
-					// $conexion->consulta_form($consulta,array(0,$id_emp[$contador],$id_usu,$fecha,$descripcion));
-					$array_to = '[';
+        while($contador <= $cantidad ){
+          //      	$consulta = "INSERT INTO campana_destinatario_campana VALUES(?,?,?)";
+			// $conexion->consulta_form($consulta,array(0,$id_emp[$contador],$id_cam));
 
-					$consulta = "SELECT correo_cor_lis FROM lista_correo_lista WHERE id_lis = ?";
-					$this->conexion->consulta_form($consulta,array($id_emp[$contador]));
-					$fila_consulta = $this->conexion->extraer_registro();
-					if(is_array($fila_consulta)){
-						foreach ($fila_consulta as $fila) {
-							$email1 = utf8_decode($fila["correo_cor_lis"]);
-							$email1 = str_replace(" ","", $email1);
-							$email1 = str_replace("\t","", $email1);
-							$email1 = str_replace("?","", $email1);
-							$email1 = strtolower($email1);
-							$email1 = trim($email1);
-							if ($email1<>'') {
-								if (filter_var($email1, FILTER_VALIDATE_EMAIL)) {
-									if (contains($email1, $array_to)) {
-										# no hace nada
-									} else {
-										$array_to .= '{"email": "'.$email1.'"},';
-										// $array_to .= '{"email": "brunomailcasa@gmail.com"},';
-									}
-							// $array_to .= '{"email": "'.$email1.'", "name": "'.$nombre_pro.'"},';
-								}
+	      //       $consulta = "INSERT INTO propietario_observacion_propietario VALUES(?,?,?,?,?)";
+			// $conexion->consulta_form($consulta,array(0,$id_emp[$contador],$id_usu,$fecha,$descripcion));
+			$array_to = '[';
+
+			$consulta = "SELECT correo_cor_lis FROM lista_correo_lista WHERE id_lis = ?";
+			$conexion->consulta_form($consulta,array($id_emp[$contador]));
+			$fila_consulta = $conexion->extraer_registro();
+            if(is_array($fila_consulta)){
+                foreach ($fila_consulta as $fila) {
+                	$email1 = utf8_decode($fila["correo_cor_lis"]);
+					$email1 = str_replace(" ","", $email1);
+					$email1 = str_replace("\t","", $email1);
+					$email1 = str_replace("?","", $email1);
+					$email1 = strtolower($email1);
+					$email1 = trim($email1);
+					if ($email1<>'') {
+						if (filter_var($email1, FILTER_VALIDATE_EMAIL)) {
+							if (contains($email1, $array_to)) {
+								# no hace nada
+							} else {
+								$array_to .= '{"email": "'.$email1.'"},';
+								// $array_to .= '{"email": "brunomailcasa@gmail.com"},';
 							}
 						}
 					}
