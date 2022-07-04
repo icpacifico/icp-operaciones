@@ -11,13 +11,16 @@ if (!isset($_GET["opc"])) {
 
 
 require_once _INCLUDE."head_informe.php";
-
+// inicializando variables
+$id_cot = 0;
+$id_ven = 0;
+$id_pag = 0;
 // recibe los get
 $opc = $_GET["opc"];
 $id_pro = d64($_GET["id_pro"]);
-$id_cot = d64(isset($_GET["id_cot"]));
-$id_ven = d64(isset($_GET["id_ven"]));
-$id_pag = d64(isset($_GET["id_pag"]));
+$id_cot = (!empty($_GET["id_cot"]))? d64($_GET["id_cot"]) :0;
+$id_ven = (!empty($_GET["id_ven"]))? d64($_GET["id_ven"]) :0;
+$id_pag = (!empty($_GET["id_pag"]))? d64($_GET["id_pag"]) :0;
 ?>
 <title>Cliente - Ficha</title>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

@@ -36,7 +36,7 @@ if (!isset($_SESSION["modulo_mailing_panel"])) {
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Enviós de Mails
+                    Envíos de Mails
                     <small>Listado</small>
                 </h1>
                 <ol class="breadcrumb">

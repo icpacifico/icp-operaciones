@@ -224,6 +224,7 @@ $id = $_GET["id"];
                             INNER JOIN venta_venta AS ven ON ven.id_ven = pag.id_ven
                         WHERE 
                             pag.id_ven = ?
+						ORDER BY fecha_real_pag
                         ";
                     $contador = 1;
                     $conexion->consulta_form($consulta,array($id));

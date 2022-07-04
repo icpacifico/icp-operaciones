@@ -212,7 +212,12 @@ class propietario
 		return $id;
     }
 
-    public function recupera_titulo_campana($codigo){
+	// Método GET para recuperar campaña
+	public function getRecuperaIdCampana(){
+		$this->recupera_id_campana();
+	}
+
+    private function recupera_titulo_campana($codigo){
 		$conexion = new conexion();
 		$consulta="SELECT titulo_cam_pla FROM campana_plantilla_campana WHERE codigo_cam_pla = ? AND id_est_cam_pla = 1";
 		$conexion->consulta_form($consulta,array($codigo));
@@ -221,6 +226,11 @@ class propietario
 		$conexion->cerrar();
 		return $titulo_cam_pla;
     }
+
+	// Método GET para recuperar titulo de campaña
+	public function getRecuperaTituloCampana($codigo){
+		$this->recupera_titulo_campana($codigo);
+	}
 
     public function recupera_email_vendedor($id){
 		$conexion = new conexion();
@@ -232,6 +242,11 @@ class propietario
 		return $correo_vend;
     }
 
+	// Método GET para recuperar email de vendedor
+	public function getRecuperaEmailVendedor($id){
+		$this->recupera_email_vendedor($id);
+	}
+
     public function recupera_nombre_vendedor($id){
 		$conexion = new conexion();
 		$consulta = "SELECT nombre_vend, apellido_paterno_vend FROM vendedor_vendedor WHERE id_usu = ?";
@@ -242,36 +257,45 @@ class propietario
 		return $nombre_vend;
     }
 
+	// Método GET para recuperar nombre del vendedor
+	public function getRecuperaNombreVendedor($id){
+		$this->recupera_nombre_vendedor($id);
+	}
 
-    public function calcula_cantidad_mensual_mails($cant_a_enviar){
-    	$mes_actual = date("n");
-    	$anio_actual = date("Y");
-		$conexion = new conexion();
-		$consulta = "SELECT SUM(cantidad_cam) AS cant_enviados FROM campana_mail_campana WHERE MONTH(fecha_cam)=".$mes_actual." AND YEAR(fecha_cam) = ".$anio_actual."";
-		$conexion->consulta($consulta);
-		$fila = $conexion->extraer_registro_unico();
-		$cantidad_enviados_mes = $fila["cant_enviados"];
+    private function calcula_cantidad_mensual_mails($cant_a_enviar){
+    	// $mes_actual = date("n");
+    	// $anio_actual = date("Y");
+		// $conexion = new conexion();
+		// $consulta = "SELECT SUM(cantidad_cam) AS cant_enviados FROM campana_mail_campana WHERE MONTH(fecha_cam)=".$mes_actual." AND YEAR(fecha_cam) = ".$anio_actual."";
+		// $conexion->consulta($consulta);
+		// $fila = $conexion->extraer_registro_unico();
+		// $cantidad_enviados_mes = $fila["cant_enviados"];
 		
-		// busca parámetro cantidad
-		$consulta = "SELECT valor_par FROM parametro_parametro WHERE id_par = 109";
-		$conexion->consulta($consulta);
-		$fila = $conexion->extraer_registro_unico();
-		$tope_mensual = $fila["valor_par"];
-		$conexion->cerrar();
-		// calcula
-		$total_envios = $cantidad_enviados_mes + $cant_a_enviar;
-		if($total_envios > $tope_mensual) {
-			return $total_envios;
-		} else {
-			return 1;
-		}
-		
+		// // busca parámetro cantidad
+		// $consulta = "SELECT valor_par FROM parametro_parametro WHERE id_par = 109";
+		// $conexion->consulta($consulta);
+		// $fila = $conexion->extraer_registro_unico();
+		// $tope_mensual = $fila["valor_par"];
+		// $conexion->cerrar();
+		// // calcula
+		// $total_envios = $cantidad_enviados_mes + $cant_a_enviar;
+		// if($total_envios > $tope_mensual) {
+		// 	return $total_envios;
+		// } else {
+		// 	return 1;
+		// }
+		return 1;
     }
+
+	// Método GET para calcular cantidad mensual de mails
+	public function getCalculaCantidadMensualMails($cantAenviar){
+		$this->calcula_cantidad_mensual_mails($cantAenviar);
+	}
     
 	public function propietario_insert_observacion($id,$id_usu,$fecha,$descripcion){
-    $conexion = new conexion();
+    	$conexion = new conexion();
 		$today = date("Y-m-d");
-    $consulta = "INSERT INTO propietario_observacion_propietario VALUES(?,?,?,?,?)";
+    	$consulta = "INSERT INTO propietario_observacion_propietario VALUES(?,?,?,?,?)";
 		$conexion->consulta_form($consulta,array(0,$id,$id_usu,$fecha,$descripcion));
 		$count = $this->count_observation($id);
 
@@ -281,13 +305,14 @@ class propietario
 
 		$conexion->cerrar();
     }
-		private function count_observation($id){
-			$conexion = new conexion();
-			$consulta = "SELECT id_pro FROM propietario_observacion_propietario WHERE id_pro = ?";
-			$conexion->consulta_form($consulta,array($id));
-			$count = $conexion->total();
-			return $count;
-		}
+
+	private function count_observation($id){
+		$conexion = new conexion();
+		$consulta = "SELECT id_pro FROM propietario_observacion_propietario WHERE id_pro = ?";
+		$conexion->consulta_form($consulta,array($id));
+		$count = $conexion->total();
+		return $count;
+	}
     //funcion de eliminacion
 	public function propietario_delete_obs($id){
 		$today = date("Y-m-d");
@@ -302,7 +327,7 @@ class propietario
 		$conexion->cerrar();
 	}
 
-    public function propietario_insert_campana($id_usu,$fecha,$asunto,$enlace_imagen,$titulo_plantilla,$cantidad){
+    private function propietario_insert_campana($id_usu,$fecha,$asunto,$enlace_imagen,$titulo_plantilla,$cantidad){
         $conexion = new conexion();
         
         $consulta = "INSERT INTO campana_mail_campana VALUES(?,?,?,?,?,?,?)";
@@ -310,86 +335,12 @@ class propietario
 		$conexion->cerrar();
     }
 
+	// Método GET para guardar campaña
+	public function getPropietarioInsertCampana($id_usu,$fecha,$asunto,$enlace_imagen,$titulo_plantilla,$cantidad){
+		$this->propietario_insert_campana($id_usu,$fecha,$asunto,$enlace_imagen,$titulo_plantilla,$cantidad);
+	}
 
-  //   public function propietario_insert_envio($id_cam,$id,$asunto,$enlace,$plantilla_cam,$nombre_vend,$email_vend){
-  //       $conexion = new conexion();
-        
-  //       $consulta = "INSERT INTO campana_destinatario_campana VALUES(?,?,?)";
-		// $conexion->consulta_form($consulta,array(0,$id,$id_cam));
-		
-		// // enviar el mail
-		// $curl = curl_init();
-
-		// // ir a busar mail y nombre cliente
-		// $consulta = "SELECT nombre_pro, apellido_paterno_pro, correo_pro FROM propietario_propietario WHERE id_pro = ?";
-		// $conexion->consulta_form($consulta,array($id));
-		// $fila = $conexion->extraer_registro_unico();
-		// $nombre_pro = utf8_decode($fila["nombre_pro"]." ".$fila["apellido_paterno_pro"]);		
-		// $email1 = utf8_decode($fila["correo_pro"]);
-
-
-		// $fields = '{
-		//   "personalizations": [
-		//     {
-		//       "to": [
-		//         {
-		//           "email": "'.$email1.'",
-		//           "name": "'.$nombre_pro.'"
-		//         }
-		//       ],
-		//       "dynamic_template_data": {
-		//         "subject": "'.$asunto.'",
-		//         "link_image": "'.$enlace.'"
-		//       },
-		//       "subject": "'.$asunto.'"
-		//     }
-		//   ],
-		//   "from": {
-		//     "email": "'.$email_vend.'",
-		//     "name": "'.$nombre_vend.'"
-		//   },
-		//   "reply_to": {
-		//     "email": "'.$email_vend.'",
-		//     "name": "'.$nombre_vend.'"
-		//   },
-		//   "asm":{
-		//         "group_id":15609
-		//   },
-		//   "template_id": "'.$plantilla_cam.'"
-		// }';
-
-		// // echo $fields."<----";
-
-		// curl_setopt_array($curl, array(
-		//   CURLOPT_URL => "https://api.sendgrid.com/v3/mail/send",
-		//   CURLOPT_RETURNTRANSFER => true,
-		//   CURLOPT_ENCODING => "",
-		//   CURLOPT_MAXREDIRS => 10,
-		//   CURLOPT_TIMEOUT => 30,
-		//   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		//   CURLOPT_CUSTOMREQUEST => "POST",
-		//   // CURLOPT_POSTFIELDS => "{\"personalizations\":[{\"to\":[{\"email\":\"brunomailcasa@gmail.com\",\"name\":\"John Doe\"}],\"dynamic_template_data\":{\"verb\":\"HOLA\"\"subject\":\"Asunto Dinámico 1\",\"adjective\":\"CHAU\",\"link_image\":\"https://icpacifico.cl/\"},\"subject\":\"Asunto Dinámico 2\"}],\"from\":{\"email\":\"kmiranda@icpacifico.cl\",\"name\":\"Jeannise\"},\"reply_to\":{\"email\":\"kmiranda@icpacifico.cl\",\"name\":\"Jeannise\"},\"template_id\":\"d-a09b82088125446da5439024687ce688\"}",
-		//   CURLOPT_POSTFIELDS => $fields,
-		//   CURLOPT_HTTPHEADER => array(
-		//     "authorization: Bearer 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",
-		//     "content-type: application/json"
-		//   ),
-		// ));
-
-		// $response = curl_exec($curl);
-		// $err = curl_error($curl);
-
-		// curl_close($curl);
-
-		// if ($err) {
-		//   echo "cURL Error #:" . $err;
-		// } else {
-		//   echo $response;
-		// }
-
-		// $conexion->cerrar();
-  //   }
-    public function verifica_envio_repetido($id_usu,$fecha,$asunto,$enlace,$plantilla_cam,$cantidad,$id_emp){
+    private function verifica_envio_repetido($id_usu,$fecha,$asunto,$enlace,$plantilla_cam,$cantidad,$id_emp){
     	$conexion = new conexion();
     	$consulta = "SELECT id_cam FROM campana_mail_campana ORDER BY id_cam DESC LIMIT 0,1";
 		$conexion->consulta($consulta);
@@ -416,9 +367,12 @@ class propietario
 		return $existe_anterior;
     }
 
+	//  Método GET para verificar envio repetido
+	public function getVerificaEnvioRepetido($id_usu,$fecha,$asunto,$enlace,$plantilla_cam,$cantidad,$id_emp){
+		$this->verifica_envio_repetido($id_usu,$fecha,$asunto,$enlace,$plantilla_cam,$cantidad,$id_emp);
+	}
 
-
-    public function propietario_insert_envio_masivo($id_cam,$id_emp,$cantidad,$asunto,$enlace,$plantilla_cam,$nombre_vend,$email_vend,$id_usu,$fecha,$descripcion){
+    private function propietario_insert_envio_masivo($id_cam,$id_emp,$cantidad,$asunto,$enlace,$plantilla_cam,$nombre_vend,$email_vend,$id_usu,$fecha,$descripcion){
         $conexion = new conexion();
 
 		// die("--->".$consulta." - ".$existe_anterior);
@@ -433,10 +387,10 @@ class propietario
 
 
         while($contador <= $cantidad ){
-   //      	$consulta = "INSERT INTO campana_destinatario_campana VALUES(?,?,?)";
+             //      	$consulta = "INSERT INTO campana_destinatario_campana VALUES(?,?,?)";
 			// $conexion->consulta_form($consulta,array(0,$id_emp[$contador],$id_cam));
 
-	  //       $consulta = "INSERT INTO propietario_observacion_propietario VALUES(?,?,?,?,?)";
+	        //       $consulta = "INSERT INTO propietario_observacion_propietario VALUES(?,?,?,?,?)";
 			// $conexion->consulta_form($consulta,array(0,$id_emp[$contador],$id_usu,$fecha,$descripcion));
 
 			$consulta = "SELECT nombre_pro, apellido_paterno_pro, correo_pro FROM propietario_propietario WHERE id_pro = ?";
@@ -517,7 +471,7 @@ class propietario
 		  // CURLOPT_POSTFIELDS => "{\"personalizations\":[{\"to\":[{\"email\":\"brunomailcasa@gmail.com\",\"name\":\"John Doe\"}],\"dynamic_template_data\":{\"verb\":\"HOLA\"\"subject\":\"Asunto Dinámico 1\",\"adjective\":\"CHAU\",\"link_image\":\"https://icpacifico.cl/\"},\"subject\":\"Asunto Dinámico 2\"}],\"from\":{\"email\":\"kmiranda@icpacifico.cl\",\"name\":\"Jeannise\"},\"reply_to\":{\"email\":\"kmiranda@icpacifico.cl\",\"name\":\"Jeannise\"},\"template_id\":\"d-a09b82088125446da5439024687ce688\"}",
 		  CURLOPT_POSTFIELDS => $fields,
 		  CURLOPT_HTTPHEADER => array(
-		    "authorization: Bearer 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",
+		    "authorization: Bearer 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",
 		    "content-type: application/json"
 		  ),
 		));
@@ -560,6 +514,9 @@ class propietario
 		}
     }
 
-	
+	// Método GET para guardar envio masivo
+	public function getPropietarioInsertEnvioMasivo($id_cam,$id_emp,$cantidad,$asunto,$enlace,$plantilla_cam,$nombre_vend,$email_vend,$id_usu,$fecha,$descripcion){
+		return $this->propietario_insert_envio_masivo($id_cam,$id_emp,$cantidad,$asunto,$enlace,$plantilla_cam,$nombre_vend,$email_vend,$id_usu,$fecha,$descripcion);
+	}
 }
 ?>
