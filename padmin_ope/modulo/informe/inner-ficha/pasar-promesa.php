@@ -103,14 +103,7 @@
         $conexion->consulta_form($consulta,array(12,$id_con));
         $fila = $conexion->extraer_registro_unico();
         $monto_reserva = utf8_encode($fila['valor_par']);
-        ?>
-        <input type="hidden" name="id" id="id" value="<?php echo $id_cot;?>"></input>
-        <input type="hidden" name="id_vivienda" id="id_vivienda" value="<?php echo $id_viv;?>"></input>
-        <input type="hidden" name="id_condominio" id="id_condominio" value="<?php echo $id_con;?>"></input>
-        <input type="hidden" name="id_pro" id="id_pro" value="<?php echo $id_pro;?>"></input>
-        <input type="hidden" name="monto_reserva" id="monto_reserva" value="<?php echo $monto_reserva;?>"></input>
-        <input type="hidden" name="valor_viv" id="valor_viv" value="<?php echo $valor_viv;?>"></input>
-        <input type="hidden" name="porcentaje_descuento" id="porcentaje_descuento" value="<?php echo $porcentaje_descuento;?>"></input>
+        ?>       
         <div class="box-body">
             <div class="row">
                 <div class="col-sm-12">
@@ -160,21 +153,32 @@
 	                        }
 	                        ?>
 	                    </div>
-                        <hr class="col-sm-12">
+                        
                     </div>
                     
                 </div>
                 <div class="container">
-
-                	<div class="row">
+					<div class="row">
+						<hr class="col-sm-12">
+							<div class="col-sm-12 text-center">
+								
+								<h4><b style="margin-right:1%;">Aplicar Descuento</b>
+								<input type="checkbox" id="desc" value="no">
+								</h4>
+								
+								
+											
+							</div>
+						
+					</div>
+                	<div class="row descuento">	
+					<hr class="col-sm-12">				
                         <div class="col-sm-12 text-center">
-                            <h4><b>* Tipos de descuentos disponiples para aplicar</b></h4>
-                            <b><small>Monto Reserva (UF): <?php echo $monto_reserva;?></small></b>
-                        </div>
-                        <hr class="col-sm-12">
+                            <h4><b>* Tipos de descuentos disponiples para aplicar</b> <b><small>Monto Reserva (UF): <?php echo $monto_reserva;?></small></b></h4>                            
+                        </div>                       
                     </div>
 
-                    <div class="row" style="margin:10px 0 25px 20px;"  >
+                    <div class="row descuento" style="margin:10px 0 25px 20px;"  >
                         <div class="col-sm-4 col-sm-offset-2 text-center">                           
                             <input type="radio" name="inlineRadioOptions" id="altotal" value="2">  Aplicar descuento al valor total de la propiedad                                           
                         </div>
@@ -183,7 +187,7 @@
                         </div>
                     </div>
 
-                    <div class="row" style="margin-bottom:20px;">                       
+                    <div class="row descuento" style="margin-bottom:20px;">                       
 	                    <div class="col-sm-4 col-sm-offset-2 text-center" id="alTotal">
                             <div class="col-sm-12">
                                 <label for="monto_vivienda">Descuento al total (<?php echo number_format($total_vivienda, 2, ',', '.');?>) <i class="fa fa-check-square-o bg-success" aria-hidden="true"></i><br><small>*descuento al valor total del precio.</small></label>
@@ -347,18 +351,24 @@
         });
 
         $('.numero').numeric();
-
         
         $(document).on( "click","#procesar_boton" , function() {
+			let opc2 = $( "input[id=desc]:checked" ).val();
             let opt = $( "input[name=inlineRadioOptions]:checked" ).val();
             let monto_viv = '';
             let vivienda = parseInt("<?php echo $valor_viv;?>");
             let alPrecio = parseInt($("#alPrecio").val());
-            if(opt == "1"){
-                monto_viv = vivienda;
-            }else{
-                monto_viv = vivienda - alPrecio;
-            }        
+			if(opc2!="no"){
+				opt = "3";
+				monto_viv = vivienda;
+			}else{
+				if(opt == "1"){
+               		monto_viv = vivienda;
+				}else{
+					monto_viv = vivienda - alPrecio;
+				}
+			}
+                    
             var procesa = {  
                     id: "<?php echo $id_cot;?>",  
                     id_vivienda : "<?php echo $id_viv;?>", 
@@ -370,11 +380,10 @@
                     forma_pago:  $("#forma_pago").val(),
                     pie:  $("#pie").val(),
                     premio:  $("#premio").val(),                    
-                    aplica_pie:   $( "input[name=inlineRadioOptions]:checked" ).val(), // 1 = abono inmobiliario ; 2 = desc al precio
+                    aplica_pie:   opt, // 1 = abono inmobiliario ; 2 = desc al precio
                     estacionamiento: [],
                     bodega:[]
-                };
-            // var dataString = $('#formulario').serialize(); 
+                };           
             $.ajax({
                 data: procesa,
                 type: 'POST',
@@ -385,158 +394,9 @@
             })
         });
         
-        $(document).on( "change",".elemento" , function() {
-            $('#contenedor_vivienda').html('');
-        });
+        $(document).on( "change",".elemento" , function() { $('#contenedor_vivienda').html(''); });
 
-        // $("#formulario").validate({
-        //     rules: {
-        //         // rut: { 
-        //         //     required: true
-        //         // },
-        //         // nombre: { 
-        //         //     required: true,
-        //         //     minlength: 3
-        //         // },
-        //         // apellido_paterno: { 
-        //         //     required: true,
-        //         //     minlength: 3
-        //         // },
-        //         // apellido_materno: { 
-        //         //     required: true,
-        //         //     minlength: 3
-        //         // },
-        //         // correo:{
-        //         //     required: true,
-        //         //     minlength: 4,
-        //         //     email: true
-        //         // },
-        //         // fono:{
-        //         //     required: true,
-        //         //     minlength: 4
-        //         // },
-        //         condominio: { 
-        //             required: true
-        //         },
-        //          torre: { 
-        //             required: true
-        //         },
-        //         departamento: { 
-        //             required: true
-        //         },
-        //         modelo: { 
-        //             required: true
-        //         },
-        //         canal: { 
-        //             required: true
-        //         },
-        //         fecha: { 
-        //             required: true
-        //         }
-
-        //     },
-        //     messages: {
-        //         // rut: {
-        //         //     required: "Ingrese Rut"
-        //         // },
-        //         // nombre: {
-        //         //     required: "Ingrese Nombre",
-        //         //     minlength: "Mínimo 3 caracteres"
-        //         // },
-        //         // apellido_paterno: {
-        //         //     required: "Ingrese Apellido Paterno",
-        //         //     minlength: "Mínimo 3 caracteres"
-        //         // },
-        //         // apellido_materno: {
-        //         //     required: "Ingrese Apellido Materno",
-        //         //     minlength: "Mínimo 3 caracteres"
-        //         // },
-        //         // correo: {
-        //         //     required: "Ingrese correo",
-        //         //     minlength: "Mínimo 4 caracteres",
-        //         //     email: "Ingrese correo válido"
-        //         // },
-        //         // fono: {
-        //         //     required: "Ingrese fono",
-        //         //     minlength: "Mínimo 4 caracteres"
-        //         // },
-        //         condominio: {
-        //             required: "Seleccione condominio"
-        //         },
-        //         torre: {
-        //             required: "Seleccione torre"
-        //         },
-        //         departamento: {
-        //             required: "Seleccione departamento"
-        //         },
-        //         modelo: {
-        //             required: "Seleccione modelo"
-        //         },
-        //         canal: {
-        //             required: "Ingrese canal"
-        //         },
-        //         fecha: {
-        //             required: "Ingrese fecha"
-        //         }
-        //     }
-        // });
-
-        
-
-        $(function () {
-            //Initialize Select2 Elements
-            $(".select2").select2();
-        });
-
-        // $(document).on( "change","#condominio" , function() {
-        //     valor = $(this).val();
-        //     if(valor != ""){
-        //         $.ajax({
-        //             type: 'POST',
-        //             url: ("../cotizacion/procesa_condominio.php"),
-        //             data:"valor="+valor,
-        //             success: function(data) {
-        //                 $('#torre').html(data);
-        //             }
-        //         })
-        //     }
-        // });
-        // $(document).on( "change","#torre" , function() {
-        //     valor = $(this).val();
-        //     if(valor != ""){
-        //         $.ajax({
-        //             type: 'POST',
-        //             url: ("../cotizacion/procesa_torre.php"),
-        //             data:"valor="+valor,
-        //             success: function(data) {
-        //                  $('#vivienda').html(data);
-        //             }
-        //         })
-        //     }
-        // });
-
-        // $(document).on( "change","#descuento" , function() {
-        //     valor = $(this).val();
-        //     if(valor != ""){
-        //     	$('#monto_vivienda').val("<?php echo $valor_viv;?>");
-        //         $('#monto_vivienda').attr('readonly', true);
-        //     } else {
-        //     	$('#monto_vivienda').attr('readonly', false);
-        //     }
-        // });
-
-        // $('input:radio[name="precio_descuento"]').change(function(){
-        // 	valor = $(this).val();
-        // 	// alert(valor);
-		//     if(valor==1){
-		//     	$('#monto_vivienda').val("<?php echo $valor_viv;?>");
-		//        	$('#monto_vivienda').attr('readonly', true);
-		//     } else {
-		//     	$('#monto_vivienda').attr('readonly', false);
-		//     }
-		// });
-        
-
+        $(function () { $(".select2").select2();});
         function resultado(data) {
             if (data.envio == 1) {
                 swal({
@@ -564,9 +424,7 @@
                 swal("Atención!", "Departamento está vendido", "warning");
                 $('#contenedor_boton').html('<button type="submit" class="btn btn-primary pull-right">Registrar</button>');
             }
-            // if(data.envio != ""){
-            //  alert(data.envio);
-            // }
+            
         }
 
         $(document).on( "click","#guardar" , function() {   
@@ -616,39 +474,35 @@
 					return false;
 				});
 
-						// $('#formulario').submit(function () {
-						//     if ($("#formulario").validate().form() == true){
-						//         $('#contenedor_boton').html('<img src="../../assets/img/loading.gif">');
-						//         var dataString = $('#formulario').serialize();
-						//         $.ajax({
-						//             data: dataString,
-						//             type: 'POST',
-						//             url: $(this).attr('action'),
-						//             dataType: 'json',
-						//             success: function (data) {
-						//                 resultado(data);
-						//             }
-						//         })
-						//     }
-							
-						//     return false;
-						// });
-					// }); 
-
 
 			// radio button functions
 
 		const visible = (a) => $("#"+a+"").css('visibility','visible');
 		const hidden = (a) => $("#"+a+"").css('visibility','hidden');
 
+		const classVisible = (a) => $("."+a+"").css('display','block');
+		const classHidden = (a) => $("."+a+"").css('display','none');
+
+			// check button functions
 		let opc = $( "input[name=inlineRadioOptions]:checked" ).val();
 		if(opc == "1"){ hidden('alTotal'); }else{  hidden('alAbono'); }
+		let opc2 = $( "input[id=desc]:checked" ).val();
+		if(opc2 == "no"){ classVisible('descuento');  }else{ classHidden('descuento');  }
 
 		$( "input[name=inlineRadioOptions]" ).on( "click", function() {
 			let valor = $('input[name=inlineRadioOptions]:checked').val();
 			if(valor=="1"){ visible('alAbono'); hidden('alTotal'); }
 			if(valor=="2"){ visible('alTotal'); hidden('alAbono'); }
 		
+		});
+
+		$('input[id=desc]').change(function() {
+			// this will contain a reference to the checkbox   
+			if (this.checked) {
+				classVisible('descuento');
+			} else {
+				classHidden('descuento');
+			}
 		});
     }); 
 </script>
