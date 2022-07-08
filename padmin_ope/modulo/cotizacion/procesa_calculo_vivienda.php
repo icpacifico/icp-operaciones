@@ -136,7 +136,7 @@ $forma_pago = utf8_encode($fila['nombre_for_pag']);
 
 $monto_vivienda_total = $valor_viv + $monto_bodega + $monto_estacionamiento;
 // $porc_pie = $fila['valor_pie_ven'];
-$porc_pie = ($pie * 100) / $monto_vivienda_total;
+$porc_pie = ($pie * 100) / $monto_vivienda_total; // valor del pie convertido en porcentaje
 ?>
 <div class="col-md-4">
 	<?php 
@@ -256,40 +256,30 @@ else {
 
 	}
 }
-if($cantidad_estacionamiento > 0){
-	?>
+if($cantidad_estacionamiento > 0){?>
 	<div class="info"><b>Monto Total Est. Adicionales:</b> <?php echo number_format($monto_estacionamiento, 2, ',', '.');?> UF</div>
-    <?php 
-}
-
-if($cantidad_bodega > 0){
-	?>
+<?php }if($cantidad_bodega > 0){?>
 	<div class="info"><b>Monto Total Bodegas Adicionales:</b> <?php echo number_format($monto_bodega, 2, ',', '.');?> UF</div>
-    <?php
-}
-
-
-
-?>
+<?php }?>
 <div class="info"><b>Monto Reserva:</b> <?php echo number_format($monto_reserva, 2, ',', '.');?> UF</div>
-<?php
-//----- PIE
-if($aplica_pie == 1){ //descuenta al pie    
+<?php if($aplica_pie == 1){ //descuenta al pie  
+
+    // pie = valor vivienda * (%pie / 100) 
     $monto_pie = $monto_vivienda_total * ($porc_pie / 100);
-    $monto_pie_sin_reserva = $monto_pie - $monto_reserva;
+    // $monto_pie_sin_reserva = $monto_pie - $monto_reserva;
 	if($precio_descuento == 1){ 
     	$monto_pie_con_descuento = $monto_pie - $descuentos_pie;
     } else {
     	$monto_pie_con_descuento = $monto_pie - $descuento_manual;
     }
-	$monto_pie_con_descuento_sin_reserva = $monto_pie_con_descuento - $monto_reserva;
-    ?>
-    <!-- <div class="info"><b>Monto Pie (sin Reserva):</b> <?php echo number_format($monto_pie_sin_reserva, 2, ',', '.');?> UF</div> -->
+	// $monto_pie_con_descuento_sin_reserva = $monto_pie_con_descuento - $monto_reserva;
+	$monto_pie_con_descuento_sin_reserva = $pie - $monto_reserva - $abonoInmobiliario;
+    ?>   
 	<div class="info"><b>Monto Pie Con Descuento:</b> <?php echo number_format($monto_pie_con_descuento_sin_reserva, 2, ',', '.');?> UF</div>
 	<?php
 } else { //el pie no tiene descuentos
 	$monto_pie = $monto_vivienda_descuento_final * ($porc_pie / 100);
-	$monto_pie_sin_reserva = $monto_pie - $monto_reserva;
+	// $monto_pie_sin_reserva = $monto_pie - $monto_reserva;
 	?>
 	<div class="info"><b>Monto Pie (Sin Reserva):</b> <?php echo number_format($monto_pie_sin_reserva, 2, ',', '.');?> UF</div>
 	<?php
