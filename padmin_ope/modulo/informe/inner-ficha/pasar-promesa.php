@@ -435,14 +435,24 @@
 
         $(document).on( "click","#guardar" , function() {   
             let opt = $( "input[name=inlineRadioOptions]:checked" ).val();
+            let opc2 = $( "input[id=desc]:checked" ).val();
             let monto_viv = '';
             let vivienda = parseInt("<?php echo $valor_viv;?>");
             let alPrecio = parseInt($("#alPrecio").val());
-            if(opt == "1"){
-                monto_viv = vivienda;
+            let abono = $("#abonoInmobiliario").val();
+            if(opc2!="no"){
+                opt = "3";
+				monto_viv = vivienda;
+                abono = 0;
             }else{
-                monto_viv = vivienda - alPrecio;
-            } 
+
+                if(opt == "1"){
+                monto_viv = vivienda;
+                }else{
+                    monto_viv = vivienda - alPrecio;
+                } 
+
+            }
             $('#contenedor_boton').html('<img src="../../assets/img/loading.gif">');
             let estacionamiento = [];
             let bodega = [];
@@ -466,7 +476,8 @@
                     premio:  $("#premio").val(),                    
                     aplica_pie:   $( "input[name=inlineRadioOptions]:checked" ).val(), // 1 = abono inmobiliario ; 2 = desc al precio
                     estacionamiento: estacionamiento,
-                    bodega: bodega
+                    bodega: bodega,
+                    abonoInmobiliario: abono
                 };
                 $.ajax({
                     data: promesa,

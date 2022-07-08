@@ -32,6 +32,7 @@ $aplica_pie = $_POST["aplica_pie"];
 $id_pro = $_POST["id_pro"]; 
 $monto_reserva = $_POST["monto_reserva"]; 
 $valor_viv = $_POST["valor_viv"];
+$abonoInmobiliario = $_POST["abonoInmobiliario"];
 $estado_venta = 4;
 $id_ban = 0;
 $id_tip_pag = 0;
@@ -53,33 +54,34 @@ if($tiene_promesa>0){
 
 if (empty($premio)) $premio = 0;
 // DESCUENTOS
-
 if($precio_descuento == 1) $descuento_precio = ($valor_viv * $porcentaje_descuento) / 100;
 
-if ($descuento_manual>0) { //cuando usa manual no usa el otro
-	$descuento_ven = $descuento_manual;
-} else {
-	$descuento_ven = $descuento_precio + $descuento_adicional;
-}
+// cuando usa manual no usa el otro descuento
+$descuento_ven = ($descuento_manual>0) ? $descuento_manual : $descuento_precio + $descuento_adicional ; 
 
-if($aplica_pie == 2){
-    $monto_vivienda_descuento = $valor_viv - $descuento_ven;
-}
-else{
-	$monto_vivienda_descuento = $valor_viv;
-}
+$monto_vivienda_descuento = ($aplica_pie == 2) ? $valor_viv - $descuento_ven : $valor_viv;
 
+
+// ----- cant de estacionamientos y bodegas de un depto  -----
 
 if(isset($_POST["estacionamiento"])) $cantidad_estacionamiento = count($_POST["estacionamiento"]);
 if(isset($_POST["bodega"])) $cantidad_bodega = count($_POST["bodega"]);
 if($cantidad_estacionamiento > 0) $monto_estacionamiento = $cotizacion->cotizacion_estacionamiento($_POST["estacionamiento"]);
 if($cantidad_bodega > 0) $monto_bodega = $cotizacion->cotizacion_bodega($_POST["bodega"]);
+
+// ----- fin cant de estacionamientos y bodegas de un depto -----
+
+
+
+
 // este es el valor total, con los adcionales
 $monto_vivienda_descuento_total = $monto_vivienda_descuento + $monto_estacionamiento + $monto_bodega;
 //----- PIE
-$valor_pie = $cotizacion->cotizacion_pie($pie);
-$monto_pie = $monto_vivienda_descuento_total * ($valor_pie / 100);
-$monto_pie_sin_reserva = $monto_pie - $monto_reserva;
+// el valor pie es convertido de uf a %
+$valor_pie = ($pie * 100) / $monto_vivienda_descuento_total;
+// monto pie es calculado con el valor vivienda multiplicado con el percentaje de valor pie
+$monto_pie = $monto_vivienda_descuento_total * (round($valor_pie) / 100);
+$monto_pie_sin_reserva = $monto_pie - $monto_reserva - $abonoInmobiliarios;
 
 if($aplica_pie == 2){ //no aplica
 	$pie_cancelado = $monto_pie_sin_reserva;
