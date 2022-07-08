@@ -57,7 +57,8 @@ if (empty($premio)) $premio = 0;
 if($precio_descuento == 1) $descuento_precio = ($valor_viv * $porcentaje_descuento) / 100;
 
 // cuando usa manual no usa el otro descuento
-$descuento_ven = ($descuento_manual>0) ? $descuento_manual : $descuento_precio + $descuento_adicional ; 
+// $descuento_ven = ($descuento_manual>0) ? $descuento_manual : $descuento_precio + $descuento_adicional ; 
+$descuento_ven = $abonoInmobiliario; 
 
 $monto_vivienda_descuento = ($aplica_pie == 2) ? $valor_viv - $descuento_ven : $valor_viv;
 
