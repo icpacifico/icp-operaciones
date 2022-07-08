@@ -201,6 +201,7 @@
                         <div class="col-sm-4 text-center" id="alAbono">
 	                        <div class="form-group">
 	                            <label for="monto_vivienda">Abono Inmobiliario <i class="fa fa-check-square-o bg-success"></i><br><small>*Descuento al valor del pie del departamento.</small></label>	                            
+                                <input type="number" name="abonoInmobiliario" id="abonoInmobiliario" class="form-control elemento numero" step="any" value="<?php echo intval(number_format($total_descuento,2,',','.'));?>">
 	                        </div>
 	                    </div>
                     </div>
@@ -358,14 +359,18 @@
             let monto_viv = '';
             let vivienda = parseInt("<?php echo $valor_viv;?>");
             let alPrecio = parseInt($("#alPrecio").val());
+            let abono = $("#abonoInmobiliario").val();
 			if(opc2!="no"){
 				opt = "3";
 				monto_viv = vivienda;
+                abono = 0;
 			}else{
 				if(opt == "1"){
                		monto_viv = vivienda;
+                      
 				}else{
 					monto_viv = vivienda - alPrecio;
+                    abono = 0;
 				}
 			}
                     
@@ -382,7 +387,8 @@
                     premio:  $("#premio").val(),                    
                     aplica_pie:   opt, // 1 = abono inmobiliario ; 2 = desc al precio
                     estacionamiento: [],
-                    bodega:[]
+                    bodega:[],
+                    abonoInmobiliario : abono
                 };           
             $.ajax({
                 data: procesa,

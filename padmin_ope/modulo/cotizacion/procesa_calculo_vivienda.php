@@ -14,7 +14,8 @@ $precio_descuento = $_POST["precio_descuento"];
 $forma_pago = $_POST["forma_pago"];
 $pie = $_POST["pie"];
 $premio = $_POST["premio"];
-$aplica_pie = $_POST["aplica_pie"]; 
+$aplica_pie = $_POST["aplica_pie"];
+$abonoInmobiliario = $_POST["abonoInmobiliario"]; 
 /*
 $aplica_pie = 1 es abono inmobiliario, osea descuento al pie
 $aplica_pie = 2 es descuento al precio total
@@ -72,6 +73,7 @@ if (empty($monto_vivienda) || $monto_vivienda > $valor_viv || empty($fecha) || e
     <?php
     exit();
 }
+
 $monto_estacionamiento = 0;
 $monto_bodega = 0;
 $total_descuento = 0;
@@ -86,14 +88,14 @@ $fecha_uf = date("Y-m-d",strtotime($fecha));
 $consulta = "SELECT valor_uf FROM uf_uf WHERE fecha_uf = ?";
 $conexion->consulta_form($consulta,array($fecha_uf));
 $cantidad_uf = $conexion->total();
-if($cantidad_uf == 0){
-    ?>
-    <div class="col-sm-12" style="margin-top: 20px;">
-        <span class="label label-info" style="font-size: 16px;">* No existe Uf cargada para la fecha seleccionada. Debe cargar UF para ver el resumen de promesa.</span>
-    </div>
-    <?php
-    exit();
-}
+    if($cantidad_uf == 0){
+        ?>
+        <div class="col-sm-12" style="margin-top: 20px;">
+            <span class="label label-info" style="font-size: 16px;">* No existe Uf cargada para la fecha seleccionada. Debe cargar UF para ver el resumen de promesa.</span>
+        </div>
+        <?php
+        exit();
+    }
 $fila = $conexion->extraer_registro_unico();
 $valor_uf = utf8_encode($fila['valor_uf']);
 $cantidad_estacionamiento = 0;
@@ -219,9 +221,9 @@ $monto_vivienda_descuento_final = $monto_vivienda_descuento + $monto_bodega + $m
 if($precio_descuento == 1){  //si aplica precio con descuento
     // echo "DESCUENTOS <br>";
     if($precio_descuento == 1 && $aplica_pie == 1){
-        $total_precio_descuento_peso = $total_precio_descuento * $valor_uf;
+        // $total_precio_descuento_peso = $total_precio_descuento * $valor_uf;
         ?>
-		<div class="info"><b>Abono Inmobiliaria:</b> <?php echo number_format($total_precio_descuento, 2, ',', '.');?> UF</div>
+		<div class="info"><b>Abono Inmobiliaria:</b> <?php echo number_format($abonoInmobiliario, 2, ',', '.');?> UF</div>
         <?php       
     }       
     if($aplica_pie == 2){
@@ -235,12 +237,14 @@ if($precio_descuento == 1){  //si aplica precio con descuento
     $descuentos_pie = $total_precio_descuento + $monto_descuento;
 
     
-} else { //cuando hizo descuento manual
+} 
+//cuando hizo descuento manual
+else { 
 	if ($valor_viv>$monto_vivienda) {
 		$descuento_manual = $valor_viv - $monto_vivienda;
 		if($aplica_pie == 1){
 		?>
-		<div class="info"><b>Abono Inmobiliaria:</b> <?php echo number_format($descuento_manual, 2, ',', '.');?> UF</div>
+		<div class="info"><b>Abono Inmobiliaria:</b> <?php echo number_format($abonoInmobiliario, 2, ',', '.');?> UF</div>
 		<?php
 		}
 		if($aplica_pie == 2){

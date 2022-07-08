@@ -1,12 +1,12 @@
 <?php
 date_default_timezone_set('America/Santiago');
 // Rutas para referencias
-
+/*
 	$MOD : sera el toquen que cambiara según el ambiente
 	1) .- es para el ambiente de produccion
 	2) .- es para el ambiente de pruebas
 	3) .- es para el ambiente de desarrollo 
-
+*/
 $MOD = 2; 
 
 
