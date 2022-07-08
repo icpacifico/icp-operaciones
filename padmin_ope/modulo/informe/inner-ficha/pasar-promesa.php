@@ -447,7 +447,7 @@
             }else{
 
                 if(opt == "1"){
-                monto_viv = vivienda;
+                    monto_viv = vivienda;
                 }else{
                     monto_viv = vivienda - alPrecio;
                 } 
