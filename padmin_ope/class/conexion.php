@@ -22,129 +22,91 @@ class conexion
 	}
 	//-------CONEXION A UNA BASE DE DATOS
 	private function conectar_base_datos(){
-		try {
-		    // Abriendo la conexion
-		    self::$conexionDB = new PDO("mysql:host=$this->servidor;dbname=$this->base_datos", $this->usuario, $this->pass);
-
-		    // Informenos de todos los errores
-		    self::$conexionDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		    //return self::$conexion;
-		} 
-		catch (PDOException $e) {
-		    // En caso de que algo saliera mal con nuestro intento de conexión, el mensaje se imprime
-		    $jsondata['envio'] = 3;
-		    $jsondata['error_consulta'] = $e->getMessage();
-			echo json_encode($jsondata);
-			//echo $e->getMessage();
-			exit();
-		}
-		
+		try {		    
+		    self::$conexionDB = new PDO("mysql:host=$this->servidor;dbname=$this->base_datos", $this->usuario, $this->pass);		   
+		    self::$conexionDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);		    
+		}catch (PDOException $e){ $this->status(3, $e->getMessage());}					  				
 	}
-	//-------CIERRA UNA CONEXION
+	
 	public function cerrar(){
-		self::$conexionDB = null;
+		try {
+			self::$conexionDB = null;
+		}catch (PDOException $e){ $this->status(3, $e->getMessage());}		
 	}
-	//-------EJECUTA UNA CONSULTA A LA BASE DE DATOS
+
 	public function consulta_form($consulta,$valor){
 		try {
-			self::$ejecutar = self::$conexionDB->prepare($consulta);
-		    // Creamos un diccionario con todos los parámetros
-		    self::$ejecutar->execute($valor);
-		    //$jsondata['consulta'] = self::$ejecutar->debugDumpParams();
-		}
-		catch(PDOException $e){
-			$jsondata['envio'] = 3;
-		    $jsondata['error_consulta'] = $e->getMessage();
-		    echo json_encode($jsondata);
-			exit();
-		}
+			self::$ejecutar = self::$conexionDB->prepare($consulta);		    
+		    self::$ejecutar->execute($valor);		   
+		}catch (PDOException $e){ $this->status(3, $e->getMessage());}
 	}
+
 	public static function select($consulta){
 		try {
 			$query = self::$conexionDB->prepare($consulta);
 			$query->execute();
-			$results = $query->fetchAll(PDO::FETCH_OBJ);
-			return $results;	
-		} catch (PDOException $e) {
-			$jsondata['envio'] = 3;
-		    $jsondata['error_consulta'] = $e->getMessage();
-		    echo json_encode($jsondata);
-			exit();
-		}
+			return $query->fetchAll(PDO::FETCH_OBJ);			
+		}catch (PDOException $e){ $this->status(3, $e->getMessage());}
 	}
-	//-------EJECUTA UNA CONSULTA A LA BASE DE DATOS DE PRUEBA
+	
 	public function consulta_form_prueba($consulta,$valor){
 		try {
-			self::$ejecutar = self::$conexionDB->prepare($consulta);
-		    // Creamos un diccionario con todos los parámetros
-		    self::$ejecutar->execute($valor);
-		    //self::$ejecutar->debugDumpParams();
-		}
-		catch(PDOException $e){
-		    echo $e->getMessage();
-		}
+			self::$ejecutar = self::$conexionDB->prepare($consulta);		    
+		    self::$ejecutar->execute($valor);		   
+		}catch (PDOException $e){ $this->status(3, $e->getMessage());}
 	}
 	//-------EJECUTA UNA CONSULTA A LA BASE DE DATOS SIN PARAMETRO
 	public function consulta($consulta){
 		try {
 			self::$ejecutar = self::$conexionDB->query($consulta);
-		}
-		catch(PDOException $e){
-			$jsondata['envio'] = 3;
-		    $jsondata['error_consulta'] = $e->getMessage();
-		    echo json_encode($jsondata);
-			exit();
-		}
+		}catch (PDOException $e){ $this->status(3, $e->getMessage());}
 	}
+
 	public static function consulta_total($query){
 		try {
 			$rows = self::$conexionDB->query($query);
-			return $rows->rowCount();
-		}
-		catch(PDOException $e){
-			$jsondata['envio'] = 3;
-		    $jsondata['error_consulta'] = $e->getMessage();
-		    echo json_encode($jsondata);
-			exit();
-		}
+			return $rows->rowCount();		
+	    }catch (PDOException $e){ $this->status(3, $e->getMessage());}
 	}
+
 	//-------EJECUTA UNA CONSULTA A LA BASE DE DATOS SIN PARAMETRO DE PRUEBA
 	public function consulta_prueba($consulta){
 		try {
-			self::$ejecutar = self::$conexionDB->query($consulta);
-			//self::$ejecutar->debugDumpParams();
-		}
-		catch(PDOException $e){
-			echo $e->getMessage();
-		    
-		}
+			self::$ejecutar = self::$conexionDB->query($consulta);			
+		}catch (PDOException $e){ $this->status(3, $e->getMessage());}
 	}
 	//-------EXTRAE LOS REGISTROS DE UNA TABLA
 	public function extraer_registro(){
-		if ($fila = self::$ejecutar->fetchAll(PDO::FETCH_ASSOC)){
-			return $fila;
-		} 
-		else {
-			return false;
-		}
+	    try{
+			$file='';
+			return ($file = self::$ejecutar->fetchAll(PDO::FETCH_ASSOC)) ? $file : false;
+		}catch (PDOException $e){ $this->status(3, $e->getMessage());}
 	}
 	//-------EXTRAE LOS REGISTROS DE UNA TABLA
 	public function extraer_registro_unico(){
-		if ($fila = self::$ejecutar->fetch()){
-			return $fila;
-		} 
-		else {
-			return false;
-		}
+		try {
+			$file='';
+			return ($file = self::$ejecutar->fetch()) ? $file : false;
+		}catch (PDOException $e){ $this->status(3, $e->getMessage());}		
 	}
 	//-------CANTIDAD DE REGISTROS DE UNA CONSULTA
 	public function total(){
-		return self::$ejecutar->rowCount();
+		try {
+			return self::$ejecutar->rowCount();
+		}catch (PDOException $e){ $this->status(3, $e->getMessage());}		
 	}
 	//-------DEVUELVE EL ULTIMO ID DESPUES DE UNA INSERCION
 	public function ultimo_id(){
-		$ultimo_id = self::$conexionDB->lastInsertId();
-		return $ultimo_id;
+		try {
+			return self::$conexionDB->lastInsertId();		
+	    }catch (PDOException $e){ $this->status(3, $e->getMessage());}		
+	}
+
+	private function status($tipo,$msj){
+		$jsondata['envio'] = $tipo;
+		$jsondata['error_consulta'] = $msj;
+		echo json_encode($jsondata);
+		exit();
 	}
 }
 ?>
