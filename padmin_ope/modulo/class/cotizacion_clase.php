@@ -283,8 +283,11 @@ class cotizacion
 		return $tiene_promesa;
 	}
 
-	public function cotizacion_insert_venta($id_viv,$id_pro,$id_ban,$id_pie_ven,$id_for_pag,$id_des,$id_pre,$id_pie_abo_ven,$id_tip_pag,$id_est_ven,$fecha_ven,$fecha_promesa_ven,$monto_reserva_ven,$descuento_manual_ven,$descuento_precio_ven,$descuento_adicional_ven,$descuento_ven,$pie_cancelado_ven,$pie_cobrar_ven,$monto_estacionamiento_ven,$monto_bodega_ven,$monto_vivienda_ven,$monto_vivienda_ingreso_ven,$monto_ven,$numero_compra_ven,$cotizacion_ven,$precio_descuento){
+	public function cotizacion_insert_venta($id_viv,$id_pro,$id_ban,$id_pie_ven,$id_for_pag,$id_des,$id_pre,$id_pie_abo_ven,$id_tip_pag,$id_est_ven,$fecha_ven,$fecha_promesa_ven,$monto_reserva_ven,$descuento_manual_ven,$descuento_precio_ven,$descuento_adicional_ven,$descuento_ven,$pie_cancelado_ven,$pie_cobrar_ven,$monto_estacionamiento_ven,$monto_bodega_ven,$monto_vivienda_ven,$monto_vivienda_ingreso_ven,$monto_ven,$cotizacion_ven,$precio_descuento)
+	{
 		$conexion = new conexion();
+		$id_cat_vend_supervisor = 0;
+		$id_supervisor = 0;
 
 		//Vendedor
 		$consulta = 
@@ -450,6 +453,7 @@ class cotizacion
 		$monto_escritura_comision = $monto_comision * ($porcentaje_escritura / 100); 
 
 		// -------- SUPERVISOR ---------
+		$factor_supervisor = 0;
 		if($id_cat_vend_supervisor == 1){
             $factor_supervisor = $factor_junior_supervisor;	
         }
@@ -537,7 +541,66 @@ class cotizacion
 		$fecha_escritura_ven = null;
 		
 		$consulta = "INSERT INTO venta_venta VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";//60
-		$conexion->consulta_form($consulta,array(0,$id_viv,$id_vend,$id_pro,$id_ban,$id_pie_ven,$id_for_pag,$id_des,$id_pre,$id_pie_abo_ven,$id_tip_pag,$id_est_ven,$fecha_ven,$fecha_promesa_ven,$monto_reserva_ven,$descuento_manual_ven,$descuento_precio_ven,$descuento_adicional_ven,$descuento_ven,$pie_cancelado_ven,$pie_cobrar_ven,$monto_estacionamiento_ven,$monto_bodega_ven,$monto_vivienda_ven,$monto_vivienda_ingreso_ven,$monto_ven,$id_cat_vend,$porcentaje_comision_vendedor,$porcentaje_promesa,$monto_promesa_comision,$monto_promesa_comision_supervisor,$monto_promesa_comision_jefe,$porcentaje_escritura,$monto_escritura_comision,$monto_escritura_comision_supervisor,$monto_escritura_comision_jefe,$total_comision,$total_comision_supervisor,$total_comision_jefe,$bono_viv,$bono_precio,$promesa_bono_precio_ven,$promesa_bono_precio_supervisor,$promesa_bono_precio_jefe,$escritura_bono_precio_ven,$escritura_bono_precio_supervisor,$escritura_bono_precio_jefe,$total_bono_precio,$total_bono_precio_supervisor,$total_bono_precio_jefe,$numero_compra_ven,$cotizacion_ven,$monto_credito_ven,0,0,$factor,$id_supervisor,$id_jefe,0,$monto_escritura_operacion,$fecha_escritura_ven));
+		$conexion->consulta_form($consulta,array(0,
+												$id_viv,
+												$id_vend,
+												$id_pro,
+												$id_ban,
+												$id_pie_ven,
+												$id_for_pag,
+												$id_des,
+												$id_pre,
+												$id_pie_abo_ven,
+												$id_tip_pag,
+												$id_est_ven,
+												$fecha_ven,
+												$fecha_promesa_ven,
+												$monto_reserva_ven,
+												$descuento_manual_ven,
+												$descuento_precio_ven,
+												$descuento_adicional_ven,
+												$descuento_ven,
+												$pie_cancelado_ven,
+												$pie_cobrar_ven,
+												$monto_estacionamiento_ven,
+												$monto_bodega_ven,
+												$monto_vivienda_ven,
+												$monto_vivienda_ingreso_ven,
+												$monto_ven,
+												$id_cat_vend,
+												$porcentaje_comision_vendedor,
+												$porcentaje_promesa,
+												$monto_promesa_comision,
+												$monto_promesa_comision_supervisor,
+												$monto_promesa_comision_jefe,
+												$porcentaje_escritura,
+												$monto_escritura_comision,
+												$monto_escritura_comision_supervisor,
+												$monto_escritura_comision_jefe,
+												$total_comision,
+												$total_comision_supervisor,
+												$total_comision_jefe,
+												$bono_viv,$bono_precio,
+												$promesa_bono_precio_ven,
+												$promesa_bono_precio_supervisor,
+												$promesa_bono_precio_jefe,
+												$escritura_bono_precio_ven,
+												$escritura_bono_precio_supervisor,
+												$escritura_bono_precio_jefe,
+												$total_bono_precio,
+												$total_bono_precio_supervisor,
+												$total_bono_precio_jefe,
+												1,
+												$cotizacion_ven,
+												$monto_credito_ven,
+												0,
+												0,
+												$factor,
+												$id_supervisor,
+												$id_jefe,
+												0,
+												$monto_escritura_operacion,
+												$fecha_escritura_ven));
 
 		$id_venta = $conexion->ultimo_id();
 		
@@ -580,6 +643,7 @@ class cotizacion
 		$conexion->cerrar();
 
 	}
+
 	public function cotizacion_insert_desistimiento($id,$fecha,$descripcion){
 		$conexion = new conexion();
 		$consulta = "UPDATE cotizacion_cotizacion SET id_est_cot = ? WHERE id_cot = ?";

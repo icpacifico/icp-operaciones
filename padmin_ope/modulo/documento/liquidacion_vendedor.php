@@ -13,13 +13,8 @@ $id_vendedor = $_GET["id_vend"];
 // header("Expires: 0");
 
 // cambio de textos
-if($id_vendedor==3){
-	$texto_tabla = "Bono";
-	$texto_titulo = "Bonos";
-} else {
 	$texto_tabla = "Comisión";
 	$texto_titulo = "Comisión";
-}
 
 function get_uf_disistimiento($id_ven){
 
@@ -961,14 +956,15 @@ if(is_array($fila_consulta_cierre)){
         		$total_comisiones = 0;
         		$total_pago = ($monto_acumulado_promesa + $monto_acumulado_escritura) - $total_desistimiento_acumulado;
 
+                
+                $total_bonos = $monto_acumulado_bonos + $monto_acumulado_a_pagar;
+                $total_comisiones = $total_pago - $total_bonos;
 
-        		$total_bonos = $monto_acumulado_bonos + $monto_acumulado_a_pagar;
-        		$total_comisiones = $total_pago - $total_bonos;
+                $total_liquidacion_bonos = $total_liquidacion_bonos + $total_bonos;
+                $total_liquidacion_comisiones = $total_liquidacion_comisiones + $total_comisiones;
 
-        		$total_liquidacion_bonos = $total_liquidacion_bonos + $total_bonos;
-        		$total_liquidacion_comisiones = $total_liquidacion_comisiones + $total_comisiones;
-
-        		if($id_vendedor<>3){
+                
+        		        		
         		?>
         		<tr>
         			<td colspan="2"></td>
@@ -985,10 +981,7 @@ if(is_array($fila_consulta_cierre)){
         			<td></td>
         			<td><?php echo number_format($total_bonos, 0, ',', '.');?></td>
         			<td colspan="6"></td>
-        		</tr>
-        		<?php 
-        		}
-        		 ?>
+        		</tr>        		
         		<tr class="separa">
         			<td colspan="2"></td>
         			<td colspan="3">TOTAL A PAGAR</td>
@@ -1011,42 +1004,47 @@ $bonos ="
         bonos
     WHERE
         id_vendedor = ? and
-        id_cierre = ? and
-        nombre = 'Bono C2'
+        id_cierre = ? 
     ";
 $conexion->consulta_form($bonos,array($id_vendedor,$id_cierre));
 $bonos_detalle = $conexion->extraer_registro();
-$total_liquidacion_bonos += $bonos_detalle[0]['monto'];
-$total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
+
 ?>
 <!-- nuevo resumen final -->
 <?php 
-if($id_vendedor<>3){
+
     
    
     if(is_array($bonos_detalle)){     
+        for ($i=0; $i < count($bonos_detalle); $i++) { 
+            
+            $total_liquidacion_bonos += $bonos_detalle[$i]['monto'];
+            
  ?>
+
     <table class="liquida" style=" margin-bottom:50px;">
         <thead>
             <tr>
-                <th colspan="11" style="text-align:center;border:1px solid #000000; font-weight: 700;">BONO C2.</th>
+                <th colspan="11" style="text-align:center;border:1px solid #000000; font-weight: 700;"><?php echo $bonos_detalle[$i]['nombre']?></th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td colspan="4" style="text-align:right;border:1px solid #000000;">% Cumplimiento : <?php echo $bonos_detalle[0]['porcentaje']?>%</td>                
-                <td colspan="2" style="text-align:center;border:1px solid #000000;">Mes de <?php echo $bonos_detalle[0]['mes']?></td>
+                <td colspan="4" style="text-align:right;border:1px solid #000000;">% Cumplimiento : <?php echo $bonos_detalle[$i]['porcentaje']?>%</td>                
+                <td colspan="2" style="text-align:center;border:1px solid #000000;">Mes de <?php echo $bonos_detalle[$i]['mes']?></td>
                 <?php
                 $rango  = "";
-                if($bonos_detalle[0]['porcentaje'] == 100){ $rango = "Igual a 100%";}else if($bonos_detalle[0]['porcentaje'] >100){ $rango = "desde 101% a 150%";}else if($bonos_detalle[0]['porcentaje'] >150){ $rango = " de 150% en adelante";}
+                if($bonos_detalle[$i]['porcentaje'] == 100){ $rango = "Igual a 100%";}else if($bonos_detalle[$i]['porcentaje'] >100){ $rango = "desde 101% a 150%";}else if($bonos_detalle[$i]['porcentaje'] >150){ $rango = " de 150% en adelante";}else{ $rango ="por desempeño";}
                 ?>
                 <td colspan="2" style="text-align:center;border:1px solid #000000;">Rango de cumplimiento <?php echo $rango?></td>
-                <td colspan="3" style="text-align:left;border:1px solid #000000;">Total $<?php echo $bonos_detalle[0]['monto']?></td>               
+                <td colspan="3" style="text-align:left;border:1px solid #000000;">Total $<?php echo $bonos_detalle[$i]['monto']?></td>               
             </tr>
         </tbody>
     </table>
 <?php
+       }
     }
+    $total_liquidacion_a_pagar = $total_liquidacion_comisiones + $total_liquidacion_bonos;
 ?>
 
 <table class="liquida" style="margin: bottom 50px;">
@@ -1068,29 +1066,5 @@ if($id_vendedor<>3){
 		</tr>
 	</tbody>
 </table>
-<?php 
-} else {
- ?>
-<table class="liquida" style="margin: bottom 50px;">
-	<thead>
-		<tr>
-			<th colspan="4" style="border:1px solid #000000;">RESUMEN TOTAL</th>
-			<!-- <th colspan="3" style="text-align: center; border:1px solid #000000;">COMISIONES</th> -->
-			<!-- <th colspan="2" style="text-align: center; border:1px solid #000000;">BONOS</th> -->
-			<th colspan="2" style="text-align: center; border:1px solid #000000;">TOTAL BONOS</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr class="cabecera">
-			<td colspan="4"></td>
-			<!-- <td colspan="3" class="bl-1">$ <?php //echo number_format($total_liquidacion_comisiones, 0, ',', '.');?></td> -->
-			<!-- <td colspan="2" class="bl-1">$ <?php //echo number_format($total_liquidacion_bonos, 0, ',', '.');?></td> -->
-			<td colspan="2" class="bl-1">$ <?php echo number_format($total_liquidacion_a_pagar, 0, ',', '.');?></td>
-		</tr>
-	</tbody>
-</table>
-<?php 
-}
- ?>
 </body>
 </html>

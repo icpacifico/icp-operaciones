@@ -293,14 +293,12 @@ unset($_SESSION["numero_item"]);
                 //reset progress bar
                 // $('.progress-bar').css('width', '0%');
                 // $('.progress-bar').text('0%');
-                // $('.progress-bar').attr('data-progress', '0');
-               
-               let arrayc2 = '<?php echo (isset($_SESSION['c2']))? $_SESSION['c2']:''?>';
+                // $('.progress-bar').attr('data-progress', '0');                                  
                 $.ajax({
                     type: 'POST',
                     url: ("insert.php"),
                     //data:"valor="+valor+"&cantidad="+var_check+"&reserva="+var_reserva+"&fecha_dep="+var_fecha_dep+"&programa_base="+var_programa_base,
-                    data: "c2bono="+arrayc2,
+                    // data: "c2bono="+arrayc2+"&c3bono="+arrayc3,
                     dataType: 'json',                    
                     success: function (response) {
                       

@@ -24,24 +24,24 @@ $conexion = new conexion();
     background-color: #fff;
     border: 1px solid #d2d6de;
     border-radius: 0px;
-}
+    }
 
-.select2-container .select2-selection--single {
-    box-sizing: border-box;
-    cursor: pointer;
-    display: block;
-    height: 34px;
-    user-select: none;
-    -webkit-user-select: none;
-}
+    .select2-container .select2-selection--single {
+        box-sizing: border-box;
+        cursor: pointer;
+        display: block;
+        height: 34px;
+        user-select: none;
+        -webkit-user-select: none;
+    }
 
-.proceso .info{
-	padding:6px 0px;
-}
+    .proceso .info{
+        padding:6px 0px;
+    }
 
-.proceso h5{
-	font-weight: bold;
-	text-decoration: underline;
+    .proceso h5{
+        font-weight: bold;
+        text-decoration: underline;
 }
 </style>
 </head>
@@ -53,7 +53,7 @@ $conexion = new conexion();
     </div>
     <!-- /.box-header -->
     <!-- form start -->
-    <form id="formulario" role="form" method="post" action="insert_promesa.php">
+    <div id="formulario" class="form form-inline">
         <?php  
         $consulta = 
             "
@@ -111,32 +111,14 @@ $conexion = new conexion();
         $nombre_mod = utf8_encode($fila['nombre_mod']);
         $fecha_cot = date("d-m-Y",strtotime($fila['fecha_cot']));
         
-        $consulta = 
-            "
-            SELECT
-                valor_par
-            FROM
-                parametro_parametro
-            WHERE
-                valor2_par = ? AND
-                id_con = ?
-            ";
+        $consulta = "SELECT valor_par FROM parametro_parametro WHERE valor2_par = ? AND id_con = ? ";
         $conexion->consulta_form($consulta,array(4,$id_con));
         $fila = $conexion->extraer_registro_unico();
         $porcentaje_descuento = utf8_encode($fila['valor_par']);
         $total_descuento = ($valor_viv * $porcentaje_descuento) / 100;
         $total_vivienda = $valor_viv - $total_descuento;
 
-        $consulta = 
-            "
-            SELECT
-                valor_par
-            FROM
-                parametro_parametro
-            WHERE
-                valor2_par = ? AND
-                id_con = ?
-            ";
+        $consulta ="SELECT valor_par FROM parametro_parametro WHERE valor2_par = ? AND id_con = ?";
         $conexion->consulta_form($consulta,array(12,$id_con));
         $fila = $conexion->extraer_registro_unico();
         $monto_reserva = utf8_encode($fila['valor_par']);
@@ -151,12 +133,12 @@ $conexion = new conexion();
         <div class="box-body">
             <div class="row">
                 <div class="col-sm-12">
-                    <h4>Cotización: <?php echo $id_cot; ?> - Cliente: <?php echo $nombre_pro." ".$apellido_paterno_pro." ".$apellido_materno_pro." - Fono:".$fono_pro;?></h4>
+                    <h4>Cotización: <?php echo $id_cot; ?> - Cliente: <?php echo ucfirst(strtolower($nombre_pro))." ".ucfirst(strtolower($apellido_paterno_pro))." ".ucfirst(strtolower($apellido_materno_pro))." - Fono : ".$fono_pro;?></h4>
                 </div>
                 <div class="col-sm-12">
                 	<table class="table table-bordered">
                 		<tr class="bg-light-blue color-palette">
-                			<td colspan="3" style="font-weight:bold;">UNIDAD: <?php echo $nombre_viv; ?> - <?php echo $nombre_con; ?></td>
+                			<td colspan="3" style="font-weight:bold;">UNIDAD : <?php echo $nombre_viv; ?> - <?php echo $nombre_con; ?></td>
                 		</tr>
                 		<tr class="bg-light-blue color-palette">
                 			<td><b>Precio Depto:</b> <?php echo number_format($valor_viv, 2, ',', '.');?> UF .-</td>
@@ -164,23 +146,15 @@ $conexion = new conexion();
                 			<td><b>Total Depto:</b> <?php echo number_format($total_vivienda, 2, ',', '.');?> UF .-</td>
                 		</tr>
                 	</table>
-					<div class="row">
-	                    <div class="col-sm-4">
+					<div class="container">
+	                    <div class="col-sm-4 text-right">
 	                        <?php
-	                        $consulta = 
-	                            "
-	                            SELECT
-	                                nombre_bod
-	                            FROM
-	                                bodega_bodega
-	                            WHERE
-	                                id_viv = " . $id_viv . "
-	                            ";
-	                        $conexion->consulta_form($consulta,array($id));
+	                        $consulta ="SELECT nombre_bod FROM bodega_bodega WHERE id_viv = ?";
+	                        $conexion->consulta_form($consulta,array($id_viv));
 	                        $fila_consulta = $conexion->extraer_registro();
 	                        $cantidad = $conexion->total();
 	                        if(is_array($fila_consulta)){
-	                            foreach ($fila_consulta as $fila) {
+	                            foreach ($fila_consulta as $fila){
 	                                $nombre_bod = utf8_encode($fila["nombre_bod"]);
 	                                ?>
 	                                    <i class="fa fa-cubes"></i> Bod. <span><?php echo $nombre_bod;?></span>
@@ -189,18 +163,10 @@ $conexion = new conexion();
 	                        }
 	                        ?>
 	                    </div>
-	                    <div class="col-sm-4">
+	                    <div class="col-sm-4 text-right">
 	                        <?php
-	                        $consulta = 
-	                            "
-	                            SELECT
-	                                nombre_esta
-	                            FROM
-	                                estacionamiento_estacionamiento
-	                            WHERE
-	                                id_viv = " . $id_viv . "
-	                            ";
-	                        $conexion->consulta_form($consulta,array($id));
+	                        $consulta = " SELECT nombre_esta FROM estacionamiento_estacionamiento WHERE id_viv = ?";
+	                        $conexion->consulta_form($consulta,array($id_viv));
 	                        $fila_consulta = $conexion->extraer_registro();
 	                        $cantidad = $conexion->total();
 	                        if(is_array($fila_consulta)){
@@ -213,69 +179,60 @@ $conexion = new conexion();
 	                        }
 	                        ?>
 	                    </div>
+                        <hr class="col-sm-12">
+                    </div>
+                    
+                </div>
+                <div class="container">
+
+                	<div class="row">
+                        <div class="col-sm-12 text-center">
+                            <h4><b>* Tipos de descuentos disponiples para aplicar</b></h4>
+                            <b><small>Monto Reserva (UF): <?php echo $monto_reserva;?></small></b>
+                        </div>
+                        <hr class="col-sm-12">
+                    </div>
+
+                    <div class="row" style="margin:10px 0 25px 20px;"  >
+                        <div class="col-sm-4 col-sm-offset-2 text-center">                           
+                            <input type="radio" name="inlineRadioOptions" id="altotal" value="2">  Aplicar descuento al valor total de la propiedad                                           
+                        </div>
+                        <div class="col-sm-4 text-center">
+                            <input type="radio" name="inlineRadioOptions" id="alpie" value="1" checked>  Aplicar descuento al pie (Abono Inmobiliario)
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom:20px;">                       
+	                    <div class="col-sm-4 col-sm-offset-2 text-center" id="alTotal">
+                            <div class="col-sm-12">
+                                <label for="monto_vivienda">Descuento al total (<?php echo number_format($total_vivienda, 2, ',', '.');?>) <i class="fa fa-check-square-o bg-success" aria-hidden="true"></i><br><small>*descuento al valor total del precio.</small></label>
+                            </div>
+                            <div class="col-sm-3 col-sm-offset-3">
+                                <div class="form-group">                                    
+                                    <input type="number" name="alPrecio" class="form-control numero elemento" id="alPrecio" step="any" value="<?php echo intval(number_format($total_descuento,2,',','.'));?>"/>
+                                </div>
+                            </div>                              
+	                    </div>
+                        <div class="col-sm-4 text-center" id="alAbono">
+	                        <div class="form-group">
+	                            <label for="monto_vivienda">Abono Inmobiliario <i class="fa fa-check-square-o bg-success"></i><br><small>*Descuento al valor del pie del departamento.</small></label>	                            
+	                        </div>
+	                    </div>
                     </div>
                     <hr class="col-sm-12">
-                </div>
-                <div class="col-sm-12 ">
-                	<div class="row">
-	                    <div class="col-sm-2">
-	                        <div class="form-group">
-	                            <label for="monto_vivienda">Precio Depto:<br><small>*si aplica descuento manual, no utlice otros descuentos</small></label>
-	                            <input type="text" name="monto_vivienda" class="form-control numero elemento" id="monto_vivienda" value="<?php echo $valor_viv;?>" />
-	                        </div>
-	                    </div>
-	                    <div class="col-sm-3">
-	                        <div class="form-group" >
-	                            <h4 class="col-sm-12">Precio con Descuento:</h4>                      
-	                            <div class="col-sm-4" >                         
-	                                <input id="1" type="radio" name="precio_descuento" class="precio_descuento elemento" value="1">
-	                                <label for="1">SI</label>
-	                            </div>
-	                            <div class="col-sm-4" >                         
-	                                <input id="2" type="radio" name="precio_descuento" class="precio_descuento elemento" value="2" checked="checked">
-	                                <label for="2">NO</label>
-	                            </div> 
-	                        </div>
-	                    </div>
-	                    <div class="col-sm-2">
-	                        <div class="form-group">
-	                            <label for="fecha">Fecha:</label>
-	                            <input type="text" name="fecha" class="form-control datepicker elemento" id="fecha"/>
-	                        </div>
-	                    </div>
+                    <div class="row">   
 
-	                    
-	                    <div class="col-sm-3">
-	                        <div class="form-group">
-	                            <label for="descuento">Descuento Adicional (UF):</label>
-	                            <select class="form-control select2 elemento" id="descuento" name="descuento"> 
-	                                <option value="">Seleccione Descuento</option>
-	                                <?php  
-	                                // tienen que ser los del condominio
-	                                $consulta = "SELECT * FROM descuento_descuento WHERE id_est_des = 1 AND id_con = ".$id_con." ORDER BY nombre_des";
-	                                $conexion->consulta($consulta);
-	                                $fila_consulta = $conexion->extraer_registro();
-	                                if(is_array($fila_consulta)){
-	                                    foreach ($fila_consulta as $fila) {
-	                                        ?>
-	                                        <option value="<?php echo $fila['id_des'];?>"><?php echo utf8_encode($fila['nombre_des']." ".$fila['monto_des']." UF");?></option>
-	                                        <?php
-	                                    }
-	                                }
-	                                ?>
-	                            </select>
-	                        </div>
-	                    </div>
-	                    <div class="col-sm-2">
-	                        <div class="form-group">
-	                            <label for="reserva">Monto Reserva (UF):</label>
-	                            <input type="text" name="reserva elemento" class="form-control" id="reserva" value="<?php echo $monto_reserva;?>" disabled="disabled" />
-	                        </div>
-	                    </div>
-	                    <div class="col-sm-2">
+                        <div class="col-sm-4 text-right">
+                            <div class="form-group">
+                                <label for="fecha">Fecha:</label>
+                                <input type="text" name="fecha" class="form-control datepicker elemento" id="fecha"/>
+                            </div>
+                        </div>	
+
+	                    <div class="col-sm-4 text-center">
 	                        <div class="form-group">
 	                            <label for="forma_pago">Forma de Pago:</label>
-	                            <select class="form-control" id="forma_pago elemento" name="forma_pago"> 
+	                            <select class="form-control elemento" id="forma_pago" name="forma_pago"> 
 	                                <option value="">Seleccione Opción</option>
 	                                <?php  
 	                                $consulta = "SELECT * FROM pago_forma_pago WHERE id_for_pag <= 2 ORDER BY nombre_for_pag";
@@ -292,29 +249,20 @@ $conexion = new conexion();
 	                            </select>
 	                        </div>
 	                    </div>
-	                    <div class="col-sm-2">
+
+	                    <div class="col-sm-4 text-left">
 	                        <div class="form-group">
-	                            <label for="pie">PIE (%):</label>
-	                            <select class="form-control elemento" id="pie" name="pie"> 
-	                                <?php  
-	                                $consulta = "SELECT * FROM venta_pie_venta ORDER BY valor_pie_ven";
-	                                $conexion->consulta($consulta);
-	                                $fila_consulta = $conexion->extraer_registro();
-	                                if(is_array($fila_consulta)){
-	                                    foreach ($fila_consulta as $fila) {
-	                                        ?>
-	                                        <option value="<?php echo $fila['id_pie_ven'];?>"><?php echo utf8_encode($fila['valor_pie_ven']);?></option>
-	                                        <?php
-	                                    }
-	                                }
-	                                ?>
-	                            </select>
+	                            <label for="pie">PIE (UF):</label>
+                                <input type="number" step="any" class="form-control elemento" id="pie" name="pie">	                            
 	                        </div>
-	                    </div>
-	                    <div class="col-sm-2">
+	                    </div>                        
+                    </div>
+                   <div class="row" style="padding:3%;">
+
+                   <div class="col-sm-5 col-sm-offset-2">
 	                        <div class="form-group">
 	                            <label for="premio">Premio:</label>
-	                            <select class="form-control elemento" id="premio" name="premio"> 
+	                            <select class="form-control" id="premio" name="premio"> 
 	                                <option value="">Seleccione Premio</option>
 	                                <?php  
 	                                $consulta = "SELECT * FROM premio_premio WHERE id_est_pre = 1 ORDER BY nombre_pre";
@@ -331,99 +279,65 @@ $conexion = new conexion();
 	                            </select>
 	                        </div>
 	                    </div>
-	                    <!-- <div class="col-sm-2"> -->
-	                        <!-- <div class="form-group"> -->
-	                            <!-- <label for="total_vivienda">N° Bien Inscrito:</label> -->
-	                            <input type="hidden" name="total_vivienda" class="form-control numero elemento" id="total_vivienda" value="1" />
-	                        <!-- </div> -->
-	                    <!-- </div> -->
-	                    <div class="col-sm-3">
-	                        <div class="form-group" >
-	                            <h4 class="col-sm-12">Descuento Aplica PIE:</h4>
-	                            <?php
-	                            $consulta = "SELECT * FROM venta_pie_abono_venta ORDER BY nombre_pie_abo_ven DESC";
-	                            $conexion->consulta($consulta);
-	                            $fila_consulta = $conexion->extraer_registro();
-	                            if(is_array($fila_consulta)){
-	                                foreach ($fila_consulta as $fila) {
-	                                    $id_pie_abo_ven = utf8_encode($fila['id_pie_abo_ven']);
-	                                    $nombre_pie_abo_ven = utf8_encode($fila['nombre_pie_abo_ven']);
-	                                    if($id_pie_abo_ven == 2){
-	                                        ?>
-	                                        <div class="col-sm-4" >
-	                                            <input id="aplica_pie_<?php echo $id_pie_abo_ven;?>" type="radio" name="aplica_pie" class="aplica_pie elemento" <?php echo $clase;?> checked="checked" value="<?php echo $id_pie_abo_ven;?>">
-	                                            <label for="aplica_pie_<?php echo $id_pie_abo_ven;?>"><?php echo utf8_encode($nombre_pie_abo_ven);?></label>
-	                                        </div>
-	                                        <?php
-	                                    }
-	                                    else{
-	                                        ?>
-	                                        <div class="col-sm-4" >
-	                                            <input id="aplica_pie_<?php echo $id_pie_abo_ven;?>" type="radio" name="aplica_pie" class="aplica_pie elemento" <?php echo $clase;?> value="<?php echo $id_pie_abo_ven;?>">
-	                                            <label for="aplica_pie_<?php echo $id_pie_abo_ven;?>"><?php echo utf8_encode($nombre_pie_abo_ven);?></label>
-	                                        </div>
-	                                        <?php
-	                                    }
-	                                    
-	                                }
-	                            }
-	                            ?>  
-	                            
 
-	                            
-	                        </div>
-	                    </div>
-	                    <div class="col-sm-12">
-	                        <div class="box-body col-sm-6">
-	                            <h4 class="col-sm-12">Estacionamiento Adicional:</h4>
-	                            <ul class="list-unstyled list-inline margin-0">
-	                                <?php
-	                                $consulta = "SELECT * FROM estacionamiento_estacionamiento WHERE id_viv = 0 AND id_con = ".$id_con." ORDER BY nombre_esta ASC";
-	                                $conexion->consulta($consulta);
-	                                $fila_consulta = $conexion->extraer_registro();
-	                                if(is_array($fila_consulta)){
-	                                    foreach ($fila_consulta as $fila) {
-	                                        $id_esta = utf8_encode($fila['id_esta']);
-	                                        $nombre_esta = utf8_encode($fila['nombre_esta']);
-	                                        ?>
-	                                        <li class="margin-bottom-10 col-sm-3">
-	                                            <input type="checkbox" name="estacionamiento[]" id="estacionamiento_<?php echo $id_esta;?>" value="<?php echo $id_esta;?>" class="estacionamiento check_registro elemento"><label for="estacionamiento_<?php echo $id_esta;?>"><span></span><?php echo $nombre_esta;?></label>
-	                                            
-	                                        </li>
-	                                        <?php
-	                                    }
-	                                }
-	                                ?>  
-	                            </ul>
-	                        </div>
-	                        <div class="box-body col-sm-6">
-	                            <h4 class="col-sm-12">Bodega Adicional:</h4>
-	                            <ul class="list-unstyled list-inline margin-0">
-	                                <?php
-	                                $consulta = "SELECT * FROM bodega_bodega WHERE id_viv = 0 AND id_con = ".$id_con." ORDER BY nombre_bod ASC";
-	                                $conexion->consulta($consulta);
-	                                $fila_consulta = $conexion->extraer_registro();
-	                                if(is_array($fila_consulta)){
-	                                    foreach ($fila_consulta as $fila) {
-	                                        $id_bod = utf8_encode($fila['id_bod']);
-	                                        $nombre_bod = utf8_encode($fila['nombre_bod']);
-	                                        ?>
-	                                        <li class="margin-bottom-10 col-sm-3">
-	                                            <input type="checkbox" name="bodega[]" id="bodega_<?php echo $id_bod;?>" value="<?php echo $id_bod;?>" class="bodega check_registro elemento"><label for="bodega_<?php echo $id_bod;?>"><span></span><?php echo $nombre_bod;?></label>
-	                                            
-	                                        </li>
-	                                        <?php
-	                                    }
-	                                }
-	                                ?>  
-	                            </ul>
-	                        </div>
-	                        
-	                    </div>
-	                    <div class="col-sm-2" style="margin-top: 20px;">
-	                        <button type="button" id="procesar_boton" name="procesar_boton" class="btn btn-warning pull-right">Procesar</button>
+                   </div>
+	                    
+                   
+                    <div class="row" style="padding-bottom:30px;">                       
+                        <?php if($id_con == 7){?>
+                                <div class="col-sm-12">
+                                    <div class="box-body col-sm-6">
+                                        <h4 class="col-sm-12">Estacionamiento Adicional:</h4>
+                                        <ul class="list-unstyled list-inline margin-0">
+                                            <?php
+                                            $consulta = "SELECT * FROM estacionamiento_estacionamiento WHERE id_viv = 0 AND id_con = ".$id_con." ORDER BY nombre_esta ASC";
+                                            $conexion->consulta($consulta);
+                                            $fila_consulta = $conexion->extraer_registro();
+                                            if(is_array($fila_consulta)){
+                                                foreach ($fila_consulta as $fila) {
+                                                    $id_esta = utf8_encode($fila['id_esta']);
+                                                    $nombre_esta = utf8_encode($fila['nombre_esta']);
+                                                    ?>
+                                                    <li class="margin-bottom-10 col-sm-3">
+                                                        <input type="checkbox" name="estacionamiento[]" id="estacionamiento_<?php echo $id_esta;?>" value="<?php echo $id_esta;?>" class="estacionamiento check_registro elemento"><label for="estacionamiento_<?php echo $id_esta;?>"><span></span><?php echo $nombre_esta;?></label>
+                                                        
+                                                    </li>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>  
+                                        </ul>
+                                    </div>
+                                    <div class="box-body col-sm-6">
+                                        <h4 class="col-sm-12">Bodega Adicional:</h4>
+                                        <ul class="list-unstyled list-inline margin-0">
+                                            <?php
+                                            $consulta = "SELECT * FROM bodega_bodega WHERE id_viv = 0 AND id_con = ".$id_con." ORDER BY nombre_bod ASC";
+                                            $conexion->consulta($consulta);
+                                            $fila_consulta = $conexion->extraer_registro();
+                                            if(is_array($fila_consulta)){
+                                                foreach ($fila_consulta as $fila) {
+                                                    $id_bod = utf8_encode($fila['id_bod']);
+                                                    $nombre_bod = utf8_encode($fila['nombre_bod']);
+                                                    ?>
+                                                    <li class="margin-bottom-10 col-sm-3">
+                                                        <input type="checkbox" name="bodega[]" id="bodega_<?php echo $id_bod;?>" value="<?php echo $id_bod;?>" class="bodega check_registro elemento"><label for="bodega_<?php echo $id_bod;?>"><span></span><?php echo $nombre_bod;?></label>
+                                                        
+                                                    </li>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>  
+                                        </ul>
+                                    </div>	                        
+                                </div>
+                        <?php }?>
+
+	                    <div class="col-sm-3 col-sm-offset-8">
+	                        <button type="button" id="procesar_boton" name="procesar_boton" class="btn btn-warning btn-lg"><i class="fa fa-spinner" aria-hidden="true"></i> Procesar</button>
 	                    </div>
 	                </div>
+
                 </div>
                 <div class="col-sm-12" id="contenedor_vivienda"></div>
             </div>
@@ -431,7 +345,7 @@ $conexion = new conexion();
         </div>
         <!-- /.box-body -->
         
-    </form>
+    </div> <!-- form -->
 </div>
 
 <?php // include_once _INCLUDE."js_comun.php";?>
@@ -440,7 +354,7 @@ $conexion = new conexion();
 <script src="<?php echo _ASSETS?>plugins/datepicker/locales/bootstrap-datepicker.es.js"></script>
 <script src="<?php echo _ASSETS?>plugins/select2/select2.full.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/alert/sweet-alert.js"></script>
-<script src="<?php echo _ASSETS?>plugins/validate/jquery.validate.js"></script>
+<!-- <script src="<?php echo _ASSETS?>plugins/validate/jquery.validate.js"></script> -->
 <script src="<?php echo _ASSETS?>plugins/validate/jquery.numeric.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -459,12 +373,34 @@ $conexion = new conexion();
         $('.numero').numeric();
 
         
-        $(document).on( "click","#procesar_boton" , function() {
-            //$('#contenedor_boton').show();
-
-            var dataString = $('#formulario').serialize();
+        $(document).on( "click","#procesar_boton" , function() {        
+            let opt = $( "input[name=inlineRadioOptions]:checked" ).val();
+            let monto_viv = '';
+            let vivienda = parseInt("<?php echo $valor_viv;?>");
+            let alPrecio = parseInt($("#alPrecio").val());
+            if(opt == "1"){
+                monto_viv = vivienda;
+            }else{
+                monto_viv = vivienda - alPrecio;
+            }        
+            var procesa = {  
+                    id: "<?php echo $id_cot;?>",  
+                    id_vivienda : "<?php echo $id_viv;?>", 
+                    id_condominio:  "<?php echo $id_con;?>",
+                    valor_viv:  "<?php echo $valor_viv;?>",
+                    monto_vivienda:  monto_viv,
+                    fecha:  $('#fecha').val(),
+                    precio_descuento:  opt,                   
+                    forma_pago:  $("#forma_pago").val(),
+                    pie:  $("#pie").val(),
+                    premio:  $("#premio").val(),                    
+                    aplica_pie:   $( "input[name=inlineRadioOptions]:checked" ).val(), // 1 = abono inmobiliario ; 2 = desc al precio
+                    estacionamiento: [],
+                    bodega:[]
+                };
+            // var dataString = $('#formulario').serialize();            
             $.ajax({
-                data: dataString,
+                data: procesa,
                 type: 'POST',
                 url: ("procesa_calculo_vivienda.php"),
                 success: function (data) {
@@ -477,106 +413,102 @@ $conexion = new conexion();
             $('#contenedor_vivienda').html('');
         });
 
-        $("#formulario").validate({
-            rules: {
-                rut: { 
-                    required: true
-                },
-                nombre: { 
-                    required: true,
-                    minlength: 3
-                },
-                apellido_paterno: { 
-                    required: true,
-                    minlength: 3
-                },
-                apellido_materno: { 
-                    required: true,
-                    minlength: 3
-                },
-                correo:{
-                    required: true,
-                    minlength: 4,
-                    email: true
-                },
-                fono:{
-                    required: true,
-                    minlength: 4
-                },
-                condominio: { 
-                    required: true
-                },
-                 torre: { 
-                    required: true
-                },
-                departamento: { 
-                    required: true
-                },
-                modelo: { 
-                    required: true
-                },
-                canal: { 
-                    required: true
-                },
-                fecha: { 
-                    required: true
-                }
+        // $("#formulario").validate({
+        //     rules: {
+        //         rut: { 
+        //             required: true
+        //         },
+        //         nombre: { 
+        //             required: true,
+        //             minlength: 3
+        //         },
+        //         apellido_paterno: { 
+        //             required: true,
+        //             minlength: 3
+        //         },
+        //         apellido_materno: { 
+        //             required: true,
+        //             minlength: 3
+        //         },
+        //         correo:{
+        //             required: true,
+        //             minlength: 4,
+        //             email: true
+        //         },
+        //         fono:{
+        //             required: true,
+        //             minlength: 4
+        //         },
+        //         condominio: { 
+        //             required: true
+        //         },
+        //          torre: { 
+        //             required: true
+        //         },
+        //         departamento: { 
+        //             required: true
+        //         },
+        //         modelo: { 
+        //             required: true
+        //         },
+        //         canal: { 
+        //             required: true
+        //         },
+        //         fecha: { 
+        //             required: true
+        //         }
 
-            },
-            messages: {
-                rut: {
-                    required: "Ingrese Rut"
-                },
-                nombre: {
-                    required: "Ingrese Nombre",
-                    minlength: "Mínimo 3 caracteres"
-                },
-                apellido_paterno: {
-                    required: "Ingrese Apellido Paterno",
-                    minlength: "Mínimo 3 caracteres"
-                },
-                apellido_materno: {
-                    required: "Ingrese Apellido Materno",
-                    minlength: "Mínimo 3 caracteres"
-                },
-                correo: {
-                    required: "Ingrese correo",
-                    minlength: "Mínimo 4 caracteres",
-                    email: "Ingrese correo válido"
-                },
-                fono: {
-                    required: "Ingrese fono",
-                    minlength: "Mínimo 4 caracteres"
-                },
-                condominio: {
-                    required: "Seleccione condominio"
-                },
-                torre: {
-                    required: "Seleccione torre"
-                },
-                departamento: {
-                    required: "Seleccione departamento"
-                },
-                modelo: {
-                    required: "Seleccione modelo"
-                },
-                canal: {
-                    required: "Ingrese canal"
-                },
-                fecha: {
-                    required: "Ingrese fecha"
-                }
-            }
-        });
-
-        
+        //     },
+        //     messages: {
+        //         rut: {
+        //             required: "Ingrese Rut"
+        //         },
+        //         nombre: {
+        //             required: "Ingrese Nombre",
+        //             minlength: "Mínimo 3 caracteres"
+        //         },
+        //         apellido_paterno: {
+        //             required: "Ingrese Apellido Paterno",
+        //             minlength: "Mínimo 3 caracteres"
+        //         },
+        //         apellido_materno: {
+        //             required: "Ingrese Apellido Materno",
+        //             minlength: "Mínimo 3 caracteres"
+        //         },
+        //         correo: {
+        //             required: "Ingrese correo",
+        //             minlength: "Mínimo 4 caracteres",
+        //             email: "Ingrese correo válido"
+        //         },
+        //         fono: {
+        //             required: "Ingrese fono",
+        //             minlength: "Mínimo 4 caracteres"
+        //         },
+        //         condominio: {
+        //             required: "Seleccione condominio"
+        //         },
+        //         torre: {
+        //             required: "Seleccione torre"
+        //         },
+        //         departamento: {
+        //             required: "Seleccione departamento"
+        //         },
+        //         modelo: {
+        //             required: "Seleccione modelo"
+        //         },
+        //         canal: {
+        //             required: "Ingrese canal"
+        //         },
+        //         fecha: {
+        //             required: "Ingrese fecha"
+        //         }
+        //     }
+        // });
 
         $(function () {
             //Initialize Select2 Elements
             $(".select2").select2();
         });
-
-        
 
         $(document).on( "change","#condominio" , function() {
             valor = $(this).val();
@@ -603,28 +535,7 @@ $conexion = new conexion();
                     }
                 })
             }
-        });
-
-        $(document).on( "change","#descuento" , function() {
-            valor = $(this).val();
-            if(valor != ""){
-            	$('#monto_vivienda').val("<?php echo $valor_viv;?>");
-                $('#monto_vivienda').attr('readonly', true);
-            } else {
-            	$('#monto_vivienda').attr('readonly', false);
-            }
-        });
-
-        $('input:radio[name="precio_descuento"]').change(function(){
-        	valor = $(this).val();
-        	// alert(valor);
-		    if(valor==1){
-		    	$('#monto_vivienda').val("<?php echo $valor_viv;?>");
-		       	$('#monto_vivienda').attr('readonly', true);
-		    } else {
-		    	$('#monto_vivienda').attr('readonly', false);
-		    }
-		});
+        });        
         
 
         function resultado(data) {
@@ -649,30 +560,93 @@ $conexion = new conexion();
             if (data.envio == 3) {
                 swal("Error!", "Favor intentar denuevo o contáctese con administrador", "error");
                 $('#contenedor_boton').html('<button type="submit" class="btn btn-primary pull-right">Registrar</button>');
-            }
-            // if(data.envio != ""){
-            //  alert(data.envio);
-            // }
+            }            
         }
 
-        $('#formulario').submit(function () {
-            if ($("#formulario").validate().form() == true){
-                $('#contenedor_boton').html('<img src="../../assets/img/loading.gif">');
-                var dataString = $('#formulario').serialize();
+        $(document).on( "click","#guardar" , function() {   
+            let opt = $( "input[name=inlineRadioOptions]:checked" ).val();
+            let monto_viv = '';
+            let vivienda = parseInt("<?php echo $valor_viv;?>");
+            let alPrecio = parseInt($("#alPrecio").val());
+            if(opt == "1"){
+                monto_viv = vivienda;
+            }else{
+                monto_viv = vivienda - alPrecio;
+            } 
+            $('#contenedor_boton').html('<img src="../../assets/img/loading.gif">');
+            let estacionamiento = [];
+            let bodega = [];
+            <?php if($id_con == 7){?>
+                estacionamiento = $('input[name="estacionamiento"]:checked').val();
+                bodega = $('input[name="bodega"]:checked').val();
+            <?php };?>
+            var promesa = {  
+                    id: "<?php echo $id_cot;?>",  
+                    id_vivienda : "<?php echo $id_viv;?>", 
+                    id_condominio:  "<?php echo $id_con;?>",
+                    id_pro: "<?php echo $id_pro;?>",
+                    monto_reserva: "<?php echo $monto_reserva;?>",
+                    porcentaje_descuento: "<?php echo $porcentaje_descuento;?>",
+                    valor_viv:  "<?php echo $valor_viv;?>",
+                    monto_vivienda:  monto_viv,
+                    fecha:  $('#fecha').val(),
+                    precio_descuento:  opt,                   
+                    forma_pago:  $("#forma_pago").val(),
+                    pie:  $("#pie").val(),
+                    premio:  $("#premio").val(),                    
+                    aplica_pie:   $( "input[name=inlineRadioOptions]:checked" ).val(), // 1 = abono inmobiliario ; 2 = desc al precio
+                    estacionamiento: estacionamiento,
+                    bodega: bodega
+                };
                 $.ajax({
-                    data: dataString,
+                    data: promesa,
                     type: 'POST',
-                    url: $(this).attr('action'),
+                    url: 'insert_promesa.php',
                     dataType: 'json',
                     success: function (data) {
                         resultado(data);
                     }
                 })
-            }
-            
-            return false;
+           
+
+                return false;
         });
+
+        // $('#formulario').submit(function () {
+        //     if ($("#formulario").validate().form() == true){
+        //         $('#contenedor_boton').html('<img src="../../assets/img/loading.gif">');
+        //         var dataString = $('#formulario').serialize();
+        //         $.ajax({
+        //             data: dataString,
+        //             type: 'POST',
+        //             url: $(this).attr('action'),
+        //             dataType: 'json',
+        //             success: function (data) {
+        //                 resultado(data);
+        //             }
+        //         })
+        //     }
+            
+        //     return false;
+        // });
     }); 
+
+
+// radio button functions
+
+const visible = (a) => $("#"+a+"").css('visibility','visible');
+const hidden = (a) => $("#"+a+"").css('visibility','hidden');
+
+let opc = $( "input[name=inlineRadioOptions]:checked" ).val();
+if(opc == "1"){ hidden('alTotal'); }else{  hidden('alAbono'); }
+
+$( "input[name=inlineRadioOptions]" ).on( "click", function() {
+    let valor = $('input[name=inlineRadioOptions]:checked').val();
+    if(valor=="1"){ visible('alAbono'); hidden('alTotal'); }
+    if(valor=="2"){ visible('alTotal'); hidden('alAbono'); }
+  
+});
+
 </script>
 </body>
 </html>
