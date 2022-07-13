@@ -1,14 +1,8 @@
 <?php
 date_default_timezone_set('America/Santiago');
 // Rutas para referencias
-/*
-	$MOD : sera el toquen que cambiara según el ambiente
-	1) .- es para el ambiente de produccion
-	2) .- es para el ambiente de pruebas
-	3) .- es para el ambiente de desarrollo 
-*/
-$MOD = 2; 
 
+$PROD = true; // si es falso, entrara en modo de desarrollo
 
 $rutausada = substr($_SERVER['HTTP_HOST'], 0, 3);
 if ($rutausada=="www") {
@@ -21,30 +15,19 @@ require "parametros.php";
 
 // Definición de rutas globales
 if (!defined('_RUTA')) {
-
-	switch ($MOD) {
-		case 1:
-			// Produccion.
-			define('_RUTA', "https://".$inicioruta."00ppsav.cl/");
-			break;
-		case 2:
-			// Pruebas.
-			define('_RUTA', "http://".$inicioruta."test.00ppsav.cl/");
-			break;
-		case 3:
-			// Desarrollo.
-			define('_RUTA', "http://localhost/icp-operaciones/");
-			break;
-		default:
-			die();
-			break;
-	}	   
+	// PRODUCCIÓN
+	if($PROD){
+	  define('_RUTA', "https://".$inicioruta."00ppsav.cl/");
+	}else{
+	  //DESARROLLO
+	  define('_RUTA', "http://localhost/icp-operaciones/");
+	}   
 }
 // Obtención del nombre de dominio
 if(!defined('_DOMINIO')){
 	$protocolos = array('http://', 'https://', 'ftp://', 'www.');
     $url = explode('/', str_replace($protocolos, '', _RUTA));
-	if($MOD){
+	if($PROD){
 		define('_DOMINIO', $url[0]);
 	}else{
 		define('_DOMINIO', $url[0].'/'.$url[1]);
@@ -65,30 +48,21 @@ if (!defined('_INCLUDE')) {
 }
 
 // PARAMETROS DE BASE DE DATOS
-switch ($MOD) {
-	case 1:
-		// Produccion.
-		if(!defined('_SERVER')) define('_SERVER','localhost');
-		if(!defined('_USER')) define('_USER','root');
-		if(!defined('_PASS')) define('_PASS','Proyectarse2022!!');
-		if(!defined('_DB')) define('_DB','ppsavcl_ssoopp_digital');
-		break;
-	case 2:
-		// Pruebas.
-		if(!defined('_SERVER')) define('_SERVER','localhost');
-		if(!defined('_USER')) define('_USER','root');
-		if(!defined('_PASS')) define('_PASS','Proyectarse2022!!');	
-		if(!defined('_DB')) define('_DB','ppsavcl_ssoopp_digital_test');
-		break;
-	case 3:
-		// Desarrollo.
-		if(!defined('_SERVER')) define('_SERVER','localhost');
-		if(!defined('_USER')) define('_USER','root');
-		if(!defined('_PASS')) define('_PASS','');	
-		if(!defined('_DB')) define('_DB','ppsavcl_ssoopp_digital');
-		break;
-	default:
-		die();
-		break;
+if($PROD){
+	if(!defined('_SERVER')) define('_SERVER','localhost');
+	if(!defined('_USER')) define('_USER','root');
+	if(!defined('_PASS')) define('_PASS','Proyectarse2022!!');
+	if(!defined('_DB')) define('_DB','ppsavcl_ssoopp_digital');
+}else{
+	
+	// if(!defined('_SERVER')) define('_SERVER','144.202.84.205');
+	if(!defined('_SERVER')) define('_SERVER','localhost');
+	if(!defined('_USER')) define('_USER','root');
+	if(!defined('_PASS')) define('_PASS','');
+	// if(!defined('_PASS')) define('_PASS','Proyectarse2022!!');
+	if(!defined('_DB')) define('_DB','ppsavcl_ssoopp_digital');
 }
+
+
+
 ?>
