@@ -59,6 +59,19 @@ class conexion
 			exit();
 		}
 	}
+	public static function select($consulta){
+		try {
+			$query = self::$conexionDB->prepare($consulta);
+			$query->execute();
+			$results = $query->fetchAll(PDO::FETCH_OBJ);
+			return $results;	
+		} catch (PDOException $e) {
+			$jsondata['envio'] = 3;
+		    $jsondata['error_consulta'] = $e->getMessage();
+		    echo json_encode($jsondata);
+			exit();
+		}
+	}
 	//-------EJECUTA UNA CONSULTA A LA BASE DE DATOS DE PRUEBA
 	public function consulta_form_prueba($consulta,$valor){
 		try {
@@ -75,6 +88,18 @@ class conexion
 	public function consulta($consulta){
 		try {
 			self::$ejecutar = self::$conexionDB->query($consulta);
+		}
+		catch(PDOException $e){
+			$jsondata['envio'] = 3;
+		    $jsondata['error_consulta'] = $e->getMessage();
+		    echo json_encode($jsondata);
+			exit();
+		}
+	}
+	public static function consulta_total($query){
+		try {
+			$rows = self::$conexionDB->query($query);
+			return $rows->rowCount();
 		}
 		catch(PDOException $e){
 			$jsondata['envio'] = 3;

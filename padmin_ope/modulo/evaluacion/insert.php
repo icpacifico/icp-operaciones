@@ -22,10 +22,11 @@ function percents($val){
     }
     return $var;
 }
-// funcion para separar el dato y convertirlo en tipo numero ej: "12" -> ["1"]["2"] -> int(["2"]) = 2
+// funcion para separar el dato y convertirlo en tipo numero ej: str_split("12") -> ["1"]["2"] -> intval(["2"]) = 2
 function formato($val){
     $var = 0;
     $var = str_split($val);
+    // se le resta uno para quedar desde el rango 0 a 4
     return intval($var[1] - 1);
 }
 // estructura base para devolver un mensaje de estatus de la petición
@@ -47,8 +48,8 @@ function status($title,$msj,$alert){
             $conexion->consulta_form($query,array($pts,$percents,$ven_id,formato($resp1),formato($resp2),formato($resp3),formato($resp4)));
             status("Registrado!","Evaluación de desempeño registrada con éxito.","success");            
             die();
-        } catch (\Throwable $th) {
-            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$th." ","danger");           
+        } catch (Exception $e) {
+            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e." ","danger");           
             die();
         }        
     }   

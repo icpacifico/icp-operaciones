@@ -2383,22 +2383,11 @@ $id_usuario = $_SESSION["sesion_id_panel"];
                                         ";
                                     $conexion->consulta($consulta);
                                     $cantidad_opcion = $conexion->total();
-                                    if($cantidad_opcion > 0){
-                                        ?>
+                                    if($cantidad_opcion > 0): ?>
                                         <li id="mailing-select"><a href="<?php echo _MODULO?>mailing/form_select_listas.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Mis Listas Masivas</a></li>
-
-
-                                        <?php
-                                    }
-
-                                     $consulta = 
-                                        "
-                                        SELECT 
-                                            usu.id_mod 
-                                        FROM 
-                                            usuario_usuario_proceso AS usu,
-                                            usuario_proceso AS proceso
-                                        WHERE 
+                                    <?php endif;
+                                    
+                                     $consulta = "SELECT usu.id_mod FROM usuario_usuario_proceso AS usu,usuario_proceso AS proceso WHERE 
                                             usu.id_usu = ".$id_usuario." AND
                                             usu.id_mod = ".$fila["id_mod"]." AND
                                             proceso.opcion_pro = 4 AND
@@ -2407,15 +2396,9 @@ $id_usuario = $_SESSION["sesion_id_panel"];
                                         ";
                                     $conexion->consulta($consulta);
                                     $cantidad_opcion = $conexion->total();
-                                    if($cantidad_opcion > 0){
-                                        ?>
+                                    if($cantidad_opcion > 0): ?>
                                         <li id="mailing-select_envios"><a href="<?php echo _MODULO?>mailing/form_select_envios.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Mis Envíos Masivos</a></li>
-
-
-                                        <?php
-                                    }
-                                    
-                                    ?>
+                                    <?php endif;?>
                                 </ul>
                             </li>
                         <?php
@@ -2428,58 +2411,34 @@ $id_usuario = $_SESSION["sesion_id_panel"];
                                     <i class="fa fa-file-text"></i> <span>Evaluación de desempeño</span> <i class="fa fa-angle-left pull-right"></i>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <?php
-                                    $consulta = 
-                                        "
-                                        SELECT 
-                                            usu.id_mod 
-                                        FROM 
-                                            usuario_usuario_proceso AS usu,
-                                            usuario_proceso AS proceso
-                                        WHERE 
+                                <?php
+                                    $cantidad_opcion = conexion::consulta_total("SELECT usu.id_mod FROM  usuario_usuario_proceso AS usu,usuario_proceso AS proceso WHERE 
                                             usu.id_usu = ".$id_usuario." AND
                                             usu.id_mod = ".$fila["id_mod"]." AND
                                             proceso.opcion_pro = 1 AND
                                             proceso.id_pro = usu.id_pro AND
                                             proceso.id_mod = ".$fila["id_mod"]." 
-                                        ";
-                                    
-                                    $conexion->consulta($consulta);
-                                    $cantidad_opcion = $conexion->total();
-                                    if($cantidad_opcion > 0){
-                                        ?>
+                                            ");
+                                    if($cantidad_opcion > 0): ?>
                                         <li id="evaluacion-insert"><a href="<?php echo _MODULO?>evaluacion/form_insert.php"><i class="fa fa-plus" aria-hidden="true"></i> Agregar evaluación</a></li>
-                                        <?php
-                                    }
-                                    $consulta = 
-                                        "
-                                        SELECT 
-                                            usu.id_mod 
-                                        FROM 
-                                            usuario_usuario_proceso AS usu,
-                                            usuario_proceso AS proceso
-                                        WHERE 
+                                    <?php endif;    
+
+                                    $cantidad_opcion = conexion::consulta_total("SELECT usu.id_mod FROM usuario_usuario_proceso AS usu,usuario_proceso AS proceso WHERE 
                                             usu.id_usu = ".$id_usuario." AND
                                             usu.id_mod = ".$fila["id_mod"]." AND
                                             proceso.opcion_pro = 2 AND
                                             proceso.id_pro = usu.id_pro AND
                                             proceso.id_mod = ".$fila["id_mod"]." 
-                                        ";
-                                       
-                                    $conexion->consulta($consulta);
-                                    $cantidad_opcion = $conexion->total();
-                                    if($cantidad_opcion > 0){
-                                        ?>
+                                            ");
+
+                                    if($cantidad_opcion > 0): ?>
                                         <li id="evaluacion-select"><a href="<?php echo _MODULO?>evaluacion/form_select.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Listar evaluaciones</a></li>
+                                    <?php endif ?>
 
 
-                                        <?php
-                                    }                                    
-                                    ?>
                                 </ul>
                             </li>
-                        <?php
-                        break;
+                        <?php break; 
                     }
                 }
             }

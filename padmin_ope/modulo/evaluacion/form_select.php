@@ -9,6 +9,14 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
     header("Location: "._ADMIN."panel.php");
 }
 ?>
+<style>
+    table{
+        margin-top:25px;     
+    }
+    table,tr,td,th{
+      text-align:center;
+    }
+</style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -37,9 +45,63 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                     <!-- left column -->
                     <div class="col-sm-12">
                       <!-- general form elements -->
-                        <div class="box box-primary">
-                            
-                           
+                        <div class="box box-primary" >
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h3>Listado de evaluaciones de desempeño.  <small>Vendedores</small></h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container" >
+                                <table class="table table-bordered"  style="margin-bottom:100px;">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Puntos</th>
+                                        <th>% Porcentaje</th>
+                                        <th>Vendedor</th>
+                                        <th>Respuesta 1</th>
+                                        <th>Respuesta 2</th>
+                                        <th>Respuesta 3</th>
+                                        <th>Respuesta 4</th>
+                                        <th>Fecha de creación</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php                                                                  
+                                        $data = conexion::select("SELECT 
+                                                                CONCAT(vende.nombre_vend,' ',vende.apellido_paterno_vend,' ',vende.apellido_materno_vend) as vendedor,
+                                                                matriz.id,
+                                                                matriz.puntos,
+                                                                matriz.porcentaje,
+                                                                matriz.rpregunta1,
+                                                                matriz.rpregunta2,
+                                                                matriz.rpregunta3,
+                                                                matriz.rpregunta4,
+                                                                matriz.fecha_creacion                                                                  
+                                                                FROM matriz_desarrollo as matriz 
+                                                                INNER JOIN vendedor_vendedor as vende 
+                                                                ON matriz.id_vendedor = vende.id_vend");
+                                        if(count($data)>0):
+                                        foreach($data as $val){                               
+                                        ?>
+                                            <td><?php echo $val->id?></td>
+                                            <td><?php echo $val->puntos. " Pts"?></td>
+                                            <td><?php echo $val->porcentaje. " %"?></td>
+                                            <td><?php echo utf8_encode($val->vendedor)?></td>
+                                            <td><?php echo $val->rpregunta1. " Pts"?></td>
+                                            <td><?php echo $val->rpregunta2. " Pts"?></td>
+                                            <td><?php echo $val->rpregunta3. " Pts"?></td>
+                                            <td><?php echo $val->rpregunta4. " Pts"?></td>
+                                            <td><?php echo date_format(date_create($val->fecha_creacion),'d-m-Y')?></td>
+                                        <?php }?> 
+                                        <?php else: ?>
+                                        <td colspan="9"><h4 style="color:grey;">Aun no hay encuestas por mostrar, para crear una ve a <a href="form_insert.php">Formulario de evaluaciones</a></h4></td>
+                                        <?php endif?>
+                                    </tbody>
+                                </table>
+                           </div>
                         </div>
                       <!-- /.box -->
                     </div>
