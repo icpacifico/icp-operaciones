@@ -11,8 +11,10 @@ if (!isset($_SESSION["modulo_cotizacion_panel"])) {
 $_SESSION["modulo_propietario_panel"] = 1;
 ?>
 <!-- DataTables -->
-<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables/dataTables.bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/buttons.bootstrap.min.css">
+<!-- <link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/buttons.bootstrap.min.css"> -->
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables5/DataTables-1.12.1/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/css/buttons.bootstrap5.min.css">
 <!-- iCheck for checkboxes and radio inputs -->
 <!-- <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/iCheck/all.css"> -->
 <!-- siempre al final los ajustes -->
@@ -205,17 +207,16 @@ if ($_SESSION["sesion_perfil_panel"]==='2') {
 
 <!-- DataTables -->
 <script src="<?php echo _ASSETS?>plugins/daterangepicker/moment.min.js"></script>
-<script src="<?php echo _ASSETS?>plugins/datatables/jquery.dataTables.js"></script>
-<script src="<?php echo _ASSETS?>plugins/datatables/datetime-moment.js"></script>
-<script src="<?php echo _ASSETS?>plugins/datatables/dataTables.bootstrap.min.js"></script>
-<script src="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/dataTables.buttons.min.js"></script>
-<script src="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/buttons.bootstrap.min.js"></script>
-<script src="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/jszip.min.js"></script>
-<script src="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/pdfmake.min.js"></script>
-<script src="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/vfs_fonts.js"></script>
-<script src="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/buttons.html5.min.js"></script>
-<script src="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/buttons.print.min.js"></script>
-<script src="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/buttons.colVis.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/datatables.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/DataTables-1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/datatables.buttons.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.bootstrap5.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/JSZip-2.5.0/jszip.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/pdfmake-0.1.36/pdfmake.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/pdfmake-0.1.36/vfs_fonts.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.html5.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.print.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.colVis.min.js"></script>
 
 <!-- iCheck 1.0.1 -->
 <!-- <script src="<?php // echo _ASSETS?>plugins/iCheck/icheck.min.js"></script> -->
@@ -259,89 +260,98 @@ if ($_SESSION["sesion_perfil_panel"]==='2') {
         <?php 
 		if ($_SESSION["sesion_perfil_panel"]<>'2') {
     	 ?>
-        var table = $('#example').DataTable( {
-            dom:'lfBrtip',
-            stateSave: true,
-            // success de tabla
-            // "fnInitComplete":function(oSettings,json){
-            //     $(document).trigger('icheck');
-            // },
-            "lengthChange": true,
-            "pageLength": 50,
-            buttons: [ 'copy', 'excelHtml5', 'pdf', 'print', 'colvis' ],
-            "bProcessing": true,
-            "bServerSide": true,
-            responsive: true,
-            "sAjaxSource": "select.php",
-            "sPaginationType": "full_numbers",
-            "aaSorting": [[ 1, "desc" ]],
-            "aoColumns": [
-                { "bSortable": false },
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                { "bSortable": false },
-                { "bSortable": false },
-                { "bSortable": false }
-            ]
-        });
+        // var table = $('#example').DataTable( {
+        //     dom:'lfBrtip',
+        //     stateSave: true,          
+        //     "lengthChange": true,
+        //     "pageLength": 50,
+        //     buttons: [ 'copy', 'excelHtml5', 'pdf', 'print', 'colvis' ],
+        //     "bProcessing": true,
+        //     "bServerSide": true,
+        //     responsive: true,
+        //     "sAjaxSource": "select-new.php",
+        //     "sPaginationType": "full_numbers",
+        //     "aaSorting": [[ 1, "desc" ]],
+        //     "aoColumns": [
+        //         { "bSortable": false },
+        //         null,
+        //         null,
+        //         null,
+        //         null,
+        //         null,
+        //         null,
+        //         null,
+        //         null,
+        //         null,
+        //         null,
+        //         null,
+        //         { "bSortable": false },
+        //         { "bSortable": false },
+        //         { "bSortable": false }
+        //     ]
+        // });
+        // $(document).ready(function () {
+        //         $('#example').DataTable({
+        //             processing: true,
+        //             serverSide: true,
+        //             ajax: 'select-new.php'
+        //         });
+        //     });
+
+            $(document).ready(function () {
+               $.ajax({
+                url : "select-new.php",
+                dataType : "json",                
+                success : function(data){
+                    console.log("la data => "+data)
+                }
+               })
+            });
         <?php 
 		} else {
          ?>
-        var table = $('#example').DataTable( {
-            dom:'lfBrtip',
-            stateSave: true,
-            // success de tabla
-            // "fnInitComplete":function(oSettings,json){
-            //     $(document).trigger('icheck');
-            // },
-            "lengthChange": true,
-            "pageLength": 50,
-            buttons: [ 'copy', 'excelHtml5', 'pdf', 'print', 'colvis' ],
-            "bProcessing": true,
-            "bServerSide": true,
-            responsive: true,
-            "sAjaxSource": "select_jventa.php",
-            "sPaginationType": "full_numbers",
-            "aaSorting": [[ 1, "desc" ]],
-            "aoColumns": [
-                { "bSortable": false },
-                { "aDataSort": [ 0 ] },
-                null,
-                null,
-                null,
-                null,
-                { "aDataSort": [ 6,7,8,9 ] },
-            	{ "aDataSort": [ 11 ] },
-                { "aDataSort": [ 12 ] },
-                { "aDataSort": [ 13 ] },
-                { "aDataSort": [ 14 ] },
-                { "aDataSort": [ 15 ] },
-                { "aDataSort": [ 16 ] },
-                { "aDataSort": [ 17 ] },
-                { "aDataSort": [ 18 ] },
-                { "aDataSort": [ 19 ] },
-                { "bSortable": false },
-                { "bSortable": false },
-                { "bSortable": false },
-                { "bSortable": false }
-            ]
-        });
+        // var table = $('#example').DataTable( {
+        //     dom:'lfBrtip',
+        //     stateSave: true,           
+        //     "lengthChange": true,
+        //     "pageLength": 50,
+        //     buttons: [ 'copy', 'excelHtml5', 'pdf', 'print', 'colvis' ],
+        //     "bProcessing": true,
+        //     "bServerSide": true,
+        //     responsive: true,
+        //     "sAjaxSource": "select_jventa.php",
+        //     "sPaginationType": "full_numbers",
+        //     "aaSorting": [[ 1, "desc" ]],
+        //     "aoColumns": [
+        //         { "bSortable": false },
+        //         { "aDataSort": [ 0 ] },
+        //         null,
+        //         null,
+        //         null,
+        //         null,
+        //         { "aDataSort": [ 6,7,8,9 ] },
+        //     	{ "aDataSort": [ 11 ] },
+        //         { "aDataSort": [ 12 ] },
+        //         { "aDataSort": [ 13 ] },
+        //         { "aDataSort": [ 14 ] },
+        //         { "aDataSort": [ 15 ] },
+        //         { "aDataSort": [ 16 ] },
+        //         { "aDataSort": [ 17 ] },
+        //         { "aDataSort": [ 18 ] },
+        //         { "aDataSort": [ 19 ] },
+        //         { "bSortable": false },
+        //         { "bSortable": false },
+        //         { "bSortable": false },
+        //         { "bSortable": false }
+        //     ]
+        // });
 
         <?php
     	} 
     	?>
  
-        table.buttons().container()
-            .appendTo( '#example_wrapper .col-sm-6:eq(1)' );
+        // table.buttons().container()
+        //     .appendTo( '#example_wrapper .col-sm-6:eq(1)' );
 
         // eliminar
         function resultado(data) {

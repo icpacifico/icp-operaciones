@@ -7,8 +7,9 @@
   <title>Plataforma Online</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="<?php echo _ASSETS?>bootstrap/css/bootstrap.min.css">
+  
+  <link rel="stylesheet" href="<?php echo _ASSETS?>bootstrap5/css/bootstrap.min.css">
+  <script src="<?php echo _ASSETS?>bootstrap5/js/bootstrap.bundle.min.js"></script>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo _ASSETS?>font-awesome-4.7.0/css/font-awesome.min.css">
   <!-- Ionicons -->

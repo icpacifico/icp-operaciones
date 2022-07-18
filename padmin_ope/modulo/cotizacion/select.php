@@ -50,7 +50,6 @@
 		$sOrder = "ORDER BY  ";
 		for ( $i=0 ; $i<intval( $_GET['iSortingCols'] ) ; $i++ )
 		{
-
 			if($i==5){
 					// echo "entro";
 					// $sOrder .= " fullName ".$_GET['sSortDir_'.$i].", ";
@@ -59,10 +58,8 @@
 				{
 					$sOrder .= $aColumns[ intval( $_GET['iSortCol_'.$i] )-1 ]."
 					 	".$_GET['sSortDir_'.$i].", ";
-
 				}
 			}
-
 		}
 		
 		// $sOrder = substr_replace( $sOrder, "", -2 );
