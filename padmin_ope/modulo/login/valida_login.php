@@ -89,12 +89,19 @@ if($cantidad > 0){
 	// 	$consulta_historial="INSERT INTO usuario_interaccion_usuario VALUES(0,'".$_SESSION["sesion_id_panel"]."',0,0,'".date("Y-m-d")."','".date("H:i:s")."',0,0,'".utf8_decode("Inicio Sesión")."',0,0,'Login') ";
 	// 	$conexion->consulta($consulta_historial);
 	// }
-	$jsondata['envio'] = 1;
+	// title,message,icon
+	$jsondata['title'] = "Excelente!";
+	$jsondata['message'] = "Usuario ingresado con éxito!";
+	$jsondata['icon'] = "success";
+	$jsondata['action'] = "panel.php";
 	echo json_encode($jsondata);
 	exit();
 }
 else{
-	$jsondata['envio'] = 2;
+	$jsondata['title'] = "Atención!";
+	$jsondata['message'] = "Usuario no reconocido o clave inválida";
+	$jsondata['icon'] = "warning";
+	$jsondata['action'] = "#";
 	echo json_encode($jsondata);
 	exit();
 }
