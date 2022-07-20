@@ -36,18 +36,18 @@
     <p class="login-box-msg">Iniciar Sesión</p>
 
     <form action="modulo/login/valida_login.php" id="formulario" method="post">
-      <div class="form-group has-feedback">
+      <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Usuario" name="usuario_usu" id="usuario_usu" required>
-        <span class="fa fa-user-circle form-control-feedback"></span>
+        <span class="fa fa-user-circle input-group-text"></span>
       </div>
-      <div class="form-group has-feedback">
+      <div class="input-group mb-3">
         <input type="password" class="form-control" placeholder="Password" name="contrasena_usu" id="contrasena_usu" minlength="4" maxlength="6" required>
-        <span class="fa fa-lock form-control-feedback"></span>
+        <span class="fa fa-lock input-group-text"></span>
       </div>
       <div class="row">
        
         <!-- /.col -->
-        <div class="col-xs-6 col-xs-offset-3">
+        <div class="col-xs-6 d-flex justify-content-center">
           <button type="submit" class="btn btn-primary btn-block btn-flat">Ingresar</button>
         </div>
         <!-- /.col -->
@@ -64,54 +64,33 @@
 <!-- Bootstrap 3.3.6 -->
 <script src="<?php echo _ASSETS?>bootstrap/js/bootstrap.min.js"></script>
 <!-- sweet alert -->
-<script src="<?php echo _ASSETS?>plugins/alert/sweet-alert.js"></script>
-
+<!-- <script src="<?php echo _ASSETS?>plugins/alert/sweet-alert.js"></script> -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-    function resultado(data) {
-      if(data.envio == 1){
-        swal({
-          title: "Excelente!",
-          text: "Usuario ingresado con éxito!",
-          type: "success",
-          showCancelButton: false,
-          confirmButtonColor: "#9bde94",
-          confirmButtonText: "Aceptar",
-          closeOnConfirm: false
-        },
-        function(){
-          location.href = "panel.php";
-        });
-      }
-      if(data.envio == 2){
-        swal("Atención!", "Usuario no reconocido o clave inválida","warning");
-        $('#contenedor_boton').html('<input type="button" name="boton" class="btn2" value="Guardar" id="bt"/>');
-      }
-      if(data.envio == 3){
-        alert(data.error_consulta);
-        swal("Error!", "Favor intentar denuevo o contáctese con administrador","error");
-        $('#contenedor_boton').html('<input type="button" name="boton" class="btn2" value="Guardar" id="bt"/>');
-      }
-      /*if(data.envio != ""){
-        alert(data.envio);
-      }*/
-    }
-    $('#formulario').submit(function() {
-        var dataString = $('#formulario').serialize();
-        //alert(dataString);
+document.addEventListener('DOMContentLoaded', (event) => {  
+    const popup = (title,message,icon,accion) => {      
+      Swal.fire({
+        title: title,
+        text: message,
+        icon: icon,
+        showConfirmButton: false,
+        timer: 1500
+      }).then(() => location.href = accion)
+    }    
+    $('#formulario').submit(function(){
+        let dataString = $('#formulario').serialize();       
         $.ajax({
           data: dataString,
           type: 'POST',
           url: $(this).attr('action'),
           dataType:'json',
           success: function(data) {
-            resultado(data);
+            popup(data.title,data.message,data.icon,data.action);
           }           
         })
       return false;
     });   
 });
 </script>
-
 </body>
 </html>

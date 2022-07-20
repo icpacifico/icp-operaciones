@@ -193,15 +193,9 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) header("Location: "._ADMIN."pa
 <?php include_once _INCLUDE."footer_comun.php";?>
 <?php include_once _INCLUDE."js_comun.php";?>
 <script>
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
-
-    for (let index = 1; index < 5; index++) {
-        for (let i = 1; i < 6; i++) {
-            console.log('matriz'+i+''+index);
-        }        
-    }
+// $(function () {
+//   $('[data-toggle="tooltip"]').tooltip()
+// })
 </script>
 </body>
 </html>

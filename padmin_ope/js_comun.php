@@ -4,7 +4,7 @@
   $.widget.bridge('uibutton', $.ui.button);
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-<script src="<?php echo _ASSETS?>bootstrap5/js/bootstrap.min.js"></script>
+<script src="<?php echo _ASSETS?>bootstrap/js/bootstrap.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/fastclick/fastclick.js"></script>
 <script src="<?php echo _ASSETS?>dist/js/app.min.js"></script>
@@ -14,9 +14,9 @@
 
 <!-- Para marcar los active -->
 <script type="text/javascript">
-// $(function () {
-//   $('[data-toggle="popover"]').popover()
-// })
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
 // let btn = document.querySelector('button');
 // let click = btn.getAttribute('data-click');
 // const exampleEl = document.getElementById('example')

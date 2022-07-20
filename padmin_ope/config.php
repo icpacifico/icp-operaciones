@@ -91,4 +91,11 @@ switch ($MOD) {
 		die();
 		break;
 }
+// $_SESSION["sesion_perfil_panel"]
+// 	1:administrador
+//  2:Jefe Ventas
+// 	3:Operaciones
+// 	4:propietario -> vendedor
+// 	6:contabilidad
+// 	7:Operaciones
 ?>

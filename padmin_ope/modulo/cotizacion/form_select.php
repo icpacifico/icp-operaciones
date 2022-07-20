@@ -10,14 +10,28 @@ if (!isset($_SESSION["modulo_cotizacion_panel"])) {
 }
 $_SESSION["modulo_propietario_panel"] = 1;
 ?>
-<!-- DataTables -->
-<!-- <link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables/dataTables.bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/buttons.bootstrap.min.css"> -->
-<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables5/DataTables-1.12.1/css/dataTables.bootstrap5.min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/css/buttons.bootstrap5.min.css">
-<!-- iCheck for checkboxes and radio inputs -->
-<!-- <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/iCheck/all.css"> -->
-<!-- siempre al final los ajustes -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Plataforma Online</title>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+  <!-- <link rel="stylesheet" href="<?php echo _ASSETS?>bootstrap5/css/bootstrap.min.css"> -->
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables5/DataTables-1.12.1/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables5/DataTables-1.12.1/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/css/buttons.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/css/buttons.bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo _ASSETS?>font-awesome-4.7.0/css/font-awesome.min.css">
+ 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  
+  <link rel="stylesheet" href="<?php echo _ASSETS?>dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="<?php echo _ASSETS?>dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/alert_prueba/dist/sweetalert.css">
+  <link rel="stylesheet" href="<?php echo _ASSETS?>dist/css/ajustes.css">
+  <script src="<?php echo _ASSETS?>plugins/jQuery/jquery-2.2.3.min.js"></script>
 <link rel="stylesheet" href="<?php echo _ASSETS?>dist/css/ajustes.css">
 <?php 
 if ($_SESSION["sesion_perfil_panel"]==4) { //le oculta al vendedor los botontes tabla
@@ -128,17 +142,15 @@ if ($_SESSION["sesion_perfil_panel"]==='2') {
 	                                            <th>Depto</th>
 	                                            <th>Cliente</th>
 	                                            <th>RUT</th>
-	                                            <?php 
-												if ($_SESSION["sesion_perfil_panel"]==='2') {
-				                            	 ?>
+	                                            <th>Fono cliente</th>
+	                                            <th>Correo cliente</th>
+	                                        <?php if ($_SESSION["sesion_perfil_panel"]==='2'):?>
 				                            	 <th>Email</th>
 				                            	 <th>Fono</th>
 				                            	 <th>Comuna</th>
 				                            	 <th>Profesión</th>
 				                            	 <th>Sexo</th>
-				                            	 <?php 
-				                            	}
-				                            	  ?>
+				                            <?php endif?>
 	                                            <th>Canal</th>
 	                                            <th>Preaprob.</th>
 	                                            <th>Interés</th>
@@ -147,46 +159,42 @@ if ($_SESSION["sesion_perfil_panel"]==='2') {
 	                                            <th>Estado</th>
 	                                            <th style="width:14%">Acción</th>
 	                                        </tr>
-	                                    </thead>
+	                                    </thead>                                       
 	                                    <tfoot>
 	                                        <tr>
 	                                            <th>
-												<?php 
-												if ($_SESSION["sesion_perfil_panel"]<>4) {
-				                            	 ?>
+												<?php if ($_SESSION["sesion_perfil_panel"]<>4):?>
 	                                            	<button type="button" class="btn btn-xs btn-icon btn-danger borra_todo" data-toggle="tooltip" data-original-title="Eliminar Seleccionados"><i class="fa fa-trash"></i></button>
-												<?php } ?>
+												<?php endif?>
 	                                            </th>
-	                                            <th></th>
-	                                            <th></th>
-	                                            <th></th>
-	                                            <th></th>
-	                                            <th></th>
-	                                            <th></th>
-	                                            <?php 
-												if ($_SESSION["sesion_perfil_panel"]==='2') {
-				                            	 ?>
-				                            	 <th></th>
-	                                            <th></th>
-	                                            <th></th>
-	                                            <th></th>
-	                                            <th></th>
-				                            	 <?php 
-				                            	}
-				                            	  ?>
-	                                            <th></th>
-	                                            <th></th>
-	                                            <th></th>
-	                                            <th></th>
-	                                            <th></th>
-	                                            <th></th>
-	                                            <th></th>
-	                                            <th></th>
+                                                <th>Id</th>
+	                                            <th>Condomin.</th>
+	                                            <th>Torre</th>
+	                                            <th>Modelo</th>
+	                                            <th>Depto</th>
+	                                            <th>Cliente</th>
+	                                            <th>RUT</th>
+                                                <th>Fono cliente</th>
+	                                            <th>Correo cliente</th>
+	                                            <?php if ($_SESSION["sesion_perfil_panel"]==='2'):?>
+                                                 <th>Email</th>
+				                            	 <th>Fono</th>
+				                            	 <th>Comuna</th>
+				                            	 <th>Profesión</th>
+				                            	 <th>Sexo</th>
+				                            	 <?php endif?>
+                                                 <th>Canal</th>
+	                                            <th>Preaprob.</th>
+	                                            <th>Interés</th>
+	                                            <th>Vendedor</th>
+	                                            <th>Fecha</th>
+	                                            <th>Estado</th>
+	                                            <th style="width:14%">Acción</th>
 	                                        </tr>
 	                                    </tfoot>
-	                                    <tbody>
+	                                    
 	                                        
-	                                    </tbody>
+	                                   
 	                                </table>
                                 </div>
                             </div>
@@ -206,14 +214,18 @@ if ($_SESSION["sesion_perfil_panel"]==='2') {
 <?php include_once _INCLUDE."js_comun.php";?>
 
 <!-- DataTables -->
-<script src="<?php echo _ASSETS?>plugins/daterangepicker/moment.min.js"></script>
+<!-- <script src="<?php echo _ASSETS?>plugins/daterangepicker/moment.min.js"></script> -->
 <script src="<?php echo _ASSETS?>plugins/datatables5/datatables.min.js"></script>
-<script src="<?php echo _ASSETS?>plugins/datatables5/DataTables-1.12.1/js/dataTables.bootstrap5.min.js"></script>
-<script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/datatables.buttons.min.js"></script>
-<script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.bootstrap5.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/DataTables-1.12.1/js/dataTables.bootstrap.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/dataTables.buttons.min.js"></script>
+<!-- <script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.bootstrap.min.js"></script> -->
+<!-- jszip 2.5.0 -->
 <script src="<?php echo _ASSETS?>plugins/datatables5/JSZip-2.5.0/jszip.min.js"></script>
+<!-- pdfmake 0.1.36 -->
 <script src="<?php echo _ASSETS?>plugins/datatables5/pdfmake-0.1.36/pdfmake.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables5/pdfmake-0.1.36/vfs_fonts.js"></script>
+
 <script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.html5.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.print.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.colVis.min.js"></script>
@@ -251,7 +263,7 @@ if ($_SESSION["sesion_perfil_panel"]==='2') {
 	    });
 	});
 
-    $(document).ready(function() {
+    document.addEventListener('DOMContentLoaded', (event) => {  
         // $(document).on('icheck', function(){
         //     $('input[type=checkbox].flat-red').iCheck({
         //         checkboxClass: 'icheckbox_flat-red'
@@ -260,16 +272,38 @@ if ($_SESSION["sesion_perfil_panel"]==='2') {
         <?php 
 		if ($_SESSION["sesion_perfil_panel"]<>'2') {
     	 ?>
-        // var table = $('#example').DataTable( {
+         
+         $('#example').DataTable({  
+            dom: 'Blfrtip',
+            buttons: [
+                'copy', 'csv', 'excel','print','colvis',{
+                    extend: 'pdfHtml5',
+                    orientation: 'landscape',
+                    pageSize: 'LEGAL'
+                }
+            ],   
+            "pageLength": 10,                 
+            ajax: 'select-new.php',
+            // serverSide: true,
+            processing: true,
+            pagingType: 'full_numbers',            
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-CL.json',
+            },
+          
+         });
+
+        // let table = $('#example').DataTable( {
         //     dom:'lfBrtip',
         //     stateSave: true,          
-        //     "lengthChange": true,
+        //     "lengthChange": false,
         //     "pageLength": 50,
-        //     buttons: [ 'copy', 'excelHtml5', 'pdf', 'print', 'colvis' ],
+        //     buttons: [ 'copy', 'excel', 'pdf', 'colvis' ],
+        //     // buttons: [ 'copy', 'excelHtml5', 'pdf', 'print', 'colvis' ],
         //     "bProcessing": true,
         //     "bServerSide": true,
         //     responsive: true,
-        //     "sAjaxSource": "select-new.php",
+        //     "sAjaxSource": "select.php",
         //     "sPaginationType": "full_numbers",
         //     "aaSorting": [[ 1, "desc" ]],
         //     "aoColumns": [
@@ -290,61 +324,48 @@ if ($_SESSION["sesion_perfil_panel"]==='2') {
         //         { "bSortable": false }
         //     ]
         // });
-        // $(document).ready(function () {
-        //         $('#example').DataTable({
-        //             processing: true,
-        //             serverSide: true,
-        //             ajax: 'select-new.php'
-        //         });
-        //     });
+       
 
-            $(document).ready(function () {
-               $.ajax({
-                url : "select-new.php",
-                dataType : "json",                
-                success : function(data){
-                    console.log("la data => "+data)
-                }
-               })
-            });
         <?php 
 		} else {
+           
+            
          ?>
-        // var table = $('#example').DataTable( {
-        //     dom:'lfBrtip',
-        //     stateSave: true,           
-        //     "lengthChange": true,
-        //     "pageLength": 50,
-        //     buttons: [ 'copy', 'excelHtml5', 'pdf', 'print', 'colvis' ],
-        //     "bProcessing": true,
-        //     "bServerSide": true,
-        //     responsive: true,
-        //     "sAjaxSource": "select_jventa.php",
-        //     "sPaginationType": "full_numbers",
-        //     "aaSorting": [[ 1, "desc" ]],
-        //     "aoColumns": [
-        //         { "bSortable": false },
-        //         { "aDataSort": [ 0 ] },
-        //         null,
-        //         null,
-        //         null,
-        //         null,
-        //         { "aDataSort": [ 6,7,8,9 ] },
-        //     	{ "aDataSort": [ 11 ] },
-        //         { "aDataSort": [ 12 ] },
-        //         { "aDataSort": [ 13 ] },
-        //         { "aDataSort": [ 14 ] },
-        //         { "aDataSort": [ 15 ] },
-        //         { "aDataSort": [ 16 ] },
-        //         { "aDataSort": [ 17 ] },
-        //         { "aDataSort": [ 18 ] },
-        //         { "aDataSort": [ 19 ] },
-        //         { "bSortable": false },
-        //         { "bSortable": false },
-        //         { "bSortable": false },
-        //         { "bSortable": false }
-        //     ]
-        // });
+        var table = $('#example').DataTable( {
+            dom:'lfBrtip',
+            stateSave: true,           
+            "lengthChange": true,
+            "pageLength": 50,
+            buttons: [ 'copy', 'excelHtml5', 'pdf', 'print', 'colvis' ],
+            "bProcessing": true,
+            "bServerSide": true,
+            responsive: true,
+            "sAjaxSource": "select_jventa.php",
+            "sPaginationType": "full_numbers",
+            "aaSorting": [[ 1, "desc" ]],
+            "aoColumns": [
+                { "bSortable": false },
+                { "aDataSort": [ 0 ] },
+                null,
+                null,
+                null,
+                null,
+                { "aDataSort": [ 6,7,8,9 ] },
+            	{ "aDataSort": [ 11 ] },
+                { "aDataSort": [ 12 ] },
+                { "aDataSort": [ 13 ] },
+                { "aDataSort": [ 14 ] },
+                { "aDataSort": [ 15 ] },
+                { "aDataSort": [ 16 ] },
+                { "aDataSort": [ 17 ] },
+                { "aDataSort": [ 18 ] },
+                { "aDataSort": [ 19 ] },
+                { "bSortable": false },
+                { "bSortable": false },
+                { "bSortable": false },
+                { "bSortable": false }
+            ]
+        });
 
         <?php
     	} 
