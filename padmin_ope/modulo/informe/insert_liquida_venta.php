@@ -61,10 +61,10 @@ if ($fecha_liq_com<>null && $fecha_liq_com<>'') {
 }
 
 
-if ($fecha_liq_com <> null) {
-	$consulta_fecha_liq_com = "UPDATE venta_venta SET fecha_promesa_ven = ? WHERE id_ven = ?";
-	$conexion->consulta_form($consulta_fecha_liq_com,array($fecha_liq_com,$id_ven));
-}
+// if ($fecha_liq_com <> null) {
+// 	$consulta_fecha_liq_com = "UPDATE venta_venta SET fecha_promesa_ven = ? WHERE id_ven = ?";
+// 	$conexion->consulta_form($consulta_fecha_liq_com,array($fecha_liq_com,$id_ven));
+// }
 
 // echo $fecha_liq."----";
 

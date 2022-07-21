@@ -110,8 +110,9 @@ class venta
 			$conexion->consulta_form($consulta,array($propietario,$id_viv));
 		}
 
-		$consulta = "UPDATE venta_venta SET id_pre = ?, id_for_pag = ?, numero_compra_ven = ?, id_ban = ?, id_tip_pag = ?, monto_credito_real_ven = ?, pie_real_ven = ?, pie_cobrar_ven = ?, id_pie_abo_ven = ?, id_pro = ?, fecha_ven = ?, fecha_promesa_ven = ? WHERE id_ven = ?";	
-		$conexion->consulta_form($consulta,array($id_pre,$id_for_pag,$numero_compra_ven,$id_ban,$id_tip_pag,$monto_credito_real_ven,$porcentaje_pie_real,$pie_por_cobrar,$id_pie_abo_ven,$propietario,$fecha_ven,$fecha_ven,$id));
+		// $consulta = "UPDATE venta_venta SET id_pre = ?, id_for_pag = ?, numero_compra_ven = ?, id_ban = ?, id_tip_pag = ?, monto_credito_real_ven = ?, pie_real_ven = ?, pie_cobrar_ven = ?, id_pie_abo_ven = ?, id_pro = ?, fecha_ven = ?, fecha_promesa_ven = ? WHERE id_ven = ?";	
+		$consulta = "UPDATE venta_venta SET id_pre = ?, id_for_pag = ?, numero_compra_ven = ?, id_ban = ?, id_tip_pag = ?, monto_credito_real_ven = ?, pie_real_ven = ?, pie_cobrar_ven = ?, id_pie_abo_ven = ?, id_pro = ? WHERE id_ven = ?";	
+		$conexion->consulta_form($consulta,array($id_pre,$id_for_pag,$numero_compra_ven,$id_ban,$id_tip_pag,$monto_credito_real_ven,$porcentaje_pie_real,$pie_por_cobrar,$id_pie_abo_ven,$propietario,$id));
 
 		if ($id_for_pag==2) {
 			$consulta = "UPDATE venta_venta SET monto_credito_real_ven = ? WHERE id_ven = ?";	

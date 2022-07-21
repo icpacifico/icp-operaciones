@@ -43,9 +43,10 @@ class conexion
 
 	public static function select($consulta){
 		try {
-			$query = self::$conexionDB->prepare($consulta);
-			$query->execute();
-			return $query->fetchAll(PDO::FETCH_OBJ);			
+			// $con = self::$conexionDB->query($consulta);
+			$con = self::$conexionDB->prepare($consulta);
+			$con->execute();
+			return $con->fetchAll(PDO::FETCH_ASSOC);			
 		}catch (PDOException $e){ $this->status(3, $e->getMessage());}
 	}
 	

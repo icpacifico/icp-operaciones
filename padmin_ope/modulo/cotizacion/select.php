@@ -34,13 +34,8 @@
 		";
 	
 	$sLimit = "";
-	if ( isset( $_GET['iDisplayStart'] ) && $_GET['iDisplayLength'] != '-1' )
-	{
-		$sLimit = "LIMIT ".$_GET['iDisplayStart'].", ".
-			$_GET['iDisplayLength'];
-	}
-	
-	
+	if ( isset( $_GET['iDisplayStart'] ) && $_GET['iDisplayLength'] != '-1' ) $sLimit = "LIMIT ".$_GET['iDisplayStart'].", ".$_GET['iDisplayLength'];
+
 	/*
 	 * Ordering
 	 */
@@ -50,7 +45,6 @@
 		$sOrder = "ORDER BY  ";
 		for ( $i=0 ; $i<intval( $_GET['iSortingCols'] ) ; $i++ )
 		{
-
 			if($i==5){
 					// echo "entro";
 					// $sOrder .= " fullName ".$_GET['sSortDir_'.$i].", ";
@@ -59,10 +53,8 @@
 				{
 					$sOrder .= $aColumns[ intval( $_GET['iSortCol_'.$i] )-1 ]."
 					 	".$_GET['sSortDir_'.$i].", ";
-
 				}
 			}
-
 		}
 		
 		// $sOrder = substr_replace( $sOrder, "", -2 );
@@ -73,10 +65,7 @@
 		// $i = 0;
 		// $sOrder .= " fullName ".$_GET['sSortDir_'.$i].", ";
 		$sOrder = substr_replace( $sOrder, "", -2 );
-		if ( $sOrder == "ORDER BY" )
-		{
-			$sOrder = "";
-		}
+		if ( $sOrder == "ORDER BY" ) $sOrder = "";
 	}
 	
 	
@@ -96,15 +85,15 @@
 		for ( $i=0 ; $i<count($aColumns) ; $i++ )
 		{
 			if($aColumns[$i] == "CONCAT(pro.nombre_pro,' ',pro.nombre2_pro,' ',pro.apellido_paterno_pro,' ',pro.apellido_materno_pro) AS fullName"){
-		// 		// $sWhere .= "CONCAT(pro.nombre_pro,' ',pro.nombre2_pro,' ',pro.apellido_paterno_pro,' ',pro.apellido_materno_pro) LIKE '%".utf8_decode($_GET['sSearch'])."%' OR ";
+		 		// $sWhere .= "CONCAT(pro.nombre_pro,' ',pro.nombre2_pro,' ',pro.apellido_paterno_pro,' ',pro.apellido_materno_pro) LIKE '%".utf8_decode($_GET['sSearch'])."%' OR ";
 
 				$words_sep = utf8_decode($_GET['sSearch']);
 				$words_sep = explode(" ", $words_sep);
 				$cant_palabras = count($words_sep);
 				// echo $cant_palabras."<------".$words_sep[0];
-		// 	// $sWhere .= "MATCH(pro.nombre_pro, pro.apellido_paterno_pro, pro.apellido_materno_pro) AGAINST ('".$words_sep."' IN BOOLEAN MODE) OR ";
-		// 		// $sWhere .= "MATCH(pro.nombre_pro, pro.apellido_paterno_pro, pro.apellido_materno_pro) AGAINST ('".$words_sep."' IN BOOLEAN MODE) OR ";
-		// 		// aquí devide en cada palabra para la consulta y le agrega + a cada una
+		 		// $sWhere .= "MATCH(pro.nombre_pro, pro.apellido_paterno_pro, pro.apellido_materno_pro) AGAINST ('".$words_sep."' IN BOOLEAN MODE) OR ";
+		 		// $sWhere .= "MATCH(pro.nombre_pro, pro.apellido_paterno_pro, pro.apellido_materno_pro) AGAINST ('".$words_sep."' IN BOOLEAN MODE) OR ";
+		 		// aquí devide en cada palabra para la consulta y le agrega + a cada una
 				$sWhere .= "MATCH(pro.nombre_pro, pro.apellido_paterno_pro, pro.apellido_materno_pro) AGAINST ('";
 				for ($ii=0; $ii < $cant_palabras; $ii++) { 
 					// echo $ii.$words_sep[$ii]."-------";
@@ -180,21 +169,13 @@
 	$fila_consulta = $conexion->extraer_registro();
 	
 	/* Data set length after filtering */
-	$sQuery = "
-		SELECT FOUND_ROWS()
-	";
-	$conexion->consulta($sQuery);
+	$conexion->consulta("SELECT FOUND_ROWS()");
 	$fila_consulta2 = $conexion->extraer_registro_unico();
-
 	
 	$iFilteredTotal = $fila_consulta2[0];
 	
-	/* Total data set length */
-	$sQuery = "
-		SELECT COUNT(".$sIndexColumn.")
-		FROM   $sTable
-	";
-	$conexion->consulta($sQuery);
+	/* Total data set length */	
+	$conexion->consulta(" SELECT COUNT(".$sIndexColumn.") FROM   $sTable");
 	$fila_consulta3 = $conexion->extraer_registro_unico();
 
 	$iTotal = $fila_consulta3[0];
@@ -207,15 +188,8 @@
 		"iTotalRecords" => $iTotal,
 		"iTotalDisplayRecords" => $iFilteredTotal,
 		"aaData" => array()
-	);
-	$consulta = 
-		"
-		SELECT
-			cotizacion_ven
-		FROM
-			venta_venta
-		";
-	$conexion->consulta($consulta);
+	);	
+	$conexion->consulta("SELECT cotizacion_ven FROM venta_venta");
 	$fila_consulta_cot_original = $conexion->extraer_registro();
 	$fila_consulta_cot = array();
 	if(is_array($fila_consulta_cot_original)){
@@ -224,15 +198,8 @@
             $fila_consulta_cot[]=$v;
         }
 	}
-	
-	$consulta = 
-		"
-		SELECT
-			id_cot
-		FROM
-			cotizacion_seguimiento_cotizacion
-		";
-	$conexion->consulta($consulta);
+		
+	$conexion->consulta("SELECT id_cot FROM cotizacion_seguimiento_cotizacion");
 	$fila_consulta_seguimiento_original = $conexion->extraer_registro();
 	$fila_consulta_seguimiento = array();
 	if(is_array($fila_consulta_seguimiento_original)){
@@ -258,14 +225,8 @@
    //              $mostrar_seguimiento = 1;	
    //          }
 
-            if (isSet($flipped_cot[$aRow["id_cot"]])) {
-			    $cantidad_eliminar = 1;
-			}
-
-			if (isSet($flipped_seg[$aRow["id_cot"]])) {
-			    $mostrar_seguimiento = 1;
-			}
-
+            if (isSet($flipped_cot[$aRow["id_cot"]])) $cantidad_eliminar = 1;
+			if (isSet($flipped_seg[$aRow["id_cot"]])) $mostrar_seguimiento = 1;
             
 			if($cantidad_eliminar == 0 && $aRow["id_est_cot"] < 4){
 				$row[] = '<input type="checkbox" name="check" value="'.$aRow["id_cot"].'" class="check_registro" id="'.$aRow["id_cot"].'"><label for="'.$aRow["id_cot"].'"><span></span></label>';
@@ -275,6 +236,7 @@
 			}
 			for ( $i=0 ; $i<count($aColumns) ; $i++ ){
 				if( $aColumns[$i] == "cot.id_est_cot" || $aColumns[$i] == "pro.apellido_paterno_pro" || $aColumns[$i] == "pro.apellido_materno_pro" || $aColumns[$i] == "vend.apellido_paterno_vend" || $aColumns[$i] == "vend.apellido_materno_vend" || $aColumns[$i] == "pro.nombre_pro" || $aColumns[$i] == "pro.nombre2_pro") {
+					// if( $aColumns[$i] == "cot.id_est_cot" || $aColumns[$i] == "pro.apellido_paterno_pro" || $aColumns[$i] == "pro.apellido_materno_pro" || $aColumns[$i] == "pro.nombre_pro" || $aColumns[$i] == "pro.nombre2_pro") {
 					
 				}
 				else if( $aColumns[$i] == "cot.id_cot") {
@@ -286,9 +248,9 @@
 				else if( $aColumns[$i] == "tor.nombre_tor") {
 					$row[] =  utf8_encode($aRow["nombre_tor"]);
 				}
-				// else if( $aColumns[$i] == "pro.nombre_pro") {
-					// $row[] =  utf8_encode($aRow["nombre_pro"]." ".$aRow["apellido_paterno_pro"]." ".$aRow["apellido_materno_pro"]);
-				// }
+				else if( $aColumns[$i] == "pro.nombre_pro") {
+					$row[] =  utf8_encode($aRow["nombre_pro"]." ".$aRow["apellido_paterno_pro"]." ".$aRow["apellido_materno_pro"]);
+				}
 				else if( $aColumns[$i] == "modelo.nombre_mod") {
 					$row[] =  utf8_encode($aRow["nombre_mod"]);
 				}
@@ -319,7 +281,7 @@
 				}
 				else if( $aColumns[$i] == "pro.id_pro") {
 					if($_SESSION["sesion_perfil_panel"]==='2') {
-						$consulta_pro_dat = 
+						$conexion->consulta( 
 							"
 							SELECT
 								pro.correo_pro,
@@ -337,8 +299,7 @@
 								pro.id_com = com.id_com AND
 								pro.id_prof = prof.id_prof AND
 								pro.id_pro = ".$aRow["id_pro"]."
-							";
-						$conexion->consulta($consulta_pro_dat);
+							");
 						$fila_pro_dat = $conexion->extraer_registro_unico();
 
 						$row[] =  utf8_encode($fila_pro_dat['correo_pro']);
@@ -400,7 +361,7 @@
 
 			    if ($_SESSION["sesion_perfil_panel"] == 4 ) {
 			    // validar si es del vendedor aún
-					$consulta_vend_cot = 
+					$conexion->consulta(
 							"
 							SELECT
 								ven_pro.id_pro_vend
@@ -411,8 +372,7 @@
 								cot.id_pro = ven_pro.id_pro AND
 								ven_pro.id_vend = ".$_SESSION["sesion_id_vend"]." AND
 								cot.id_cot = ".$aRow["id_cot"]."
-							";
-					$conexion->consulta($consulta_vend_cot);
+							");
 					$lo_tiene = $conexion->total();
 				}
 
@@ -423,7 +383,7 @@
 		        	$acciones .= '<button value="'.$aRow["id_cot"].'" class="btn btn-sm btn-icon btn-info agrega_evento" data-toggle="tooltip" data-original-title="Agregar Evento Agenda"><i class="fa fa-calendar-plus-o"></i></button>';
 		        }
 
-		        $consulta_tiene_promesa = 
+		        $conexion->consulta( 
 						"
 						SELECT
 							ven.id_ven
@@ -434,8 +394,7 @@
 							cot.id_viv = ven.id_viv AND
 							cot.id_cot = ".$aRow["id_cot"]." AND
 							ven.id_est_ven <> 3
-						";
-				$conexion->consulta($consulta_tiene_promesa);
+						");
 				$tiene_promesa = $conexion->total();
 				if ($tiene_promesa===0) {
 					if ($_SESSION["sesion_perfil_panel"] <> 4 && $aRow["id_est_cot"] < 4) {
@@ -450,7 +409,7 @@
 
 				// validar si es del vendedor aún
 				if ($_SESSION["sesion_perfil_panel"] == 4) {
-					$consulta_vend_cot = 
+					$conexion->consulta( 
 							"
 							SELECT
 								ven_pro.id_pro_vend
@@ -461,8 +420,7 @@
 								cot.id_pro = ven_pro.id_pro AND
 								ven_pro.id_vend = ".$_SESSION["sesion_id_vend"]." AND
 								cot.id_cot = ".$aRow["id_cot"]."
-							";
-					$conexion->consulta($consulta_vend_cot);
+							");
 					$lo_tiene = $conexion->total();
 
 					if ($lo_tiene>0) {

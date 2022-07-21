@@ -7,7 +7,7 @@ date_default_timezone_set('America/Santiago');
 	2) .- es para el ambiente de pruebas
 	3) .- es para el ambiente de desarrollo 
 */
-$MOD = 2; 
+$MOD = 1; 
 
 
 $rutausada = substr($_SERVER['HTTP_HOST'], 0, 3);
@@ -91,4 +91,11 @@ switch ($MOD) {
 		die();
 		break;
 }
+// $_SESSION["sesion_perfil_panel"]
+// 	1:administrador
+//  2:Jefe Ventas
+// 	3:Operaciones
+// 	4:propietario -> vendedor
+// 	6:contabilidad
+// 	7:Operaciones
 ?>
