@@ -300,7 +300,35 @@ if(isset($_GET["venta"])){
 				$total_bono_precio_supervisor."---".
 				$total_bono_precio_jefe."<br>";
 
-			$consulta = "UPDATE venta_venta SET factor_categoria_ven = ?, porcentaje_comision_ven = ?, promesa_porcentaje_comision_reparto_ven = ?, promesa_monto_comision_ven = ?, promesa_monto_comision_supervisor_ven = ?, promesa_monto_comision_jefe_ven = ?, escritura_porcentaje_comision_reparto_ven = ?, escritura_monto_comision_ven = ?, escritura_monto_comision_supervisor_ven = ?, escritura_monto_comision_jefe_ven = ?, total_comision_ven = ?, total_comision_supervisor_ven = ?, total_comision_jefe_ven = ?, bono_vivienda_ven = ?, porcentaje_bono_precio_ven = ?, promesa_bono_precio_ven = ?, promesa_bono_precio_supervisor_ven = ?, promesa_bono_precio_jefe_ven = ?, escritura_bono_precio_ven = ?, escritura_bono_precio_supervisor_ven = ?, escritura_bono_precio_jefe_ven = ?, total_bono_precio_ven = ?, total_bono_precio_supervisor_ven = ?, total_bono_precio_jefe_ven = ?, valor_factor_ven = ?, id_supervisor_ven = ?, id_jefe_ven = ?, escritura_monto_comision_operacion_ven = ? WHERE id_ven = ?";
+			$consulta = "UPDATE venta_venta SET factor_categoria_ven = ?,
+												porcentaje_comision_ven = ?,
+												promesa_porcentaje_comision_reparto_ven = ?,
+												promesa_monto_comision_ven = ?,
+												promesa_monto_comision_supervisor_ven = ?,
+												promesa_monto_comision_jefe_ven = ?,
+												escritura_porcentaje_comision_reparto_ven = ?,
+												escritura_monto_comision_ven = ?,
+												escritura_monto_comision_supervisor_ven = ?,
+												escritura_monto_comision_jefe_ven = ?,
+												total_comision_ven = ?,
+												total_comision_supervisor_ven = ?,
+												total_comision_jefe_ven = ?,
+												bono_vivienda_ven = ?,
+												porcentaje_bono_precio_ven = ?,
+												promesa_bono_precio_ven = ?,
+												promesa_bono_precio_supervisor_ven = ?,
+												promesa_bono_precio_jefe_ven = ?,
+												escritura_bono_precio_ven = ?,
+												escritura_bono_precio_supervisor_ven = ?,
+												escritura_bono_precio_jefe_ven = ?,
+												total_bono_precio_ven = ?,
+												total_bono_precio_supervisor_ven = ?,
+												total_bono_precio_jefe_ven = ?,
+												valor_factor_ven = ?,
+												id_supervisor_ven = ?,
+												id_jefe_ven = ?,
+												escritura_monto_comision_operacion_ven = ?
+												WHERE id_ven = ?";
 			$conexion->consulta_form($consulta,array(
 				$id_cat_vend,
 				$porcentaje_comision_vendedor,
