@@ -52,8 +52,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) header("Location: "._ADMIN."pa
                 <div class="row">                    
                     <div class="col-sm-12">                      
                         <div class="box box-primary" style="padding-bottom:100px;">
-                          <form id="matrizForm" method="POST" action="insert.php" role="form">
-
+                          <form>
                             <div class="row">
                                 <div class="col-lg-10 col-md-offset-1" style="margin-top:3%;">
                                 <?php  
@@ -61,24 +60,23 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) header("Location: "._ADMIN."pa
                                     $conexion->consulta($consulta);
                                     $matriz = $conexion->extraer_registro();                                    
                                 ?>
-                                <label for="vende">
-                                    Vendedor a evaluar : 
-                                    <select name="vendedor" id="vendedor" class="form-control">
-                                        <option value="">Seleccione un vendedor : </option>
-                                        <?php
-                                        $queryVende="SELECT * FROM vendedor_vendedor WHERE id_est_vend=1 and id_vend not in(3,5)";
-                                        $conexion->consulta($queryVende);
-                                        $vendedores = $conexion->extraer_registro();
-                                        if(is_array($vendedores)){
-                                            foreach ($vendedores as $fila) {
-                                                ?>
-                                                <option value="<?php echo $fila['id_vend'];?>"><?php echo utf8_encode($fila['nombre_vend'])." ".utf8_encode($fila['apellido_paterno_vend'])." ".utf8_encode($fila['apellido_materno_vend']);?> </option>
-                                                <?php
+                                    <label for="vende">
+                                        Vendedor a evaluar : 
+                                        <select name="vendedor" id="vendedor" class="form-control">                                            
+                                            <?php
+                                            $queryVende="SELECT * FROM vendedor_vendedor WHERE id_est_vend=1 and id_vend not in(3,5)";
+                                            $conexion->consulta($queryVende);
+                                            $vendedores = $conexion->extraer_registro();
+                                            if(is_array($vendedores)){
+                                                foreach ($vendedores as $fila) {
+                                                    ?>
+                                                    <option value="<?php echo $fila['id_vend'];?>"><?php echo utf8_encode($fila['nombre_vend'])." ".utf8_encode($fila['apellido_paterno_vend'])." ".utf8_encode($fila['apellido_materno_vend']);?> </option>
+                                                    <?php
+                                                }
                                             }
-                                        }
-                                        ?>
-                                    </select>
-                                </label>
+                                            ?>
+                                        </select>
+                                    </label>
 
 
                                     <table class="table table-bordered">
@@ -138,35 +136,35 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) header("Location: "._ADMIN."pa
                                                 <td style="width:100px; border:1px solid black !important;">
                                                     <div class="radio" data-toggle="tooltip" data-placement="right" title="<?php echo utf8_encode($matriz[$i]['ausencia'])?>">
                                                         <label>
-                                                            <input type="radio" name="optionsRadios<?php echo $matriz[$i]['id']?>" id="matriz1<?php echo $matriz[$i]['id']?>" value="<?php echo $matriz[$i]['id']?>"  checked>                                                            
+                                                            <input type="radio" name="optionsRadios<?php echo $matriz[$i]['id']?>" id="matriz1<?php echo $matriz[$i]['id']?>" value="<?php echo $matriz[$i]['id']."1"?>"  checked>                                                            
                                                         </label>
                                                     </div>
                                                 </td>
                                                 <td style="width:100px; border:1px solid black !important;">
                                                     <div class="radio" data-toggle="tooltip" data-placement="right" title="<?php echo utf8_encode($matriz[$i]['baja'])?>">
                                                         <label>
-                                                            <input type="radio" name="optionsRadios<?php echo $matriz[$i]['id']?>" id="matriz2<?php echo $matriz[$i]['id']?>" value="<?php echo $matriz[$i]['id']?>"  checked >                                                            
+                                                            <input type="radio" name="optionsRadios<?php echo $matriz[$i]['id']?>" id="matriz2<?php echo $matriz[$i]['id']?>" value="<?php echo $matriz[$i]['id']."2"?>"  checked >                                                            
                                                         </label>
                                                     </div>
                                                 </td>
                                                 <td style="width:100px; border:1px solid black !important;">
                                                     <div class="radio" data-toggle="tooltip" data-placement="right" title="<?php echo utf8_encode($matriz[$i]['moderada'])?>">
                                                         <label>
-                                                            <input type="radio" name="optionsRadios<?php echo $matriz[$i]['id']?>" id="matriz3<?php echo $matriz[$i]['id']?>" value="<?php echo $matriz[$i]['id']?>"  checked>                                                            
+                                                            <input type="radio" name="optionsRadios<?php echo $matriz[$i]['id']?>" id="matriz3<?php echo $matriz[$i]['id']?>" value="<?php echo $matriz[$i]['id']."3"?>"  checked>                                                            
                                                         </label>
                                                     </div>
                                                 </td>
                                                 <td style="width:100px; border:1px solid black !important;">
                                                     <div class="radio" data-toggle="tooltip" data-placement="left" title="<?php echo utf8_encode($matriz[$i]['alta'])?>">
                                                         <label>
-                                                            <input type="radio" name="optionsRadios<?php echo $matriz[$i]['id']?>" id="matriz4<?php echo $matriz[$i]['id']?>" value="<?php echo $matriz[$i]['id']?>"  checked>                                                            
+                                                            <input type="radio" name="optionsRadios<?php echo $matriz[$i]['id']?>" id="matriz4<?php echo $matriz[$i]['id']?>" value="<?php echo $matriz[$i]['id']."4"?>"  checked>                                                            
                                                         </label>
                                                     </div>
                                                 </td>
                                                 <td style="width:100px; border:1px solid black !important;">
                                                     <div class="radio" data-toggle="tooltip" data-placement="left" title="<?php echo utf8_encode($matriz[$i]['sobresaliente'])?>">
                                                         <label>
-                                                            <input type="radio" name="optionsRadios<?php echo $matriz[$i]['id']?>" id="matriz5<?php echo $matriz[$i]['id']?>" value="<?php echo $matriz[$i]['id']?>"  checked>                                                            
+                                                            <input type="radio" name="optionsRadios<?php echo $matriz[$i]['id']?>" id="matriz5<?php echo $matriz[$i]['id']?>" value="<?php echo $matriz[$i]['id']."5"?>"  checked>                                                            
                                                         </label>
                                                     </div>
                                                 </td>
@@ -181,10 +179,10 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) header("Location: "._ADMIN."pa
                                 </div>
                             </div>
                                             
-                           <div class="col-2 col-md-offset-9">
+                           <div class="col-md-2 col-md-offset-10">
                                 <button class="btn btn-primary btn-lg">Enviar evaluación</button>
                            </div>
-                          </form> 
+                        </form>
                         </div>                    
                     </div>                   
                 </div>            
@@ -193,9 +191,22 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) header("Location: "._ADMIN."pa
 <?php include_once _INCLUDE."footer_comun.php";?>
 <?php include_once _INCLUDE."js_comun.php";?>
 <script>
-// $(function () {
-//   $('[data-toggle="tooltip"]').tooltip()
-// })
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});  
+    $( "form" ).on( "submit", function( event ) {   
+      let data = $( this ).serialize();
+      $.ajax({
+            url:'insert.php',
+            type:'POST',
+            data: data,
+            dataType:'json',
+            success:function(result){
+                swal(result.title, result.msj, result.alert);
+            }
+      });
+      event.preventDefault();
+    });
 </script>
 </body>
 </html>

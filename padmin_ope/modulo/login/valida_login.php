@@ -5,7 +5,10 @@ include _INCLUDE."class/conexion.php";
 $conexion = new conexion();
 $usuario_usu = isset($_POST["usuario_usu"]) ? htmlentities(utf8_decode($_POST["usuario_usu"])) : "";
 $contrasena_usu = isset($_POST["contrasena_usu"]) ? htmlentities(utf8_decode($_POST["contrasena_usu"])) : "";
-
+$nombre_usuario_sesion = '';
+$id_usuario='';
+$id_perfil='';
+$nombre_per='';
 $consulta = 
 	"
 	SELECT 
@@ -26,7 +29,7 @@ $consulta =
 $conexion->consulta_form($consulta,array($usuario_usu,$contrasena_usu));
 $cantidad = $conexion->total();
 if($cantidad > 0){
-	$fila_consulta = $conexion->extraer_registro();
+	$fila_consulta = $conexion->extraer_registro();	
 	foreach ($fila_consulta as $fila) {
 		$id_usuario = $fila["id_usu"];
 		$id_perfil = $fila["id_per"];

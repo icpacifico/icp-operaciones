@@ -47,7 +47,6 @@ class conexion
 			$con = self::$conexionDB->prepare($consulta);
 			$con->execute();
 			return $con->fetchAll(PDO::FETCH_ASSOC);			
-			// return $query;			
 		}catch (PDOException $e){ $this->status(3, $e->getMessage());}
 	}
 	
