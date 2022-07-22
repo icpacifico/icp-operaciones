@@ -18,7 +18,17 @@ class usuario
 		
 	}
 	//Creacion del objeto usuario
-	function usuario_crea($rut_usu,$id_est_usu,$nombre1_usu,$apellido1_usu,$apellido2_usu, $perfil_usu, $correo_usu, $fono_usu,$contrasena_usu,$id_cat_vend){
+	function usuario_crea($rut_usu,
+						 $id_est_usu,
+						 $nombre1_usu,
+						 $apellido1_usu,
+						 $apellido2_usu, 
+						 $perfil_usu, 
+						 $correo_usu, 
+						 $fono_usu,
+						 $contrasena_usu
+						//  $id_cat_vend
+						 ){
 		$this->rut_usu = $rut_usu;
 		$this->id_est_usu = $id_est_usu;
 		$this->nombre1_usu = $nombre1_usu;
@@ -28,7 +38,7 @@ class usuario
 		$this->correo_usu = $correo_usu;
 		$this->fono_usu = $fono_usu;
 		$this->contrasena_usu = $contrasena_usu;
-		$this->id_cat_vend = $id_cat_vend;
+		// $this->id_cat_vend = $id_cat_vend;
 	}
 	//funcion de insercion
 	public function usuario_insert(){
@@ -72,20 +82,19 @@ class usuario
 			$rut = substr($rut,0,4);
 			$contrasena = $rut;
 		
-		}
-		else{
+		}else{
 			$usuario = '';
 			$contrasena = '';
 		}
 
 		if($this->perfil_usu == 2 || $this->perfil_usu == 5){
-			$id_cat_vend = 1;
+			$this->id_cat_vend = 1;
 		} else {
-			$id_cat_vend = 0;
+			$this->id_cat_vend = 0;
 		}
 
 		$consulta = "INSERT INTO usuario_usuario VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-		$conexion->consulta_form($consulta,array(0,$this->perfil_usu,$this->id_est_usu,$this->rut_usu,$this->nombre1_usu,$this->apellido1_usu,$this->apellido2_usu,$usuario,$contrasena,$this->correo_usu,$id_cat_vend));
+		$conexion->consulta_form($consulta,array(0,$this->perfil_usu,$this->id_est_usu,$this->rut_usu,$this->nombre1_usu,$this->apellido1_usu,$this->apellido2_usu,$usuario,$contrasena,$this->correo_usu,$this->id_cat_vend));
 		$ultimo_id = $conexion->ultimo_id();
 		
 		$id = $conexion->ultimo_id();
