@@ -272,7 +272,7 @@ require_once _INCLUDE."head.php";
 								    </div>
 								</div>
                                 <div id="deny_copy" class="table-responsive wmd-view">
-                                    <table id="example" class="table scroll-div2 table-striped table-bordered" cellspacing="0" width="100%">
+                                  <table id="example" class="table scroll-div2 table-striped table-bordered" cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
                                             <th style="width:1%">
@@ -453,7 +453,7 @@ require_once _INCLUDE."head.php";
             dom:'lfBrtip',
             stateSave: true,
             lengthChange: true,
-            pageLength: 50,
+            pageLength: 10,
             <?php 
 			if ($_SESSION["sesion_perfil_panel"]==4 || $_SESSION["sesion_perfil_panel"]==6 || $_SESSION["sesion_id_panel"]==30) { //le oculta al vendedor los botontes tabla
 			?>

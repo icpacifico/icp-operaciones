@@ -9,6 +9,7 @@
 <script src="<?php echo _ASSETS?>plugins/fastclick/fastclick.js"></script>
 <script src="<?php echo _ASSETS?>dist/js/app.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/alert_prueba/dist/sweetalert-dev.js"></script>
+<!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 <script src="<?php echo _ASSETS?>dist/js/app.min.js"></script>
 <script src="<?php echo _ASSETS?>dist/js/active.js"></script>
 
