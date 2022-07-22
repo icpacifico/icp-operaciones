@@ -29,7 +29,8 @@ $_SESSION["modulo_propietario_panel"] = 1;
   
   <link rel="stylesheet" href="<?php echo _ASSETS?>dist/css/AdminLTE.min.css">
   <link rel="stylesheet" href="<?php echo _ASSETS?>dist/css/skins/_all-skins.min.css">
-  <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/alert_prueba/dist/sweetalert.css">
+  <!-- <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/alert_prueba/dist/sweetalert.css"> -->
+  <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/alert/sweet-alert.css">
   <link rel="stylesheet" href="<?php echo _ASSETS?>dist/css/ajustes.css">
   <script src="<?php echo _ASSETS?>plugins/jQuery/jquery-2.2.3.min.js"></script>
 <link rel="stylesheet" href="<?php echo _ASSETS?>dist/css/ajustes.css">
@@ -229,10 +230,6 @@ if ($_SESSION["sesion_perfil_panel"]==='2') {
 <script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.html5.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.print.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.colVis.min.js"></script>
-
-<!-- iCheck 1.0.1 -->
-<!-- <script src="<?php // echo _ASSETS?>plugins/iCheck/icheck.min.js"></script> -->
-
 <script>
     // cheks
     var valor;
@@ -246,13 +243,12 @@ if ($_SESSION["sesion_perfil_panel"]==='2') {
         });
         if(i == 0 ){
             return i;
-        }
-        else{
+        }else{
             return values;
         }
     }
 
-    $(function(){
+    $(()=>{
 	    $(".wmd-view-topscroll").scroll(function(){
 	        $(".wmd-view")
 	            .scrollLeft($(".wmd-view-topscroll").scrollLeft());
@@ -263,118 +259,57 @@ if ($_SESSION["sesion_perfil_panel"]==='2') {
 	    });
 	});
 
-    document.addEventListener('DOMContentLoaded', (event) => {  
-        // $(document).on('icheck', function(){
-        //     $('input[type=checkbox].flat-red').iCheck({
-        //         checkboxClass: 'icheckbox_flat-red'
-        //     });
-        // }).trigger('icheck');
-        <?php 
-		if ($_SESSION["sesion_perfil_panel"]<>'2') {
-    	 ?>
-         
+    document.addEventListener('DOMContentLoaded', (event) => { 
+        <?php  if ($_SESSION["sesion_perfil_panel"]<>'2'):?>         
          $('#example').DataTable({  
             dom: 'Blfrtip',
-            buttons: [
-                'copy', 'csv', 'excel','print','colvis',{
-                    extend: 'pdfHtml5',
-                    orientation: 'landscape',
-                    pageSize: 'LEGAL'
-                }
-            ],   
+            stateSave: true,
+            buttons: ['copy', 'csv', 'excelHtml5','print','colvis',{extend: 'pdfHtml5',orientation: 'landscape',pageSize: 'LEGAL'}],   
             "pageLength": 10,                 
             ajax: 'select-new.php',
-            // serverSide: true,
+            serverSide: true,
             processing: true,
             pagingType: 'full_numbers',            
             language: {
                 url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-CL.json',
             },
-          
+            responsive: true,
+            order: [[1, 'desc']],
+            columns: [{ orderable: false },null,null,null,null,null,null,null,null,null,null,null,null,null,{ orderable: false },{ orderable: false },{ orderable: false }]                      
          });
-
-        // let table = $('#example').DataTable( {
-        //     dom:'lfBrtip',
-        //     stateSave: true,          
-        //     "lengthChange": false,
-        //     "pageLength": 50,
-        //     buttons: [ 'copy', 'excel', 'pdf', 'colvis' ],
-        //     // buttons: [ 'copy', 'excelHtml5', 'pdf', 'print', 'colvis' ],
-        //     "bProcessing": true,
-        //     "bServerSide": true,
-        //     responsive: true,
-        //     "sAjaxSource": "select.php",
-        //     "sPaginationType": "full_numbers",
-        //     "aaSorting": [[ 1, "desc" ]],
-        //     "aoColumns": [
-        //         { "bSortable": false },
-        //         null,
-        //         null,
-        //         null,
-        //         null,
-        //         null,
-        //         null,
-        //         null,
-        //         null,
-        //         null,
-        //         null,
-        //         null,
-        //         { "bSortable": false },
-        //         { "bSortable": false },
-        //         { "bSortable": false }
-        //     ]
-        // });
-       
-
-        <?php 
-		} else {
-           
-            
-         ?>
-        var table = $('#example').DataTable( {
+        <?php else:?>       
+           $('#example').DataTable( {
             dom:'lfBrtip',
             stateSave: true,           
             "lengthChange": true,
-            "pageLength": 50,
-            buttons: [ 'copy', 'excelHtml5', 'pdf', 'print', 'colvis' ],
-            "bProcessing": true,
-            "bServerSide": true,
+            "pageLength": 10,
+            buttons: ['copy', 'csv', 'excelHtml5','print','colvis',{extend: 'pdfHtml5',orientation: 'landscape',pageSize: 'LEGAL'}],
+            serverSide: true,
+            processing: true,
             responsive: true,
-            "sAjaxSource": "select_jventa.php",
-            "sPaginationType": "full_numbers",
-            "aaSorting": [[ 1, "desc" ]],
-            "aoColumns": [
-                { "bSortable": false },
-                { "aDataSort": [ 0 ] },
-                null,
-                null,
-                null,
-                null,
-                { "aDataSort": [ 6,7,8,9 ] },
-            	{ "aDataSort": [ 11 ] },
-                { "aDataSort": [ 12 ] },
-                { "aDataSort": [ 13 ] },
-                { "aDataSort": [ 14 ] },
-                { "aDataSort": [ 15 ] },
-                { "aDataSort": [ 16 ] },
-                { "aDataSort": [ 17 ] },
-                { "aDataSort": [ 18 ] },
-                { "aDataSort": [ 19 ] },
-                { "bSortable": false },
-                { "bSortable": false },
-                { "bSortable": false },
-                { "bSortable": false }
+            ajax: "select_jventa.php",
+            pagingType: 'full_numbers',
+            order: [[1, 'desc']],
+            columns: [{ orderable: false },{ "orderData": [ 0 ] },null,null,null,null,
+                { "orderData": [ 6,7,8,9 ] },
+            	{ "orderData": [ 11 ] },
+                { "orderData": [ 12 ] },
+                { "orderData": [ 13 ] },
+                { "orderData": [ 14 ] },
+                { "orderData": [ 15 ] },
+                { "orderData": [ 16 ] },
+                { "orderData": [ 17 ] },
+                { "orderData": [ 18 ] },
+                { "orderData": [ 19 ] },
+                { orderable: false },
+                { orderable: false },
+                { orderable: false },
+                { orderable: false }
             ]
         });
-
-        <?php
-    	} 
-    	?>
- 
-        // table.buttons().container()
-        //     .appendTo( '#example_wrapper .col-sm-6:eq(1)' );
-
+        <?php endif; ?>
         // eliminar
+
         function resultado(data) {
             if(data.envio == 1){
                 swal({

@@ -45,17 +45,11 @@
 		";
 	
 	$sLimit = "";
-	if ( isset( $_GET['iDisplayStart'] ) && $_GET['iDisplayLength'] != '-1' )
-	{
-		$sLimit = "LIMIT ".$_GET['iDisplayStart'].", ".
-			$_GET['iDisplayLength'];
-	}
-	
-	
+	if ( isset( $_GET['iDisplayStart'] ) && $_GET['iDisplayLength'] != '-1' ) $sLimit = "LIMIT ".$_GET['iDisplayStart'].", ".$_GET['iDisplayLength'];
 	/*
 	 * Ordering
 	 */
-
+	
 	$sOrder = "";
 	if ( isset( $_GET['iSortCol_0'] ) )
 	{

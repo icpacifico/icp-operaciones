@@ -7,6 +7,7 @@
 	$acciones = "";
 	$fecha = new fecha();
 	$conexion = new conexion();
+
 	/* Array of database columns which should be read and sent back to DataTables. Use a space where
 	 * you want to insert a non-database field (for example a counter or static image)
 	 */
@@ -34,41 +35,22 @@
 		";
 	
 	$sLimit = "";
-	if ( isset( $_GET['iDisplayStart'] ) && $_GET['iDisplayLength'] != '-1' ) $sLimit = "LIMIT ".$_GET['iDisplayStart'].", ".$_GET['iDisplayLength'];
-
+	if ( isset( $_GET['start'] ) && $_GET['length'] != '-1' ) $sLimit = "LIMIT ".$_GET['start'].", ".$_GET['length'];
+   
 	/*
 	 * Ordering
 	 */
 	$sOrder = "";
-	if ( isset( $_GET['iSortCol_0'] ) )
+	if ( isset( $_GET['order'] ) )
 	{
 		$sOrder = "ORDER BY  ";
-		for ( $i=0 ; $i<intval( $_GET['iSortingCols'] ) ; $i++ )
-		{
-			if($i==5){
-					// echo "entro";
-					// $sOrder .= " fullName ".$_GET['sSortDir_'.$i].", ";
-			} else {
-				if ( $_GET[ 'bSortable_'.intval($_GET['iSortCol_'.$i]) ] == "true" )
-				{
-					$sOrder .= $aColumns[ intval( $_GET['iSortCol_'.$i] )-1 ]."
-					 	".$_GET['sSortDir_'.$i].", ";
-				}
-			}
-		}
-		
-		// $sOrder = substr_replace( $sOrder, "", -2 );
-		// if ( $sOrder == "ORDER BY" )
-		// {
-		// 	$sOrder = "";
-		// }
-		// $i = 0;
-		// $sOrder .= " fullName ".$_GET['sSortDir_'.$i].", ";
+		for ( $i=0 ; $i<intval( $_GET['order'] ) ; $i++ )
+		{			
+		  if ( intval($_GET['order'][$i]['column']) > 0 ) $sOrder .= $aColumns[ intval(  $_GET['order'][$i]['column'] )-1 ]." ".$_GET['order'][$i]['dir'].", ";							
+		}		
 		$sOrder = substr_replace( $sOrder, "", -2 );
 		if ( $sOrder == "ORDER BY" ) $sOrder = "";
-	}
-	
-	
+	}		
 	/* 
 	 * Filtering
 	 * NOTE this does not match the built-in DataTables filtering which does it
@@ -77,22 +59,18 @@
 	 */
 	$filtro = 0;
 	$sWhere = "";
-	if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
+	if ( isset($_GET['search']) && $_GET['search'] != "" )
 	{
 
 		$filtro = 1;
 		$sWhere = "WHERE (";
 		for ( $i=0 ; $i<count($aColumns) ; $i++ )
 		{
-			if($aColumns[$i] == "CONCAT(pro.nombre_pro,' ',pro.nombre2_pro,' ',pro.apellido_paterno_pro,' ',pro.apellido_materno_pro) AS fullName"){
-		 		// $sWhere .= "CONCAT(pro.nombre_pro,' ',pro.nombre2_pro,' ',pro.apellido_paterno_pro,' ',pro.apellido_materno_pro) LIKE '%".utf8_decode($_GET['sSearch'])."%' OR ";
-
-				$words_sep = utf8_decode($_GET['sSearch']);
+			if($aColumns[$i] == "CONCAT(pro.nombre_pro,' ',pro.nombre2_pro,' ',pro.apellido_paterno_pro,' ',pro.apellido_materno_pro) AS fullName"){		 		
+				
+				$words_sep = $_GET['search']['value'];
 				$words_sep = explode(" ", $words_sep);
-				$cant_palabras = count($words_sep);
-				// echo $cant_palabras."<------".$words_sep[0];
-		 		// $sWhere .= "MATCH(pro.nombre_pro, pro.apellido_paterno_pro, pro.apellido_materno_pro) AGAINST ('".$words_sep."' IN BOOLEAN MODE) OR ";
-		 		// $sWhere .= "MATCH(pro.nombre_pro, pro.apellido_paterno_pro, pro.apellido_materno_pro) AGAINST ('".$words_sep."' IN BOOLEAN MODE) OR ";
+				$cant_palabras = count($words_sep);				
 		 		// aquí devide en cada palabra para la consulta y le agrega + a cada una
 				$sWhere .= "MATCH(pro.nombre_pro, pro.apellido_paterno_pro, pro.apellido_materno_pro) AGAINST ('";
 				for ($ii=0; $ii < $cant_palabras; $ii++) { 
@@ -102,20 +80,17 @@
 				$sWhere .= "' IN BOOLEAN MODE) OR ";
 			}
 			else{
-				$sWhere .= $aColumns[$i]." LIKE '%".utf8_decode($_GET['sSearch'])."%' OR ";
-			}
-			
+				$sWhere .= $aColumns[$i]." LIKE '%".$_GET['search']['value']."%' OR ";
+			}			
 		}
 		$sWhere = substr_replace( $sWhere, "", -3 );
 		$sWhere .= ')';
-
-
 	}
 	
 	/* Individual column filtering */
 	for ( $i=0 ; $i<count($aColumns) ; $i++ )
 	{
-		if ( isset($_GET['bSearchable_'.$i]) && $_GET['bSearchable_'.$i] == "true" && $_GET['sSearch_'.$i] != '' )
+		if ( isset($_GET['columns'][$i]['searchable']) && $_GET['columns'][$i]['searchable'] == "true" && $_GET['columns'][$i]['search']['value'] != '' )
 		{
 			$filtro = 2;
 			if ( $sWhere == "" )
@@ -130,7 +105,7 @@
 				//$sWhere .= "fullName LIKE '%".$_GET['sSearch_'.$i]."%' ";
 			}
 			else{
-				$sWhere .= $aColumns[$i]." LIKE '%".$_GET['sSearch_'.$i]."%' ";
+				$sWhere .= $aColumns[$i]." LIKE '%".(string)$_GET['columns'][$i]['search']['value']."%' ";
 			}
 		}
 	}
@@ -444,7 +419,6 @@
 		 	$acciones = "";
 			$output['data'][] = $row;
 		}
-	}
-	//print_r ($output);
+	}	
 	echo json_encode( $output );
 ?>
