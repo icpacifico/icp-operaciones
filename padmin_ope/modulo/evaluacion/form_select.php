@@ -83,18 +83,19 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                                 FROM matriz_desarrollo as matriz 
                                                                 INNER JOIN vendedor_vendedor as vende 
                                                                 ON matriz.id_vendedor = vende.id_vend");
+                                                          
                                         if(count($data)>0):
                                         foreach($data as $val){                               
                                         ?>
-                                            <td><?php echo $val->id?></td>
-                                            <td><?php echo $val->puntos. " Pts"?></td>
-                                            <td><?php echo $val->porcentaje. " %"?></td>
-                                            <td><?php echo utf8_encode($val->vendedor)?></td>
-                                            <td><?php echo $val->rpregunta1. " Pts"?></td>
-                                            <td><?php echo $val->rpregunta2. " Pts"?></td>
-                                            <td><?php echo $val->rpregunta3. " Pts"?></td>
-                                            <td><?php echo $val->rpregunta4. " Pts"?></td>
-                                            <td><?php echo date_format(date_create($val->fecha_creacion),'d-m-Y')?></td>
+                                            <td><?php echo $val['id']?></td>
+                                            <td><?php echo $val['puntos']. " Pts"?></td>
+                                            <td><?php echo $val['porcentaje']. " %"?></td>
+                                            <td><?php echo utf8_encode($val['vendedor'])?></td>
+                                            <td><?php echo $val['rpregunta1']. " Pts"?></td>
+                                            <td><?php echo $val['rpregunta2']. " Pts"?></td>
+                                            <td><?php echo $val['rpregunta3']. " Pts"?></td>
+                                            <td><?php echo $val['rpregunta4']. " Pts"?></td>
+                                            <td><?php echo date_format(date_create($val['fecha_creacion']),'d-m-Y')?></td>
                                         <?php }?> 
                                         <?php else: ?>
                                         <td colspan="9"><h4 style="color:grey;">Aun no hay encuestas por mostrar, para crear una ve a <a href="form_insert.php">Formulario de evaluaciones</a></h4></td>
