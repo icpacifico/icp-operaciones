@@ -66,7 +66,7 @@ if (!defined('_INCLUDE')) {
 
 // token de sendgrid
 if (!defined('_ACCESS_TOKEN')) {
-	define('_ACCESS_TOKEN','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');
+	define('_ACCESS_TOKEN','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');
 }
 
 // PARAMETROS DE BASE DE DATOS
