@@ -148,7 +148,7 @@ $conexion = new conexion();
             }
             if (data.envio == 5) {
             	console.log(data.respuesta);
-                swal("Error!", "Campaña NO Enviada. (ERROR: "+data.respuesta.errors[0]->message+")", "error");
+                swal("Error!", "Campaña NO Enviada. (ERROR: "+data.respuesta.errors[0].message+")", "error");
                 $('#contenedor_boton').html('<button type="submit" class="btn btn-primary pull-right">Ingresar</button>');
             }
             if (data.envio == 6) {
