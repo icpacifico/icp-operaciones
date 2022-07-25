@@ -61,7 +61,7 @@ if($cantidad_mes_actual == 1) {
 		$respuesta_sendgrid = explode(">", $ejecucion_masiva);
 
 		if ($respuesta_sendgrid[0]==1) {
-			$jsondata['envio'] = 1;
+			$jsondata['envio'] = $respuesta_sendgrid[0];
 		} else {
 			$jsondata['envio'] = 5;
 			$jsondata['respuesta'] = $respuesta_sendgrid[1];
