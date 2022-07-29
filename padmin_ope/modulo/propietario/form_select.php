@@ -54,17 +54,6 @@ require_once _INCLUDE."head.php";
         height:20px;
     }
 </style>
-<?php 
-// if ($_SESSION["sesion_perfil_panel"]==4 || $_SESSION["sesion_perfil_panel"]==6 || $_SESSION["sesion_id_panel"]==30) { //le oculta al vendedor los botontes tabla
-	?>
-	<!-- <style type="text/css">
-	.dt-buttons.btn-group{
-		display: none;
-	}
-	</style> -->
-	<?php
-// }
- ?>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
