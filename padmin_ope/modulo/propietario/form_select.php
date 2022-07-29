@@ -286,8 +286,7 @@ require_once _INCLUDE."head.php";
                                             <th>Dirección</th>
                                             <th>Correo</th>
                                             <th>Profesión</th>
-                                            <th>Género</th>
-                                            
+                                            <th>Género</th>                                            
                                             <th>Región</th>
                                             <th>Comuna</th>
                                             <th>Estado</th>
@@ -303,19 +302,18 @@ require_once _INCLUDE."head.php";
                                                 <button type="button" class="btn btn-xs btn-icon btn-danger borra_todo" data-toggle="tooltip" data-original-title="Eliminar Seleccionados"><i class="fa fa-trash"></i></button>
                                                 <?php } ?>
                                             </th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
+                                            <th>Nombre</th>
+                                            <th>N° Depto.</th>
+                                            <th>Rut</th>
+                                            <th>Fono</th>
+                                            <th>Dirección</th>
+                                            <th>Correo</th>
+                                            <th>Profesión</th>
+                                            <th>Género</th>                                            
+                                            <th>Región</th>
+                                            <th>Comuna</th>
+                                            <th>Estado</th>
+                                            <th style="width:5%">Acción</th>
                                             
                                         </tr>
                                     </tfoot>

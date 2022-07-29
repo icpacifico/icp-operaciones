@@ -48,7 +48,11 @@
        
         <!-- /.col -->
         <div class="col-xs-6 d-flex justify-content-center">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Ingresar</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat" id="ingresar">Ingresar</button>
+          <button class="btn btn-primary btn-block btn-flat" type="button" id="load">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            cargando...
+          </button>
         </div>
         <!-- /.col -->
       </div>
@@ -67,7 +71,8 @@
 <!-- <script src="<?php echo _ASSETS?>plugins/alert/sweet-alert.js"></script> -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
-document.addEventListener('DOMContentLoaded', (event) => {  
+document.addEventListener('DOMContentLoaded', (event) => { 
+  $("#load").hide(); 
     const popup = (title,message,icon,accion) => {      
       Swal.fire({
         title: title,
@@ -75,7 +80,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         icon: icon,
         showConfirmButton: false,
         timer: 1500
-      }).then(() => location.href = accion)
+      }).then(() => {
+        location.href = accion
+      })
     }    
     $('#formulario').submit(function(){
         let dataString = $('#formulario').serialize();       
@@ -84,9 +91,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
           type: 'POST',
           url: $(this).attr('action'),
           dataType:'json',
-          success: function(data) {
+          beforeSend:function (xhr, settings) {
+            $("#load").show();
+            $("#ingresar").hide();
+          },
+          success: function(data) {           
+            $("#load").hide();
+            $("#ingresar").show();
             popup(data.title,data.message,data.icon,data.action);
-          }           
+          }          
         })
       return false;
     });   
