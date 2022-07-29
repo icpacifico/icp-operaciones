@@ -76,8 +76,6 @@
 			$sOrder = "";
 		}
 	}
-	
-	
 	/* 
 	 * Filtering
 	 * NOTE this does not match the built-in DataTables filtering which does it
@@ -236,25 +234,15 @@
 	$fila_consulta = $conexion->extraer_registro();
 	
 	/* Data set length after filtering */
-	$sQuery = "
-		SELECT FOUND_ROWS()
-	";
+	$sQuery = "SELECT FOUND_ROWS()";
 	$conexion->consulta($sQuery);
-	$fila_consulta2 = $conexion->extraer_registro_unico();
-
-	
+	$fila_consulta2 = $conexion->extraer_registro_unico();	
 	$iFilteredTotal = $fila_consulta2[0];
-	
 	/* Total data set length */
-	$sQuery = "
-		SELECT COUNT(".$sIndexColumn.") AS suma
-		FROM   $sTable
-	";
+	$sQuery = "SELECT COUNT(".$sIndexColumn.") AS suma FROM   $sTable";
 	$conexion->consulta($sQuery);
 	$fila_consulta3 = $conexion->extraer_registro_unico();
-
 	$iTotal = $fila_consulta3[0];
-	
 	/*
 	 * Output
 	 */
@@ -265,13 +253,7 @@
 		"aaData" => array()
 	);
 
-	$consulta = 
-		"
-		SELECT
-			id_pro
-		FROM
-			cotizacion_cotizacion
-		";
+	$consulta = "SELECT id_pro FROM cotizacion_cotizacion";
 	$conexion->consulta($consulta);
 	$fila_consulta_solicitud_original = $conexion->extraer_registro();
 	$fila_consulta_solicitud = array();
@@ -312,11 +294,9 @@
 			// $aColumns = array('pro.id_pro','pro.nombre_pro','pro.rut_pro','pro.fono_pro','pro.correo_pro','est_pro.nombre_est_pro','pro.id_est_pro');
 			for ( $i=0 ; $i<count($aColumns) ; $i++ ){
 				if($aColumns[$i] == "pro.id_pro" || $aColumns[$i] == "pro.id_est_pro" || $aColumns[$i] == "pro.nombre_pro" || $aColumns[$i] == "pro.nombre2_pro" || $aColumns[$i] == "pro.apellido_paterno_pro" || $aColumns[$i] == "pro.apellido_materno_pro") {
-				}
-				else if( $aColumns[$i] == "pro.rut_pro") {
+				}else if( $aColumns[$i] == "pro.rut_pro") {
 					$row[] =  utf8_encode($aRow["rut_pro"]);
-				}
-				else if( $aColumns[$i] == $field) {
+				}else if( $aColumns[$i] == $field) {
 					$row[] =  utf8_encode($aRow["fullName"]);
 					// $consulta_viv = 
 					// 	"
@@ -334,8 +314,7 @@
 					// $conexion->consulta($consulta_viv);
 					// $fila_viv = $conexion->extraer_registro_unico();
 					// $row[] =  utf8_encode($fila_viv['nombre_viv']);
-				}
-				else if( $aColumns[$i] == "viv.id_viv") {
+				}else if( $aColumns[$i] == "viv.id_viv") {
 					if($aRow["id_viv"]<>'') {
 						$consulta_viv = 
 						"
@@ -403,14 +382,9 @@
 		    	if($aRow["id_est_pro"] == 1){
 
 		        	$acciones .= '<button value="'.$aRow["id_pro"].'" type="button" class="btn btn-sm btn-icon btn-default estado" data-toggle="tooltip" data-original-title="Desactivar"><i class="fa fa-minus-square-o""></i></button>';
-		        }
-		        else{
+		        }else{
 		        	$acciones .= '<button value="'.$aRow["id_pro"].'" type="button" class="btn btn-sm btn-icon btn-default estado" data-toggle="tooltip" data-original-title="Activar"><i class="fa fa-check-square-o"></i></button>';
-		        }
-
-		        
-                
-                
+		        }    
 	    	}
 
 	    	if ($_SESSION["sesion_perfil_panel"] != 3 && $_SESSION["sesion_perfil_panel"] != 6) {

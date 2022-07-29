@@ -11,6 +11,7 @@ class conexion
 	private $descriptor;
 	private $close;
 	private $sql;
+	private $error;
 	
 	//-------PARAMETROS DE CONEXION
 	function __construct(){
@@ -22,23 +23,34 @@ class conexion
 	}
 	//-------CONEXION A UNA BASE DE DATOS
 	private function conectar_base_datos(){
-		try {		    
-		    self::$conexionDB = new PDO("mysql:host=$this->servidor;dbname=$this->base_datos", $this->usuario, $this->pass);		   
-		    self::$conexionDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);		    
-		}catch (PDOException $e){ $this->status(3, $e->getMessage());}					  				
+		try {		 
+			$options = array(
+				PDO::ATTR_PERSISTENT => true,
+				PDO::ATTR_ERRMODE =>PDO::ERRMODE_EXCEPTION
+			 );   
+		    self::$conexionDB = new PDO("mysql:host=$this->servidor;dbname=$this->base_datos", $this->usuario, $this->pass,$options);		   
+		    // self::$conexionDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);		    
+		}catch (PDOException $e){ 			
+			
+			$this->status("Error Grave!",$this->codeError($e),"error","#");    		
+		}					  				
 	}
 	
 	public function cerrar(){
 		try {
 			self::$conexionDB = null;
-		}catch (PDOException $e){ $this->status(3, $e->getMessage());}		
+		}catch (PDOException $e){ 
+			$this->status("Error Grave!",$this->codeError($e),"error","#");
+		}		
 	}
 
 	public function consulta_form($consulta,$valor){
 		try {
 			self::$ejecutar = self::$conexionDB->prepare($consulta);		    
 		    self::$ejecutar->execute($valor);		   
-		}catch (PDOException $e){ $this->status(3, $e->getMessage());}
+		}catch (PDOException $e){ 
+			$this->status("Error Grave!",$this->codeError($e),"error","#");
+		}
 	}
 
 	public static function select($consulta){
@@ -47,7 +59,9 @@ class conexion
 			$con = self::$conexionDB->prepare($consulta);
 			$con->execute();
 			return $con->fetchAll(PDO::FETCH_ASSOC);			
-		}catch (PDOException $e){ $this->status(3, $e->getMessage());}
+		}catch (PDOException $e){ 
+			$this->status("Error Grave!",$this->codeError($e),"error","#");
+		}
 	}
 	
 	public function consulta_form_prueba($consulta,$valor){
@@ -60,54 +74,91 @@ class conexion
 	public function consulta($consulta){
 		try {
 			self::$ejecutar = self::$conexionDB->query($consulta);
-		}catch (PDOException $e){ $this->status(3, $e->getMessage());}
+		}catch (PDOException $e){ 
+			$this->status("Error Grave!",$this->codeError($e),"error","#");
+		}
 	}
 
 	public static function consulta_total($query){
 		try {
 			$rows = self::$conexionDB->query($query);
 			return $rows->rowCount();		
-	    }catch (PDOException $e){ $this->status(3, $e->getMessage());}
+	    }catch (PDOException $e){ 
+			$this->status("Error Grave!",$this->codeError($e),"error","#");
+		}
 	}
 
 	//-------EJECUTA UNA CONSULTA A LA BASE DE DATOS SIN PARAMETRO DE PRUEBA
 	public function consulta_prueba($consulta){
 		try {
 			self::$ejecutar = self::$conexionDB->query($consulta);			
-		}catch (PDOException $e){ $this->status(3, $e->getMessage());}
+		}catch (PDOException $e){ 
+			$this->status("Error Grave!",$this->codeError($e),"error","#");
+		}
 	}
 	//-------EXTRAE LOS REGISTROS DE UNA TABLA
 	public function extraer_registro(){
 	    try{
 			$file='';
 			return ($file = self::$ejecutar->fetchAll(PDO::FETCH_ASSOC)) ? $file : false;
-		}catch (PDOException $e){ $this->status(3, $e->getMessage());}
+		}catch (PDOException $e){ 
+			$this->status("Error Grave!",$this->codeError($e),"error","#");
+		}
 	}
 	//-------EXTRAE LOS REGISTROS DE UNA TABLA
 	public function extraer_registro_unico(){
 		try {
 			$file='';
 			return ($file = self::$ejecutar->fetch()) ? $file : false;
-		}catch (PDOException $e){ $this->status(3, $e->getMessage());}		
+		}catch (PDOException $e){ 
+			$this->status("Error Grave!",$this->codeError($e),"error","#");
+		}		
 	}
 	//-------CANTIDAD DE REGISTROS DE UNA CONSULTA
 	public function total(){
 		try {
 			return self::$ejecutar->rowCount();
-		}catch (PDOException $e){ $this->status(3, $e->getMessage());}		
+		}catch (PDOException $e){ 
+			$this->status("Error Grave!",$this->codeError($e),"error","#");
+		}		
 	}
 	//-------DEVUELVE EL ULTIMO ID DESPUES DE UNA INSERCION
 	public function ultimo_id(){
 		try {
 			return self::$conexionDB->lastInsertId();		
-	    }catch (PDOException $e){ $this->status(3, $e->getMessage());}		
+	    }catch (PDOException $e){ 
+			$this->status("Error Grave!",$this->codeError($e),"error","#");
+		}		
 	}
 
-	private function status($tipo,$msj){
-		$jsondata['envio'] = $tipo;
-		$jsondata['error_consulta'] = $msj;
-		echo json_encode($jsondata);
-		exit();
+	public function status($title,$message,$icon,$action){
+		$jsondata['title'] = $title;
+		$jsondata['message'] = $message;
+		$jsondata['icon'] = $icon;
+		$jsondata['action'] = $action;		
+		print json_encode($jsondata);
+		die();
+	}
+	public function codeError($error){
+		    $message = explode(' ', $error->getMessage());
+			$dbCode = rtrim($message[1], ']');
+			$dbCode = trim($dbCode, '[');
+			// codes specific to MySQL
+			switch ($dbCode) {
+				case 1049:
+					$userMessage = 'Base de datos desconocida - probablemente error de configuración:';					
+					break;
+				case 2002:
+					$userMessage = 'LA BASE DE DATOS ESTÁ CAÍDA:';
+					break;
+				case 1045:
+					$userMessage = 'Credenciales de base de datos incorrectas:';
+					break;
+				default:
+					$userMessage = 'Error no detectado:';
+					break;
+			}
+			return $userMessage;
 	}
 }
 ?>
