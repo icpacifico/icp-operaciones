@@ -1,112 +1,112 @@
 <!-- Small boxes (Stat box) -->
 <style>
-  .widget-user-2 .widget-user-header{
-        /* padding: 1px; */
-     border-top-right-radius: 0; 
-     border-top-left-radius: 0; 
-    padding-top: 5px;
-    padding-bottom: 1px;
-    padding-left: 15px;
+    .widget-user-2 .widget-user-header{
+          /* padding: 1px; */
+      border-top-right-radius: 0; 
+      border-top-left-radius: 0; 
+      padding-top: 5px;
+      padding-bottom: 1px;
+      padding-left: 15px;
+    }
+
+    .box{
+      margin-bottom: 4px;
+    }
+
+    .box-body {
+      padding: 15px;
   }
 
-  .box{
-    margin-bottom: 4px;
+    .content{
+      padding-top: 0px;
+    }
+
+    .box h3{
+      margin-top: 4px;
+    }
+
+    .ml-0{
+      padding-left: 0;
+    }
+
+    .col_calendar{
+      padding-right: 5px;
+    }
+
+
+    .hb-current-month {
+      line-height: 35px;
+      font-size: 33px;
+      font-weight: 200;
+      margin-top: 10px;
   }
 
-  .box-body {
-    padding: 15px;
-}
-
-  .content{
-    padding-top: 0px;
+  .hb-current-month span {
+      display: block;
+      margin-top: 2px;
+      line-height: 20px;
+      font-size: 24px;
+      color: #666 !important;
   }
 
-  .box h3{
-    margin-top: 4px;
+  .hb-months {
+      position: relative;
+      height: 90px;
+      margin-bottom: 0px;
+      padding-top: 10px;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
   }
 
-  .ml-0{
-  	padding-left: 0;
+  .hb-day.current_day {
+      color: #fff;
+      background-color: #77b8dd;
   }
 
-  .col_calendar{
-  	padding-right: 5px;
+  .hb-day.hb-day-selected, .hb-day.hb-day-selected:hover {
+      background-color: #dd4b39;
   }
 
+  #hb-event-list .fecha{
+    font-size: 1.6rem;
+    color: #dd4b39;
+    font-weight: bold;
+  }
 
-  .hb-current-month {
-    line-height: 35px;
-    font-size: 33px;
-    font-weight: 200;
-    margin-top: 10px;
-}
+  #hb-event-list h4{
+    font-size: 1.5rem;
+    color: #000000;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
 
-.hb-current-month span {
-    display: block;
-    margin-top: 2px;
-    line-height: 20px;
-    font-size: 24px;
-    color: #666 !important;
-}
+  #hb-event-list h5{
+    font-size: 1.4rem;
+    color: #000000;
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
 
-.hb-months {
-    position: relative;
-    height: 90px;
-    margin-bottom: 0px;
-    padding-top: 10px;
-    text-align: center;
-    border-bottom: 1px solid #ccc;
-}
+  #hb-event-list p{
+    font-size: 1.2rem;
+    color: #777;
+  }
 
-.hb-day.current_day {
-    color: #fff;
-    background-color: #77b8dd;
-}
+  #hb-event-list .realizado{
+    background-color: rgba(204,204,204,.4);
+  }
 
-.hb-day.hb-day-selected, .hb-day.hb-day-selected:hover {
-    background-color: #dd4b39;
-}
+  #hb-event-list .realizado h4{
+    font-style: italic;
+  }
 
-#hb-event-list .fecha{
-	font-size: 1.6rem;
-	color: #dd4b39;
-	font-weight: bold;
-}
+  #hb-event-list .realizado h5{
+    font-style: italic;
+  }
 
-#hb-event-list h4{
-	font-size: 1.5rem;
-	color: #000000;
-	font-weight: 700;
-	margin-bottom: 5px;
-}
-
-#hb-event-list h5{
-	font-size: 1.4rem;
-	color: #000000;
-	margin-top: 0;
-	margin-bottom: 5px;
-}
-
-#hb-event-list p{
-	font-size: 1.2rem;
-	color: #777;
-}
-
-#hb-event-list .realizado{
-	background-color: rgba(204,204,204,.4);
-}
-
-#hb-event-list .realizado h4{
-	font-style: italic;
-}
-
-#hb-event-list .realizado h5{
-	font-style: italic;
-}
-
-#hb-event-list .fa-exclamation-triangle{
-	color: #dd4b39;
-}
+  #hb-event-list .fa-exclamation-triangle{
+    color: #dd4b39;
+  }
 </style>
 <?php  
 $hoy = date("Y-m-d");
