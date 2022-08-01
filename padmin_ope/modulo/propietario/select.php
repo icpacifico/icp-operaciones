@@ -14,7 +14,24 @@
 	 */
 	$field = "CONCAT(pro.nombre_pro,' ',pro.nombre2_pro,' ',pro.apellido_paterno_pro,' ',pro.apellido_materno_pro) AS fullName";
 	// $aColumns = array('pro.id_pro',$field,'viv.id_viv','pro.rut_pro','pro.nombre_pro', 'pro.nombre2_pro','pro.apellido_paterno_pro','pro.apellido_materno_pro','pro.fono_pro','pro.direccion_pro','pro.correo_pro','prof.nombre_prof','sex.nombre_sex','-- civ.nombre_civ','reg.descripcion_reg','com.nombre_com','est_pro.nombre_est_pro','pro.id_est_pro');
-	$aColumns = array('pro.id_pro',$field,'viv.id_viv','pro.rut_pro','pro.nombre_pro', 'pro.nombre2_pro','pro.apellido_paterno_pro','pro.apellido_materno_pro','pro.fono_pro','pro.direccion_pro','pro.correo_pro','prof.nombre_prof','sex.nombre_sex','reg.descripcion_reg','com.nombre_com','est_pro.nombre_est_pro','pro.id_est_pro');
+	$aColumns = array('pro.id_pro',
+					  $field,
+					  'viv.id_viv',
+					  'pro.rut_pro',
+					  'pro.nombre_pro', 
+					  'pro.nombre2_pro',
+					  'pro.apellido_paterno_pro',
+					  'pro.apellido_materno_pro',
+					  'pro.fono_pro',
+					  'pro.direccion_pro',
+					  'pro.correo_pro',
+					  'canal.nombre_can_cot',
+					  'prof.nombre_prof',
+					  'sex.nombre_sex',
+					  'reg.descripcion_reg',
+					  'com.nombre_com',
+					  'est_pro.nombre_est_pro',
+					  'pro.id_est_pro');
 	
 	/* Indexed column (used for fast and accurate table cardinality) */
 	$sIndexColumn = "pro.id_pro";
@@ -36,6 +53,8 @@
 		"
 		propietario_propietario AS pro
 		INNER JOIN propietario_estado_propietario AS est_pro ON est_pro.id_est_pro = pro.id_est_pro
+		LEFT JOIN cotizacion_cotizacion AS cotiza ON cotiza.id_pro = pro.id_pro
+		LEFT JOIN cotizacion_canal_cotizacion AS canal ON canal.id_can_cot = cotiza.id_can_cot
 		LEFT JOIN vendedor_propietario_vendedor AS ven_pro ON ven_pro.id_pro = pro.id_pro
 		INNER JOIN profesion_profesion AS prof ON prof.id_prof = pro.id_prof		
 		INNER JOIN sexo_sexo AS sex ON sex.id_sex = pro.id_sex
@@ -226,7 +245,7 @@
 		$sLimit
 	";
 
-	// echo $sQuery."<<----";
+	// echo $sQuery;
 	// $sQuery = "SELECT SQL_CALC_FOUND_ROWS pro.id_pro, CONCAT(pro.nombre_pro,' ',pro.nombre2_pro,' ',pro.apellido_paterno_pro,' ',pro.apellido_materno_pro) AS fullName, viv.id_viv, pro.rut_pro, pro.nombre_pro, pro.nombre2_pro, pro.apellido_paterno_pro, pro.apellido_materno_pro, pro.fono_pro, pro.direccion_pro, pro.correo_pro, prof.nombre_prof, est_pro.nombre_est_pro, pro.id_est_pro FROM propietario_propietario AS pro INNER JOIN propietario_estado_propietario AS est_pro ON est_pro.id_est_pro = pro.id_est_pro INNER JOIN vendedor_propietario_vendedor AS ven_pro ON ven_pro.id_pro = pro.id_pro INNER JOIN profesion_profesion AS prof ON prof.id_prof = pro.id_prof LEFT JOIN propietario_vivienda_propietario AS viv ON viv.id_pro = pro.id_pro WHERE (pro.id_pro LIKE '%jara al%' OR MATCH(pro.nombre_pro, pro.apellido_paterno_pro, pro.apellido_materno_pro) AGAINST ('jara al' IN BOOLEAN MODE) OR viv.id_viv LIKE '%jara al%' OR pro.rut_pro LIKE '%jara al%' OR pro.nombre_pro LIKE '%jara al%' OR pro.nombre2_pro LIKE '%jara al%' OR pro.apellido_paterno_pro LIKE '%jara al%' OR pro.apellido_materno_pro LIKE '%jara al%' OR pro.fono_pro LIKE '%jara al%' OR pro.direccion_pro LIKE '%jara al%' OR pro.correo_pro LIKE '%jara al%' OR prof.nombre_prof LIKE '%jara al%' OR est_pro.nombre_est_pro LIKE '%jara al%' OR pro.id_est_pro LIKE '%jara al%' ) ORDER BY fullName desc LIMIT 0, 50";
 
 	$conexion->consulta($sQuery);
@@ -293,7 +312,12 @@
 
 			// $aColumns = array('pro.id_pro','pro.nombre_pro','pro.rut_pro','pro.fono_pro','pro.correo_pro','est_pro.nombre_est_pro','pro.id_est_pro');
 			for ( $i=0 ; $i<count($aColumns) ; $i++ ){
-				if($aColumns[$i] == "pro.id_pro" || $aColumns[$i] == "pro.id_est_pro" || $aColumns[$i] == "pro.nombre_pro" || $aColumns[$i] == "pro.nombre2_pro" || $aColumns[$i] == "pro.apellido_paterno_pro" || $aColumns[$i] == "pro.apellido_materno_pro") {
+				if($aColumns[$i] == "pro.id_pro" || 
+				$aColumns[$i] == "pro.id_est_pro" || 
+				$aColumns[$i] == "pro.nombre_pro" || 
+				$aColumns[$i] == "pro.nombre2_pro" ||
+				$aColumns[$i] == "pro.apellido_paterno_pro" || 
+				$aColumns[$i] == "pro.apellido_materno_pro") {
 				}else if( $aColumns[$i] == "pro.rut_pro") {
 					$row[] =  utf8_encode($aRow["rut_pro"]);
 				}else if( $aColumns[$i] == $field) {
@@ -361,6 +385,9 @@
 				}
 				else if( $aColumns[$i] == "com.nombre_com") {
 					$row[] =  utf8_encode($aRow["nombre_com"]);
+				}
+				else if( $aColumns[$i] == "canal.nombre_can_cot") {
+					$row[] =  utf8_encode($aRow["nombre_can_cot"]);
 				}
 				else{
 					$row[] =  utf8_encode($aRow[ $aColumns[$i] ]);

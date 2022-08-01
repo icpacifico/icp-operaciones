@@ -285,6 +285,7 @@ require_once _INCLUDE."head.php";
                                             <th>Fono</th>
                                             <th>Dirección</th>
                                             <th>Correo</th>
+                                            <th>Canal</th>
                                             <th>Profesión</th>
                                             <th>Género</th>                                            
                                             <th>Región</th>
@@ -296,11 +297,9 @@ require_once _INCLUDE."head.php";
                                     <tfoot>
                                         <tr>
                                             <th>
-                                                <?php 
-                                                if ($_SESSION["sesion_perfil_panel"]==1) {
-                                                 ?>
+                                                <?php if ($_SESSION["sesion_perfil_panel"]==1):?>
                                                 <button type="button" class="btn btn-xs btn-icon btn-danger borra_todo" data-toggle="tooltip" data-original-title="Eliminar Seleccionados"><i class="fa fa-trash"></i></button>
-                                                <?php } ?>
+                                                <?php endif;?>
                                             </th>
                                             <th>Nombre</th>
                                             <th>N° Depto.</th>
@@ -308,6 +307,7 @@ require_once _INCLUDE."head.php";
                                             <th>Fono</th>
                                             <th>Dirección</th>
                                             <th>Correo</th>
+                                            <th>Canal</th>
                                             <th>Profesión</th>
                                             <th>Género</th>                                            
                                             <th>Región</th>
@@ -492,8 +492,8 @@ require_once _INCLUDE."head.php";
                 { "bSortable": false },
                 { "bSortable": false },
                 { "bSortable": false },
+                { "bSortable": false },                               
                 { "bSortable": false },
-                // { "bSortable": false },
                 { "bSortable": false }
             ]
         });
@@ -630,11 +630,11 @@ require_once _INCLUDE."head.php";
 		                     $('#contenedor_modal').html(data);
 		                }
 		            })
-       //          	setTimeout(
+                        //          	setTimeout(
 					  // function() 
 					  // {
 					  //   $('#contenedor_modal').html(data.propietario);
-       //              	$('#contenedor_modal').modal('show');
+                      //              	$('#contenedor_modal').modal('show');
 					  // }, 1000);
                 });
             }
