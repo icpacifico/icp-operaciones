@@ -8,8 +8,12 @@ require_once _INCLUDE."head_informe.php";
 ?>
 <title>Operación - Listado</title>
 <!-- DataTables -->
-<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables/dataTables.bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/buttons.bootstrap.min.css">
+<!-- <link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/buttons.bootstrap.min.css"> -->
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables5/DataTables-1.12.1/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables5/DataTables-1.12.1/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/css/buttons.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/css/buttons.bootstrap.min.css">
 <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/select2/select2.min.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -1250,7 +1254,7 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
 <!-- .wrapper cierra en el footer -->
 <?php include_once _INCLUDE."js_comun.php";?>
 <!-- DataTables -->
-<script src="<?php echo _ASSETS?>plugins/daterangepicker/moment.min.js"></script>
+<!-- <script src="<?php echo _ASSETS?>plugins/daterangepicker/moment.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables/jquery.dataTables.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables/datetime-moment.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables/dataTables.bootstrap.min.js"></script>
@@ -1265,7 +1269,22 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
 <script src="<?php echo _ASSETS?>plugins/datepicker/bootstrap-datepicker.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datepicker/locales/bootstrap-datepicker.es.js"></script>
 <script src="<?php echo _ASSETS?>plugins/select2/select2.full.min.js"></script>
-<script src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/natural.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/natural.js"></script> -->
+
+<script src="<?php echo _ASSETS?>plugins/datatables5/datatables.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/DataTables-1.12.1/js/dataTables.bootstrap.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/dataTables.buttons.min.js"></script>
+<!-- <script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.bootstrap.min.js"></script> -->
+<!-- jszip 2.5.0 -->
+<script src="<?php echo _ASSETS?>plugins/datatables5/JSZip-2.5.0/jszip.min.js"></script>
+<!-- pdfmake 0.1.36 -->
+<script src="<?php echo _ASSETS?>plugins/datatables5/pdfmake-0.1.36/pdfmake.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/pdfmake-0.1.36/vfs_fonts.js"></script>
+
+<script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.html5.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.print.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.colVis.min.js"></script>
 <script type="text/javascript">
     jQuery.fn.dataTable.ext.type.search.string = function(data) {
     return !data ?
@@ -1511,6 +1530,37 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
 	            } } //21
             ]
         });
+
+        // $('#example').DataTable( {
+        //     dom:'lfBrtip',
+        //     stateSave: true,           
+        //     "lengthChange": true,
+        //     "pageLength": 10,
+        //     buttons: ['copy', 'csv', 'excelHtml5','print','colvis',{extend: 'pdfHtml5',orientation: 'landscape',pageSize: 'LEGAL'}],
+        //     serverSide: true,
+        //     processing: true,
+        //     responsive: true,
+        //     ajax: "select_jventa.php",
+        //     pagingType: 'full_numbers',
+        //     order: [[1, 'desc']],
+        //     columns: [{ orderable: false },{ "orderData": [ 0 ] },null,null,null,null,
+        //         { "orderData": [ 6,7,8,9 ] },
+        //     	{ "orderData": [ 11 ] },
+        //         { "orderData": [ 12 ] },
+        //         { "orderData": [ 13 ] },
+        //         { "orderData": [ 14 ] },
+        //         { "orderData": [ 15 ] },
+        //         { "orderData": [ 16 ] },
+        //         { "orderData": [ 17 ] },
+        //         { "orderData": [ 18 ] },
+        //         { "orderData": [ 19 ] },
+        //         { orderable: false },
+        //         { orderable: false },
+        //         { orderable: false },
+        //         { orderable: false }
+        //     ]
+        // });
+
 
         jQuery.extend( jQuery.fn.dataTableExt.oSort, {
             "date-uk-pre": function ( a ) {
