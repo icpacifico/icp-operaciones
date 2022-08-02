@@ -18,133 +18,133 @@ require_once _INCLUDE."head_informe.php";
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 <style type="text/css">
-.container-fluid .content .filtros .form-control {
-    display: block;
-    width: 100%;
-    height: 24px;
-    padding: 8px 4px;
-    font-size: 12px;
-    line-height: 1.3;
-    height: 35px;
-}
+    .container-fluid .content .filtros .form-control {
+        display: block;
+        width: 100%;
+        height: 24px;
+        padding: 8px 4px;
+        font-size: 12px;
+        line-height: 1.3;
+        height: 35px;
+    }
 
-.container-fluid .content .input-group .form-control.chico {
-    display: block;
-    width: 100%;
-    /*height: 24px;*/
-    padding: 3px 4px;
-    font-size: 12px;
-    line-height: 1.3;
-    height: 24px;
-}
+    .container-fluid .content .input-group .form-control.chico {
+        display: block;
+        width: 100%;
+        /*height: 24px;*/
+        padding: 3px 4px;
+        font-size: 12px;
+        line-height: 1.3;
+        height: 24px;
+    }
 
-.container-fluid .content .filtros .form-control.chico {
-    display: block;
-    width: 100%;
-    padding: 3px 4px;
-    font-size: 12px;
-    line-height: 1.3;
-    height: 24px;
-}
+    .container-fluid .content .filtros .form-control.chico {
+        display: block;
+        width: 100%;
+        padding: 3px 4px;
+        font-size: 12px;
+        line-height: 1.3;
+        height: 24px;
+    }
 
-.filtros .input-group-addon {
-    padding: 4px 12px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1;
-    color: #555;
-    text-align: center;
-    background-color: #eee;
-    border: 1px solid #ccc;
-    border-radius: 0px;
-}
+    .filtros .input-group-addon {
+        padding: 4px 12px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1;
+        color: #555;
+        text-align: center;
+        background-color: #eee;
+        border: 1px solid #ccc;
+        border-radius: 0px;
+    }
 
-#contenedor_filtro .label {
-    display: inline;
-    padding: .6em .8em .6em;
-    font-size: 80%;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: .25em;
-}
+    #contenedor_filtro .label {
+        display: inline;
+        padding: .6em .8em .6em;
+        font-size: 80%;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
 
-.bg-grays{
-  background-color: #e8f0f5;
-}
+    .bg-grays{
+    background-color: #e8f0f5;
+    }
 
-.filtros label {
-    display: inline-block;
-    max-width: 100%;
-    margin-bottom: 0px;
-    font-weight: 600;
-    font-size: 90%;
-}
+    .filtros label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 0px;
+        font-weight: 600;
+        font-size: 90%;
+    }
 
-h4.titulo_informe{
-  margin-top: 0;
-}
+    h4.titulo_informe{
+    margin-top: 0;
+    }
 
-.form-group.filtrar {
-    margin-bottom: 0px;
-    padding-top: 20px;
-}
+    .form-group.filtrar {
+        margin-bottom: 0px;
+        padding-top: 20px;
+    }
 
-.container-fluid .content .form-control {
-    display: inline-block;
-    width: auto;
-}
+    .container-fluid .content .form-control {
+        display: inline-block;
+        width: auto;
+    }
 
-.select2-container--default .select2-selection--single {
-    background-color: #fff;
-    border: 1px solid #d2d6de;
-    border-radius: 0px;
-}
+    .select2-container--default .select2-selection--single {
+        background-color: #fff;
+        border: 1px solid #d2d6de;
+        border-radius: 0px;
+    }
 
-.select2-container .select2-selection--single {
-    box-sizing: border-box;
-    cursor: pointer;
-    display: block;
-    height: 26px;
-    user-select: none;
-    -webkit-user-select: none;
-}
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-    color: #444;
-    line-height: 21px;
-}
+    .select2-container .select2-selection--single {
+        box-sizing: border-box;
+        cursor: pointer;
+        display: block;
+        height: 26px;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #444;
+        line-height: 21px;
+    }
 
-.btn-aqui{
-	font-weight: bold;
-	text-decoration: underline;
-	cursor: pointer;
-}
+    .btn-aqui{
+        font-weight: bold;
+        text-decoration: underline;
+        cursor: pointer;
+    }
 
-table#example{
-	width: 160% !important;
-}
+    table#example{
+        width: 160% !important;
+    }
 
-.wmd-view-topscroll, .wmd-view {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    width: 100%;
-    border: none 0px RED;
-}
+    .wmd-view-topscroll, .wmd-view {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        width: 100%;
+        border: none 0px RED;
+    }
 
-.wmd-view-topscroll { height: 20px; }
-.wmd-view { height: 100%; }
-.scroll-div1 { 
-    width: 170%; 
-    overflow-x: scroll;
-    overflow-y: hidden;
-    height:20px;
-}
-.scroll-div2 { 
-    width: 3000px; 
-    height:20px;
-}
+    .wmd-view-topscroll { height: 20px; }
+    .wmd-view { height: 100%; }
+    .scroll-div1 { 
+        width: 170%; 
+        overflow-x: scroll;
+        overflow-y: hidden;
+        height:20px;
+    }
+    .scroll-div2 { 
+        width: 3000px; 
+        height:20px;
+    }
 </style>
 <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/datepicker/datepicker3.css">
 </head>
@@ -999,9 +999,9 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
                                                                             ven.id_ven > 0
                                                                             ".$filtro_consulta."
                                                                         ORDER BY 
-                                                                            ven.fecha_ven
+                                                                            ven.fecha_ven                                                                        
                                                                         "; 
-                                                                    // echo $consulta;
+                                                                    //  echo $consulta;
                                                                     $conexion->consulta($consulta);
                                                                     $fila_consulta = $conexion->extraer_registro();
                                                                     if(is_array($fila_consulta)){
@@ -1414,7 +1414,7 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
             
         });
         var table = $('#example').DataTable( {
-            "pageLength": 70,
+            "pageLength": 10,
             dom:'lfBrtip',
             // success de tabla
             lengthChange: true,
@@ -1422,39 +1422,7 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
                 extend: 'excelHtml5',
                 exportOptions: {
                 	orthogonal: 'export',
-                    columns: ':visible',
-          //           format: {
-	         //            body: function(data, row, column, node) {
-	         //            	if (typeof data !== 'undefined') {
-          //           			if (data !== null) {
-          //           				if (column === 12) {
-										// return "hola";
-          //           				} else {
-										// return data;
-          //           				}
-          //           				if (column === 12 || column === 13 || column === 18 || column === 19){
-										// //data contain only one comma we need to split there
-		        //                         var arr = data;
-		        //                         arr = arr.replace( /[\.]/g, "" );
-		        //                         arr = arr.replace( /[\,]/g, "." );
-	         //                        	return arr;
-          //           				} else if (column === 2) {
-          //           					var arr = data;
-          //           					arr = arr.split("-");
-          //           					return arr[0];
-          //           				} else {
-          //           					return data;
-          //           				}
-                    		// 	} else {
-                    		// 		return data;
-                    		// 	}
-                    		// } else {
-                    		// 	return data;
-                    		// }
-	                    	// return data.replace('.', '');
-	                        // return data.replace(',', '');
-	                    // }
-                	// }
+                    columns: ':visible'
                 }
             }, 'pdf', 'print', 'colvis' ],
             "bProcessing": true,
