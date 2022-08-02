@@ -1433,10 +1433,10 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
             
         });
         var table = $('#example').DataTable( {
-            "pageLength": 10,
             dom:'lfBrtip',
-            // success de tabla
-            lengthChange: true,
+            stateSave: true,           
+            "lengthChange": true,
+            "pageLength": 10,
             buttons: [ 'copy', {
                 extend: 'excelHtml5',
                 exportOptions: {
@@ -1444,12 +1444,12 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
                     columns: ':visible'
                 }
             }, 'pdf', 'print', 'colvis' ],
-            "bProcessing": true,
+            processing: true,
             //"bServerSide": true,
             responsive: true,
             //"sAjaxSource": "select_alumno.php",
-            "sPaginationType": "full_numbers",
-            "aaSorting": [[ 6, "asc" ]],
+            pagingType: 'full_numbers',
+            order: [[ 6, "asc" ]],
             "aoColumns": [
                 { "sType": "string" }, //1
                 { "sType": "string" }, //2
