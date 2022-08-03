@@ -175,130 +175,112 @@ class mailing
 
         $contador_errores = 0;
 
-        while($contador <= $cantidad ){
-          //      	$consulta = "INSERT INTO campana_destinatario_campana VALUES(?,?,?)";
-			// $conexion->consulta_form($consulta,array(0,$id_emp[$contador],$id_cam));
-
-	      //       $consulta = "INSERT INTO propietario_observacion_propietario VALUES(?,?,?,?,?)";
-			// $conexion->consulta_form($consulta,array(0,$id_emp[$contador],$id_usu,$fecha,$descripcion));
+        while($contador <= $cantidad ){          
 			$array_to = '[';
-
 			$consulta = "SELECT correo_cor_lis FROM lista_correo_lista WHERE id_lis = ?";
 			$conexion->consulta_form($consulta,array($id_emp[$contador]));
 			$fila_consulta = $conexion->extraer_registro();
             if(is_array($fila_consulta)){
                 foreach ($fila_consulta as $fila) {
-                	$email1 = utf8_decode($fila["correo_cor_lis"]);
-					$email1 = str_replace(" ","", $email1);
-					$email1 = str_replace("\t","", $email1);
-					$email1 = str_replace("?","", $email1);
-					$email1 = strtolower($email1);
-					$email1 = trim($email1);
-					if ($email1<>'') {
-						if (filter_var($email1, FILTER_VALIDATE_EMAIL)) {
-							if (contains($email1, $array_to)) {
-								# no hace nada
-							} else {
-								$array_to .= '{"email": "'.$email1.'"},';
-								// $array_to .= '{"email": "brunomailcasa@gmail.com"},';
+						$email1 = utf8_decode($fila["correo_cor_lis"]);
+						$email1 = str_replace(" ","", $email1);
+						$email1 = str_replace("\t","", $email1);
+						$email1 = str_replace("?","", $email1);
+						$email1 = strtolower($email1);
+						$email1 = trim($email1);
+						if ($email1<>'') {
+							if (filter_var($email1, FILTER_VALIDATE_EMAIL)) {
+								if (contains($email1, $array_to)) {
+									# no hace nada
+								} else {
+									$array_to .= '{"email": "'.$email1.'"},';
+									// $array_to .= '{"email": "brunomailcasa@gmail.com"},';
+								}
 							}
 						}
-					}
 
-					// aquí debe hacer el envío de cada lista
-					$array_to = substr($array_to, 0, -1);
+						// aquí debe hacer el envío de cada lista
+						$array_to = substr($array_to, 0, -1);
 
-					$array_to .= ']';
+						$array_to .= ']';
 
-					$asunto_codificado = utf8_encode($asunto);
-				
-					// enviar el mail
-					$curl = curl_init();
-
-					$email_from_masivo = "sociales@icpacifico.cl";
-					$nombre_from_masivo = "Costanera Pacífico";
-					$reply_to_masivo = "contactoventas@icpacifico.cl";
-
-					$fields = '{
-					"personalizations": [
-						{
-						"to": [{"email": "'.$email_vend.'", "name": "'.$nombre_vend.'"}],
-						"bcc": '.$array_to.',
-						"dynamic_template_data": {
-							"subject": "'.$asunto_codificado.'",
-							"link_image": "'.$enlace.'"
-						},
-						"subject": "'.$asunto_codificado.'"
-						}
-					],
-					"from": {
-						"email": "'.$email_from_masivo.'",
-						"name": "'.$nombre_from_masivo.'"
-					},
-					"reply_to": {
-						"email": "'.$reply_to_masivo.'",
-						"name": "Costanera Pacífico"
-					},
-					"asm":{
-							"group_id":15609
-					},
-					"template_id": "'.$plantilla_cam.'"
-					}';
-
-					curl_setopt_array($curl, array(
-					CURLOPT_URL => "https://api.sendgrid.com/v3/mail/send",
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_ENCODING => "",
-					CURLOPT_MAXREDIRS => 10,
-					CURLOPT_TIMEOUT => 30,
-					CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-					CURLOPT_CUSTOMREQUEST => "POST",
-					CURLOPT_POSTFIELDS => $fields,
-					CURLOPT_HTTPHEADER => array(
-						"authorization: Bearer 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",
-						"content-type: application/json"
-					),
-					));
-
-					$response = curl_exec($curl);
-					$err = curl_error($curl);
-
-					curl_close($curl);
-
-					if ($err) {
-					// echo "---------cURL Error #:" . $err;
-						// $conexion->cerrar();
-						// return "error:" . $err;
-					} else {
-						
-						if ($response<> '') {
-							// $consulta = "DELETE FROM campania_campania WHERE id_cam = ?";
-							// $conexion->consulta_form($consulta,array($id_cam));
-							// return "3>" . $response;
-							$contador_errores++;
-						} else {
-							// aca hace la inserción de la campañas
-							// $today = date("Y-m-d");
-							$consulta = "INSERT INTO campania_lista_campania VALUES(?,?,?)";
-							$this->conexion->consulta_form($consulta,array(0,$id_emp[$contador],$id_cam));
-
-							// $conexion->cerrar();
-							// return "1>" . $response;
-						}
-					}
-
-					$contador++;
-					// $nombre_pro = utf8_decode(trim($fila["nombre_pro"])." ".trim($fila["apellido_paterno_pro"]));		
+						$asunto_codificado = utf8_encode($asunto);
 					
-					}
+						// enviar el mail
+						$curl = curl_init();
+
+						$email_from_masivo = "sociales@icpacifico.cl";
+						$nombre_from_masivo = "Costanera Pacífico";
+						$reply_to_masivo = "contactoventas@icpacifico.cl";
+
+						$fields = '{
+						"personalizations": [
+							{
+							"to": [{"email": "'.$email_vend.'", "name": "'.$nombre_vend.'"}],
+							"bcc": '.$array_to.',
+							"dynamic_template_data": {
+								"subject": "'.$asunto_codificado.'",
+								"link_image": "'.$enlace.'"
+							},
+							"subject": "'.$asunto_codificado.'"
+							}
+						],
+						"from": {
+							"email": "'.$email_from_masivo.'",
+							"name": "'.$nombre_from_masivo.'"
+						},
+						"reply_to": {
+							"email": "'.$reply_to_masivo.'",
+							"name": "Costanera Pacífico"
+						},
+						"asm":{
+								"group_id":15609
+						},
+						"template_id": "'.$plantilla_cam.'"
+						}';
+
+						curl_setopt_array($curl, array(
+							CURLOPT_URL => "https://api.sendgrid.com/v3/mail/send",
+							CURLOPT_RETURNTRANSFER => true,
+							CURLOPT_ENCODING => "",
+							CURLOPT_MAXREDIRS => 10,
+							CURLOPT_TIMEOUT => 30,
+							CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+							CURLOPT_CUSTOMREQUEST => "POST",
+							CURLOPT_POSTFIELDS => $fields,
+							CURLOPT_HTTPHEADER => array(
+							"authorization: Bearer "._ACCESS_TOKEN,
+							"content-type: application/json"
+							),
+						));
+
+						$response = curl_exec($curl);
+						$err = curl_error($curl);
+
+						curl_close($curl);
+
+							if (!$err){								
+								if ($response<> ''){						
+									$contador_errores++;
+								} else {							
+									$consulta = "INSERT INTO campania_lista_campania VALUES(?,?,?)";
+									$this->conexion->consulta_form($consulta,array(0,$id_emp[$contador],$id_cam));
+								}
+							}
+
+							$contador++;							
+					
+				}
 
 					if($contador_errores==0){
 						$this->conexion->cerrar();
 						return "1>" . $response;
-					} else {
+				    } else {
 						$this->conexion->cerrar();
 						return "3>" . $response;
 					}
+		}
+	  }
     }
 	
 	// Método get para enviar mailing masivo 

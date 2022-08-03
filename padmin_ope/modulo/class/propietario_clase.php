@@ -414,7 +414,7 @@ class propietario
 
 						$array_to .= '{"email": "'.$email1.'", "name": "'.$nombre_pro_clean.'"},';
 					}
-			// $array_to .= '{"email": "'.$email1.'", "name": "'.$nombre_pro.'"},';
+					// $array_to .= '{"email": "'.$email1.'", "name": "'.$nombre_pro.'"},';
 				}
 			}
 
@@ -471,7 +471,7 @@ class propietario
 		  // CURLOPT_POSTFIELDS => "{\"personalizations\":[{\"to\":[{\"email\":\"brunomailcasa@gmail.com\",\"name\":\"John Doe\"}],\"dynamic_template_data\":{\"verb\":\"HOLA\"\"subject\":\"Asunto Dinámico 1\",\"adjective\":\"CHAU\",\"link_image\":\"https://icpacifico.cl/\"},\"subject\":\"Asunto Dinámico 2\"}],\"from\":{\"email\":\"kmiranda@icpacifico.cl\",\"name\":\"Jeannise\"},\"reply_to\":{\"email\":\"kmiranda@icpacifico.cl\",\"name\":\"Jeannise\"},\"template_id\":\"d-a09b82088125446da5439024687ce688\"}",
 		  CURLOPT_POSTFIELDS => $fields,
 		  CURLOPT_HTTPHEADER => array(
-		    "authorization: Bearer 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",
+		    "authorization: Bearer "._ACCESS_TOKEN,
 		    "content-type: application/json"
 		  ),
 		));
@@ -487,7 +487,7 @@ class propietario
 		  	return "error:" . $err;
 		} else {
 			
-			if ($response<> '') {
+			if ($response <> '') {
 				$consulta = "DELETE FROM campana_mail_campana WHERE id_cam = ?";
 				$conexion->consulta_form($consulta,array($id_cam));
 				return "3>" . $response;

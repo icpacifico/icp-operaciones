@@ -64,6 +64,11 @@ if (!defined('_INCLUDE')) {
 	define('_INCLUDE',dirname(__FILE__) . '/');
 }
 
+// token de sendgrid
+if (!defined('_ACCESS_TOKEN')) {
+	define('_ACCESS_TOKEN','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');
+}
+
 // PARAMETROS DE BASE DE DATOS
 switch ($MOD) {
 	case 1:
@@ -91,6 +96,8 @@ switch ($MOD) {
 		die();
 		break;
 }
+
+
 // $_SESSION["sesion_perfil_panel"]
 // 	1:administrador
 //  2:Jefe Ventas
@@ -98,4 +105,6 @@ switch ($MOD) {
 // 	4:propietario -> vendedor
 // 	6:contabilidad
 // 	7:Operaciones
+
+
 ?>

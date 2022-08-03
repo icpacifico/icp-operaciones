@@ -501,6 +501,7 @@ $ANIO_ACTUAL = date("Y");
 						                                                    $consulta .= " AND YEAR(fecha_his) = ".$ANIO_ACTUAL."";
 
 						                                                    $consulta .= " ORDER BY fecha_his ASC";
+																			// echo $consulta;
 						                                                    $conexion->consulta($consulta);
 																			$pie_por_recup_his = 0;
 																			$contado_por_recup_his = 0;

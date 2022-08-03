@@ -54,17 +54,6 @@ require_once _INCLUDE."head.php";
         height:20px;
     }
 </style>
-<?php 
-// if ($_SESSION["sesion_perfil_panel"]==4 || $_SESSION["sesion_perfil_panel"]==6 || $_SESSION["sesion_id_panel"]==30) { //le oculta al vendedor los botontes tabla
-	?>
-	<!-- <style type="text/css">
-	.dt-buttons.btn-group{
-		display: none;
-	}
-	</style> -->
-	<?php
-// }
- ?>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -272,7 +261,7 @@ require_once _INCLUDE."head.php";
 								    </div>
 								</div>
                                 <div id="deny_copy" class="table-responsive wmd-view">
-                                    <table id="example" class="table scroll-div2 table-striped table-bordered" cellspacing="0" width="100%">
+                                  <table id="example" class="table scroll-div2 table-striped table-bordered" cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
                                             <th style="width:1%">
@@ -296,9 +285,9 @@ require_once _INCLUDE."head.php";
                                             <th>Fono</th>
                                             <th>Dirección</th>
                                             <th>Correo</th>
+                                            <th>Canal</th>
                                             <th>Profesión</th>
-                                            <th>Género</th>
-                                            
+                                            <th>Género</th>                                            
                                             <th>Región</th>
                                             <th>Comuna</th>
                                             <th>Estado</th>
@@ -308,25 +297,23 @@ require_once _INCLUDE."head.php";
                                     <tfoot>
                                         <tr>
                                             <th>
-                                                <?php 
-                                                if ($_SESSION["sesion_perfil_panel"]==1) {
-                                                 ?>
+                                                <?php if ($_SESSION["sesion_perfil_panel"]==1):?>
                                                 <button type="button" class="btn btn-xs btn-icon btn-danger borra_todo" data-toggle="tooltip" data-original-title="Eliminar Seleccionados"><i class="fa fa-trash"></i></button>
-                                                <?php } ?>
+                                                <?php endif;?>
                                             </th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
+                                            <th>Nombre</th>
+                                            <th>N° Depto.</th>
+                                            <th>Rut</th>
+                                            <th>Fono</th>
+                                            <th>Dirección</th>
+                                            <th>Correo</th>
+                                            <th>Canal</th>
+                                            <th>Profesión</th>
+                                            <th>Género</th>                                            
+                                            <th>Región</th>
+                                            <th>Comuna</th>
+                                            <th>Estado</th>
+                                            <th style="width:5%">Acción</th>
                                             
                                         </tr>
                                     </tfoot>
@@ -453,7 +440,7 @@ require_once _INCLUDE."head.php";
             dom:'lfBrtip',
             stateSave: true,
             lengthChange: true,
-            pageLength: 50,
+            pageLength: 10,
             <?php 
 			if ($_SESSION["sesion_perfil_panel"]==4 || $_SESSION["sesion_perfil_panel"]==6 || $_SESSION["sesion_id_panel"]==30) { //le oculta al vendedor los botontes tabla
 			?>
@@ -505,8 +492,8 @@ require_once _INCLUDE."head.php";
                 { "bSortable": false },
                 { "bSortable": false },
                 { "bSortable": false },
+                { "bSortable": false },                               
                 { "bSortable": false },
-                // { "bSortable": false },
                 { "bSortable": false }
             ]
         });
@@ -643,11 +630,11 @@ require_once _INCLUDE."head.php";
 		                     $('#contenedor_modal').html(data);
 		                }
 		            })
-       //          	setTimeout(
+                        //          	setTimeout(
 					  // function() 
 					  // {
 					  //   $('#contenedor_modal').html(data.propietario);
-       //              	$('#contenedor_modal').modal('show');
+                      //              	$('#contenedor_modal').modal('show');
 					  // }, 1000);
                 });
             }

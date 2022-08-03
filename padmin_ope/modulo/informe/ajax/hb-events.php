@@ -5,6 +5,7 @@ date_default_timezone_set('America/Santiago');
 ?>
 <div class="col-md-12 fecha"><i class="fa fa-calendar-o"></i> <?php echo $_POST['currentDay'];?>-<?php echo $_POST['currentMonth'];?>-<?php echo $_POST['currentYear'];?></div>
 <?php
+include '../../../config.php';
 include '../../../class/conexion.php';
 $conexion = new conexion(); 
 $consulta = 

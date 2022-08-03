@@ -36,73 +36,28 @@
 		";
 	
 	$sLimit = "";
-	if ( isset( $_GET['iDisplayStart'] ) && $_GET['iDisplayLength'] != '-1' )
-	{
-		$sLimit = "LIMIT ".$_GET['iDisplayStart'].", ".
-			$_GET['iDisplayLength'];
-	}
+	if ( isset( $_GET['start'] ) && $_GET['length'] != '-1' ) $sLimit = "LIMIT ".$_GET['start'].", ".$_GET['length'];
 	
 	
 	/*
 	 * Ordering
 	 */
 	$sOrder = "";
-	if ( isset( $_GET['iSortCol_0'] ) )
-	{
+	if ( isset( $_GET['order'] ) ){
 		$sOrder = "ORDER BY  ";
-		for ( $i=0 ; $i<intval( $_GET['iSortingCols'] ) ; $i++ )
+		for ( $i=0 ; $i<intval( $_GET['order'] ) ; $i++ )
 		{
-			if ( $_GET[ 'bSortable_'.intval($_GET['iSortCol_'.$i]) ] == "true" )
-			{
-				$sOrder .= $aColumns[ intval( $_GET['iSortCol_'.$i] )-1 ]."
-				 	".$_GET['sSortDir_'.$i].", ";
-			}
-			// if ( $_GET[ 'bSortable_'.intval($_GET['iSortCol_17']) ] == "false" )
-			// {
-			// 	$sOrder .= $aColumns[ intval( $_GET['iSortCol_'.$i] )-1 ]."
-			// 	 	".$_GET['sSortDir_'.$i].", ";
-			// }
-
-
-
+		 if ( intval($_GET['order'][$i]['column']) > 0 )$sOrder .= $aColumns[ intval(  $_GET['order'][$i]['column'] )-1 ]." ".$_GET['order'][$i]['dir'].", ";		
 		}
-
-		if($_GET['iSortCol_0'] == 0) {
-			$sOrder .= " cot.id_cot"." ".$_GET['sSortDir_0'].", ";
-		}
-
-		if($_GET['iSortCol_0'] == 16) {
-			$sOrder .= " sex.nombre_sex"." ".$_GET['sSortDir_0'].", ";
-		}
-
-		if($_GET['iSortCol_0'] == 17) {
-			$sOrder .= " can_cot.nombre_can_cot"." ".$_GET['sSortDir_0'].", ";
-		}
-
-		if($_GET['iSortCol_0'] == 18) {
-			$sOrder .= " pre_cot.nombre_pre_cot"." ".$_GET['sSortDir_0'].", ";
-		}
-
-		if($_GET['iSortCol_0'] == 19) {
-			$sOrder .= " cot_int_cot.nombre_seg_int_cot"." ".$_GET['sSortDir_0'].", ";
-		}
-		
-		// $sOrder = substr_replace( $sOrder, "", -2 );
-		// if ( $sOrder == "ORDER BY" )
-		// {
-		// 	$sOrder = "";
-		// }
-		// $i = 0;
-		// $sOrder .= " fullName ".$_GET['sSortDir_'.$i].", ";
+		if($_GET['order'][0]['column'] == 0) $sOrder .= " cot.id_cot"." ".$_GET['order'][0]['dir'].", ";
+		if($_GET['order'][0]['column'] == 16) $sOrder .= " sex.nombre_sex"." ".$_GET['order'][0]['dir'].", ";
+		if($_GET['order'][0]['column'] == 17) $sOrder .= " can_cot.nombre_can_cot"." ".$_GET['order'][0]['dir'].", ";
+		if($_GET['order'][0]['column'] == 18) $sOrder .= " pre_cot.nombre_pre_cot"." ".$_GET['order'][0]['dir'].", ";
+		if($_GET['order'][0]['column'] == 19) {$sOrder .= " cot_int_cot.nombre_seg_int_cot"." ".$_GET['order'][0]['dir'].", ";
 		$sOrder = str_replace("AS fullName", "", $sOrder);
 		$sOrder = substr_replace( $sOrder, "", -2 );
-		if ( $sOrder == "ORDER BY" )
-		{
-			$sOrder = "";
-		}
+		if ( $sOrder == "ORDER BY" )$sOrder = "";
 	}
-	
-	
 	/* 
 	 * Filtering
 	 * NOTE this does not match the built-in DataTables filtering which does it
@@ -111,60 +66,47 @@
 	 */
 	$filtro = 0;
 	$sWhere = "";
-	if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" )
-	{
-
+	if ( isset($_GET['search']) && $_GET['search'] != "" ){
 		$filtro = 1;
 		$sWhere = "WHERE (";
-		for ( $i=0 ; $i<count($aColumns) ; $i++ )
-		{
+		for ( $i=0 ; $i<count($aColumns) ; $i++ ){
 			if($aColumns[$i] == "CONCAT(pro.nombre_pro,' ',pro.nombre2_pro,' ',pro.apellido_paterno_pro,' ',pro.apellido_materno_pro) AS fullName"){
-		// 		// $sWhere .= "CONCAT(pro.nombre_pro,' ',pro.nombre2_pro,' ',pro.apellido_paterno_pro,' ',pro.apellido_materno_pro) LIKE '%".utf8_decode($_GET['sSearch'])."%' OR ";
-
-				$words_sep = utf8_decode($_GET['sSearch']);
+				$words_sep = $_GET['search']['value'];
 				$words_sep = explode(" ", $words_sep);
 				$cant_palabras = count($words_sep);
-				// echo $cant_palabras."<------".$words_sep[0];
-		// 	// $sWhere .= "MATCH(pro.nombre_pro, pro.apellido_paterno_pro, pro.apellido_materno_pro) AGAINST ('".$words_sep."' IN BOOLEAN MODE) OR ";
-		// 		// $sWhere .= "MATCH(pro.nombre_pro, pro.apellido_paterno_pro, pro.apellido_materno_pro) AGAINST ('".$words_sep."' IN BOOLEAN MODE) OR ";
-		// 		// aquí devide en cada palabra para la consulta y le agrega + a cada una
+				
+		        // aquí devide en cada palabra para la consulta y le agrega + a cada una
 				$sWhere .= "MATCH(pro.nombre_pro, pro.apellido_paterno_pro, pro.apellido_materno_pro) AGAINST ('";
 				for ($ii=0; $ii < $cant_palabras; $ii++) { 
-					// echo $ii.$words_sep[$ii]."-------";
+					
 					$sWhere .= " +".$words_sep[$ii];
 				}
 				$sWhere .= "' IN BOOLEAN MODE) OR ";
-			}
-			else{
-				$sWhere .= $aColumns[$i]." LIKE '%".utf8_decode($_GET['sSearch'])."%' OR ";
-			}
-			
+			}else{
+				$sWhere .= $aColumns[$i]." LIKE '%".$_GET['search']['value']."%' OR ";
+			}			
 		}
 		$sWhere = substr_replace( $sWhere, "", -3 );
 		$sWhere .= ')';
-
-
 	}
 	
 	/* Individual column filtering */
 	for ( $i=0 ; $i<count($aColumns) ; $i++ )
 	{
-		if ( isset($_GET['bSearchable_'.$i]) && $_GET['bSearchable_'.$i] == "true" && $_GET['sSearch_'.$i] != '' )
+		if ( isset($_GET['columns'][$i]['searchable']) && $_GET['columns'][$i]['searchable'] == "true" && $_GET['columns'][$i]['search']['value'] != '' )
 		{
 			$filtro = 2;
 			if ( $sWhere == "" )
 			{
 				$sWhere = "WHERE ";
-			}
-			else
-			{
+			}else{
 				$sWhere .= " AND ";
 			}
 			if($aColumns[$i] == $field){
 				//$sWhere .= "fullName LIKE '%".$_GET['sSearch_'.$i]."%' ";
 			}
 			else{
-				$sWhere .= $aColumns[$i]." LIKE '%".$_GET['sSearch_'.$i]."%' ";
+				$sWhere .= $aColumns[$i]." LIKE '%".(string)$_GET['columns'][$i]['search']['value']."%' ";
 			}
 		}
 	}
@@ -176,26 +118,11 @@
 			$sWhere .= " WHERE vend.id_vend = ".$_SESSION["sesion_id_vend"]." ";
 		}
 	} 
-	// else {
-	// 	if($filtro == 1 || $filtro == 2){
-	// 		$sWhere .= " AND (YEAR(cot.fecha_cot) = 2021)";
-	// 	}
-	// 	else{
-	// 		$sWhere .= " WHERE (YEAR(cot.fecha_cot) = 2021)";
-	// 	}
-	// }
-	
 	/*
 	 * SQL queries
 	 * Get data to display
 	 */
-	$sQuery = "
-		SELECT SQL_CALC_FOUND_ROWS ".str_replace(" , ", " ", implode(", ", $aColumns))."
-		FROM   $sTable
-		$sWhere
-		$sOrder
-		$sLimit
-	";
+	$sQuery = "SELECT SQL_CALC_FOUND_ROWS ".str_replace(" , ", " ", implode(", ", $aColumns))."FROM   ".$sTable." ".$sWhere." ".$sOrder." ".$sLimit;
 
 	// echo $sQuery;
 
@@ -226,18 +153,12 @@
 	 * Output
 	 */
 	$output = array(
-		"sEcho" => intval($_GET['sEcho']),
-		"iTotalRecords" => $iTotal,
-		"iTotalDisplayRecords" => $iFilteredTotal,
-		"aaData" => array()
+		"draw" => isset ( $_GET['draw'] ) ? intval( $_GET['draw'] ) : 0,
+		"recordsTotal" => $iTotal,
+		"recordsFiltered" => $iFilteredTotal,
+		"data" => array()
 	);
-	$consulta = 
-		"
-		SELECT
-			cotizacion_ven
-		FROM
-			venta_venta
-		";
+	$consulta = "SELECT cotizacion_ven FROM venta_venta";
 	$conexion->consulta($consulta);
 	$fila_consulta_cot_original = $conexion->extraer_registro();
 	$fila_consulta_cot = array();
@@ -247,14 +168,7 @@
             $fila_consulta_cot[]=$v;
         }
 	}
-	
-	$consulta = 
-		"
-		SELECT
-			id_cot
-		FROM
-			cotizacion_seguimiento_cotizacion
-		";
+	$consulta = "SELECT id_cot FROM cotizacion_seguimiento_cotizacion";
 	$conexion->consulta($consulta);
 	$fila_consulta_seguimiento_original = $conexion->extraer_registro();
 	$fila_consulta_seguimiento = array();
@@ -264,7 +178,6 @@
             $fila_consulta_seguimiento[]=$v;
         }
 	}
-
 	$flipped_cot = array_flip($fila_consulta_cot);
 	$flipped_seg = array_flip($fila_consulta_seguimiento);
 
@@ -281,14 +194,8 @@
    //              $mostrar_seguimiento = 1;	
    //          }
 
-            if (isSet($flipped_cot[$aRow["id_cot"]])) {
-			    $cantidad_eliminar = 1;
-			}
-
-			if (isSet($flipped_seg[$aRow["id_cot"]])) {
-			    $mostrar_seguimiento = 1;
-			}
-
+            if (isSet($flipped_cot[$aRow["id_cot"]])) $cantidad_eliminar = 1;
+			if (isSet($flipped_seg[$aRow["id_cot"]]))$mostrar_seguimiento = 1;
             
 			if($cantidad_eliminar == 0 && $aRow["id_est_cot"] < 4){
 				$row[] = '<input type="checkbox" name="check" value="'.$aRow["id_cot"].'" class="check_registro" id="'.$aRow["id_cot"].'"><label for="'.$aRow["id_cot"].'"><span></span></label>';
@@ -308,10 +215,7 @@
 				}
 				else if( $aColumns[$i] == "tor.nombre_tor") {
 					$row[] =  utf8_encode($aRow["nombre_tor"]);
-				}
-				// else if( $aColumns[$i] == "pro.nombre_pro") {
-					// $row[] =  utf8_encode($aRow["nombre_pro"]." ".$aRow["apellido_paterno_pro"]." ".$aRow["apellido_materno_pro"]);
-				// }
+				}				
 				else if( $aColumns[$i] == "modelo.nombre_mod") {
 					$row[] =  utf8_encode($aRow["nombre_mod"]);
 				}
@@ -322,23 +226,7 @@
 					$row[] =  utf8_encode($aRow["rut_pro"]);
 				}
 				else if( $aColumns[$i] == $field) {
-					$row[] =  utf8_encode($aRow["fullName"]);
-					// $consulta_viv = 
-					// 	"
-					// 	SELECT
-					// 		viv.nombre_viv
-					// 	FROM
-					// 		propietario_vivienda_propietario AS pro_viv,
-					// 		vivienda_vivienda AS viv
-					// 	WHERE
-					// 		viv.id_est_viv = 2 AND
-					// 		pro_viv.id_viv = viv.id_viv AND
-					// 		pro_viv.id_pro = ".$aRow["id_pro"]."
-					// 	LIMIT 0,1
-					// 	";
-					// $conexion->consulta($consulta_viv);
-					// $fila_viv = $conexion->extraer_registro_unico();
-					// $row[] =  utf8_encode($fila_viv['nombre_viv']);
+					$row[] =  utf8_encode($aRow["fullName"]);					
 				}
 				else if( $aColumns[$i] == "pro.correo_pro") {
 					$row[] =  utf8_encode($aRow["correo_pro"]);
@@ -494,7 +382,7 @@
 			
 		 	$row[] = $acciones;
 		 	$acciones = "";
-			$output['aaData'][] = $row;
+			$output['data'][] = $row;
 		}
 	}
 	//print_r ($output);

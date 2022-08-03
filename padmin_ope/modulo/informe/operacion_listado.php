@@ -8,8 +8,12 @@ require_once _INCLUDE."head_informe.php";
 ?>
 <title>Operación - Listado</title>
 <!-- DataTables -->
-<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables/dataTables.bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/buttons.bootstrap.min.css">
+<!-- <link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/buttons.bootstrap.min.css"> -->
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables5/DataTables-1.12.1/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables5/DataTables-1.12.1/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/css/buttons.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/css/buttons.bootstrap.min.css">
 <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/select2/select2.min.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,133 +22,133 @@ require_once _INCLUDE."head_informe.php";
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 <style type="text/css">
-.container-fluid .content .filtros .form-control {
-    display: block;
-    width: 100%;
-    height: 24px;
-    padding: 8px 4px;
-    font-size: 12px;
-    line-height: 1.3;
-    height: 35px;
-}
+    .container-fluid .content .filtros .form-control {
+        display: block;
+        width: 100%;
+        height: 24px;
+        padding: 8px 4px;
+        font-size: 12px;
+        line-height: 1.3;
+        height: 35px;
+    }
 
-.container-fluid .content .input-group .form-control.chico {
-    display: block;
-    width: 100%;
-    /*height: 24px;*/
-    padding: 3px 4px;
-    font-size: 12px;
-    line-height: 1.3;
-    height: 24px;
-}
+    .container-fluid .content .input-group .form-control.chico {
+        display: block;
+        width: 100%;
+        /*height: 24px;*/
+        padding: 3px 4px;
+        font-size: 12px;
+        line-height: 1.3;
+        height: 24px;
+    }
 
-.container-fluid .content .filtros .form-control.chico {
-    display: block;
-    width: 100%;
-    padding: 3px 4px;
-    font-size: 12px;
-    line-height: 1.3;
-    height: 24px;
-}
+    .container-fluid .content .filtros .form-control.chico {
+        display: block;
+        width: 100%;
+        padding: 3px 4px;
+        font-size: 12px;
+        line-height: 1.3;
+        height: 24px;
+    }
 
-.filtros .input-group-addon {
-    padding: 4px 12px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1;
-    color: #555;
-    text-align: center;
-    background-color: #eee;
-    border: 1px solid #ccc;
-    border-radius: 0px;
-}
+    .filtros .input-group-addon {
+        padding: 4px 12px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1;
+        color: #555;
+        text-align: center;
+        background-color: #eee;
+        border: 1px solid #ccc;
+        border-radius: 0px;
+    }
 
-#contenedor_filtro .label {
-    display: inline;
-    padding: .6em .8em .6em;
-    font-size: 80%;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: .25em;
-}
+    #contenedor_filtro .label {
+        display: inline;
+        padding: .6em .8em .6em;
+        font-size: 80%;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
 
-.bg-grays{
-  background-color: #e8f0f5;
-}
+    .bg-grays{
+    background-color: #e8f0f5;
+    }
 
-.filtros label {
-    display: inline-block;
-    max-width: 100%;
-    margin-bottom: 0px;
-    font-weight: 600;
-    font-size: 90%;
-}
+    .filtros label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 0px;
+        font-weight: 600;
+        font-size: 90%;
+    }
 
-h4.titulo_informe{
-  margin-top: 0;
-}
+    h4.titulo_informe{
+    margin-top: 0;
+    }
 
-.form-group.filtrar {
-    margin-bottom: 0px;
-    padding-top: 20px;
-}
+    .form-group.filtrar {
+        margin-bottom: 0px;
+        padding-top: 20px;
+    }
 
-.container-fluid .content .form-control {
-    display: inline-block;
-    width: auto;
-}
+    .container-fluid .content .form-control {
+        display: inline-block;
+        width: auto;
+    }
 
-.select2-container--default .select2-selection--single {
-    background-color: #fff;
-    border: 1px solid #d2d6de;
-    border-radius: 0px;
-}
+    .select2-container--default .select2-selection--single {
+        background-color: #fff;
+        border: 1px solid #d2d6de;
+        border-radius: 0px;
+    }
 
-.select2-container .select2-selection--single {
-    box-sizing: border-box;
-    cursor: pointer;
-    display: block;
-    height: 26px;
-    user-select: none;
-    -webkit-user-select: none;
-}
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-    color: #444;
-    line-height: 21px;
-}
+    .select2-container .select2-selection--single {
+        box-sizing: border-box;
+        cursor: pointer;
+        display: block;
+        height: 26px;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #444;
+        line-height: 21px;
+    }
 
-.btn-aqui{
-	font-weight: bold;
-	text-decoration: underline;
-	cursor: pointer;
-}
+    .btn-aqui{
+        font-weight: bold;
+        text-decoration: underline;
+        cursor: pointer;
+    }
 
-table#example{
-	width: 160% !important;
-}
+    table#example{
+        width: 160% !important;
+    }
 
-.wmd-view-topscroll, .wmd-view {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    width: 100%;
-    border: none 0px RED;
-}
+    .wmd-view-topscroll, .wmd-view {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        width: 100%;
+        border: none 0px RED;
+    }
 
-.wmd-view-topscroll { height: 20px; }
-.wmd-view { height: 100%; }
-.scroll-div1 { 
-    width: 170%; 
-    overflow-x: scroll;
-    overflow-y: hidden;
-    height:20px;
-}
-.scroll-div2 { 
-    width: 3000px; 
-    height:20px;
-}
+    .wmd-view-topscroll { height: 20px; }
+    .wmd-view { height: 100%; }
+    .scroll-div1 { 
+        width: 170%; 
+        overflow-x: scroll;
+        overflow-y: hidden;
+        height:20px;
+    }
+    .scroll-div2 { 
+        width: 3000px; 
+        height:20px;
+    }
 </style>
 <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/datepicker/datepicker3.css">
 </head>
@@ -999,9 +1003,9 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
                                                                             ven.id_ven > 0
                                                                             ".$filtro_consulta."
                                                                         ORDER BY 
-                                                                            ven.fecha_ven
+                                                                            ven.fecha_ven                                                                        
                                                                         "; 
-                                                                    // echo $consulta;
+                                                                    //  echo $consulta;
                                                                     $conexion->consulta($consulta);
                                                                     $fila_consulta = $conexion->extraer_registro();
                                                                     if(is_array($fila_consulta)){
@@ -1250,7 +1254,7 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
 <!-- .wrapper cierra en el footer -->
 <?php include_once _INCLUDE."js_comun.php";?>
 <!-- DataTables -->
-<script src="<?php echo _ASSETS?>plugins/daterangepicker/moment.min.js"></script>
+<!-- <script src="<?php echo _ASSETS?>plugins/daterangepicker/moment.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables/jquery.dataTables.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables/datetime-moment.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables/dataTables.bootstrap.min.js"></script>
@@ -1265,7 +1269,22 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
 <script src="<?php echo _ASSETS?>plugins/datepicker/bootstrap-datepicker.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datepicker/locales/bootstrap-datepicker.es.js"></script>
 <script src="<?php echo _ASSETS?>plugins/select2/select2.full.min.js"></script>
-<script src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/natural.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/natural.js"></script> -->
+
+<script src="<?php echo _ASSETS?>plugins/datatables5/datatables.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/DataTables-1.12.1/js/dataTables.bootstrap.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/dataTables.buttons.min.js"></script>
+<!-- <script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.bootstrap.min.js"></script> -->
+<!-- jszip 2.5.0 -->
+<script src="<?php echo _ASSETS?>plugins/datatables5/JSZip-2.5.0/jszip.min.js"></script>
+<!-- pdfmake 0.1.36 -->
+<script src="<?php echo _ASSETS?>plugins/datatables5/pdfmake-0.1.36/pdfmake.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/pdfmake-0.1.36/vfs_fonts.js"></script>
+
+<script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.html5.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.print.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.colVis.min.js"></script>
 <script type="text/javascript">
     jQuery.fn.dataTable.ext.type.search.string = function(data) {
     return !data ?
@@ -1414,55 +1433,23 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
             
         });
         var table = $('#example').DataTable( {
-            "pageLength": 70,
             dom:'lfBrtip',
-            // success de tabla
-            lengthChange: true,
+            stateSave: true,           
+            "lengthChange": true,
+            "pageLength": 10,
             buttons: [ 'copy', {
                 extend: 'excelHtml5',
                 exportOptions: {
                 	orthogonal: 'export',
-                    columns: ':visible',
-          //           format: {
-	         //            body: function(data, row, column, node) {
-	         //            	if (typeof data !== 'undefined') {
-          //           			if (data !== null) {
-          //           				if (column === 12) {
-										// return "hola";
-          //           				} else {
-										// return data;
-          //           				}
-          //           				if (column === 12 || column === 13 || column === 18 || column === 19){
-										// //data contain only one comma we need to split there
-		        //                         var arr = data;
-		        //                         arr = arr.replace( /[\.]/g, "" );
-		        //                         arr = arr.replace( /[\,]/g, "." );
-	         //                        	return arr;
-          //           				} else if (column === 2) {
-          //           					var arr = data;
-          //           					arr = arr.split("-");
-          //           					return arr[0];
-          //           				} else {
-          //           					return data;
-          //           				}
-                    		// 	} else {
-                    		// 		return data;
-                    		// 	}
-                    		// } else {
-                    		// 	return data;
-                    		// }
-	                    	// return data.replace('.', '');
-	                        // return data.replace(',', '');
-	                    // }
-                	// }
+                    columns: ':visible'
                 }
             }, 'pdf', 'print', 'colvis' ],
-            "bProcessing": true,
+            processing: true,
             //"bServerSide": true,
             responsive: true,
             //"sAjaxSource": "select_alumno.php",
-            "sPaginationType": "full_numbers",
-            "aaSorting": [[ 6, "asc" ]],
+            pagingType: 'full_numbers',
+            order: [[ 6, "asc" ]],
             "aoColumns": [
                 { "sType": "string" }, //1
                 { "sType": "string" }, //2
@@ -1543,6 +1530,37 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
 	            } } //21
             ]
         });
+
+        // $('#example').DataTable( {
+        //     dom:'lfBrtip',
+        //     stateSave: true,           
+        //     "lengthChange": true,
+        //     "pageLength": 10,
+        //     buttons: ['copy', 'csv', 'excelHtml5','print','colvis',{extend: 'pdfHtml5',orientation: 'landscape',pageSize: 'LEGAL'}],
+        //     serverSide: true,
+        //     processing: true,
+        //     responsive: true,
+        //     ajax: "select_jventa.php",
+        //     pagingType: 'full_numbers',
+        //     order: [[1, 'desc']],
+        //     columns: [{ orderable: false },{ "orderData": [ 0 ] },null,null,null,null,
+        //         { "orderData": [ 6,7,8,9 ] },
+        //     	{ "orderData": [ 11 ] },
+        //         { "orderData": [ 12 ] },
+        //         { "orderData": [ 13 ] },
+        //         { "orderData": [ 14 ] },
+        //         { "orderData": [ 15 ] },
+        //         { "orderData": [ 16 ] },
+        //         { "orderData": [ 17 ] },
+        //         { "orderData": [ 18 ] },
+        //         { "orderData": [ 19 ] },
+        //         { orderable: false },
+        //         { orderable: false },
+        //         { orderable: false },
+        //         { orderable: false }
+        //     ]
+        // });
+
 
         jQuery.extend( jQuery.fn.dataTableExt.oSort, {
             "date-uk-pre": function ( a ) {
