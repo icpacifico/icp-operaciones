@@ -1,14 +1,14 @@
-var url_web=window.location.href;
- var arr=url_web.split('/');
- var cont = arr.length - 1;
- var modulo = arr[cont-1]+'/'+arr[cont]; 
- var menuModulo = new Array(
+let url_web=window.location.href;
+let arr=url_web.split('/');
+let cont = arr.length - 1;
+let modulo = arr[cont-1]+'/'+arr[cont]; 
+let menuModulo = new Array(
 	 'banco','bodega','bono','carro','condominio','cotizacion','descuento','documento','estacionamiento','etapa','evento','informe','liquidacion','login','mailing','modelo','operacion','pago','parametro','premio','profesion','promesa','propietario','torre','uf','unidad','usuario','vendedor','venta','vivienda','evaluacion'
  )
- var proceso = new Array(
+let proceso = new Array(
 	'select','select_envios','insert','insert_condominio','supervisor','jefe','cliente','lista','meta','insert_privilegio',''
  )
- let menuActive = (mod,submod) =>{
+const menuActive = (mod,submod) =>{
     $('.sidebar-menu li').removeClass('active');
     if(mod == 'condominio' || mod == 'torre' || mod == 'modelo' || mod =='vivienda' || mod =='estacionamiento' || mod =='bodega')
     {
