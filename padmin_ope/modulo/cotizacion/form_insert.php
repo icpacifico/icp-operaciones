@@ -391,7 +391,7 @@ if (!isset($_SESSION["modulo_cotizacion_panel"])) {
                                             <div class="col-sm-2">
 						                        <div class="form-group">
 						                            <label for="fecha_cot">Fecha:</label>
-						                            <input type="text" name="fecha_cot" class="form-control datepicker elemento" id="fecha_cot"/>
+						                            <input type="text" name="fecha_cot" autocomplete="off" class="form-control datepicker elemento" id="fecha_cot"/>
 						                        </div>
 						                    </div>
 						                    <div class="col-sm-3">
