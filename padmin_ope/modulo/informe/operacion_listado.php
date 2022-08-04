@@ -167,8 +167,41 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
   <!-- Full Width Column -->
   <div class="content-wrapper">
 	<!-- modalo GGOOPP -->
-	<div class="modal fade" id="contenedor_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        </div>
+        <div class="modal fade" id="contenedor_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"> Información de la Operación</h4>
+                    </div>
+                
+                    <div class="modal-body">
+                         <label><b>Venta:</b> </label> <span id="venta_liquida"></span><br>
+                         <label><b>Unidad:</b> </label> <span id="unidad_liquida"></span><br>
+                         <input type="hidden" id="id_liquida"  name="id" />
+                         <input type="hidden" id="insert_liquida"  name="insert" />
+                         <hr>
+
+                            <div class="row margin-bottom-40">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="fecha_liq_com">Fecha/Período Liquidación Comisiones:</label>
+                                        <input type="text" name="fecha_liq_com"  class="form-control datepicker elemento" id="fecha_liq_com" />
+                                    </div>
+                                    <p id="aclara_liquida"></p>
+                                </div>
+                            </div>
+
+
+                    </div>
+                    
+                    <div class="modal-footer">                        
+                        <button id="guarda_fecha" class="btn btn-primary">Registrar Información</button>                        
+                    </div>
+                </div>
+          </div>
+       </div>
+    
 
     <div class="container-fluid">
       <!-- Content Header (Page header) -->
@@ -1252,7 +1285,7 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
   <!-- /.content-wrapper -->
 <?php include_once _INCLUDE."footer_comun.php";?>
 <!-- .wrapper cierra en el footer -->
-<?php include_once _INCLUDE."js_comun.php";?>
+
 <!-- DataTables -->
 <!-- <script src="<?php echo _ASSETS?>plugins/daterangepicker/moment.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables/jquery.dataTables.js"></script>
@@ -1266,10 +1299,13 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
 <script src="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/buttons.html5.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/buttons.print.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/buttons.colVis.min.js"></script>
+
+
+<script src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/natural.js"></script> -->
+<script src="<?php echo _ASSETS?>bootstrap/js/bootstrap.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datepicker/bootstrap-datepicker.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datepicker/locales/bootstrap-datepicker.es.js"></script>
 <script src="<?php echo _ASSETS?>plugins/select2/select2.full.min.js"></script>
-<script src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/natural.js"></script> -->
 
 <script src="<?php echo _ASSETS?>plugins/datatables5/datatables.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables5/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
@@ -1285,7 +1321,7 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
 <script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.html5.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.print.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.colVis.min.js"></script>
-<script type="text/javascript">
+<script type="text/javascript">    
     jQuery.fn.dataTable.ext.type.search.string = function(data) {
     return !data ?
         '' :
@@ -1321,14 +1357,17 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
 	    $(".wmd-view-topscroll").scroll(function(){
 	        $(".wmd-view")
 	            .scrollLeft($(".wmd-view-topscroll").scrollLeft());
+                return false;
 	    });
 	    $(".wmd-view").scroll(function(){
 	        $(".wmd-view-topscroll")
 	            .scrollLeft($(".wmd-view").scrollLeft());
+                return false;
 	    });
+       
 	});
     
-    $(document).ready(function () {
+    document.addEventListener('DOMContentLoaded', (event) => { 
 
     	// ver modal
         $(document).on( "click",".carga_liquida" , function() {
@@ -1339,16 +1378,23 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
                 url: ("form_update_liquida.php"),
                 data:"valor="+valor,
                 success: function(data) {
-                     $('#contenedor_modal').html(data);
+                     $('.modal-body').html(data);
                      $('#contenedor_modal').modal('show');
                 }
             })
+            return false;
+        });
+        $( "#guarda_fecha" ).click(function() {   
+       
+                console.log("click! operacion_listado");
+             
         });
 
-        $(function () {
+
+        // $(function () {
             //Initialize Select2 Elements
             $(".select2").select2();
-        });
+        // });
 
         $('#example_filter input').keyup(function() {
             table
@@ -1356,6 +1402,7 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
                 jQuery.fn.dataTable.ext.type.search.string(this.value)
               )
               .draw();
+              return false;
         });
 
         $(document).on( "click","#filtro" , function() {
@@ -1388,50 +1435,13 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
                     location.reload();
                 }
             })
+            return false;
         });
         $('.datepicker').datepicker({
             format: 'dd-mm-yyyy',
             language: 'es',
             autoclose: true
-        });
-        //BUSQUEDA ALUMNO
-        $("#busqueda_alu").focus();
-        $("#busqueda_alu").keyup(function(e){
-           $('#resultado').show();               
-              //obtenemos el texto introducido en el campo de búsqueda
-           var consulta = $("#busqueda_alu").val();
-                                                                  
-              $.ajax({
-                    type: "POST",
-                    url: "busca_alumno.php",
-                    data: "b="+consulta,
-                    dataType: "html",
-                    beforeSend: function(){
-                          //imagen de carga
-                          $("#resultado").html("<p align='center'><img src='../../assets/img/loading.gif'/></p>");
-                    },
-                    error: function(){
-                          alert("error petición ajax");
-                    },
-                    success: function(data){                                              
-                          $("#resultado").empty();
-                          $("#resultado").append(data);                                  
-                    }
-              });                                                              
-        });
-        $(document).on( "click",".busqueda_alumno" , function() {
-            //$('#contenedor_opcion').html('<img src="../../imagen/ajax-loader.gif">');
-            var valor = $(this).attr( "id" );
-            $.ajax({
-                type: 'POST',
-                url: ("procesa_alumno.php"),
-                data:"valor="+valor,
-                success: function(data) {
-                    location.reload();
-                }       
-            })
-            
-        });
+        });              
         var table = $('#example').DataTable( {
             dom:'lfBrtip',
             stateSave: true,           
@@ -1576,11 +1586,57 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
                 return ((a < b) ? 1 : ((a > b) ? -1 : 0));
             }
         });
-        $.fn.dataTable.moment( 'DD.MM.YYYY' );
+        // $.fn.dataTable.moment( 'DD.MM.YYYY' );
         table.buttons().container()
         .appendTo( '#example_wrapper .col-sm-6:eq(1)' );
         
     });
+
+    // const resultado = (data) => {   
+    //         switch (data.envio) {
+    //             case 1:
+    //                 Swal.fire({
+    //                 title: "Excelente!",
+    //                 text: "Información ingresada con éxito!",
+    //                 icon: "success",
+    //                 showCloseButton: true,
+    //                 showCancelButton: true,
+    //                 confirmButtonText: 'Aceptar',
+    //                 confirmButtonColor: '#9bde94'
+    //                 }).then(() => {
+    //                     location.href = "operacion_listado.php";
+    //                 })
+    //                 break;
+    //             case 2:
+    //                 Swal.fire({
+    //                 icon: 'warning',
+    //                 title: 'Atención!',
+    //                 text: 'Registro ya ha sido ingresado'
+    //                 })
+    //                 $('#contenedor_boton').html('<input type="button" name="boton" class="btn2" value="Guardar" id="bt"/>');
+    //                 break;
+    //             case 3:
+    //                 Swal.fire({
+    //                 icon: 'error',
+    //                 title: 'Error!',
+    //                 text: 'Favor intentar denuevo o contáctese con Osman'
+    //                 })
+    //                 $('#contenedor_boton').html('<input type="button" name="boton" class="btn2" value="Guardar" id="bt"/>');
+    //                 break;
+            
+    //             default:
+                
+    //                 Swal.fire({
+    //                 icon: 'error',
+    //                 title: 'Error!',
+    //                 text: 'Problema no identificado, contactar con Osman urgente!',
+    //                 footer: '<a href="#">Esto no es un simulacro :(</a>'
+    //                 })
+                    
+    //                 break;
+    //         }
+            
+    // }       
 </script>
 </body>
 </html>

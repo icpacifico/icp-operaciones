@@ -7,7 +7,9 @@ if(!isset($_SESSION["sesion_usuario_panel"])){
 
 include _INCLUDE."class/conexion.php";
 $conexion = new conexion();
-
+$monto_liq_uf_ven=0;
+$monto_liq_pesos_ven=0;
+$fecha_liq='';
 $id_ven = $_POST["valor"];
 
 
@@ -96,64 +98,30 @@ if ($fecha_abono_330_ven<>null) {
 	$fecha_abono_330_ven = date("d-m-Y",strtotime($fecha_abono_330_ven));
 }
 
-?>
-<div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel"> Información de la Operación</h4>
-        </div>
-        
+    $liquida = new stdClass();
 
-        <div class="modal-body">
-
-            <label><b>Venta:</b> </label> <span><?php echo $id_ven;?></span><br>
-            <label><b>Unidad:</b> </label> <span><?php echo $nombre_viv;?></span><br>
-
-            <form id="formulario" method="POST" action="insert_liquida_venta.php" role="form">
-                <input type="hidden" id="id" value="<?php echo $id_ven;?>" name="id" />
-                <input type="hidden" id="insert" value="<?php echo $insert;?>" name="insert" />
-
-                 <div class="modal-body">
-                        
-
-	            <!-- area nueva / solo gerencia -->
-	            <?php 
-	            if ($_SESSION["sesion_perfil_panel"] == 1) {
-	            	$consulta_esta_liquidado = 
-					    "
-					    SELECT
-					        id_cie
-					    FROM
-					        cierre_venta_cierre
-					    WHERE 
-					        id_ven = ? AND
-					        id_est_ven = 4
-					    ";
+ 
+    $liquida->venta = $id_ven;
+    $liquida->unidad = $nombre_viv;
+    $liquida->id = $id_ven;
+    $liquida->insert = $insert;
+ 
+	            if ($_SESSION["sesion_perfil_panel"] == 1):
+	            	$consulta_esta_liquidado = "SELECT id_cie FROM cierre_venta_cierre WHERE id_ven = ? AND id_est_ven = 4";
 					$conexion->consulta_form($consulta_esta_liquidado,array($id_ven));
 					$hay_liquidacion = $conexion->total();
-					if($hay_liquidacion>0){
-						$readonly = "disabled";
-						$text_aclara = "- venta ya liquidada";
-					} else {
-						$readonly = "";
-						$text_aclara = "";
-					}
+                        if($hay_liquidacion>0){
+                            $readonly = "disabled";
+                            $text_aclara = "- venta ya liquidada";
+                        } else {
+                            $readonly = "";
+                            $text_aclara = "";
+                        }
+                    endif;
+    $liquida->readonly = $readonly;
+    $liquida->text_aclara = $text_aclara;
+    $liquida->fecha_liq_com = $fecha_liq_com;
 	            ?>
-	            <hr>
-            	<div class="row margin-bottom-40">
-                	<div class="col-sm-6">
-                    	<div class="form-group">
-                            <label for="fecha_liq_com">Fecha/Período Liquidación Comisiones:</label>
-                            <input type="text" name="fecha_liq_com" value="<?php echo $fecha_liq_com; ?>" class="form-control datepicker elemento" id="fecha_liq_com" <?php echo $readonly; ?>/>
-                        </div>
-                        <p><?php echo $text_aclara; ?></p>
-                    </div>
-               	</div>
-				<hr>
-	            <?php
-	            }
-	             ?>
 
 	            <p>Cargue las fechas y valores fuera de Etapa.</p>
 	            
@@ -235,145 +203,10 @@ if ($fecha_abono_330_ven<>null) {
                             
                         </div>
                     
-                </div>
-                <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button> -->
-                    
-                    <button type="submit" id="guarda_fecha" class="btn btn-primary">Registrar Información</button>
-                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button> -->
-                </div>
-        	</form>
-        </div>
-    </div>
-</div>
-
-<?php include_once _INCLUDE."js_comun.php";?>
-<script src="<?php echo _ASSETS?>plugins/validate/jquery.validate.js"></script>
-<script src="<?php echo _ASSETS?>plugins/datepicker/bootstrap-datepicker.js"></script>
-<script src="<?php echo _ASSETS?>plugins/datepicker/locales/bootstrap-datepicker.es.js"></script>
-<script src="<?php echo _ASSETS?>plugins/validate/jquery.numeric.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script type="text/javascript">
-      
-document.addEventListener('DOMContentLoaded', (event) => { 
-		$('.numero').numeric();
-
-  		$('.datepicker').datepicker({
-            format: 'dd-mm-yyyy',
-            // startDate: '-0d',
-            todayHighlight: true,
-            language: 'es',
-            autoclose: true
-        });
-
-        const resultado = (data) => {   
-            switch (data.envio) {
-                case 1:
-                    Swal.fire({
-                    title: "Excelente!",
-                    text: "Información ingresada con éxito!",
-                    icon: "success",
-                    showCloseButton: true,
-                    showCancelButton: true,
-                    confirmButtonText: 'Aceptar',
-                    confirmButtonColor: '#9bde94'
-                    }).then(() => {
-                        location.href = "operacion_listado.php";
-                    })
-                    break;
-                case 2:
-                    Swal.fire({
-                    icon: 'warning',
-                    title: 'Atención!',
-                    text: 'Registro ya ha sido ingresado'
-                    })
-                    $('#contenedor_boton').html('<input type="button" name="boton" class="btn2" value="Guardar" id="bt"/>');
-                    break;
-                case 3:
-                    Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: 'Favor intentar denuevo o contáctese con Osman'
-                    })
-                    $('#contenedor_boton').html('<input type="button" name="boton" class="btn2" value="Guardar" id="bt"/>');
-                    break;
-            
-                default:
-                
-                    Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: 'Problema no identificado, contactar con Osman urgente!',
-                    footer: '<a href="#">Esto no es un simulacro :(</a>'
-                    })
-                    
-                    break;
-            }
-            
-        }
-        
-
-
-
-
-        // function resultado(data) {
-        //     if (data.envio == 1) {
-        //         swal({
-        //             title: "Excelente!",
-        //             text: "Información ingresada con éxito!",
-        //             type: "success",
-        //             showCancelButton: false,
-        //             confirmButtonColor: "#9bde94",
-        //             confirmButtonText: "Aceptar",
-        //             closeOnConfirm: false
-        //         },
-        //         function () {
-        //             location.href = "operacion_listado.php";
-        //         });
-        //     }
-        //     if (data.envio == 2) {
-        //         swal("Atención!", "Registro ya ha sido ingresado", "warning");
-        //         $('#contenedor_boton').html('<input type="button" name="boton" class="btn2" value="Guardar" id="bt"/>');
-        //     }
-        //     if (data.envio == 3) {
-        //         swal("Error!", "Favor intentar denuevo o contáctese con administrador", "error");
-        //         $('#contenedor_boton').html('<input type="button" name="boton" class="btn2" value="Guardar" id="bt"/>');
-        //     }
            
-        // }
+        	
+       
+
         
-        $('#formulario').submit(function () {
-            
-            if ($("#formulario").validate().form() == true){
-                //$('#contenedor_boton').html('<img src="../../assets/img/loading.gif">');
-                var dataString = $('#formulario').serialize();
-                $.ajax({
-                    data: dataString,
-                    type: 'POST',
-                    url: $(this).attr('action'),
-                    dataType: 'json',
-                    success: function (data) {
-                        resultado(data);
-                    }
-                })
-            }
-            return false;
-        });
-
-        $("#formulario").validate({
-            rules: {
-                monto_gas: { 
-                    required: true
-                }
-            },
-            messages: { 
-                monto_gas: {
-                    required: "Ingrese Monto"
-                }
-            }
-        });
-
-  });  
      
-</script>   
+  
