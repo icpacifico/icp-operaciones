@@ -253,9 +253,10 @@ if ($fecha_abono_330_ven<>null) {
 <script src="<?php echo _ASSETS?>plugins/datepicker/bootstrap-datepicker.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datepicker/locales/bootstrap-datepicker.es.js"></script>
 <script src="<?php echo _ASSETS?>plugins/validate/jquery.numeric.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
       
-  $(document).ready(function () {
+document.addEventListener('DOMContentLoaded', (event) => { 
 		$('.numero').numeric();
 
   		$('.datepicker').datepicker({
@@ -266,33 +267,81 @@ if ($fecha_abono_330_ven<>null) {
             autoclose: true
         });
 
-        function resultado(data) {
-            if (data.envio == 1) {
-                swal({
+        const resultado = (data) => {   
+            switch (data.envio) {
+                case 1:
+                    Swal.fire({
                     title: "Excelente!",
                     text: "Información ingresada con éxito!",
-                    type: "success",
-                    showCancelButton: false,
-                    confirmButtonColor: "#9bde94",
-                    confirmButtonText: "Aceptar",
-                    closeOnConfirm: false
-                },
-                function () {
-                    location.href = "operacion_listado.php";
-                });
+                    icon: "success",
+                    showCloseButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    confirmButtonColor: '#9bde94'
+                    }).then(() => {
+                        location.href = "operacion_listado.php";
+                    })
+                    break;
+                case 2:
+                    Swal.fire({
+                    icon: 'warning',
+                    title: 'Atención!',
+                    text: 'Registro ya ha sido ingresado'
+                    })
+                    $('#contenedor_boton').html('<input type="button" name="boton" class="btn2" value="Guardar" id="bt"/>');
+                    break;
+                case 3:
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Favor intentar denuevo o contáctese con Osman'
+                    })
+                    $('#contenedor_boton').html('<input type="button" name="boton" class="btn2" value="Guardar" id="bt"/>');
+                    break;
+            
+                default:
+                
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Problema no identificado, contactar con Osman urgente!',
+                    footer: '<a href="#">Esto no es un simulacro :(</a>'
+                    })
+                    
+                    break;
             }
-            if (data.envio == 2) {
-                swal("Atención!", "Registro ya ha sido ingresado", "warning");
-                $('#contenedor_boton').html('<input type="button" name="boton" class="btn2" value="Guardar" id="bt"/>');
-            }
-            if (data.envio == 3) {
-                swal("Error!", "Favor intentar denuevo o contáctese con administrador", "error");
-                $('#contenedor_boton').html('<input type="button" name="boton" class="btn2" value="Guardar" id="bt"/>');
-            }
-            // if(data.envio != ""){
-            //  alert(data.envio);
-            //  }
+            
         }
+        
+
+
+
+
+        // function resultado(data) {
+        //     if (data.envio == 1) {
+        //         swal({
+        //             title: "Excelente!",
+        //             text: "Información ingresada con éxito!",
+        //             type: "success",
+        //             showCancelButton: false,
+        //             confirmButtonColor: "#9bde94",
+        //             confirmButtonText: "Aceptar",
+        //             closeOnConfirm: false
+        //         },
+        //         function () {
+        //             location.href = "operacion_listado.php";
+        //         });
+        //     }
+        //     if (data.envio == 2) {
+        //         swal("Atención!", "Registro ya ha sido ingresado", "warning");
+        //         $('#contenedor_boton').html('<input type="button" name="boton" class="btn2" value="Guardar" id="bt"/>');
+        //     }
+        //     if (data.envio == 3) {
+        //         swal("Error!", "Favor intentar denuevo o contáctese con administrador", "error");
+        //         $('#contenedor_boton').html('<input type="button" name="boton" class="btn2" value="Guardar" id="bt"/>');
+        //     }
+           
+        // }
         
         $('#formulario').submit(function () {
             
