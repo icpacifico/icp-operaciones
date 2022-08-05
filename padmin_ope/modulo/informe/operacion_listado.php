@@ -186,13 +186,108 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="fecha_liq_com">Fecha/Período Liquidación Comisiones:</label>
-                                        <input type="text" name="fecha_liq_com"  class="form-control datepicker elemento" id="fecha_liq_com" />
+                                        <input type="text" name="fecha_liq_com" value="" class="form-control datepicker elemento" id="fecha_liq_com" />
                                     </div>
                                     <p id="aclara_liquida"></p>
                                 </div>
                             </div>
+                            <p>Cargue las fechas y valores fuera de Etapa.</p>
+	            
+                            <div class="row margin-bottom-40">
 
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="val_cre">Valor CRE:</label>
+                                        <input type="text" name="val_cre" value="" class="form-control numero elemento" id="val_cre"/>
+                                    </div>
+                                </div>
 
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="ciudad_notaria">Ciudad Notaría:</label>
+                                        <select name="ciudad_notaria" class="form-control" id="ciudad_notaria">
+                                            <option value="0" >No especificado</option>
+                                            <option value="1" >La Serena</option>
+                                            <option value="2" >Santiago</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="fecha_alzamiento_ven">Alzamiento - Fecha Sol. Contab.:</label>
+                                        <input type="text" name="fecha_alzamiento_ven" value="" class="form-control datepicker elemento" id="fecha_alzamiento_ven"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="fecha_cargo_301_ven">Alzamiento - Fecha Cargo CC 301:</label>
+                                        <input type="text" name="fecha_cargo_301_ven" value="" class="form-control datepicker elemento" id="fecha_cargo_301_ven"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="fecha_abono_330_ven">Alzamiento - Fecha Abono CC 330:</label>
+                                        <input type="text" name="fecha_abono_330_ven" value="" class="form-control datepicker elemento" id="fecha_abono_330_ven"/>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="val_factura">Valor Factura:</label>
+                                        <input type="text" name="val_factura" value="" class="form-control numero elemento" id="val_factura"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="num_factura">N° Factura:</label>
+                                        <input type="text" name="num_factura" value="" class="form-control numero elemento" id="num_factura"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="val_ncredito">Valor Nota Crédito:</label>
+                                        <input type="text" name="val_ncredito" value="" class="form-control numero elemento" id="val_ncredito"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="num_ncredito">N° Nota Crédito:</label>
+                                        <input type="text" name="num_ncredito" value="" class="form-control numero elemento" id="num_ncredito"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+
+                                    <div class="form-group">
+                                        <label for="monto_liq_uf">Monto Fondos Liquidados UF:</label>
+                                        <input type="text" name="monto_liq_uf" value="" class="form-control elemento numero" id="monto_liq_uf"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="monto_liq_pesos">Monto Fondos Liquidados Pesos:</label>
+                                        <input type="text" name="monto_liq_pesos" value="" class="form-control elemento numero" id="monto_liq_pesos"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="fecha_liq">Fecha Liquidación Fondos:</label>
+                                        <input type="text" name="fecha_liq" value="" class="form-control datepicker elemento" id="fecha_liq"/>
+                                    </div>  
+
+                                </div>
+
+                            </div> <!-- .row .margin-bottom-40 -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+  
                     </div>
                     
                     <div class="modal-footer">                        
@@ -1321,6 +1416,7 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
 <script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.html5.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.print.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datatables5/Buttons-2.2.3/js/buttons.colVis.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">    
     jQuery.fn.dataTable.ext.type.search.string = function(data) {
     return !data ?
@@ -1377,16 +1473,74 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
                 type: 'POST',
                 url: ("form_update_liquida.php"),
                 data:"valor="+valor,
-                success: function(data) {
-                     $('.modal-body').html(data);
-                     $('#contenedor_modal').modal('show');
+                dataType: 'json',
+                success: function(data) {                                 
+                if(data.venta){ 
+                    console.log(data);  
+                    $('#venta_liquida').text(data.venta);
+                    $('#unidad_liquida').text(data.unidad);
+                    $('#id_liquida').val(data.id);
+                    $('#insert_liquida').val(data.insert);
+                    $('#fecha_liq_com').val(data.fecha_liq_com);
+                    if (data.ciudad_notaria_ven != null) {
+                        $('#ciudad_notaria').val(data.ciudad_notaria_ven);
+                    }else{
+                        $('#ciudad_notaria').val(0);
+                    }
+                    $('#val_cre').val(data.valor_cre_ven);
+                    $('#fecha_alzamiento_ven').val(data.fecha_alzamiento_ven);
+                    $('#fecha_cargo_301_ven').val(data.fecha_cargo_301_ven);
+                    $('#fecha_abono_330_ven').val(data.fecha_abono_330_ven);
+                    $('#fecha_liq').val(data.fecha_liq);
+                    $('#val_factura').val(data.monto_factura_ven);
+                    $('#monto_liq_pesos').val(data.monto_liq_pesos_ven);
+                    $('#monto_liq_uf').val(data.monto_liq_uf_ven);
+                    $('#val_ncredito').val(data.monto_ncredito_ven);
+                    $('#num_factura').val(data.numero_factura_ven);
+                    $('#num_ncredito').val(data.numero_ncredito_ven);
+                    $('#aclara_liquida').val(data.text_aclara);
+                    if(data.readonly != ''){
+                        $('#fecha_liq_com').attr("readonly", true); 
+                    }
+                    $('#contenedor_modal').modal('show');
+                }else{
+                    console.log(data);
+                }                    
+                     
                 }
             })
             return false;
         });
         $( "#guarda_fecha" ).click(function() {   
-       
-                console.log("click! operacion_listado");
+
+                let info = {
+                    id :  $('#id_liquida').val(),
+                    insert : $('#insert_liquida').val(),
+                    fecha_liq_com : $('#fecha_liq_com').val(),                    
+                    ciudad_notaria : $('#ciudad_notaria').val(),                    
+                    val_cre : $('#val_cre').val(),
+                    fecha_alzamiento_ven : $('#fecha_alzamiento_ven').val(),
+                    fecha_cargo_301_ven : $('#fecha_cargo_301_ven').val(),
+                    fecha_abono_330_ven : $('#fecha_abono_330_ven').val(),
+                    fecha_liq : $('#fecha_liq').val(),
+                    val_factura : $('#val_factura').val(),
+                    monto_liq_pesos : $('#monto_liq_pesos').val(),
+                    monto_liq_uf : $('#monto_liq_uf').val(),
+                    val_ncredito : $('#val_ncredito').val(),
+                    num_factura : $('#num_factura').val(),
+                    num_ncredito : $('#num_ncredito').val()                  
+
+                }               
+                               
+                $.ajax({
+                    url:'insert_liquida_venta.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: info,
+                    success: function(result){
+                        resultado(result);
+                    }
+                });
              
         });
 
@@ -1592,51 +1746,46 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
         
     });
 
-    // const resultado = (data) => {   
-    //         switch (data.envio) {
-    //             case 1:
-    //                 Swal.fire({
-    //                 title: "Excelente!",
-    //                 text: "Información ingresada con éxito!",
-    //                 icon: "success",
-    //                 showCloseButton: true,
-    //                 showCancelButton: true,
-    //                 confirmButtonText: 'Aceptar',
-    //                 confirmButtonColor: '#9bde94'
-    //                 }).then(() => {
-    //                     location.href = "operacion_listado.php";
-    //                 })
-    //                 break;
-    //             case 2:
-    //                 Swal.fire({
-    //                 icon: 'warning',
-    //                 title: 'Atención!',
-    //                 text: 'Registro ya ha sido ingresado'
-    //                 })
-    //                 $('#contenedor_boton').html('<input type="button" name="boton" class="btn2" value="Guardar" id="bt"/>');
-    //                 break;
-    //             case 3:
-    //                 Swal.fire({
-    //                 icon: 'error',
-    //                 title: 'Error!',
-    //                 text: 'Favor intentar denuevo o contáctese con Osman'
-    //                 })
-    //                 $('#contenedor_boton').html('<input type="button" name="boton" class="btn2" value="Guardar" id="bt"/>');
-    //                 break;
+    const resultado = (data) => {   
+            switch (data.envio) {
+                case 1:
+                    Swal.fire({
+                    title: "Excelente!",
+                    text: "Información ingresada con éxito!",
+                    icon: "success",
+                    showCloseButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    confirmButtonColor: '#9bde94'
+                    // }).then(() => {
+                    //     location.reload();
+                    })
+                    break;
+                case 2:
+                    Swal.fire({
+                    icon: 'warning',
+                    title: 'Atención!',
+                    text: 'Registro ya ha sido ingresado'
+                    })                 
+                    break;
+                case 3:
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Favor intentar denuevo o contáctese con Osman'
+                    })                 
+                    break;
+                default:                
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Problema no identificado, contactar con Osman urgente!',
+                    footer: '<a href="#">Esto no es un simulacro :(</a>'
+                    })                    
+                    break;
+            }
             
-    //             default:
-                
-    //                 Swal.fire({
-    //                 icon: 'error',
-    //                 title: 'Error!',
-    //                 text: 'Problema no identificado, contactar con Osman urgente!',
-    //                 footer: '<a href="#">Esto no es un simulacro :(</a>'
-    //                 })
-                    
-    //                 break;
-    //         }
-            
-    // }       
+    }       
 </script>
 </body>
 </html>

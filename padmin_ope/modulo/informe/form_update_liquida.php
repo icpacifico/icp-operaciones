@@ -13,39 +13,14 @@ $fecha_liq='';
 $id_ven = $_POST["valor"];
 
 
-$consulta = 
-    "
-    SELECT
-        ven.id_for_pag,
-        viv.nombre_viv,
-        ven.fecha_promesa_ven
-    FROM
-        venta_venta as ven,
-        vivienda_vivienda as viv
-    WHERE 
-        ven.id_ven = ? AND
-        ven.id_viv = viv.id_viv
-    ";
+$consulta = "SELECT ven.id_for_pag,viv.nombre_viv,ven.fecha_promesa_ven FROM venta_venta as ven,vivienda_vivienda as viv WHERE ven.id_ven = ? AND ven.id_viv = viv.id_viv";
 $conexion->consulta_form($consulta,array($id_ven));
 $fila = $conexion->extraer_registro_unico();
 $id_for_pag = utf8_encode($fila['id_for_pag']);
 $nombre_viv = utf8_encode($fila['nombre_viv']);
 $fecha_promesa_ven = utf8_encode($fila['fecha_promesa_ven']);
-if ($fecha_promesa_ven<>null) {
-	$fecha_liq_com = date("d-m-Y",strtotime($fecha_promesa_ven));
-}
-
-$consultahay = 
-    "
-    SELECT
-        monto_liq_uf_ven,
-        monto_liq_pesos_ven,
-        fecha_liq_ven
-    FROM
-        venta_liquidado_venta
-    WHERE 
-        id_ven = ?
-    ";
+if ($fecha_promesa_ven<>null) $fecha_liq_com = date("d-m-Y",strtotime($fecha_promesa_ven));
+$consultahay = "SELECT monto_liq_uf_ven,monto_liq_pesos_ven,fecha_liq_ven FROM venta_liquidado_venta WHERE id_ven = ?";
 $conexion->consulta_form($consultahay,array($id_ven));
 $insert = $conexion->total();
 if ($insert>0) {
@@ -53,9 +28,7 @@ if ($insert>0) {
 	$fecha_liq_ven = utf8_encode($fila['fecha_liq_ven']);
 	$monto_liq_uf_ven = utf8_encode($fila['monto_liq_uf_ven']);
 	$monto_liq_pesos_ven = utf8_encode($fila['monto_liq_pesos_ven']);
-	if ($fecha_liq_ven<>null) {
-		$fecha_liq = date("d-m-Y",strtotime($fecha_liq_ven));
-	}
+	if ($fecha_liq_ven<>null)$fecha_liq = date("d-m-Y",strtotime($fecha_liq_ven));
 }
 
 $consultacampos = 
@@ -84,19 +57,13 @@ $monto_ncredito_ven = utf8_encode($filacam['monto_nc_ven']);
 $valor_cre_ven = utf8_encode($filacam['valor_cre_ven']);
 $ciudad_notaria_ven = $filacam['ciudad_notaria_ven'];
 $fecha_alzamiento_ven = utf8_encode($filacam['fecha_alzamiento_ven']);
-if ($fecha_alzamiento_ven<>null) {
-	$fecha_alzamiento_ven = date("d-m-Y",strtotime($fecha_alzamiento_ven));
-}
+if ($fecha_alzamiento_ven<>null) $fecha_alzamiento_ven = date("d-m-Y",strtotime($fecha_alzamiento_ven));
 
 $fecha_cargo_301_ven = utf8_encode($filacam['fecha_cargo_301_ven']);
-if ($fecha_cargo_301_ven<>null) {
-	$fecha_cargo_301_ven = date("d-m-Y",strtotime($fecha_cargo_301_ven));
-}
+if ($fecha_cargo_301_ven<>null) $fecha_cargo_301_ven = date("d-m-Y",strtotime($fecha_cargo_301_ven));
 
 $fecha_abono_330_ven = utf8_encode($filacam['fecha_abono_330_ven']);
-if ($fecha_abono_330_ven<>null) {
-	$fecha_abono_330_ven = date("d-m-Y",strtotime($fecha_abono_330_ven));
-}
+if ($fecha_abono_330_ven<>null)$fecha_abono_330_ven = date("d-m-Y",strtotime($fecha_abono_330_ven));
 
     $liquida = new stdClass();
 
@@ -121,87 +88,29 @@ if ($fecha_abono_330_ven<>null) {
     $liquida->readonly = $readonly;
     $liquida->text_aclara = $text_aclara;
     $liquida->fecha_liq_com = $fecha_liq_com;
+    $liquida->valor_cre_ven = $valor_cre_ven;
+    $liquida->ciudad_notaria_ven = $ciudad_notaria_ven;
+    $liquida->fecha_alzamiento_ven = $fecha_alzamiento_ven;
+
+
+    $liquida->fecha_cargo_301_ven = $fecha_cargo_301_ven;
+    $liquida->fecha_abono_330_ven = $fecha_abono_330_ven;
+    $liquida->monto_factura_ven = $monto_factura_ven;
+    $liquida->numero_factura_ven = $numero_factura_ven;
+    $liquida->monto_ncredito_ven = $monto_ncredito_ven;
+    $liquida->numero_ncredito_ven = $numero_ncredito_ven;
+    $liquida->monto_liq_uf_ven = $monto_liq_uf_ven;
+    $liquida->monto_liq_pesos_ven = $monto_liq_pesos_ven;
+    $liquida->fecha_liq = $fecha_liq;
+
+    echo json_encode($liquida, JSON_FORCE_OBJECT);
 	            ?>
 
-	            <p>Cargue las fechas y valores fuera de Etapa.</p>
-	            
-                        <div class="row margin-bottom-40">
-                        	<div class="col-sm-6">
-                            	<div class="form-group">
-                                    <label for="val_cre">Valor CRE:</label>
-                                    <input type="text" name="val_cre" value="<?php echo $valor_cre_ven; ?>" class="form-control numero elemento" id="val_cre"/>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                            	<div class="form-group">
-                                    <label for="val_cre">Ciudad Notaría:</label>
-                                    <select name="ciudad_notaria" class="form-control" id="ciudad_notaria">
-                                    	<option value="1" <?php echo $ciudad_notaria_ven == 1 ? "selected" : '' ?>>La Serena</option>
-                                    	<option value="2" <?php echo $ciudad_notaria_ven == 2 ? "selected" : '' ?>>Santiago</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="fecha_alzamiento_ven">Alzamiento - Fecha Sol. Contab.:</label>
-                                    <input type="text" name="fecha_alzamiento_ven" value="<?php echo $fecha_alzamiento_ven; ?>" class="form-control datepicker elemento" id="fecha_alzamiento_ven"/>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="fecha_cargo_301_ven">Alzamiento - Fecha Cargo CC 301:</label>
-                                    <input type="text" name="fecha_cargo_301_ven" value="<?php echo $fecha_cargo_301_ven; ?>" class="form-control datepicker elemento" id="fecha_cargo_301_ven"/>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="fecha_abono_330_ven">Alzamiento - Fecha Abono CC 330:</label>
-                                    <input type="text" name="fecha_abono_330_ven" value="<?php echo $fecha_abono_330_ven; ?>" class="form-control datepicker elemento" id="fecha_abono_330_ven"/>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="col-sm-6">
-                            	<div class="form-group">
-                                    <label for="val_factura">Valor Factura:</label>
-                                    <input type="text" name="val_factura" value="<?php echo $monto_factura_ven; ?>" class="form-control numero elemento" id="val_factura"/>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="num_factura">N° Factura:</label>
-                                    <input type="text" name="num_factura" value="<?php echo $numero_factura_ven; ?>" class="form-control numero elemento" id="num_factura"/>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                            	<div class="form-group">
-                                    <label for="val_ncredito">Valor Nota Crédito:</label>
-                                    <input type="text" name="val_ncredito" value="<?php echo $monto_ncredito_ven; ?>" class="form-control numero elemento" id="val_ncredito"/>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="num_ncredito">N° Nota Crédito:</label>
-                                    <input type="text" name="num_ncredito" value="<?php echo $numero_ncredito_ven; ?>" class="form-control numero elemento" id="num_ncredito"/>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                            	<div class="form-group">
-                                    <label for="monto_liq_uf">Monto Fondos Liquidados UF:</label>
-                                    <input type="text" name="monto_liq_uf" value="<?php echo $monto_liq_uf_ven; ?>" class="form-control elemento numero" id="monto_liq_uf"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="monto_liq_pesos">Monto Fondos Liquidados Pesos:</label>
-                                    <input type="text" name="monto_liq_pesos" value="<?php echo $monto_liq_pesos_ven; ?>" class="form-control elemento numero" id="monto_liq_pesos"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="fecha_liq">Fecha Liquidación Fondos:</label>
-                                    <input type="text" name="fecha_liq" value="<?php echo $fecha_liq; ?>" class="form-control datepicker elemento" id="fecha_liq"/>
-                                </div>
-                                
-                            </div>
+	           
                             
-                        </div>
+                            
+                            
+                                                                              
                     
            
         	
