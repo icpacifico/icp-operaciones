@@ -2444,7 +2444,7 @@ $id_usuario = $_SESSION["sesion_id_panel"];
                                             ");
 
                                     if($cantidad_opcion > 0): ?>
-                                        <li id="evaluacion-select"><a href="<?php echo _MODULO?>evaluacion/form_select.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Listar evaluaciones</a></li>
+                                        <li id="evaluacion-detalle"><a href="<?php echo _MODULO?>evaluacion/form_detalle.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Informe de Desempeño</a></li>
                                     <?php endif ?>
 
 
