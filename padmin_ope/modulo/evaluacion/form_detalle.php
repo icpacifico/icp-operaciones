@@ -73,7 +73,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                 <div class="row">
                                     <div class="col-md-8 col-md-offset-2" style=margin-top:3%;> 
                                     <!-- Primer formulario -->
-                                        <table class="table"  style="margin-bottom:100px;">
+                                        <table class="table"  style="margin-bottom:70px;">
                                             <thead>
                                                 <tr>
                                                     <td colspan="5" ><strong>1. IDENTIFICACIÓN PERSONA EVALUADA.</strong></td>
@@ -106,36 +106,166 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                             </tbody>
                                         </table>  
                                         
-                                        <table class="table"  style="margin-bottom:100px;">
+                                        <table class="table"  style="margin-bottom:100px; text-align:center;">
                                             <thead>
                                                 <tr>
-                                                    <td colspan="4" ><strong>2.- CRITERIOS DE EVALUACIÓN.</strong></td>
+                                                    <td colspan="4" class="text-left"><strong>2.- CRITERIOS DE EVALUACIÓN.</strong></td>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td class="borde">NOMBRE PERSONA EVALUADA</td>
-                                                    <td colspan="4" class="borde"> <input type="text" name="persona" id="persona" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde">2.1 META ASIGNADA</td>
+                                                    <td class="borde">META ASIGNADA</td>
+                                                    <td class="borde">META LOGRADA</td>
+                                                    <td class="borde">% LOGRO</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">CARGO / FUNCIÓN</td>
-                                                    <td colspan="4" class="borde"> <input type="text" name="cargoPersona" id="cargoPersona" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde">MES 1 ENERO</td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">NOMBRE EVALUADOR/A</td>
-                                                    <td colspan="4" class="borde"> <input type="text" name="evaluador" id="evaluador" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde">MES 2 FEBRERO</td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">CARGO / FUNCIÓN</td>
-                                                    <td colspan="4" class="borde"> <input type="text" name="cargoEvaluador" id="cargoEvaluador" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde">MES 3 MARZO</td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde"> OBSERVACIONES DE DESEMPEÑO:</td>
-                                                    <td class="borde">APLICA AUSENTISMO HASTA POR 60 DÍAS HÁBILES</td>
-                                                    <td class="borde"> <b>NO</b></td>
-                                                    <td class="borde">APLICA CRITERIO DE COMPENSACIÓN POR 15 DÍAS DE AUSENTISMO CONTINUO</td>
-                                                    <td class="borde"><b>NO</b></td>
+                                                    <td class="borde">MES 4 ABRIL</td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
                                                 </tr>
+                                                <tr>
+                                                    <td class="borde">MES 5 MAYO</td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="borde">MES 6 JUNIO</td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="borde">MES 7 JULIO</td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="borde">MES 8 AGOSTO</td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="borde">MES 9 SEPTIEMBRE</td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="borde">MES 10 OCTUBRE</td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="borde">MES 11 NOVIEMBRE</td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="borde">MES 12 DICIEMBRE</td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="borde">TOTALES</td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="1" class="borde text-left">FUNDAMENTACIÓN</td>                                                    
+                                                    <td colspan="3" class="borde"><input type="text" name="fundamentacion1" id="fundamentacion1" class="form-control" autocomplete="off"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="borde text-left"><strong>2.2 COMPETENCIA 1</strong> </td>
+                                                    <td class="borde">DESARROLLO PROPUESTO</td>
+                                                    <td class="borde">AÑO ACTUAL</td>
+                                                    <td class="borde">% LOGRO</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="borde text-left">ORIENTACIÓN AL CLIENTE</td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="1" class="borde text-left" >FUNDAMENTACIÓN</td>                                                    
+                                                    <td colspan="3" class="borde"><input type="text" name="fundamentacion2" id="fundamentacion2" class="form-control" autocomplete="off"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="borde text-left"><strong>2.3 COMPETENCIA 2</strong></td>
+                                                    <td class="borde">DESARROLLO PROPUESTO</td>
+                                                    <td class="borde">AÑO ACTUAL</td>
+                                                    <td class="borde">% LOGRO</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="borde text-left">HABILIDADES INTERPERSONALES</td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="1" class="borde text-left" >FUNDAMENTACIÓN</td>                                                    
+                                                    <td colspan="3" class="borde"><input type="text" name="fundamentacion3" id="fundamentacion3" class="form-control" autocomplete="off"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="borde text-left"><strong>2.4 COMPETENCIA 3</strong></td>
+                                                    <td class="borde">DESARROLLO PROPUESTO</td>
+                                                    <td class="borde">AÑO ACTUAL</td>
+                                                    <td class="borde">% LOGRO</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="borde text-left">ORIENTACIÓN AL LOGRO</td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="1" class="borde text-left" >FUNDAMENTACIÓN</td>                                                    
+                                                    <td colspan="3" class="borde"><input type="text" name="fundamentacion4" id="fundamentacion4" class="form-control" autocomplete="off"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="borde text-left"><strong>2.5 COMPETENCIA 4</strong> </td>
+                                                    <td class="borde">DESARROLLO PROPUESTO</td>
+                                                    <td class="borde">AÑO ACTUAL</td>
+                                                    <td class="borde">% LOGRO</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="borde text-left">NEGOCIACIÓN</td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                    <td class="borde"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="1" class="borde text-left" >FUNDAMENTACIÓN</td>                                                    
+                                                    <td colspan="3" class="borde"><input type="text" name="fundamentacion5" id="fundamentacion5" class="form-control" autocomplete="off"></td>
+                                                </tr>         
+
                                             </tbody>
                                         </table>
 
