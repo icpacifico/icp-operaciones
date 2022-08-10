@@ -13,6 +13,9 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
     .borde{
         border:1px solid #D7DBDD;
     }
+    .borde2{
+        border:3px solid #D7DBDD;
+    }
     table, tr, td{
     border:none;
     vertical-align: middle !important;
@@ -72,7 +75,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                             <div class="container" >
                                 <div class="row">
                                     <div class="col-md-8 col-md-offset-2" style=margin-top:3%;> 
-                                    <!-- Primer formulario -->
+                                         <!-- Primer formulario -->
                                         <table class="table"  style="margin-bottom:70px;">
                                             <thead>
                                                 <tr>
@@ -106,7 +109,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                             </tbody>
                                         </table>  
                                         
-                                        <table class="table"  style="margin-bottom:100px; text-align:center;">
+                                        <table class="table"  style="margin-bottom:50px; text-align:center;">
                                             <thead>
                                                 <tr>
                                                     <td colspan="4" class="text-left"><strong>2.- CRITERIOS DE EVALUACIÓN.</strong></td>
@@ -268,10 +271,103 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
 
                                             </tbody>
                                         </table>
-
+                                        
+                                        <table class="table text-center " style="width:100%; margin-bottom:50px;">
+                                            <tbody>
+                                                <tr class="borde2">
+                                                    <td colspan="3" class="borde2">RESULTADOS DE METAS</td>
+                                                    <td colspan="3" class="borde2">RESULTADOS DE COMPETENCIAS</td>
+                                                    <td rowspan="2" class="borde2" style="vertical-align:middle">TOTAL LOGRADO %</td>
+                                                </tr>
+                                           
+                                            
+                                                <tr>
+                                                    <td class="borde2">RESULTADOS</td>
+                                                    <td class="borde2">PONDERACION</td>
+                                                    <td class="borde2">TOTAL</td>
+                                                    <td class="borde2">RESULTADOS</td>
+                                                    <td class="borde2">PONDERACION</td>
+                                                    <td class="borde2">TOTAL</td>                                                                                                   
+                                                </tr>
+                                                <tr>
+                                                    <td class="borde2">116</td>
+                                                    <td class="borde2">0,7</td>
+                                                    <td class="borde2">81</td>
+                                                    <td class="borde2">88</td>
+                                                    <td class="borde2">0,3</td>
+                                                    <td class="borde2">26</td>
+                                                    <td class="borde2" rowspan="3" style="font-size:3em;">107</td>                                               
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" class="borde2">ANOTACIONES DEMÉRITO (20%)</td>
+                                                    <td class="borde2">NO</td>
+                                                    <td colspan="2" class="borde2" >APLICA REDUCCIÓN DEL 20% AL TOTAL LOGRADO</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" class="borde2">ANOTACIONES DE MÉRITO (20%)</td>
+                                                    <td class="borde2">NO</td>
+                                                    <td colspan="2" class="borde2">APLICA AUMENTO DEL 20% AL TOTAL LOGRADO</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" class="borde2"> NIVEL DE DESARROLLO ALCANZADO</td>
+                                                    <td colspan="4" class="borde2"> <b>SOBRESALIENTE</b></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <td colspan="2"><strong>3.- FEEDBACK PARA EL DESARROLLO.</strong></td>
+                                                </tr>
+                                            </thead>
+                                            <tbody >
+                                            <tr >
+                                                <td colspan="2" class="borde text-center">OBSERVACIONES GENERALES PARA LA MEJORA</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" class="borde"><textarea name="obsmejora" class="form-control" id="obsmejora" cols="30" rows="3"></textarea></td>
+                                            </tr> 
+                                            <tr>
+                                                <td class="borde">EVIDENCIAS PARA PREPARAR LA MEJORA (HECHOS ACONTECIDOS EN EL AÑO)</td>
+                                                <td class="borde" width="70%"> <textarea name="hecho" class="form-control" id="hecho" cols="30" rows="3"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="borde">OBJETIVOS PARA LA MEJORA CONTINUA (OBJETIVOS SMART)</td>
+                                                <td class="borde"><textarea name="objetivo" class="form-control" id="objetivo" cols="30" rows="3"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="borde">PLAN PARA LA MEJORA CONTINUA</td>
+                                                <td class="borde"><textarea name="mejora" class="form-control" id="mejora" cols="30" rows="3"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="borde">KPI´s de Control (Indicadores de Gestión Personal)</td>
+                                                <td class="borde"><textarea name="kpi" class="form-control" id="kpi" cols="30" rows="3"></textarea></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
 
                                     </div> 
+                                </div> <!--.row-->
+                                <div class="row" style="margin:50px 0 50px 0;">
+                                    <div class="container">
+                                        <div class="col-md-4 col-md-offset-2 text-left"><hr style="height:1px;border:none;color:#333;background-color:#333;">
+                                         <p class="text-center">NOMBRE PERSONA EVALUADA</p>
+                                         <p class="text-center">CARGO</p>
+                                       </div>
+                                        <div class="col-md-4 text-right"><hr style="height:1px;border:none;color:#333;background-color:#333;">
+                                        <p class="text-center">NOMBRE PERSONA EVALUADORA</p>
+                                         <p class="text-center">JEFATURA DE VENTAS</p>
+                                      </div>
+                                    </div>        
+                                </div>  
+
+                                <div class="row" style="padding-bottom:3%;">
+                                    <div class="container">
+                                        <div class="col-md-12 text-center"><small>DOCUMENÉNTESE ELECTRÓNICAMENTE Y EN CARPETA FÍSICA DEL/LA TRABAJADOR/A</small></div>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>                      
                     </div>                    
