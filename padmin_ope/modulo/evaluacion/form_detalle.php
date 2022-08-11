@@ -85,11 +85,18 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                             <tbody>
                                                 <tr>
                                                     <td class="borde">NOMBRE PERSONA EVALUADA</td>
-                                                    <td colspan="4" class="borde"> <input type="text" name="persona" id="persona" class="form-control" autocomplete="off"></td>
+                                                    <td colspan="4" class="borde"> <select name="persona" id="persona" class="form-control" autocomplete="off"></select></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">CARGO / FUNCIÓN</td>
-                                                    <td colspan="4" class="borde"> <input type="text" name="cargoPersona" id="cargoPersona" class="form-control" autocomplete="off"></td>
+                                                    <td colspan="4" class="borde"> 
+                                                        <select name="cargoPersona" id="cargoPersona" class="form-control" autocomplete="off">
+                                                            <option value="0">seleccione un/una cargo/función</option>
+                                                            <option value="3">Operaciones</option>
+                                                            <option value="4">Vendedor</option>
+                                                        </select>
+                                                        <!-- <input type="text" name="cargoPersona" id="cargoPersona" class="form-control" autocomplete="off"></td> -->
+
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">NOMBRE EVALUADOR/A</td>
@@ -376,5 +383,38 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
         </div>        
 <?php include_once _INCLUDE."footer_comun.php";?>
 <?php include_once _INCLUDE."js_comun.php";?>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', (event) => { 
+
+     
+
+    $("#cargoPersona").change(function(eve){ 
+        let personas ='';
+        if( $(this).val() != 0){
+            req({cargo : $(this).val()},'getPersonas.php');           
+        }else{
+            $("#persona").html('');
+        }
+        eve.preventDefault();
+    });
+
+
+    let req = (data,url) => {       
+        $.ajax({
+            data: data,
+            type: 'POST',
+            url: url,
+            // dataType:dtype,
+            success:function(data){
+               $("#persona").html(data);
+            }
+        });       
+    }
+
+
+
+
+});
+</script>
 </body>
 </html>
