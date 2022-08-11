@@ -57,10 +57,10 @@ if (empty($premio)) $premio = 0;
 if($precio_descuento == 1) $descuento_precio = ($valor_viv * $porcentaje_descuento) / 100;
 
 // cuando usa manual no usa el otro descuento
-// $descuento_ven = ($descuento_manual>0) ? $descuento_manual : $descuento_precio + $descuento_adicional ; 
-$descuento_ven = $abonoInmobiliario; 
+$descuento_ven = ($descuento_manual>0) ? $descuento_manual : $descuento_precio + $descuento_adicional ; 
+// $descuento_ven = $abonoInmobiliario; 
 
-$monto_vivienda_descuento = ($aplica_pie == 2) ? $valor_viv - $descuento_ven : $valor_viv;
+$monto_vivienda_descuento = ($aplica_pie == 2) ? $valor_viv - $descuento_ven : $monto_vivienda;
 
 
 // ----- cant de estacionamientos y bodegas de un depto  -----
@@ -82,7 +82,7 @@ $monto_vivienda_descuento_total = $monto_vivienda_descuento + $monto_estacionami
 $valor_pie = ($pie * 100) / $monto_vivienda_descuento_total;
 // monto pie es calculado con el valor vivienda multiplicado con el percentaje de valor pie
 $monto_pie = $monto_vivienda_descuento_total * (round($valor_pie) / 100);
-$monto_pie_sin_reserva = $monto_pie - $monto_reserva - $abonoInmobiliarios;
+$monto_pie_sin_reserva = $monto_pie - $monto_reserva - $abonoInmobiliario;
 
 if($aplica_pie == 2){ //no aplica
 	$pie_cancelado = $monto_pie_sin_reserva;

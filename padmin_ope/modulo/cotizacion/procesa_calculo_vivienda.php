@@ -16,6 +16,7 @@ $pie = $_POST["pie"];
 $premio = $_POST["premio"];
 $aplica_pie = $_POST["aplica_pie"];
 $abonoInmobiliario = $_POST["abonoInmobiliario"]; 
+$monto_pie_sin_reserva = 0;
 /*
 $aplica_pie = 1 es abono inmobiliario, osea descuento al pie
 $aplica_pie = 2 es descuento al precio total
@@ -80,13 +81,11 @@ $total_descuento = 0;
 $monto_reserva = 0;
 $monto_descuento = 0;
 
-$consulta = "SELECT valor_par FROM parametro_parametro WHERE valor2_par = ? AND id_con = ?";
-$conexion->consulta_form($consulta,array(12,$id_condominio));
+$conexion->consulta_form("SELECT valor_par FROM parametro_parametro WHERE valor2_par = ? AND id_con = ?",array(12,$id_condominio));
 $fila = $conexion->extraer_registro_unico();
 $monto_reserva = utf8_encode($fila['valor_par']);
 $fecha_uf = date("Y-m-d",strtotime($fecha));
-$consulta = "SELECT valor_uf FROM uf_uf WHERE fecha_uf = ?";
-$conexion->consulta_form($consulta,array($fecha_uf));
+$conexion->consulta_form("SELECT valor_uf FROM uf_uf WHERE fecha_uf = ?",array($fecha_uf));
 $cantidad_uf = $conexion->total();
     if($cantidad_uf == 0){
         ?>
@@ -107,26 +106,22 @@ if( isset($_POST["bodega"])){
 	$cantidad_bodega = count($_POST["bodega"]);
 }
 if($cantidad_estacionamiento > 0){
-    $consulta = "SELECT IFNULL(SUM(valor_esta),0) AS suma FROM estacionamiento_estacionamiento WHERE id_esta IN (".implode(',',$_POST["estacionamiento"]).") ";
-    $conexion->consulta($consulta);
+    $conexion->consulta("SELECT IFNULL(SUM(valor_esta),0) AS suma FROM estacionamiento_estacionamiento WHERE id_esta IN (".implode(',',$_POST["estacionamiento"]).") ");
     $fila = $conexion->extraer_registro_unico();
     $monto_estacionamiento = $fila["suma"];
 }
-if($cantidad_bodega > 0){
-    $consulta = "SELECT IFNULL(SUM(valor_bod),0) AS suma FROM bodega_bodega WHERE id_bod IN (".implode(',',$_POST["bodega"]).") ";
-    $conexion->consulta($consulta);
+if($cantidad_bodega > 0){   
+    $conexion->consulta("SELECT IFNULL(SUM(valor_bod),0) AS suma FROM bodega_bodega WHERE id_bod IN (".implode(',',$_POST["bodega"]).") ");
     $fila = $conexion->extraer_registro_unico();
     $monto_bodega = $fila["suma"];
 }
-if($precio_descuento == 1){//descuento al valor lista parámetro
-    $consulta = "SELECT valor_par FROM parametro_parametro WHERE valor2_par = ? AND id_con = ? ";
-    $conexion->consulta_form($consulta,array(4,$id_condominio));
+if($precio_descuento == 1){//descuento al valor lista parámetro   
+    $conexion->consulta_form("SELECT valor_par FROM parametro_parametro WHERE valor2_par = ? AND id_con = ? ",array(4,$id_condominio));
     $fila = $conexion->extraer_registro_unico();
     $porcentaje_descuento = $fila['valor_par'];
     $total_precio_descuento = ($valor_viv * $porcentaje_descuento) / 100; //aca usa el valor viv, el original
 }
-$consulta = "SELECT nombre_for_pag FROM pago_forma_pago WHERE id_for_pag = ? ";
-$conexion->consulta_form($consulta,array($forma_pago));
+$conexion->consulta_form("SELECT nombre_for_pag FROM pago_forma_pago WHERE id_for_pag = ? ",array($forma_pago));
 $fila = $conexion->extraer_registro_unico();
 $forma_pago = utf8_encode($fila['nombre_for_pag']);
 
@@ -134,7 +129,8 @@ $forma_pago = utf8_encode($fila['nombre_for_pag']);
 // $conexion->consulta_form($consulta,array($pie));
 // $fila = $conexion->extraer_registro_unico();
 
-$monto_vivienda_total = $valor_viv + $monto_bodega + $monto_estacionamiento;
+$monto_vivienda_total = $monto_vivienda + $monto_bodega + $monto_estacionamiento;
+// $monto_vivienda_total = $valor_viv + $monto_bodega + $monto_estacionamiento;
 // $porc_pie = $fila['valor_pie_ven'];
 $porc_pie = ($pie * 100) / $monto_vivienda_total; // valor del pie convertido en porcentaje
 ?>
@@ -279,7 +275,7 @@ if($cantidad_estacionamiento > 0){?>
 	<?php
 } else { //el pie no tiene descuentos
 	$monto_pie = $monto_vivienda_descuento_final * ($porc_pie / 100);
-	// $monto_pie_sin_reserva = $monto_pie - $monto_reserva;
+	$monto_pie_sin_reserva = $monto_pie - $monto_reserva;
 	?>
 	<div class="info"><b>Monto Pie (Sin Reserva):</b> <?php echo number_format($monto_pie_sin_reserva, 2, ',', '.');?> UF</div>
 	<?php
