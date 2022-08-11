@@ -211,7 +211,7 @@
                         <div class="col-sm-4 text-right">
                             <div class="form-group">
                                 <label for="fecha">Fecha:</label>
-                                <input type="text" name="fecha" class="form-control datepicker elemento" id="fecha"/>
+                                <input type="text" name="fecha" class="form-control datepicker elemento" id="fecha" autocomplete="off"/>
                             </div>
                         </div>	
 
@@ -372,8 +372,7 @@
 					monto_viv = vivienda - alPrecio;
                     abono = 0;
 				}
-			}
-                    
+			}             
             var procesa = {  
                     id: "<?php echo $id_cot;?>",  
                     id_vivienda : "<?php echo $id_viv;?>", 
@@ -440,6 +439,7 @@
             let vivienda = parseInt("<?php echo $valor_viv;?>");
             let alPrecio = parseInt($("#alPrecio").val());
             let abono = $("#abonoInmobiliario").val();
+            let descuento_porcentaje=0;
             if(opc2!="no"){
                 opt = "3";
 				monto_viv = vivienda;
@@ -447,8 +447,10 @@
             }else{
 
                 if(opt == "1"){
+                    descuento_porcentaje = abono;
                     monto_viv = vivienda;
                 }else{
+                    descuento_porcentaje = alPrecio;
                     monto_viv = vivienda - alPrecio;
                 } 
 
@@ -466,7 +468,7 @@
                     id_condominio:  "<?php echo $id_con;?>",
                     id_pro: "<?php echo $id_pro;?>",
                     monto_reserva: "<?php echo $monto_reserva;?>",
-                    porcentaje_descuento: "<?php echo $porcentaje_descuento;?>",
+                    porcentaje_descuento: descuento_porcentaje,
                     valor_viv:  "<?php echo $valor_viv;?>",
                     monto_vivienda:  monto_viv,
                     fecha:  $('#fecha').val(),
