@@ -67,7 +67,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                 <div class="row">
                                 <div class="col-md-8 col-md-offset-2" style=margin-top:3%;>
                                         <div class="alert alert-warning" role="alert" style="padding:30px;">
-                                        <i class="fa fa-warning" aria-hidden="true" style="font-size:2.4rem; padding:0 1% 1% 0;"></i>  En consideración de este ciclo de evaluación de desempeño, ambas partes concuerdan que, al momento de la evaluación de desempeño, se tuvo presente, la asignación de metas de ciclo de evaluación y el Descriptor de Cargo. Se solicita <strong>completar solo campos en blanco.</strong>
+                                        <i class="fa fa-warning" aria-hidden="true" style="font-size:2.4rem; padding:0 1% 1% 0;"></i>  En consideración de este ciclo de evaluación de desempeño, ambas partes concuerdan que, al momento de la evaluación de desempeño, se tuvo presente, la asignación de metas de ciclo de evaluación y el Descriptor de Cargo.
                                         </div>
                                     </div>
                                 </div>
@@ -89,29 +89,37 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">CARGO / FUNCIÓN</td>
-                                                    <td colspan="4" class="borde"> 
-                                                        <select name="cargoPersona" id="cargoPersona" class="form-control" autocomplete="off">
-                                                            <option value="0">seleccione un/una cargo/función</option>
-                                                            <option value="3">Operaciones</option>
-                                                            <option value="4">Vendedor</option>
-                                                        </select>
-                                                        <!-- <input type="text" name="cargoPersona" id="cargoPersona" class="form-control" autocomplete="off"></td> -->
-
-                                                </tr>
+                                                    <td colspan="4" class="borde">Asesor Inmobiliario. </tr>
                                                 <tr>
                                                     <td class="borde">NOMBRE EVALUADOR/A</td>
-                                                    <td colspan="4" class="borde"> <input type="text" name="evaluador" id="evaluador" class="form-control" autocomplete="off"></td>
+                                                    <td colspan="4" class="borde"> <input type="text" name="evaluador" id="evaluador" class="form-control" autocomplete="off" readonly></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">CARGO / FUNCIÓN</td>
-                                                    <td colspan="4" class="borde"> <input type="text" name="cargoEvaluador" id="cargoEvaluador" class="form-control" autocomplete="off"></td>
+                                                    <td colspan="4" class="borde">
+                                                        <!-- gerente de ventas y operaciones   /  jefa de operaciones -->
+                                                        <select name="cargoEvaluador" id="cargoEvaluador" class="form-control" autocomplete="off">
+                                                            <option value="0">Seleccione cargo de evaluador</option>
+                                                            <option value="1">Gerente de ventas y operaciones</option>
+                                                            <option value="7">Jefa de operaciones</option>
+                                                        </select>                                                    
                                                 </tr>
                                                 <tr>
                                                     <td class="borde"> OBSERVACIONES DE DESEMPEÑO:</td>
                                                     <td class="borde">APLICA AUSENTISMO HASTA POR 60 DÍAS HÁBILES</td>
-                                                    <td class="borde"> <b>NO</b></td>
+                                                    <td class="borde" width="12%"> 
+                                                        <select name="ausentismo" id="ausentismo" class="form-control">
+                                                            <option value="NO">NO</option>
+                                                            <option value="SI">SI</option>
+                                                        </select>
+                                                    </td>
                                                     <td class="borde">APLICA CRITERIO DE COMPENSACIÓN POR 15 DÍAS DE AUSENTISMO CONTINUO</td>
-                                                    <td class="borde"><b>NO</b></td>
+                                                    <td class="borde" width="12%">
+                                                    <select name="compensa" id="compensa" class="form-control">
+                                                            <option value="NO">NO</option>
+                                                            <option value="SI">SI</option>
+                                                        </select>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>  
@@ -131,81 +139,81 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 1 ENERO</td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
+                                                    <td class="borde"><input type="number" id="asign-1" name="asign-1" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-1" name="lograda-1" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-1" name="logro-1" class="form-control" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 2 FEBRERO</td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
+                                                    <td class="borde"><input type="number" id="asign-2" name="asign-2" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-2" name="lograda-2" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-2" name="logro-2" class="form-control" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 3 MARZO</td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
+                                                    <td class="borde"><input type="number" id="asign-3" name="asign-3" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-3" name="lograda-3" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-3" name="logro-3" class="form-control" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 4 ABRIL</td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
+                                                    <td class="borde"><input type="number" id="asign-4" name="asign-4" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-4" name="lograda-4" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-4" name="logro-4" class="form-control" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 5 MAYO</td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
+                                                    <td class="borde"><input type="number" id="asign-5" name="asign-5" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-5" name="lograda-5" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-5" name="logro-5" class="form-control" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 6 JUNIO</td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
+                                                    <td class="borde"><input type="number" id="asign-6" name="asign-6" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-6" name="lograda-6" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-6" name="logro-6" class="form-control" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 7 JULIO</td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
+                                                    <td class="borde"><input type="number" id="asign-7" name="asign-7" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-7" name="lograda-7" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-7" name="logro-7" class="form-control" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 8 AGOSTO</td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
+                                                    <td class="borde"><input type="number" id="asign-8" name="asign-8" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-8" name="lograda-8" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-8" name="logro-8" class="form-control" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 9 SEPTIEMBRE</td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
+                                                    <td class="borde"><input type="number" id="asign-9" name="asign-9" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-9" name="lograda-9" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-9" name="logro-9" class="form-control" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 10 OCTUBRE</td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
+                                                    <td class="borde"><input type="number" id="asign-10" name="asign-10" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-10" name="lograda-10" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-10" name="logro-10" class="form-control" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 11 NOVIEMBRE</td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
+                                                    <td class="borde"><input type="number" id="asign-11" name="asign-11" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-11" name="lograda-11" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-11" name="logro-11" class="form-control" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 12 DICIEMBRE</td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
+                                                    <td class="borde"><input type="number" id="asign-12" name="asign-12" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-12" name="lograda-12" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-12" name="logro-12" class="form-control" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">TOTALES</td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
-                                                    <td class="borde"></td>
+                                                    <td class="borde"><input type="number" id="totalAsignado" name="totalAsignado" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="totalLogrado" name="totalLogrado" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="porcentajeTotal" name="porcentajeTotal" class="form-control" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="1" class="borde text-left">FUNDAMENTACIÓN</td>                                                    
@@ -359,12 +367,12 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                 <div class="row" style="margin:50px 0 50px 0;">
                                     <div class="container">
                                         <div class="col-md-4 col-md-offset-2 text-left"><hr style="height:1px;border:none;color:#333;background-color:#333;">
-                                         <p class="text-center">NOMBRE PERSONA EVALUADA</p>
-                                         <p class="text-center">CARGO</p>
+                                         <p class="text-center" id="firmaEvaluado">NOMBRE PERSONA EVALUADA</p>
+                                         <p class="text-center">Vendedor</p>
                                        </div>
                                         <div class="col-md-4 text-right"><hr style="height:1px;border:none;color:#333;background-color:#333;">
-                                        <p class="text-center">NOMBRE PERSONA EVALUADORA</p>
-                                         <p class="text-center">JEFATURA DE VENTAS</p>
+                                        <p class="text-center" id="firmaEvaluador">NOMBRE PERSONA EVALUADORA</p>
+                                         <p class="text-center" id="evaluadorCargo">JEFATURA DE VENTAS</p>
                                       </div>
                                     </div>        
                                 </div>  
@@ -384,36 +392,55 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
 <?php include_once _INCLUDE."footer_comun.php";?>
 <?php include_once _INCLUDE."js_comun.php";?>
 <script type="text/javascript">
-document.addEventListener('DOMContentLoaded', (event) => { 
-
-     
-
-    $("#cargoPersona").change(function(eve){ 
-        let personas ='';
-        if( $(this).val() != 0){
-            req({cargo : $(this).val()},'getPersonas.php');           
-        }else{
-            $("#persona").html('');
+document.addEventListener('DOMContentLoaded', (event) => {   
+    const asign_ = (arreglo) =>{
+        for (let index = 1; index < 12; index++) {
+            $("#asign-"+index).val('');            
         }
-        eve.preventDefault();
-    });
-
-
-    let req = (data,url) => {       
+        for (let index = 0; index < arreglo.length; index++) {                
+                $("#asign-"+arreglo[index].mes).val(arreglo[index].meta)                                                        
+            }
+    } 
+    const req = (data,url,id) => {$.ajax({data: data,type: 'POST',url: url,success:function(data){
+         if(id=='evaluador'){
+            $("#"+id+"").val(data)
+            $("#firmaEvaluador").text(data)
+        }else{$("#"+id+"").html(data)}
+        }
+    })}
+    const metas = (data,url) =>{
         $.ajax({
-            data: data,
+            data : data,
             type: 'POST',
             url: url,
-            // dataType:dtype,
+            dataType: 'json',
             success:function(data){
-               $("#persona").html(data);
+                if(data.state){
+                    asign_(data.data);                    
+                }else{
+                    console.log(data);
+                }                
             }
-        });       
+        });
     }
-
-
-
-
+    req('','getPersonas.php','persona');
+    $("#persona").change(function(){
+        if($(this).val()!=0){
+            metas({vendedor:$(this).val()},'getMetas.php');
+            $("#firmaEvaluado").text($("#persona option:selected").text());
+        }else{
+            $("#firmaEvaluado").text("NOMBRE PERSONA EVALUADA");
+        }
+    });
+    $("#cargoEvaluador").change(function(){
+        if($(this).val()!=0){
+            req({cargo:$(this).val()},'getEvaluador.php','evaluador');           
+            $("#evaluadorCargo").text($("#cargoEvaluador option:selected").text());
+        }else{
+            $("#firmaEvaluador").text("NOMBRE PERSONA EVALUADORA");
+            $("#evaluadorCargo").text("JEFATURA DE VENTAS");
+        }
+    });
 });
 </script>
 </body>
