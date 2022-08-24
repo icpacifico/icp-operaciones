@@ -247,8 +247,6 @@ unset($_SESSION["numero_item"]);
             autoclose: true
         });
 
-
-
         $(document).on( "click","#procesar" , function() {
         	$('#contenedor_liquidacion').html('<div style="width: 100%; min-height: 40vh; text-align: center; padding-top: 50px"><img src="../../assets/img/loading.gif"></div>');
             var_fecha_desde = $('#fecha_desde').val();
@@ -268,11 +266,8 @@ unset($_SESSION["numero_item"]);
             }
             else{
                 swal("Atención!", "Falta información para procesar liquidación", "warning");
-            }
-            
-        });
-        
-       
+            }            
+        });               
         $(document).on( "click","#guarda" , function() {
             swal({
                 title: "Está Seguro?",
@@ -284,47 +279,15 @@ unset($_SESSION["numero_item"]);
                 cancelButtonText: "Cancelar",
                 closeOnConfirm: true,
             },
-            function(){
-                // $('#start_form').hide();
-                // $('#sending').show();
-                // $('#sended').text(0);
-                // $('#total').text($('#total_comments').val());
-        
-                //reset progress bar
-                // $('.progress-bar').css('width', '0%');
-                // $('.progress-bar').text('0%');
-                // $('.progress-bar').attr('data-progress', '0');                                  
+            function(){                                       
                 $.ajax({
                     type: 'POST',
-                    url: ("insert.php"),
-                    //data:"valor="+valor+"&cantidad="+var_check+"&reserva="+var_reserva+"&fecha_dep="+var_fecha_dep+"&programa_base="+var_programa_base,
-                    // data: "c2bono="+arrayc2+"&c3bono="+arrayc3,
+                    url: ("insert.php"),                    
                     dataType: 'json',                    
-                    success: function (response) {
-                      
-                        // $('.progress-bar').css('width', response.percentage+'%');
-                        // $('.progress-bar').text(response.percentage+'%');
-                        // $('.progress-bar').attr('data-progress', response.percentage);
-            
-                        // $('#done').text(response.executed);
-                        // $('.execute-time').text(response.execute_time);
-            
-                        // if (response.percentage == 100) {
-                        //     $('.end-process').show();
-                            resultado(response);
-                        // } else {
-                        //    console.log(response);
-                        //    console.log(response.percentage);
-                        //    console.log(response.executed);
-                        //    console.log(response.execute_time);
-                        // }
-                        
-                       
+                    success: function (response) {                      
+                            resultado(response);                        
                     },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        // if (textStatus == 'parsererror') {
-                        //     textStatus = 'Technical error: Unexpected response returned by server. Sending stopped.';
-                        // }
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {                    
                         alert('Error de sistema : '+textStatus+' favor contactar con el administrador de sistemas.');
                     }       
                 })
@@ -336,7 +299,7 @@ unset($_SESSION["numero_item"]);
         
         $('.numero').numeric();
         $(function () {
-            //Initialize Select2 Elements
+            
             $(".select2").select2();
         });
 
