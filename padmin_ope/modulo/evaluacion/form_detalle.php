@@ -33,6 +33,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
         include _INCLUDE."class/conexion.php";
         $conexion = new conexion();
         require_once _INCLUDE."menu_modulo.php";
+        $year = date('Y');
         ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -60,7 +61,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                     <div class="col-12 text-center" style="margin-bottom:3%">
                                         <h3>ANEXO 02: INFORME DE DESEMPEÑO <small>PR-AX- 02- INFORME DESEMPEÑO / VERSIÓN 01/2021</small></h3>
                                     </div>
-                                    <div class="col-md-6 text-right" style="font-size:1.8rem;"> <b>CICLO DE EVALUACIÓN : 2020 - 2021</b></div>
+                                    <div class="col-md-6 text-right" style="font-size:1.8rem;"> <b>CICLO DE EVALUACIÓN : <?php echo $year?> - <?php echo ($year + 1)?></b></div>
                                     <div class="col-md-6" style="font-size:1.8rem;"> <b>FECHA EVALUACIÓN : <?php echo Date('d-m-Y');?></b></div>
                                     
                                 </div>
@@ -139,81 +140,81 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 1 ENERO</td>
-                                                    <td class="borde"><input type="number" id="asign-1" name="asign-1" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="lograda-1" name="lograda-1" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="logro-1" name="logro-1" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="asign-1" name="asign-1" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-1" name="lograda-1" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-1" name="logro-1" class="form-control limpia" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 2 FEBRERO</td>
-                                                    <td class="borde"><input type="number" id="asign-2" name="asign-2" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="lograda-2" name="lograda-2" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="logro-2" name="logro-2" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="asign-2" name="asign-2" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-2" name="lograda-2" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-2" name="logro-2" class="form-control limpia" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 3 MARZO</td>
-                                                    <td class="borde"><input type="number" id="asign-3" name="asign-3" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="lograda-3" name="lograda-3" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="logro-3" name="logro-3" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="asign-3" name="asign-3" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-3" name="lograda-3" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-3" name="logro-3" class="form-control limpia" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 4 ABRIL</td>
-                                                    <td class="borde"><input type="number" id="asign-4" name="asign-4" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="lograda-4" name="lograda-4" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="logro-4" name="logro-4" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="asign-4" name="asign-4" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-4" name="lograda-4" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-4" name="logro-4" class="form-control limpia" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 5 MAYO</td>
-                                                    <td class="borde"><input type="number" id="asign-5" name="asign-5" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="lograda-5" name="lograda-5" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="logro-5" name="logro-5" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="asign-5" name="asign-5" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-5" name="lograda-5" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-5" name="logro-5" class="form-control limpia" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 6 JUNIO</td>
-                                                    <td class="borde"><input type="number" id="asign-6" name="asign-6" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="lograda-6" name="lograda-6" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="logro-6" name="logro-6" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="asign-6" name="asign-6" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-6" name="lograda-6" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-6" name="logro-6" class="form-control limpia" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 7 JULIO</td>
-                                                    <td class="borde"><input type="number" id="asign-7" name="asign-7" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="lograda-7" name="lograda-7" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="logro-7" name="logro-7" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="asign-7" name="asign-7" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-7" name="lograda-7" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-7" name="logro-7" class="form-control limpia" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 8 AGOSTO</td>
-                                                    <td class="borde"><input type="number" id="asign-8" name="asign-8" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="lograda-8" name="lograda-8" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="logro-8" name="logro-8" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="asign-8" name="asign-8" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-8" name="lograda-8" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-8" name="logro-8" class="form-control limpia" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 9 SEPTIEMBRE</td>
-                                                    <td class="borde"><input type="number" id="asign-9" name="asign-9" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="lograda-9" name="lograda-9" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="logro-9" name="logro-9" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="asign-9" name="asign-9" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-9" name="lograda-9" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-9" name="logro-9" class="form-control limpia" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 10 OCTUBRE</td>
-                                                    <td class="borde"><input type="number" id="asign-10" name="asign-10" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="lograda-10" name="lograda-10" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="logro-10" name="logro-10" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="asign-10" name="asign-10" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-10" name="lograda-10" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-10" name="logro-10" class="form-control limpia" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 11 NOVIEMBRE</td>
-                                                    <td class="borde"><input type="number" id="asign-11" name="asign-11" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="lograda-11" name="lograda-11" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="logro-11" name="logro-11" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="asign-11" name="asign-11" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-11" name="lograda-11" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-11" name="logro-11" class="form-control limpia" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">MES 12 DICIEMBRE</td>
-                                                    <td class="borde"><input type="number" id="asign-12" name="asign-12" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="lograda-12" name="lograda-12" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="logro-12" name="logro-12" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="asign-12" name="asign-12" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="lograda-12" name="lograda-12" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="logro-12" name="logro-12" class="form-control limpia" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde">TOTALES</td>
-                                                    <td class="borde"><input type="number" id="totalAsignado" name="totalAsignado" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="totalLogrado" name="totalLogrado" class="form-control" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="porcentajeTotal" name="porcentajeTotal" class="form-control" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="totalAsignado" name="totalAsignado" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="totalLogrado" name="totalLogrado" class="form-control limpia" autocomplete="off"></td>
+                                                    <td class="borde"><input type="number" id="porcentajeTotal" name="porcentajeTotal" class="form-control limpia" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="1" class="borde text-left">FUNDAMENTACIÓN</td>                                                    
@@ -368,7 +369,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                     <div class="container">
                                         <div class="col-md-4 col-md-offset-2 text-left"><hr style="height:1px;border:none;color:#333;background-color:#333;">
                                          <p class="text-center" id="firmaEvaluado">NOMBRE PERSONA EVALUADA</p>
-                                         <p class="text-center">Vendedor</p>
+                                         <p class="text-center">Asesor Inmobiliario</p>
                                        </div>
                                         <div class="col-md-4 text-right"><hr style="height:1px;border:none;color:#333;background-color:#333;">
                                         <p class="text-center" id="firmaEvaluador">NOMBRE PERSONA EVALUADORA</p>
@@ -393,14 +394,25 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
 <?php include_once _INCLUDE."js_comun.php";?>
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', (event) => {   
-    const asign_ = (arreglo) =>{
-        for (let index = 1; index < 12; index++) {
-            $("#asign-"+index).val('');            
-        }
+    const asign_ = (arreglo) =>{                
         for (let index = 0; index < arreglo.length; index++) {                
                 $("#asign-"+arreglo[index].mes).val(arreglo[index].meta)                                                        
             }
     } 
+    const lograda_ = (arreglo) =>{
+        for (let index = 0; index < arreglo.length; index++) {
+            $("#lograda-"+arreglo[index].mes).val(arreglo[index].meta)     
+            
+        }
+    }
+    const logro_ = () =>{
+        for (let index = 1; index < 13; index++) {               
+                    let lograda = $("#lograda-"+index).val();
+                    console.log(lograda);
+                    let asign = $("#asign-"+index).val();
+                    console.log(asign);                                                  
+        }
+    }
     const req = (data,url,id) => {$.ajax({data: data,type: 'POST',url: url,success:function(data){
          if(id=='evaluador'){
             $("#"+id+"").val(data)
@@ -408,7 +420,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }else{$("#"+id+"").html(data)}
         }
     })}
-    const metas = (data,url) =>{
+    const metas = (data,url,asignada) =>{
         $.ajax({
             data : data,
             type: 'POST',
@@ -416,7 +428,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
             dataType: 'json',
             success:function(data){
                 if(data.state){
-                    asign_(data.data);                    
+                   if(asignada){
+                    asign_(data.data)
+                    }else{
+                    lograda_(data.data)
+                    }                    
                 }else{
                     console.log(data);
                 }                
@@ -425,10 +441,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
     req('','getPersonas.php','persona');
     $("#persona").change(function(){
-        if($(this).val()!=0){
-            metas({vendedor:$(this).val()},'getMetas.php');
+        $('.limpia').val('');
+        if($(this).val()!=0){            
+            metas({vendedor:$(this).val(),opt:1},'getMetas.php',true);
+            metas({vendedor:$(this).val(),opt:2},'getMetas.php',false);
+            // logro_();
+            for (let index = 0; index < 13; index++) {               
+                    let lograda = $("#lograda-"+index).val();
+                    console.log(lograda);
+                    let asign = $("#asign-"+index).val();
+                    console.log(asign);                                                  
+        }
             $("#firmaEvaluado").text($("#persona option:selected").text());
-        }else{
+        }else{           
             $("#firmaEvaluado").text("NOMBRE PERSONA EVALUADA");
         }
     });
