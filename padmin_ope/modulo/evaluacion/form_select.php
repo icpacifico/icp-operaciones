@@ -79,7 +79,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                                 matriz.rpregunta2,
                                                                 matriz.rpregunta3,
                                                                 matriz.rpregunta4,
-                                                                matriz.fecha_crecion                                                                  
+                                                                matriz.fecha_creacion                                                                  
                                                                 FROM matriz_desarrollo as matriz 
                                                                 INNER JOIN vendedor_vendedor as vende 
                                                                 ON matriz.id_vendedor = vende.id_vend");                                          

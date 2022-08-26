@@ -30,27 +30,27 @@ function formato($val){
     return intval($var[1] - 1);
 }
 // estructura base para devolver un mensaje de estatus de la petición
-function status($title,$msj,$alert){
+function status($title,$message,$icon){
         $jsondata['title'] = $title;
-        $jsondata['msj'] = $msj;
-        $jsondata['alert'] = $alert;
+        $jsondata['message'] = $message;
+        $jsondata['icon'] = $icon;
         echo json_encode($jsondata);
+        die();
 }
     // validación para obtener todos los valores del formulario
     if($ven_id == 0 || $resp1 == 0 || $resp2 == 0 || $resp3 == 0 || $resp4 == 0){
-        status("Incompleto!","Porfavor completar el formulario.","warning");      
-        die();
+        status("Incompleto!","Porfavor completar el formulario.","warning");
     }else{       
         $pts = (formato($resp1) + formato($resp2) + formato($resp3) + formato($resp4));        
         $percents = percents($pts);
         try {
             $query = "INSERT INTO matriz_desarrollo(puntos,porcentaje,id_vendedor,rpregunta1,rpregunta2,rpregunta3,rpregunta4)VALUES(?,?,?,?,?,?,?)";
             $conexion->consulta_form($query,array($pts,$percents,$ven_id,formato($resp1),formato($resp2),formato($resp3),formato($resp4)));
-            status("Registrado!","Evaluación de desempeño registrada con éxito.","success");            
-            die();
-        } catch (Exception $e) {
-            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e." ","danger");           
-            die();
+            status("Registrado!","Evaluación de desempeño registrada con éxito.","success");
+        }catch(Exception $e) {
+            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e->message()." ","danger");
+        }catch(PDOException $e) {
+            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e->message()." ","danger");           
         }        
     }   
 ?>

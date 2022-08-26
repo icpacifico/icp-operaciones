@@ -36,11 +36,10 @@ class conexion
 		}					  				
 	}
 
-	private static function status($title,$message,$icon,$action){
+	private static function status($title,$message,$icon){
 		$jsondata['title'] = $title;
 		$jsondata['message'] = $message;
-		$jsondata['icon'] = $icon;
-		$jsondata['action'] = $action;		
+		$jsondata['icon'] = $icon;				
 		print json_encode($jsondata);
 		die();
 	}
@@ -70,7 +69,7 @@ class conexion
 		try {
 			self::$conexionDB = null;
 		}catch (PDOException $e){ 
-			self::status("Error Grave!",self::codeError($e),"error","#");
+			self::status("Error Grave!",self::codeError($e),"error");
 		}		
 	}
 
@@ -79,7 +78,7 @@ class conexion
 			self::$ejecutar = self::$conexionDB->prepare($consulta);		    
 		    self::$ejecutar->execute($valor);		   
 		}catch (PDOException $e){ 
-			self::status("Error Grave!",self::codeError($e),"error","#");
+			self::status("Error Grave!",self::codeError($e),"error");
 		}
 	}
 
@@ -90,7 +89,7 @@ class conexion
 			$con->execute();
 			return $con->fetchAll(PDO::FETCH_ASSOC);			
 		}catch (PDOException $e){ 
-			self::status("Error Grave!",self::codeError($e),"error","#");
+			self::status("Error Grave!",self::codeError($e),"error");
 		}
 	}
 	
@@ -105,7 +104,7 @@ class conexion
 		try {
 			self::$ejecutar = self::$conexionDB->query($consulta);
 		}catch (PDOException $e){ 
-			self::status("Error Grave!",self::codeError($e),"error","#");
+			self::status("Error Grave!",self::codeError($e),"error");
 		}
 	}
 
@@ -114,7 +113,7 @@ class conexion
 			$rows = self::$conexionDB->query($query);
 			return $rows->rowCount();		
 	    }catch (PDOException $e){ 
-			self::status("Error Grave!",self::codeError($e),"error","#");
+			self::status("Error Grave!",self::codeError($e),"error");
 		}
 	}
 
@@ -123,7 +122,7 @@ class conexion
 		try {
 			self::$ejecutar = self::$conexionDB->query($consulta);			
 		}catch (PDOException $e){ 
-			self::status("Error Grave!",self::codeError($e),"error","#");
+			self::status("Error Grave!",self::codeError($e),"error");
 		}
 	}
 	//-------EXTRAE LOS REGISTROS DE UNA TABLA
@@ -132,7 +131,7 @@ class conexion
 			$file='';
 			return ($file = self::$ejecutar->fetchAll(PDO::FETCH_ASSOC)) ? $file : false;
 		}catch (PDOException $e){ 
-			self::status("Error Grave!",self::codeError($e),"error","#");
+			self::status("Error Grave!",self::codeError($e),"error");
 		}
 	}
 	//-------EXTRAE LOS REGISTROS DE UNA TABLA
@@ -141,7 +140,7 @@ class conexion
 			$file='';
 			return ($file = self::$ejecutar->fetch()) ? $file : false;
 		}catch (PDOException $e){ 
-			self::status("Error Grave!",self::codeError($e),"error","#");
+			self::status("Error Grave!",self::codeError($e),"error");
 		}		
 	}
 	//-------CANTIDAD DE REGISTROS DE UNA CONSULTA
@@ -149,7 +148,7 @@ class conexion
 		try {
 			return self::$ejecutar->rowCount();
 		}catch (PDOException $e){ 
-			self::status("Error Grave!",self::codeError($e),"error","#");
+			self::status("Error Grave!",self::codeError($e),"error");
 		}		
 	}
 	//-------DEVUELVE EL ULTIMO ID DESPUES DE UNA INSERCION
@@ -157,7 +156,7 @@ class conexion
 		try {
 			return self::$conexionDB->lastInsertId();		
 	    }catch (PDOException $e){ 
-			self::status("Error Grave!",self::codeError($e),"error","#");
+			self::status("Error Grave!",self::codeError($e),"error");
 		}		
 	}
 
