@@ -202,7 +202,7 @@ $(function () {
             data: data,
             dataType:'json',
             success:function(result){
-                swal(result.title, result.msj, result.alert);
+                swal(result.title, result.message, result.icon);
             }
       });
       event.preventDefault();
