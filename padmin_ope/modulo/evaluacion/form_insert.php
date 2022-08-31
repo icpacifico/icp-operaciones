@@ -118,9 +118,9 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) header("Location: "._ADMIN."pa
                                             <tr>
                                                 <td class="claro">CATEGORIA PORCENTUAL DE DESARROLLO</td>
                                                 <td class="claro">0%</td>
-                                                <td class="claro">20%</td>
-                                                <td class="claro">40%</td>
-                                                <td class="claro">70%</td>
+                                                <td class="claro">25%</td>
+                                                <td class="claro">50%</td>
+                                                <td class="claro">75%</td>
                                                 <td class="claro">100%</td>
                                             </tr>
                                         </thead>

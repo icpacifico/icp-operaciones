@@ -46,6 +46,10 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
         font-weight: 900;
         font-size:1.6em;
     }
+    input,select,textarea{
+        border:none !important;
+    }
+    
 </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -76,6 +80,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                     <!-- left column -->
                     <div class="col-sm-12">
                       <!-- general form elements -->
+                      
                         <div class="box box-primary" >   
                             <div class="container">
                                 <div class="row">
@@ -249,13 +254,13 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                 </tr>
                                                 <tr>
                                                     <td class="borde text-left">ORIENTACIÓN AL CLIENTE</td>
-                                                    <td class="borde"><input type="number" id="orientacionAlCLiente1" name="orientacionAlCLiente1" class="form-control redNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="orientacionAlCLiente2" name="orientacionAlCLiente2" class="form-control redNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="orientacionAlCLiente3" name="orientacionAlCLiente3" class="form-control blackNumbers" autocomplete="off"></td>
+                                                    <td class="borde redNumbers">4</td>
+                                                    <td class="borde"><input type="number" id="orientacionAlCLiente" name="orientacionAlCLiente" class="form-control redNumbers limpia" autocomplete="off"></td>
+                                                    <td class="borde blackNumbers limpiaText" id="total1">0</td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="1" class="borde text-left" >FUNDAMENTACIÓN</td>                                                    
-                                                    <td colspan="3" class="borde"><textarea name="fundamentacion2" class="form-control" id="fundamentacion2" cols="30" rows="3" autocomplete="off"></textarea></td>
+                                                    <td colspan="3" class="borde"><textarea name="fundamentacion2" class="form-control limpia" id="fundamentacion2" cols="30" rows="3" autocomplete="off"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde text-left"><strong>2.3 COMPETENCIA 2</strong></td>
@@ -265,13 +270,13 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                 </tr>
                                                 <tr>
                                                     <td class="borde text-left">HABILIDADES INTERPERSONALES</td>
-                                                    <td class="borde"><input type="number" id="habilidades1" name="habilidades1" class="form-control redNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="habilidades2" name="habilidades2" class="form-control redNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="habilidades3" name="habilidades3" class="form-control blackNumbers" autocomplete="off"></td>
+                                                    <td class="borde redNumbers">4</td>
+                                                    <td class="borde"><input type="number" id="habilidades" name="habilidades" class="form-control redNumbers limpia" autocomplete="off"></td>
+                                                    <td class="borde blackNumbers limpiaText" id="total2">0</td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="1" class="borde text-left" >FUNDAMENTACIÓN</td>                                                    
-                                                    <td colspan="3" class="borde"><textarea name="fundamentacion3" class="form-control" id="fundamentacion3" cols="30" rows="3" autocomplete="off"></textarea></td>
+                                                    <td colspan="3" class="borde"><textarea name="fundamentacion3" class="form-control limpia" id="fundamentacion3" cols="30" rows="3" autocomplete="off"></textarea></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="borde text-left"><strong>2.4 COMPETENCIA 3</strong></td>
@@ -281,9 +286,9 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                 </tr>
                                                 <tr>
                                                     <td class="borde text-left">ORIENTACIÓN AL LOGRO</td>
-                                                    <td class="borde"><input type="number" id="orientacionAlLogro1" name="oreintacionAlLogro1" class="form-control redNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="orientacionAlLogro2" name="oreintacionAlLogro2" class="form-control redNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="orientacionAlLogro3" name="oreintacionAlLogro3" class="form-control blackNumbers" autocomplete="off"></td>
+                                                    <td class="borde redNumbers">4</td>
+                                                    <td class="borde"><input type="number" id="orientacionAlLogro" name="oreintacionAlLogro" class="form-control redNumbers limpia" autocomplete="off"></td>
+                                                    <td class="borde blackNumbers limpiaText" id="total3">0</td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="1" class="borde text-left" >FUNDAMENTACIÓN</td>                                                    
@@ -297,9 +302,9 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                 </tr>
                                                 <tr>
                                                     <td class="borde text-left">NEGOCIACIÓN</td>
-                                                    <td class="borde"><input type="number" id="negociacion1" name="negociacion1" class="form-control redNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="negociacion2" name="negociacion2" class="form-control redNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="negociacion3" name="negociacion3" class="form-control blackNumbers" autocomplete="off"></td>
+                                                    <td class="borde redNumbers">4</td>
+                                                    <td class="borde"><input type="number" id="negociacion" name="negociacion" class="form-control redNumbers limpia" autocomplete="off"></td>
+                                                    <td class="borde blackNumbers limpiaText" id="total4">0</td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="1" class="borde text-left" >FUNDAMENTACIÓN</td>                                                    
@@ -414,11 +419,16 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                 <div class="row" style="padding-bottom:3%;">
                                     <div class="container">
                                         <div class="col-md-12 text-center"><small>DOCUMENÉNTESE ELECTRÓNICAMENTE Y EN CARPETA FÍSICA DEL/LA TRABAJADOR/A</small></div>
+                                        <div class="col-md-12 text-center">
+                                            <input type="button" class="btn btn-primary" id="pdf" value="Pasar a pdf" />
+                                            <a href="javascript:window.print()" class="btn btn-primary btn-md">IMPRIMIR DOCUMENTO</a>
+                                        </div>
                                     </div>
                                 </div>
 
                             </div>
-                        </div>                      
+                        </div>      
+                                       
                     </div>                    
                 </div>
             </section>            
@@ -499,6 +509,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }else{$("#"+id+"").html(data)}
         }
     })}
+    const req2 = (data, url) => {
+        $.ajax({data: data,type: 'POST',url: url,dataType:'json',
+        success:function(data){
+            // console.log(data.state);
+            if(data.state){
+                let val1 = parseInt(data.data[0].rpregunta1) * 100 / 4;
+                let val2 = parseInt(data.data[0].rpregunta2) * 100 / 4;
+                let val3 = parseInt(data.data[0].rpregunta3) * 100 / 4;
+                let val4 = parseInt(data.data[0].rpregunta4) * 100 / 4;
+                sumaCompetencias(val1,val2,val3,val4)
+                $("#orientacionAlCLiente").val(data.data[0].rpregunta1);
+                $("#total1").text(val1);
+                $("#habilidades").val(data.data[0].rpregunta2);
+                $("#total2").text(val2);
+                $("#orientacionAlLogro").val(data.data[0].rpregunta3);
+                $("#total3").text(val3);
+                $("#negociacion").val(data.data[0].rpregunta4);            
+                $("#total4").text(val4);
+            }else{
+                console.log(data.data)
+            }
+            
+        }
+    })  
+    }
     const metas = (data,url,asignada) =>{
         $.ajax({
             data : data,
@@ -521,7 +556,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     req('','getPersonas.php','persona');
     $("#persona").change(function(){
         $('.limpia').val('');
-        if($(this).val()!=0){            
+        $('.limpiaText').text('0');
+        if($(this).val()!=0){      
+            req2({vendedor:$(this).val()},'getEvaluacion.php');      
             metas({vendedor:$(this).val(),opt:1},'getMetas.php',true);
             metas({vendedor:$(this).val(),opt:2},'getMetas.php',false);            
             $("#firmaEvaluado").text($("#persona option:selected").text());
@@ -546,29 +583,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
     $("#calTot").click(function(){ logro_(); });
 
-    const inputFunc = (id) => {
-        $('#'+id+'1').on('input', function() {
-            let val1 = parseInt($('#'+id+'1').val());
-            let val2 = parseInt($('#'+id+'2').val());
-            let total = (val2 * 100) / val1;
-            $("#"+id+'3').val(total);
-            sumaCompetencias('orientacionAlCLiente','habilidades','orientacionAlLogro','negociacion')
-        });
-        $('#'+id+'2').on('input', function() {
-            let val1 = parseInt($('#'+id+'1').val());
-            let val2 = parseInt($('#'+id+'2').val());
-            let total = (val2 * 100) / val1;
-            $("#"+id+'3').val(total);
-            sumaCompetencias('orientacionAlCLiente','habilidades','orientacionAlLogro','negociacion')
-        });
-        
+    const inputFunc = (id,totalv) => {
+        $('#'+id).on('input', function() {
+            let val1 = parseInt($(this).val());            
+            let total = (val1 * 100) / 4;
+            $("#"+totalv).text(total);
+            sumaCompetencias( parseInt($("#total1").text()),parseInt($("#total2").text()),parseInt($("#total3").text()),parseInt($("#total4").text()))
+        });               
     }
-    const sumaCompetencias = (com1,com2,com3,com4) => {
-        let val1 = parseInt($("#"+com1+"3").val());
-        let val2 = parseInt($("#"+com2+"3").val());
-        let val3 = parseInt($("#"+com3+"3").val());
-        let val4 = parseInt($("#"+com4+"3").val());
-        let total = (val1 + val2 + val3 + val4) / 4;
+    const sumaCompetencias = (com1,com2,com3,com4) => {        
+        let total = (com1 + com2 + com3 + com4) / 4;
         $("#resultadoCompetencia").text(Math.round(total));
         $("#totalCompetencia").text(Math.round(total * 0.3));
         let total1 = parseInt($("#totalMeta").text());
@@ -577,11 +601,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         $("#total").text(sumaTotal);
         criterio(sumaTotal);
     }
-    inputFunc('orientacionAlCLiente')
-    inputFunc('habilidades')
-    inputFunc('orientacionAlLogro')
-    inputFunc('negociacion')
-    
+    inputFunc('orientacionAlCLiente','total1')
+    inputFunc('habilidades','total2')
+    inputFunc('orientacionAlLogro','total3')
+    inputFunc('negociacion','total4')    
 
 // merito y demerito
 
@@ -632,6 +655,62 @@ const criterio = (valor) => {
     }
 }    
 });
+
+$("#pdf").on('click',function(e){    
+    let pdfData = {
+        persona : v_("persona","val"),
+        evaluador : v_("evaluador","val"),
+        cargoEvaluador : v_("cargoEvaluador","val"),
+        ausentismo : v_("ausentismo","val"),
+        compensa : v_("compensa","val"),       
+        fundamentacion1 : v_("fundamentacion1","val"),
+        fundamentacion2 : v_("fundamentacion2","val"),
+        fundamentacion3 : v_("fundamentacion3","val"),
+        fundamentacion4 : v_("fundamentacion4","val"),
+        fundamentacion5 : v_("fundamentacion5","val"),       
+        merito : v_("merito","val"),
+        demerito : v_("demerito","val"),
+        desarrollo : v_("desarrollo","text"),
+        obsmejora : v_("obsmejora","val"),
+        hecho : v_("hecho","val"),
+        objetivo : v_("objetivo","val"),
+        kpi : v_("kpi","val"),
+        mejora : v_("mejora","val")
+    }    
+    $.ajax({        
+        url : "insert_informe.php",        
+        type : "POST",
+        data : pdfData,
+        dataType : 'json',
+        success:function(result){
+            console.log(result)
+                swal(result.title, result.message, result.icon);
+        }
+    });
+    e.preventDefault();
+});
+
+const v_ = (campo,val) =>{
+    let valor ="";
+    if(val == "val"){
+        valor = $("#"+campo).val()
+    }else if(val=="text"){
+        valor = $("#"+campo).text()
+    }else if(val == "select"){        
+        valor = $('select[name="'+campo+'"] option:selected').text();
+
+    }    
+    return valor;
+}
+const recorre = (id) =>{
+    let arreglo = [];
+    let cont = 1;
+    for (let index = 0; index < 12; index++) {
+            arreglo[index] = $("#"+id+"-"+cont).val();
+            cont +=1;        
+    }
+    return arreglo;
+}
 </script>
 </body>
 </html>
