@@ -683,8 +683,25 @@ $("#pdf").on('click',function(e){
         data : pdfData,
         dataType : 'json',
         success:function(result){
-            console.log(result)
+            if(result.title == "data"){  
+                let asignados = recorre('asign');              
+                let lograda = recorre('lograda');              
+                let logro = recorre('logro');
+                criterio = {
+                    asign : asignados,
+                    lograda : lograda,
+                    logro : logro,
+                    totalAsign : $("#totalAsignado").val(),
+                    totalLograda : $("#totalLogrado").val(),
+                    totalLogro : $("#porcentajeTotal").val()
+                }
+                   
+
+                location.href='<?php echo _MODULO?>evaluacion/evaluacionPdf.php?id='+result.message+'&criterio='+JSON.stringify(criterio);                
+            }else{
                 swal(result.title, result.message, result.icon);
+            }
+                
         }
     });
     e.preventDefault();

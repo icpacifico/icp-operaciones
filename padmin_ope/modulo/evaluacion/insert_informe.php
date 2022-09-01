@@ -40,8 +40,8 @@ try {
                                           $_POST['ausentismo'],
                                           $_POST['compensa']
                                         ));
-    
-    status("Registrado!","Evaluación de desempeño registrada con éxito.","success");
+    $last_id = $conexion->ultimo_id();
+    status("data",$last_id,"success");
 }catch(Exception $e) {
     status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e->message()." ","danger");
 }catch(PDOException $e) {

@@ -1,0 +1,42 @@
+.titulos{
+    font-weight: bold;
+    border:none; 
+    padding-bottom:5px;
+}
+.borde{
+    border:1px solid #D7DBDD;
+    padding:9px;
+}
+.borde2{
+    border:3px solid #D7DBDD;
+    padding:10px;
+}
+table, tr, td{
+vertical-align: middle !important;
+}    
+.bg-yellow, .callout.callout-warning, .alert-warning, .label-warning, .modal-warning .modal-body {
+    color: #8a6d3b !important; 
+    background-color: #fcf8e3 !important; 
+    border: none !important; 
+}
+.redNumbers{
+    text-align:center;
+    color:#dd131a;
+    font-weight: 900;
+    font-size:1.6em;
+}
+.blackNumbers{
+    text-align:center;
+    color:black;
+    font-weight: 900;
+    font-size:2em;
+}
+.blackNumbers2{
+    text-align:center;
+    color:black;
+    font-weight: 900;
+    font-size:1.6em;
+}
+input,select,textarea{
+    border:none !important;
+}
