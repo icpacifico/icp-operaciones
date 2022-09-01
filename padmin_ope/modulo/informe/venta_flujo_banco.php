@@ -19,91 +19,91 @@ require_once _INCLUDE."head_informe.php";
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 <style type="text/css">
-.container-fluid .content .filtros .form-control {
-    display: block;
-    width: 100%;
-    height: 24px;
-    padding: 8px 4px;
-    font-size: 12px;
-    line-height: 1.3;
-    height: 35px;
-}
+	.container-fluid .content .filtros .form-control {
+		display: block;
+		width: 100%;
+		height: 24px;
+		padding: 8px 4px;
+		font-size: 12px;
+		line-height: 1.3;
+		height: 35px;
+	}
 
-.container-fluid .content .input-group .form-control.chico {
-    display: block;
-    width: 100%;
-    /*height: 24px;*/
-    padding: 3px 4px;
-    font-size: 12px;
-    line-height: 1.3;
-    height: 24px;
-}
+	.container-fluid .content .input-group .form-control.chico {
+		display: block;
+		width: 100%;
+		/*height: 24px;*/
+		padding: 3px 4px;
+		font-size: 12px;
+		line-height: 1.3;
+		height: 24px;
+	}
 
-.container-fluid .content .filtros .form-control.chico {
-    display: block;
-    width: 100%;
-    padding: 3px 4px;
-    font-size: 12px;
-    line-height: 1.3;
-    height: 24px;
-}
+	.container-fluid .content .filtros .form-control.chico {
+		display: block;
+		width: 100%;
+		padding: 3px 4px;
+		font-size: 12px;
+		line-height: 1.3;
+		height: 24px;
+	}
 
-.filtros .input-group-addon {
-    padding: 4px 12px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1;
-    color: #555;
-    text-align: center;
-    background-color: #eee;
-    border: 1px solid #ccc;
-    border-radius: 0px;
-}
+	.filtros .input-group-addon {
+		padding: 4px 12px;
+		font-size: 14px;
+		font-weight: 400;
+		line-height: 1;
+		color: #555;
+		text-align: center;
+		background-color: #eee;
+		border: 1px solid #ccc;
+		border-radius: 0px;
+	}
 
-#contenedor_filtro .label {
-    display: inline;
-    padding: .6em .8em .6em;
-    font-size: 80%;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: .25em;
-}
+	#contenedor_filtro .label {
+		display: inline;
+		padding: .6em .8em .6em;
+		font-size: 80%;
+		font-weight: 700;
+		line-height: 1;
+		text-align: center;
+		white-space: nowrap;
+		vertical-align: baseline;
+		border-radius: .25em;
+	}
 
-.bg-grays{
-  background-color: #e8f0f5;
-}
+	.bg-grays{
+	background-color: #e8f0f5;
+	}
 
-.filtros label {
-    display: inline-block;
-    max-width: 100%;
-    margin-bottom: 0px;
-    font-weight: 600;
-    font-size: 90%;
-}
+	.filtros label {
+		display: inline-block;
+		max-width: 100%;
+		margin-bottom: 0px;
+		font-weight: 600;
+		font-size: 90%;
+	}
 
-h4.titulo_informe{
-  margin-top: 0;
-}
+	h4.titulo_informe{
+	margin-top: 0;
+	}
 
-.form-group.filtrar {
-    margin-bottom: 0px;
-    padding-top: 20px;
-}
+	.form-group.filtrar {
+		margin-bottom: 0px;
+		padding-top: 20px;
+	}
 
-.container-fluid .content .form-control {
-    display: inline-block;
-    width: auto;
-}
+	.container-fluid .content .form-control {
+		display: inline-block;
+		width: auto;
+	}
 
-.info-box-number2 {
-    display: inline-block;
-    font-weight: normal;
-    font-size: 15px;
-    margin-top: 10px;
-}
+	.info-box-number2 {
+		display: inline-block;
+		font-weight: normal;
+		font-size: 15px;
+		margin-top: 10px;
+	}
 </style>
 <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/datepicker/datepicker3.css">
 </head>
@@ -490,7 +490,8 @@ require "../helpers/get_pagos_contados.php";
 																			<td>Precio</td>
 																			<td>Pagado</td>
 																			<td>Por Pagar</td>
-																			<td>Pie Recibido</td>
+																			<td>Pie Recibido en UF</td>
+																			<td>Pie Recibido en pesos</td>
 																			<td>Monto por Recibir UF</td>
 																			<?php 
 																			if ($_SESSION["sesion_filtro_banco_panel"]<>100) {
@@ -648,6 +649,7 @@ require "../helpers/get_pagos_contados.php";
 															                            (pag.id_cat_pag = 1 OR pag.id_cat_pag = 2)
 															                        ";
 															                    $conexion->consulta_form($consulta,array($id_ven));
+																				$totalPagos = conexion::select('SELECT SUM(monto_pag) as totalPagos FROM pago_pago WHERE id_ven='.$id_ven);
 															                    $fila_consulta = $conexion->extraer_registro();
 															                    if(is_array($fila_consulta)){
 															                        foreach ($fila_consulta as $fila_pag) {
@@ -847,6 +849,7 @@ require "../helpers/get_pagos_contados.php";
 	                                                                                <td><?php echo $pagado; ?></td>
 	                                                                                <td><?php echo $por_pagar; ?></td>
 	                                                                                <td><?php echo number_format($pie_pagado_efectivo, 2, ',', '.');?></td>
+	                                                                                <td><?php echo number_format($totalPagos[0]['totalPagos'], 0, ',', '.');?></td>
 	                                                                                <td><?php echo number_format($monto_por_recibir, 2, ',', '.');?></td>
 	                                                                                <?php 
 																					if ($_SESSION["sesion_filtro_banco_panel"]<>100) {
