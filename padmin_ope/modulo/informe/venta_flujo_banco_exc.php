@@ -9,10 +9,10 @@ if (!isset($_SESSION["sesion_usuario_panel"])) {
 
 
 
-$ciudad = $_GET['ciu'];
+$ciudad = (isset($_GET['ciu']))?$_GET['ciu']:'';
 $banco = $_GET['ban'];
 $id_con = $_GET['con'];
-
+$totalPagos = 0;
 $filtro_consulta = " AND viv.id_tor = ".$id_con;
 
 
@@ -33,6 +33,8 @@ if($ciudad<>''){
 	} else {
 		$nombre .= '_santiago';
 	}
+}else{
+	$nombre .= '_laserena';
 }
 
 
@@ -169,7 +171,8 @@ $nombre_ban = utf8_encode($fila_banco["nombre_ban"]);
 		<td>Precio</td>
 		<td>Pagado</td>
 		<td>Por Pagar</td>
-		<td>Pie Recibido</td>
+		<td>Pie Recibido en UF</td>
+		<td>Pie Recibido en pesos</td>
 		<td>Monto por Recibir UF</td>
 		<?php 
 		if ($banco<>100) {
@@ -325,6 +328,7 @@ $nombre_ban = utf8_encode($fila_banco["nombre_ban"]);
                     (pag.id_cat_pag = 1 OR pag.id_cat_pag = 2)
                 ";
             $conexion->consulta_form($consulta,array($id_ven));
+			$totalPagos = conexion::select('SELECT SUM(monto_pag) as totalPagos FROM pago_pago WHERE id_ven='.$id_ven);
             $fila_consulta = $conexion->extraer_registro();
             if(is_array($fila_consulta)){
                 foreach ($fila_consulta as $fila_pag) {
@@ -495,6 +499,7 @@ $nombre_ban = utf8_encode($fila_banco["nombre_ban"]);
 				$acumula_monto_por_recibir = $acumula_monto_por_recibir + $monto_por_recibir;
 
 				$precio_venta = number_format($precio_venta, 2, ',', '.');
+				
             }
             ?>
             <tr>
@@ -510,6 +515,7 @@ $nombre_ban = utf8_encode($fila_banco["nombre_ban"]);
                 <td><?php echo $pagado; ?></td>
                 <td><?php echo $por_pagar; ?></td>
                 <td><?php echo number_format($pie_pagado_efectivo, 2, ',', '.');?></td>
+				<td><?php echo number_format($totalPagos[0]['totalPagos'], 0, ',', '.');?></td>
                 <td><?php echo number_format($monto_por_recibir, 2, ',', '.');?></td>
                 <?php 
 				if ($banco<>100) {

@@ -155,7 +155,7 @@ class conexion
 					$userMessage = 'Credenciales de base de datos incorrectas:';
 					break;
 				default:
-					$userMessage = 'Error no detectado:';
+					$userMessage = 'Error no detectado: '.$error->getMessage();
 					break;
 			}
 			return $userMessage;
