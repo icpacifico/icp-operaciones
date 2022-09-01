@@ -82,7 +82,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                                 matriz.fecha_creacion                                                                  
                                                                 FROM matriz_desarrollo as matriz 
                                                                 INNER JOIN vendedor_vendedor as vende 
-                                                                ON matriz.id_vendedor = vende.id_vend");
+                                                                ON matriz.id_vendedor = vende.id_vend");                                          
                                         if(count($data)>0):
                                         foreach($data as $val){                               
                                         ?>
@@ -116,6 +116,5 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
         <!-- /.content-wrapper -->
 <?php include_once _INCLUDE."footer_comun.php";?>
 <?php include_once _INCLUDE."js_comun.php";?>
-
 </body>
 </html>

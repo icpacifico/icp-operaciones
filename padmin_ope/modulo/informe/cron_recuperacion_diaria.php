@@ -213,15 +213,7 @@ if(is_array($fila_consulta_condominio_original)){
 	    $fila_consulta = $conexion->extraer_registro();
 	    if(is_array($fila_consulta)){
 	        foreach ($fila_consulta as $fila) {
-	        	$consulta = 
-					"
-				    SELECT
-				        valor_uf
-				    FROM
-				        uf_uf
-				    WHERE
-				        fecha_uf = ?
-				    ";
+	        	$consulta = "SELECT valor_uf FROM uf_uf WHERE fecha_uf = ?";
 				$conexion->consulta_form($consulta,array($fila["fecha_real_pag"]));
 				$cantidad_uf = $conexion->total();
 				if($cantidad_uf > 0){
@@ -288,15 +280,7 @@ if(is_array($fila_consulta_condominio_original)){
 
 		            // ------------------- las UF PIE de estas ventas se calculan con la fecha venta
 
-		            $consultauf = 
-					"
-					    SELECT
-					        valor_uf
-					    FROM
-					        uf_uf
-					    WHERE
-					        fecha_uf = '".date("Y-m-d",strtotime($fila_pag["fecha_ven"]))."'
-					    ";
+		            $consultauf = "SELECT valor_uf FROM uf_uf WHERE fecha_uf = '".date("Y-m-d",strtotime($fila_pag["fecha_ven"]))."'";
 					$conexion->consulta($consultauf);
 					$cantidaduf = $conexion->total();
 					if($cantidaduf > 0){
@@ -326,15 +310,7 @@ if(is_array($fila_consulta_condominio_original)){
 		        	// -------------->SI TIENE FECHA Y ES LA FECHA ANÁLISIS
 		            if ($fila_pag["fecha_real_pag"] == $FECHA_ANALISIS) {
 
-		            	$consultauf = 
-						"
-						    SELECT
-						        valor_uf
-						    FROM
-						        uf_uf
-						    WHERE
-						        fecha_uf = ?
-						    ";
+		            	$consultauf = "SELECT valor_uf FROM uf_uf WHERE fecha_uf = ?";
 						$conexion->consulta_form($consultauf,array($fila_pag["fecha_real_pag"]));
 						$cantidad_uf = $conexion->total();
 
