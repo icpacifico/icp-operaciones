@@ -2445,6 +2445,31 @@ $id_usuario = $_SESSION["sesion_id_panel"];
 
                                     if($cantidad_opcion > 0): ?>
                                         <li id="evaluacion-detalle"><a href="<?php echo _MODULO?>evaluacion/form_detalle.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Informe de Desempeño</a></li>
+                                    <?php endif;
+
+                                    $cantidad_opcion = conexion::consulta_total("SELECT usu.id_mod FROM usuario_usuario_proceso AS usu,usuario_proceso AS proceso WHERE 
+                                            usu.id_usu = ".$id_usuario." AND
+                                            usu.id_mod = ".$fila["id_mod"]." AND
+                                            proceso.opcion_pro = 4 AND
+                                            proceso.id_pro = usu.id_pro AND
+                                            proceso.id_mod = ".$fila["id_mod"]." 
+                                            ");
+
+                                    if($cantidad_opcion > 0): ?>
+                                        <li id="evaluacion-operaciones"><a href="<?php echo _MODULO?>evaluacion/form_operaciones.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Informe de Operaciones</a></li>
+                                                                    
+                                    <?php endif;
+
+                                    $cantidad_opcion = conexion::consulta_total("SELECT usu.id_mod FROM usuario_usuario_proceso AS usu,usuario_proceso AS proceso WHERE 
+                                            usu.id_usu = ".$id_usuario." AND
+                                            usu.id_mod = ".$fila["id_mod"]." AND
+                                            proceso.opcion_pro = 5 AND
+                                            proceso.id_pro = usu.id_pro AND
+                                            proceso.id_mod = ".$fila["id_mod"]." 
+                                            ");
+
+                                    if($cantidad_opcion > 0): ?>
+                                        <li id="evaluacion-carta"><a href="<?php echo _MODULO?>evaluacion/form_carta.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Carta de mérito y demérito</a></li>
                                     <?php endif ?>
 
 

@@ -19,6 +19,11 @@ $totalCompetencia = round($resultadoCompetencia * 0.3);
 $resultadoMeta = $criterio->totalLogro;
 $totalMeta = round($criterio->totalLogro * 0.7);
 $total = round($totalCompetencia + $totalMeta);
+if($informe[0]['merito'] == "SI"){
+    $total += 20;
+}else if($informe[0]['demerito'] == "SI"){
+    $total -= 20;
+}
 // 
 $cargo = '';
 if($informe[0]['id_cargo']==1)  {
