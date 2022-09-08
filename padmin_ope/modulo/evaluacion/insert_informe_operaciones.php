@@ -15,17 +15,19 @@ function status($title,$message,$icon){
     die();
 }
 try {
-    $query_desarrollo = "SELECT id FROM matriz_desarrollo WHERE id_vendedor=".$_POST['persona'];
+    $query_desarrollo = "SELECT id FROM matriz_desarrollo WHERE id_vendedor=34";
     $id = conexion::select($query_desarrollo);   
+    // $query_total_competencias = "SELECT (((`rpregunta1` * 100) DIV 4) + ((`rpregunta2` * 100) DIV 4) + ((`rpregunta3` * 100) DIV 4) + ((`rpregunta4` * 100) DIV 4)) DIV 4 as total FROM `matriz_desarrollo` WHERE `id_vendedor`=34";
+
     $query = "INSERT INTO matriz_informe VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     $conexion->consulta_form($query,array(0,
                                           $id[0]['id'],
-                                          $_POST['persona'],
-                                          $_POST['cargoEvaluador'],
-                                          $_POST['evaluador'],
-                                          'Asesor Inmobiliario',
-                                          $_POST['merito'],
-                                          $_POST['demerito'],
+                                          34,
+                                          7,
+                                          "Sara Noemí Araya Bugueño",
+                                          "Colaboradora de Operaciones",
+                                          "NO",
+                                          "NO",
                                           $_POST['desarrollo'],
                                           $_POST['fundamentacion1'],
                                           $_POST['fundamentacion2'],
@@ -37,8 +39,8 @@ try {
                                           $_POST['objetivo'],
                                           $_POST['mejora'],
                                           $_POST['kpi'],
-                                          $_POST['ausentismo'],
-                                          $_POST['compensa'],
+                                          "NO",
+                                          "NO",
                                           $_POST['ciclo_evaluacion'],
                                           $_POST['fecha_evaluacion']
                                         ));

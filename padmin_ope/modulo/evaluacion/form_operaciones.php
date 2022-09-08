@@ -8,6 +8,13 @@ if (!isset($_SESSION["sesion_usuario_panel"])) {
 if (!isset($_SESSION["modulo_evaluacion_panel"])) {
     header("Location: "._ADMIN."panel.php");
 }
+include _INCLUDE."class/conexion.php";
+$conexion = new conexion();
+require_once _INCLUDE."menu_modulo.php";
+$year = date('Y');
+$totalMetasOps = conexion::select("SELECT count(*) as total FROM ppsavcl_ssoopp_digital.venta_venta where id_est_ven = 7 and  id_viv in(SELECT id_viv FROM vivienda_vivienda WHERE id_tor=6)");
+$totalMetasEscrituracion = 112;
+$total_metas = ($totalMetasOps[0]['total'] * 100) / $totalMetasEscrituracion;
 ?>
 <style>
     .borde{
@@ -58,13 +65,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
 </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper">
-        <?php 
-        include _INCLUDE."class/conexion.php";
-        $conexion = new conexion();
-        require_once _INCLUDE."menu_modulo.php";
-        $year = date('Y');
-        ?>
+    <div class="wrapper">      
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -84,30 +85,40 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                 <div class="row">
                     <!-- left column -->
                     <div class="col-sm-12">
-                      <!-- general form elements -->
-                      
-                        <div class="box box-primary" >   
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 text-center" style="margin-bottom:3%">
-                                        <h3>ANEXO 02: INFORME DE DESEMPEÑO <small>PR-A- 02- INFORME DESEMPEÑO / VERSIÓN 07/2022</small></h3>
-                                    </div>
-                                    <div class="col-md-6 text-right" style="font-size:1.8rem;"> <b>CICLO DE EVALUACIÓN : <?php echo $year?></b></div>
-                                    <div class="col-md-6" style="font-size:1.8rem;"> <b>FECHA EVALUACIÓN : <?php echo Date('d-m-Y');?></b></div>
-                                    
-                                </div>
-                                <div class="row">
-                                <div class="col-md-8 col-md-offset-2" style=margin-top:3%;>
-                                        <div class="alert alert-warning" role="alert" style="padding:30px;">
-                                        <i class="fa fa-warning" aria-hidden="true" style="font-size:2.4rem; padding:0 1% 1% 0;"></i>
-                                        En consideración de este ciclo de evaluación de desempeño, ambas partes concuerdan que, al momento de la evaluación de desempeño, se tuvo presente, la asignación de metas de ciclo de evaluación, el Descriptor de Cargo y los lineamientos estratégicos de la empresa (Misión, Visión, Objetivos estratégicos)
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>                        
+                      <!-- general form elements -->                      
+                        <div class="box box-primary" >                                                   
                             <div class="container" >
                                 <div class="row">
-                                    <div class="col-md-8 col-md-offset-2" style=margin-top:3%;> 
+                                    <div class="col-md-8 col-md-offset-2" style="margin-top:3%;"> 
+                                        <div class="row" style="margin-bottom:3%;">
+                                            <div class="col-md-3 text-left" >
+                                                <img src="<?php echo _ASSETS?>img/logo-icp.jpg" alt="">
+                                            </div> 
+                                            <div class="col-md-6 text-center">
+                                                <h3>ANEXO 02: INFORME DE DESEMPEÑO</h3>
+                                            </div> 
+                                            <div class="col-md-3 text-center" >
+                                                <h3><small>PR-A- 02- INFORME <br>DESEMPEÑO / VERSIÓN <br>07/2022</small></h3>
+                                            </div>                                                                       
+                                        </div>
+                                        <table class="table table-bordered" >                                                
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="25%" class="fondo"><b>CICLO DE EVALUACIÓN : </b></td>
+                                                        <td class="text-center"><input size="3" type="number" id="year" name="year" value="<?php echo $year?>" style="border:1px solid #D7DBDD !important; width:80px; padding:2%; text-align:center;"></td>
+                                                        <td width="20%" class="fondo"><b>FECHA EVALUACIÓN : </b></td>
+                                                        <td><input type="date" id="fecha_eva" name="fecha_eva" class="form-control" value="<?php echo Date('d-n-Y');?>" style="border:1px solid #D7DBDD !important; padding:2%; text-align:center;"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        <div class="row" style="margin-top:3%; margin-bottom:3%;">
+                                        <!-- <div class="col-md-8 col-md-offset-2" style=margin-top:3%;> -->
+                                                <div class="alert alert-warning" role="alert" style="padding:30px;">
+                                                <i class="fa fa-warning" aria-hidden="true" style="font-size:2.4rem; padding:0 1% 1% 0;"></i>
+                                                En consideración de este ciclo de evaluación de desempeño, ambas partes concuerdan que, al momento de la evaluación de desempeño, se tuvo presente, la asignación de metas de ciclo de evaluación, el Descriptor de Cargo y los lineamientos estratégicos de la empresa (Misión, Visión, Objetivos estratégicos)
+                                                </div>
+                                            <!-- </div> -->
+                                        </div>
                                          <!-- Primer formulario -->
                                         <table class="table"  style="margin-bottom:70px;">
                                             <thead >
@@ -139,7 +150,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                         <table class="table"  style="margin-bottom:50px; text-align:center;">
                                             <thead>
                                                 <tr>
-                                                    <td colspan="4" class="text-left" style="border-bottom:1px solid black"><strong>2.- CRITERIOS DE EVALUACIÓN.</strong></td>
+                                                    <td colspan="4" class="text-left" style="border-bottom:1px solid black"><strong>2.- CRITERIOS DE EVALUACIÓN.</strong><small>*(metas validas solo para modelo PAC 3100, etapa 1)</small></td>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -150,10 +161,10 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                     <td class="borde fondo"> % LOGRO </td>
                                                 </tr>                                               
                                                 <tr>
-                                                    <td class="borde"> </td>
-                                                    <td class="borde"><input type="number" id="totalAsignado" name="totalAsignado" class="form-control limpia blackNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="totalLogrado" name="totalLogrado" class="form-control limpia blackNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="porcentajeTotal" name="porcentajeTotal" class="form-control limpia blackNumbers" autocomplete="off"></td>
+                                                    <td class="borde"> <input type="number" id="totalAsignado" name="totalAsignado" value="<?php echo $totalMetasEscrituracion?>" class="form-control limpia blackNumbers" readonly></td>
+                                                    <td class="borde"><input type="number" id="totalAnterior" name="totalAsignado" value="0" class="form-control limpia blackNumbers" readonly></td>
+                                                    <td class="borde"><input type="number" id="totalLogrado" name="totalLogrado" value="<?php echo $totalMetasOps[0]['total']?>" class="form-control limpia blackNumbers"  readonly></td>
+                                                    <td class="borde"><input type="number" id="porcentajeTotal" name="porcentajeTotal" value="<?php echo round($total_metas)?>" class="form-control limpia blackNumbers"  readonly></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="1" class="borde text-left fondo">FUNDAMENTACIÓN</td>                                                    
@@ -264,12 +275,12 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                 <div class="row" style="margin:50px 0 50px 0;">
                                     <div class="container">
                                         <div class="col-md-4 col-md-offset-2 text-left"><hr style="height:1px;border:none;color:#333;background-color:#333;">
-                                         <p class="text-center" id="firmaEvaluado">Margot Andrea Moya Olivares</p>
+                                         <p class="text-center">Margot Andrea Moya Olivares</p>
                                          <p class="text-center">Colaboradora de Operaciones</p>
                                        </div>
                                         <div class="col-md-4 text-right"><hr style="height:1px;border:none;color:#333;background-color:#333;">
-                                        <p class="text-center" id="firmaEvaluador">Sara Noemí Araya Bugueño</p>
-                                         <p class="text-center" id="evaluadorCargo">Jefa de operaciones.</p>
+                                        <p class="text-center">Sara Noemí Araya Bugueño</p>
+                                         <p class="text-center">Jefa de operaciones.</p>
                                       </div>
                                     </div>        
                                 </div>  
@@ -279,7 +290,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                         <div class="col-md-12 text-center"><small>DOCUMENÉNTESE ELECTRÓNICAMENTE Y EN CARPETA FÍSICA DEL/LA TRABAJADOR/A</small></div>
                                         <div class="col-md-12 text-center">
                                             <input type="button" class="btn btn-primary" id="pdf" value="Pasar a pdf" />
-                                            <a href="javascript:window.print()" class="btn btn-primary btn-md">IMPRIMIR DOCUMENTO</a>
+                                            <!-- <a href="javascript:window.print()" class="btn btn-primary btn-md">IMPRIMIR DOCUMENTO</a> -->
                                         </div>
                                     </div>
                                 </div>
@@ -320,27 +331,40 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 
             }
         })
+        return false;
     }
-
     metas()
     
     
 
 $("#pdf").on('click',function(e){    
-    let pdfData = {
-        persona : v_("persona","val"),
-        evaluador : v_("evaluador","val"),
-        cargoEvaluador : v_("cargoEvaluador","val"),
-        ausentismo : v_("ausentismo","val"),
-        compensa : v_("compensa","val"),       
+
+    let totalCom = ( parseInt($("#total1").text()) + parseInt($("#total2").text()) + parseInt($("#total3").text()) + parseInt($("#total4").text()) ) / 4;    
+    let totalmetas = parseInt(v_("porcentajeTotal","val"));
+    let total_ = Math.round((parseInt(totalCom) * 0.3) + (parseInt(totalmetas) * 0.7));
+    let desarrollo = "";
+   
+    if(total_ <= 69){
+        desarrollo = "INSUFICIENTE";
+    }
+    if(total_ >= 70 && total_ <= 99){
+        desarrollo = "EN DESARROLLO";
+    }
+    if(total_ >= 100){
+        desarrollo = "SOBRESALIENTE";
+    }   
+    let ciclo = $("#year").val();
+    let fecha_eva = $("#fecha_eva").val();
+
+    let pdfData = {  
+        ciclo_evaluacion : ciclo,
+        fecha_evaluacion : fecha_eva,      
+        desarrollo : desarrollo,
         fundamentacion1 : v_("fundamentacion1","val"),
         fundamentacion2 : v_("fundamentacion2","val"),
         fundamentacion3 : v_("fundamentacion3","val"),
         fundamentacion4 : v_("fundamentacion4","val"),
-        fundamentacion5 : v_("fundamentacion5","val"),       
-        merito : v_("merito","val"),
-        demerito : v_("demerito","val"),
-        desarrollo : v_("desarrollo","text"),
+        fundamentacion5 : v_("fundamentacion5","val"),        
         obsmejora : v_("obsmejora","val"),
         hecho : v_("hecho","val"),
         objetivo : v_("objetivo","val"),
@@ -348,13 +372,19 @@ $("#pdf").on('click',function(e){
         mejora : v_("mejora","val")
     }    
     $.ajax({        
-        url : "insert_informe.php",        
+        url : "insert_informe_operaciones.php",        
         type : "POST",
         data : pdfData,
         dataType : 'json',
         success:function(result){
             if(result.title == "data"){
-                location.href='<?php echo _MODULO?>evaluacion/evaluacionPdf.php?id='+result.message+'&criterio='+JSON.stringify(criterio);                
+                let metas = {
+                    totalAsignado : v_("totalAsignado","val"),
+                    totalAnterior : v_("totalAnterior","val"),
+                    totalLogrado : v_("totalLogrado","val"),
+                    porcentajeTotal : v_("porcentajeTotal","val")
+                };
+                location.href='<?php echo _MODULO?>evaluacion/evaluacion_operacionesPdf.php?id='+result.message+'&metas='+JSON.stringify(metas);                
             }else{
                 swal(result.title, result.message, result.icon);
             }

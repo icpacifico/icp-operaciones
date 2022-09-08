@@ -109,27 +109,24 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
 
                                     
                                          <!-- Primer formulario -->
-                                        <table class="table"  style="margin-bottom:30px;">     
-                                            <thead></thead>                                     
+                                        <table class="table"  style="margin-bottom:30px;">                                                                                      
                                             <tbody>
                                                 <tr style="border:1px solid black">
                                                     <td class="borde fondo negritas" style="border:1px solid black">TRABAJADOR/A</td>
-                                                    <td class="borde" style="border:1px solid black"> <select name="persona" id="persona" class="form-control" autocomplete="off"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="borde fondo negritas">FECHA DE ANOTACIÓN : </td>
-                                                    <td class="borde negritas"> <?php echo Date('d-m-Y');?> </td>
+                                                    <td class="borde" style="border:1px solid black"> <select name="persona" id="persona" class="form-control" autocomplete="off"></td>                                               
+                                                    <td class="borde fondo negritas" style="border:1px solid black">FECHA DE ANOTACIÓN : </td>
+                                                    <td class="borde negritas" style="border:1px solid black"> <?php echo Date('d-m-Y');?> </td>
                                                 </tr>                                                                                               
                                             </tbody>
                                         </table>  
 
-                                        <p style="text-align:justify; font-size:1.2em; font-family:Arial">
+                                        <p style="text-align:justify; font-size:1.2em; font-family:Arial; padding-bottom:7%;">
                                          Conforme al punto 4.4 del PROCEDIMIENTO DE CICLO DE EVALUACIÓN DEL DESEMPEÑO PARA EQUIPO DE OPERACIONES, 
                                          PR-EVALUACION DESEMPEÑO-OPERACIONES-V.1 y todos los instrumentos disponibles en la empresa, tales como: Contratos laborales y/o Reglamentos internos u otros, 
                                          se considera una <b>anotación de mérito o de demérito</b>, conforme a las definiciones del procedimiento citado. 
                                          La anotación será realizada por el superior jerárquico cuando haya evidenciado una acción consistente a los propósitos de dicho mérito o demérito,
                                          dependiendo del caso y se materializará mediante este anexo, el cual deberá responder al estándar de los principios del procedimiento, 
-                                         entre ellos: Fundamentación Objetividad, Imparcialidad y Confidencialidad.
+                                         entre ellos: Fundamentación Objetividad, Imparcialidad y Confidencialidad.<br><br>
                                          Cabe hacer presente que, el mecanismo de mérito y de demérito tiene una incidencia directa 
                                          en el proceso de evaluación de desempeño conforme a lo descrito en el procedimiento.
                                         </p>
@@ -138,7 +135,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                             <thead>
                                                 <tr>
                                                     <td style="border-bottom:1px solid black; font-size:1.2em; font-family:Arial"><strong style="margin-right:10px;">ANOTACIÓN DE : </strong> 
-                                                        <select name="carta" id="carta" style="border:1px solid grey !important; padding:8px;">
+                                                        <select name="carta" id="carta" style="border:1px solid grey !important; padding:8px;" class="text-center">
                                                             <option value="Merito">Merito</option>
                                                             <option value="Demerito">Demerito</option>
                                                         </select>
