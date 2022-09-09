@@ -86,7 +86,7 @@
 		                <div class="col-sm-6">
 		                    <div class="form-group">
 		                        <label for="interes">Fecha Evento:</label>
-		                        <input type="text" name="fecha" class="form-control datepicker" id="fecha"/>
+		                        <input type="text" name="fecha" class="form-control datepicker" id="fecha" autocomplete="off"/>
 		                    </div>
 		                    <div class="form-group">
 		                        <label for="medio">Hora Evento:</label>

@@ -18,9 +18,9 @@
 
 <!-- Para marcar los active -->
 <script type="text/javascript">
-$(function () {
+// $(function () {
   $('[data-toggle="popover"]').popover()
-})
+// })
 // let btn = document.querySelector('button');
 // let click = btn.getAttribute('data-click');
 // const exampleEl = document.getElementById('example')

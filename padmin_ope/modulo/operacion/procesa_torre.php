@@ -64,7 +64,6 @@ $consulta =
     ";
 $conexion->consulta($consulta);
 $fila_consulta = $conexion->extraer_registro();
-$cantidad = $conexion->total();
 if(is_array($fila_consulta)){
     foreach ($fila_consulta as $fila) {
         ?>

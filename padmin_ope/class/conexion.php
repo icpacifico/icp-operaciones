@@ -159,7 +159,5 @@ class conexion
 			self::status("Error Grave!",self::codeError($e),"error");
 		}		
 	}
-
-	
 }
 ?>

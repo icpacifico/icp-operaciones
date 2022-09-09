@@ -26,16 +26,7 @@ $fecha_abono_330_ven = isset($_POST["fecha_abono_330_ven"]) ? utf8_decode($_POST
 
 $fecha_liq_com = isset($_POST["fecha_liq_com"]) ? utf8_decode($_POST["fecha_liq_com"]) : null;
 
-$consulta = 
-    "
-    SELECT
-        ven.id_for_pag
-    FROM
-        venta_venta as ven
-    WHERE 
-        ven.id_ven = ?
-    ";
-$conexion->consulta_form($consulta,array($id_ven));
+$conexion->consulta_form("SELECT ven.id_for_pag FROM venta_venta as ven WHERE ven.id_ven = ?",array($id_ven));
 $filafor = $conexion->extraer_registro_unico();
 $id_for_pag = utf8_encode($filafor['id_for_pag']);
 
@@ -46,27 +37,13 @@ if ($fecha_liq<>null && $fecha_liq<>'') {
 	$fecha_liq = null;
 }
 
-if ($monto_liq_uf=='') {
-	$monto_liq_uf = null;
-}
-
-if ($monto_liq_pesos=='') {
-	$monto_liq_pesos = null;
-}
-
+if ($monto_liq_uf=='') $monto_liq_uf = null;
+if ($monto_liq_pesos=='') $monto_liq_pesos = null;
 if ($fecha_liq_com<>null && $fecha_liq_com<>'') {
 	$fecha_liq_com = date("Y-m-d",strtotime($fecha_liq_com));
 } else {
 	$fecha_liq_com = null;
 }
-
-
-// if ($fecha_liq_com <> null) {
-// 	$consulta_fecha_liq_com = "UPDATE venta_venta SET fecha_promesa_ven = ? WHERE id_ven = ?";
-// 	$conexion->consulta_form($consulta_fecha_liq_com,array($fecha_liq_com,$id_ven));
-// }
-
-// echo $fecha_liq."----";
 
 if ($insert==0) {
 	$consulta = "INSERT INTO venta_liquidado_venta VALUES(?,?,?,?,?)";
@@ -77,45 +54,13 @@ if ($insert==0) {
 }
 
 // revisa si están los de 38
-$consultahay_pesos38p = 
-    "
-    SELECT
-        id_eta_cam_ven
-    FROM
-        venta_etapa_campo_venta
-    WHERE 
-        id_ven = ? AND 
-        id_eta = 38 AND
-        id_cam_eta = 51
-    ";
-$conexion->consulta_form($consultahay_pesos38p,array($id_ven));
+$conexion->consulta_form("SELECT id_eta_cam_ven FROM venta_etapa_campo_venta WHERE id_ven = ? AND id_eta = 38 AND id_cam_eta = 51",array($id_ven));
 $insert_pesos38p = $conexion->total();
-
-if ($insert_pesos38p>0) {
-	$consulta = "UPDATE venta_etapa_campo_venta SET valor_campo_eta_cam_ven = ? WHERE id_ven = ? AND id_eta = 38 AND id_cam_eta = 51";
-	$conexion->consulta_form($consulta,array($monto_liq_pesos,$id_ven));
-}
-
+if ($insert_pesos38p>0) $conexion->consulta_form("UPDATE venta_etapa_campo_venta SET valor_campo_eta_cam_ven = ? WHERE id_ven = ? AND id_eta = 38 AND id_cam_eta = 51",array($monto_liq_pesos,$id_ven));
 // revisa si están los de 38
-$consultahay_uf38u = 
-    "
-    SELECT
-        id_eta_cam_ven
-    FROM
-        venta_etapa_campo_venta
-    WHERE 
-        id_ven = ? AND 
-        id_eta = 38 AND
-        id_cam_eta = 52
-    ";
-$conexion->consulta_form($consultahay_uf38u,array($id_ven));
+$conexion->consulta_form("SELECT id_eta_cam_ven FROM venta_etapa_campo_venta WHERE id_ven = ? AND id_eta = 38 AND id_cam_eta = 52 ",array($id_ven));
 $insert_uf38 = $conexion->total();
-
-if ($insert_uf38>0) {
-	$consulta = "UPDATE venta_etapa_campo_venta SET valor_campo_eta_cam_ven = ? WHERE id_ven = ? AND id_eta = 38 AND id_cam_eta = 52";
-	$conexion->consulta_form($consulta,array($monto_liq_uf,$id_ven));
-}
-
+if ($insert_uf38>0) $conexion->consulta_form("UPDATE venta_etapa_campo_venta SET valor_campo_eta_cam_ven = ? WHERE id_ven = ? AND id_eta = 38 AND id_cam_eta = 52",array($monto_liq_uf,$id_ven));
 // revisa si están los de 47
 $consultahay_pesos47p = 
     "
@@ -604,5 +549,5 @@ if ($ciudad_notaria<>0 && $ciudad_notaria<>'') {
 
 $jsondata['envio'] = 1;
 echo json_encode($jsondata);
-exit();
+// exit();
 ?>
