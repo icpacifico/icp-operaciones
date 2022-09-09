@@ -12,6 +12,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
 <style>
     .borde{
         border:1px solid #D7DBDD;
+        
     }
     .borde2{
         border:3px solid #D7DBDD;
@@ -46,6 +47,16 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
         font-weight: 900;
         font-size:1.6em;
     }
+    input,select,textarea{
+        border:none !important;
+    }
+    .fondo{
+        background:#FDEBDF;
+    } 
+    .negritas{
+        font-weight: bold;
+    } 
+    
 </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -76,27 +87,42 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                     <!-- left column -->
                     <div class="col-sm-12">
                       <!-- general form elements -->
+                      
                         <div class="box box-primary" >   
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 text-center" style="margin-bottom:3%">
-                                        <h3>ANEXO 02: INFORME DE DESEMPEÑO <small>PR-AX- 02- INFORME DESEMPEÑO / VERSIÓN 01/2021</small></h3>
-                                    </div>
-                                    <div class="col-md-6 text-right" style="font-size:1.8rem;"> <b>CICLO DE EVALUACIÓN : <?php echo $year?> - <?php echo ($year + 1)?></b></div>
-                                    <div class="col-md-6" style="font-size:1.8rem;"> <b>FECHA EVALUACIÓN : <?php echo Date('d-m-Y');?></b></div>
-                                    
-                                </div>
-                                <div class="row">
-                                <div class="col-md-8 col-md-offset-2" style=margin-top:3%;>
-                                        <div class="alert alert-warning" role="alert" style="padding:30px;">
-                                        <i class="fa fa-warning" aria-hidden="true" style="font-size:2.4rem; padding:0 1% 1% 0;"></i>  En consideración de este ciclo de evaluación de desempeño, ambas partes concuerdan que, al momento de la evaluación de desempeño, se tuvo presente, la asignación de metas de ciclo de evaluación y el Descriptor de Cargo.
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="container">                                
                             </div>                        
                             <div class="container" >
                                 <div class="row">
                                     <div class="col-md-8 col-md-offset-2" style=margin-top:3%;> 
+
+                                        <div class="row" style="margin-bottom:3%; padding-bottom:3%;">
+                                            <div class="col-md-3 text-left" >
+                                                <img src="<?php echo _ASSETS?>img/logo-icp.jpg" alt="">
+                                            </div> 
+                                            <div class="col-md-6 text-center">
+                                                <h3>ANEXO 02: INFORME DE DESEMPEÑO</h3>
+                                            </div> 
+                                            <div class="col-md-3 text-center" >
+                                                <h3><small>PR-AX- 02- INFORME <br>DESEMPEÑO / VERSIÓN <br>01/2021</small></h3>
+                                            </div>                                                                                        
+                                        </div>
+                                            <table class="table table-bordered" >                                                
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="25%" class="fondo"><b>CICLO DE EVALUACIÓN : </b></td>
+                                                        <td class="text-center"><input size="3" type="number" id="year" name="year" value="<?php echo $year?>" style="border:1px solid #D7DBDD !important; width:80px; padding:2%; text-align:center;"> - <input size="3" type="number" id="year2" name="year2" value="<?php echo ($year + 1)?>" style="border:1px solid #D7DBDD !important; width:80px; padding:2%; text-align:center;"></td>
+                                                        <td width="20%" class="fondo"><b>FECHA EVALUACIÓN : </b></td>
+                                                        <td><input type="date" id="fecha_eva" name="fecha_eva" class="form-control" value="<?php echo Date('d-n-Y');?>" style="border:1px solid #D7DBDD !important; padding:2%; text-align:center;"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>  
+                                        <div class="row" style="padding-bottom:3%;">
+                                            <!-- <div class="col-md-8 col-md-offset-2" style=margin-top:3%;> -->
+                                                <div class="alert alert-warning" role="alert" style="padding:25px;">
+                                                   <i class="fa fa-warning" aria-hidden="true" style="font-size:2.4rem; padding:0 1% 1% 0;"></i>  En consideración de este ciclo de evaluación de desempeño, ambas partes concuerdan que, al momento de la evaluación de desempeño, se tuvo presente, la asignación de metas de ciclo de evaluación y el Descriptor de Cargo.
+                                                </div>
+                                            <!-- </div> -->
+                                        </div>
                                          <!-- Primer formulario -->
                                         <table class="table"  style="margin-bottom:70px;">
                                             <thead>
@@ -106,18 +132,18 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td class="borde">NOMBRE PERSONA EVALUADA</td>
+                                                    <td class="borde fondo negritas">NOMBRE PERSONA EVALUADA</td>
                                                     <td colspan="4" class="borde"> <select name="persona" id="persona" class="form-control" autocomplete="off"></select></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">CARGO / FUNCIÓN</td>
+                                                    <td class="borde fondo negritas">CARGO / FUNCIÓN</td>
                                                     <td colspan="4" class="borde">Asesor Inmobiliario. </tr>
                                                 <tr>
-                                                    <td class="borde">NOMBRE EVALUADOR/A</td>
+                                                    <td class="borde fondo negritas">NOMBRE EVALUADOR/A</td>
                                                     <td colspan="4" class="borde"> <input type="text" name="evaluador" id="evaluador" class="form-control" autocomplete="off" readonly></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">CARGO / FUNCIÓN</td>
+                                                    <td class="borde fondo negritas">CARGO / FUNCIÓN</td>
                                                     <td colspan="4" class="borde">
                                                         <!-- gerente de ventas y operaciones   /  jefa de operaciones -->
                                                         <select name="cargoEvaluador" id="cargoEvaluador" class="form-control" autocomplete="off">
@@ -127,15 +153,15 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                         </select>                                                    
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde"> OBSERVACIONES DE DESEMPEÑO:</td>
-                                                    <td class="borde">APLICA AUSENTISMO HASTA POR 60 DÍAS HÁBILES</td>
+                                                    <td class="borde fondo negritas"> OBSERVACIONES DE DESEMPEÑO:</td>
+                                                    <td class="borde fondo">APLICA AUSENTISMO HASTA POR 60 DÍAS HÁBILES</td>
                                                     <td class="borde" width="12%"> 
                                                         <select name="ausentismo" id="ausentismo" class="form-control">
                                                             <option value="NO">NO</option>
                                                             <option value="SI">SI</option>
                                                         </select>
                                                     </td>
-                                                    <td class="borde">APLICA CRITERIO DE COMPENSACIÓN POR 15 DÍAS DE AUSENTISMO CONTINUO</td>
+                                                    <td class="borde fondo">APLICA CRITERIO DE COMPENSACIÓN POR 15 DÍAS DE AUSENTISMO CONTINUO</td>
                                                     <td class="borde" width="12%">
                                                     <select name="compensa" id="compensa" class="form-control">
                                                             <option value="NO">NO</option>
@@ -154,155 +180,155 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td class="borde">2.1 META ASIGNADA</td>
-                                                    <td class="borde"><button class="btn btn-info" id="sumarAsignada" type="button">  Σ  </button>  META ASIGNADA</td>
-                                                    <td class="borde"><button class="btn btn-info" id="sumarLograda" type="button">  Σ  </button>  META LOGRADA</td>
-                                                    <td class="borde"><button class="btn btn-info" id="calTot" type="button">  %  </button>  LOGRO</td>
+                                                    <td class="borde fondo negritas">2.1 META ASIGNADA</td>
+                                                    <td class="borde fondo"><button class="btn btn-info" id="sumarAsignada" type="button">  Σ  </button>  META ASIGNADA</td>
+                                                    <td class="borde fondo"><button class="btn btn-info" id="sumarLograda" type="button">  Σ  </button>  META LOGRADA</td>
+                                                    <td class="borde fondo"><button class="btn btn-info" id="calTot" type="button">  %  </button>  LOGRO</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">MES 1 ENERO</td>
+                                                    <td class="borde fondo">MES 1 ENERO</td>
                                                     <td class="borde"><input type="number" id="asign-1" name="asign-1" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="lograda-1" name="lograda-1" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="logro-1" name="logro-1" class="form-control limpia blackNumbers2" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">MES 2 FEBRERO</td>
+                                                    <td class="borde fondo">MES 2 FEBRERO</td>
                                                     <td class="borde"><input type="number" id="asign-2" name="asign-2" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="lograda-2" name="lograda-2" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="logro-2" name="logro-2" class="form-control limpia blackNumbers2" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">MES 3 MARZO</td>
+                                                    <td class="borde fondo">MES 3 MARZO</td>
                                                     <td class="borde"><input type="number" id="asign-3" name="asign-3" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="lograda-3" name="lograda-3" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="logro-3" name="logro-3" class="form-control limpia blackNumbers2" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">MES 4 ABRIL</td>
+                                                    <td class="borde fondo">MES 4 ABRIL</td>
                                                     <td class="borde"><input type="number" id="asign-4" name="asign-4" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="lograda-4" name="lograda-4" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="logro-4" name="logro-4" class="form-control limpia blackNumbers2" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">MES 5 MAYO</td>
+                                                    <td class="borde fondo">MES 5 MAYO</td>
                                                     <td class="borde"><input type="number" id="asign-5" name="asign-5" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="lograda-5" name="lograda-5" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="logro-5" name="logro-5" class="form-control limpia blackNumbers2" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">MES 6 JUNIO</td>
+                                                    <td class="borde fondo">MES 6 JUNIO</td>
                                                     <td class="borde"><input type="number" id="asign-6" name="asign-6" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="lograda-6" name="lograda-6" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="logro-6" name="logro-6" class="form-control limpia blackNumbers2" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">MES 7 JULIO</td>
+                                                    <td class="borde fondo">MES 7 JULIO</td>
                                                     <td class="borde"><input type="number" id="asign-7" name="asign-7" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="lograda-7" name="lograda-7" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="logro-7" name="logro-7" class="form-control limpia blackNumbers2" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">MES 8 AGOSTO</td>
+                                                    <td class="borde fondo">MES 8 AGOSTO</td>
                                                     <td class="borde"><input type="number" id="asign-8" name="asign-8" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="lograda-8" name="lograda-8" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="logro-8" name="logro-8" class="form-control limpia blackNumbers2" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">MES 9 SEPTIEMBRE</td>
+                                                    <td class="borde fondo">MES 9 SEPTIEMBRE</td>
                                                     <td class="borde"><input type="number" id="asign-9" name="asign-9" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="lograda-9" name="lograda-9" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="logro-9" name="logro-9" class="form-control limpia blackNumbers2" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">MES 10 OCTUBRE</td>
+                                                    <td class="borde fondo">MES 10 OCTUBRE</td>
                                                     <td class="borde"><input type="number" id="asign-10" name="asign-10" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="lograda-10" name="lograda-10" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="logro-10" name="logro-10" class="form-control limpia blackNumbers2" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">MES 11 NOVIEMBRE</td>
+                                                    <td class="borde fondo">MES 11 NOVIEMBRE</td>
                                                     <td class="borde"><input type="number" id="asign-11" name="asign-11" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="lograda-11" name="lograda-11" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="logro-11" name="logro-11" class="form-control limpia blackNumbers2" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">MES 12 DICIEMBRE</td>
+                                                    <td class="borde fondo">MES 12 DICIEMBRE</td>
                                                     <td class="borde"><input type="number" id="asign-12" name="asign-12" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="lograda-12" name="lograda-12" class="form-control limpia redNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="logro-12" name="logro-12" class="form-control limpia blackNumbers2" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde">TOTALES</td>
+                                                    <td class="borde fondo negritas">TOTALES</td>
                                                     <td class="borde"><input type="number" id="totalAsignado" name="totalAsignado" class="form-control limpia blackNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="totalLogrado" name="totalLogrado" class="form-control limpia blackNumbers" autocomplete="off"></td>
                                                     <td class="borde"><input type="number" id="porcentajeTotal" name="porcentajeTotal" class="form-control limpia blackNumbers" autocomplete="off"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="1" class="borde text-left">FUNDAMENTACIÓN</td>                                                    
+                                                    <td colspan="1" class="borde text-left fondo">FUNDAMENTACIÓN</td>                                                    
                                                     <td colspan="3" class="borde"><textarea name="fundamentacion1" class="form-control" id="fundamentacion1" cols="30" rows="3" autocomplete="off"></textarea></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde text-left"><strong>2.2 COMPETENCIA 1</strong> </td>
-                                                    <td class="borde">DESARROLLO PROPUESTO</td>
-                                                    <td class="borde">AÑO ACTUAL</td>
-                                                    <td class="borde">% LOGRO</td>
+                                                    <td class="borde text-left fondo"><strong>2.2 COMPETENCIA 1</strong> </td>
+                                                    <td class="borde fondo">DESARROLLO PROPUESTO</td>
+                                                    <td class="borde fondo">AÑO ACTUAL</td>
+                                                    <td class="borde fondo">% LOGRO</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde text-left">ORIENTACIÓN AL CLIENTE</td>
-                                                    <td class="borde"><input type="number" id="orientacionAlCLiente1" name="orientacionAlCLiente1" class="form-control redNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="orientacionAlCLiente2" name="orientacionAlCLiente2" class="form-control redNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="orientacionAlCLiente3" name="orientacionAlCLiente3" class="form-control blackNumbers" autocomplete="off"></td>
+                                                    <td class="borde text-left fondo">ORIENTACIÓN AL CLIENTE</td>
+                                                    <td class="borde redNumbers">4</td>
+                                                    <td class="borde"><input type="number" id="orientacionAlCLiente" name="orientacionAlCLiente" class="form-control redNumbers limpia" autocomplete="off"></td>
+                                                    <td class="borde blackNumbers limpiaText" id="total1">0</td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="1" class="borde text-left" >FUNDAMENTACIÓN</td>                                                    
-                                                    <td colspan="3" class="borde"><textarea name="fundamentacion2" class="form-control" id="fundamentacion2" cols="30" rows="3" autocomplete="off"></textarea></td>
+                                                    <td colspan="1" class="borde text-left fondo" >FUNDAMENTACIÓN</td>                                                    
+                                                    <td colspan="3" class="borde"><textarea name="fundamentacion2" class="form-control limpia" id="fundamentacion2" cols="30" rows="3" autocomplete="off"></textarea></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde text-left"><strong>2.3 COMPETENCIA 2</strong></td>
-                                                    <td class="borde">DESARROLLO PROPUESTO</td>
-                                                    <td class="borde">AÑO ACTUAL</td>
-                                                    <td class="borde">% LOGRO</td>
+                                                    <td class="borde text-left fondo"><strong>2.3 COMPETENCIA 2</strong></td>
+                                                    <td class="borde fondo">DESARROLLO PROPUESTO</td>
+                                                    <td class="borde fondo">AÑO ACTUAL</td>
+                                                    <td class="borde fondo">% LOGRO</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde text-left">HABILIDADES INTERPERSONALES</td>
-                                                    <td class="borde"><input type="number" id="habilidades1" name="habilidades1" class="form-control redNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="habilidades2" name="habilidades2" class="form-control redNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="habilidades3" name="habilidades3" class="form-control blackNumbers" autocomplete="off"></td>
+                                                    <td class="borde text-left fondo">HABILIDADES INTERPERSONALES</td>
+                                                    <td class="borde redNumbers">4</td>
+                                                    <td class="borde"><input type="number" id="habilidades" name="habilidades" class="form-control redNumbers limpia" autocomplete="off"></td>
+                                                    <td class="borde blackNumbers limpiaText" id="total2">0</td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="1" class="borde text-left" >FUNDAMENTACIÓN</td>                                                    
-                                                    <td colspan="3" class="borde"><textarea name="fundamentacion3" class="form-control" id="fundamentacion3" cols="30" rows="3" autocomplete="off"></textarea></td>
+                                                    <td colspan="1" class="borde text-left fondo" >FUNDAMENTACIÓN</td>                                                    
+                                                    <td colspan="3" class="borde"><textarea name="fundamentacion3" class="form-control limpia" id="fundamentacion3" cols="30" rows="3" autocomplete="off"></textarea></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde text-left"><strong>2.4 COMPETENCIA 3</strong></td>
-                                                    <td class="borde">DESARROLLO PROPUESTO</td>
-                                                    <td class="borde">AÑO ACTUAL</td>
-                                                    <td class="borde">% LOGRO</td>
+                                                    <td class="borde text-left fondo"><strong>2.4 COMPETENCIA 3</strong></td>
+                                                    <td class="borde fondo">DESARROLLO PROPUESTO</td>
+                                                    <td class="borde fondo">AÑO ACTUAL</td>
+                                                    <td class="borde fondo">% LOGRO</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde text-left">ORIENTACIÓN AL LOGRO</td>
-                                                    <td class="borde"><input type="number" id="orientacionAlLogro1" name="oreintacionAlLogro1" class="form-control redNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="orientacionAlLogro2" name="oreintacionAlLogro2" class="form-control redNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="orientacionAlLogro3" name="oreintacionAlLogro3" class="form-control blackNumbers" autocomplete="off"></td>
+                                                    <td class="borde text-left fondo">ORIENTACIÓN AL LOGRO</td>
+                                                    <td class="borde redNumbers">4</td>
+                                                    <td class="borde"><input type="number" id="orientacionAlLogro" name="oreintacionAlLogro" class="form-control redNumbers limpia" autocomplete="off"></td>
+                                                    <td class="borde blackNumbers limpiaText" id="total3">0</td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="1" class="borde text-left" >FUNDAMENTACIÓN</td>                                                    
+                                                    <td colspan="1" class="borde text-left fondo" >FUNDAMENTACIÓN</td>                                                    
                                                     <td colspan="3" class="borde"><textarea name="fundamentacion4" class="form-control" id="fundamentacion4" cols="30" rows="3" autocomplete="off"></textarea></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde text-left"><strong>2.5 COMPETENCIA 4</strong> </td>
-                                                    <td class="borde">DESARROLLO PROPUESTO</td>
-                                                    <td class="borde">AÑO ACTUAL</td>
-                                                    <td class="borde">% LOGRO</td>
+                                                    <td class="borde text-left fondo"><strong>2.5 COMPETENCIA 4</strong> </td>
+                                                    <td class="borde fondo">DESARROLLO PROPUESTO</td>
+                                                    <td class="borde fondo">AÑO ACTUAL</td>
+                                                    <td class="borde fondo">% LOGRO</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde text-left">NEGOCIACIÓN</td>
-                                                    <td class="borde"><input type="number" id="negociacion1" name="negociacion1" class="form-control redNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="negociacion2" name="negociacion2" class="form-control redNumbers" autocomplete="off"></td>
-                                                    <td class="borde"><input type="number" id="negociacion3" name="negociacion3" class="form-control blackNumbers" autocomplete="off"></td>
+                                                    <td class="borde text-left fondo">NEGOCIACIÓN</td>
+                                                    <td class="borde redNumbers">4</td>
+                                                    <td class="borde"><input type="number" id="negociacion" name="negociacion" class="form-control redNumbers limpia" autocomplete="off"></td>
+                                                    <td class="borde blackNumbers limpiaText" id="total4">0</td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="1" class="borde text-left" >FUNDAMENTACIÓN</td>                                                    
+                                                    <td colspan="1" class="borde text-left fondo" >FUNDAMENTACIÓN</td>                                                    
                                                     <td colspan="3" class="borde"><textarea name="fundamentacion5" class="form-control" id="fundamentacion5" cols="30" rows="3" autocomplete="off"></textarea></td>
                                                 </tr>         
 
@@ -312,19 +338,19 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                         <table class="table text-center " style="width:100%; margin-bottom:50px;">
                                             <tbody>
                                                 <tr class="borde2">
-                                                    <td colspan="3" class="borde2">RESULTADOS DE METAS</td>
-                                                    <td colspan="3" class="borde2">RESULTADOS DE COMPETENCIAS</td>
-                                                    <td rowspan="2" class="borde2" style="vertical-align:middle">TOTAL LOGRADO %</td>
+                                                    <td colspan="3" class="borde2 fondo negritas">RESULTADOS DE METAS</td>
+                                                    <td colspan="3" class="borde2 fondo negritas">RESULTADOS DE COMPETENCIAS</td>
+                                                    <td rowspan="2" class="borde2 fondo negritas" style="vertical-align:middle">TOTAL LOGRADO %</td>
                                                 </tr>
                                            
                                             
                                                 <tr>
-                                                    <td class="borde2">RESULTADOS</td>
-                                                    <td class="borde2">PONDERACION</td>
-                                                    <td class="borde2">TOTAL</td>
-                                                    <td class="borde2">RESULTADOS</td>
-                                                    <td class="borde2">PONDERACION</td>
-                                                    <td class="borde2">TOTAL</td>                                                                                                   
+                                                    <td class="borde2 fondo negritas">RESULTADOS</td>
+                                                    <td class="borde2 fondo negritas">PONDERACION</td>
+                                                    <td class="borde2 fondo negritas">TOTAL</td>
+                                                    <td class="borde2 fondo negritas">RESULTADOS</td>
+                                                    <td class="borde2 fondo negritas">PONDERACION</td>
+                                                    <td class="borde2 fondo negritas">TOTAL</td>                                                                                                   
                                                 </tr>
                                                 <tr>
                                                     <td class="borde2" id="resultadoMeta">0</td>
@@ -336,7 +362,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                     <td class="borde2 blackNumbers" rowspan="3" style="font-size:3em;" id="total">0</td>                                               
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="3" class="borde2">ANOTACIONES DEMÉRITO (20%)</td>
+                                                    <td colspan="3" class="borde2 fondo">ANOTACIONES DEMÉRITO (20%)</td>
                                                     <td class="borde2">
                                                     <select name="demerito" id="demerito" class="form-control">
                                                             <option value="NO" selected>NO</option>
@@ -344,10 +370,10 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                         </select>
                                                     </td>
                                                     </td>
-                                                    <td colspan="2" class="borde2" >APLICA REDUCCIÓN DEL 20% AL TOTAL LOGRADO</td>
+                                                    <td colspan="2" class="borde2 fondo" >APLICA REDUCCIÓN DEL 20% AL TOTAL LOGRADO</td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="3" class="borde2">ANOTACIONES DE MÉRITO (20%)</td>
+                                                    <td colspan="3" class="borde2 fondo">ANOTACIONES DE MÉRITO (20%)</td>
                                                     <td class="borde2">
                                                     <select name="merito" id="merito" class="form-control">
                                                             <option value="NO" selected>NO</option>
@@ -355,11 +381,11 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                         </select>
                                                     </td>
                                                     </td>
-                                                    <td colspan="2" class="borde2">APLICA AUMENTO DEL 20% AL TOTAL LOGRADO</td>
+                                                    <td colspan="2" class="borde2 fondo">APLICA AUMENTO DEL 20% AL TOTAL LOGRADO</td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="3" class="borde2"> NIVEL DE DESARROLLO ALCANZADO</td>
-                                                    <td colspan="4" class="borde2"> <b id="desarrollo">AUSENCIA</b></td>
+                                                    <td colspan="3" class="borde2 fondo"> NIVEL DE DESARROLLO ALCANZADO</td>
+                                                    <td colspan="4" class="borde2 negritas"> <b id="desarrollo">AUSENCIA</b></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -372,25 +398,25 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                             </thead>
                                             <tbody >
                                             <tr >
-                                                <td colspan="2" class="borde text-center">OBSERVACIONES GENERALES PARA LA MEJORA</td>
+                                                <td colspan="2" class="borde text-center fondo">OBSERVACIONES GENERALES PARA LA MEJORA</td>
                                             </tr>
                                             <tr>
                                                 <td colspan="2" class="borde"><textarea name="obsmejora" class="form-control" id="obsmejora" cols="30" rows="3"></textarea></td>
                                             </tr> 
                                             <tr>
-                                                <td class="borde">EVIDENCIAS PARA PREPARAR LA MEJORA (HECHOS ACONTECIDOS EN EL AÑO)</td>
+                                                <td class="borde fondo">EVIDENCIAS PARA PREPARAR LA MEJORA (HECHOS ACONTECIDOS EN EL AÑO)</td>
                                                 <td class="borde" width="70%"> <textarea name="hecho" class="form-control" id="hecho" cols="30" rows="3"></textarea></td>
                                             </tr>
                                             <tr>
-                                                <td class="borde">OBJETIVOS PARA LA MEJORA CONTINUA (OBJETIVOS SMART)</td>
+                                                <td class="borde fondo">OBJETIVOS PARA LA MEJORA CONTINUA (OBJETIVOS SMART)</td>
                                                 <td class="borde"><textarea name="objetivo" class="form-control" id="objetivo" cols="30" rows="3"></textarea></td>
                                             </tr>
                                             <tr>
-                                                <td class="borde">PLAN PARA LA MEJORA CONTINUA</td>
+                                                <td class="borde fondo">PLAN PARA LA MEJORA CONTINUA</td>
                                                 <td class="borde"><textarea name="mejora" class="form-control" id="mejora" cols="30" rows="3"></textarea></td>
                                             </tr>
                                             <tr>
-                                                <td class="borde">KPI´s de Control (Indicadores de Gestión Personal)</td>
+                                                <td class="borde fondo">KPI´s de Control (Indicadores de Gestión Personal)</td>
                                                 <td class="borde"><textarea name="kpi" class="form-control" id="kpi" cols="30" rows="3"></textarea></td>
                                             </tr>
                                             </tbody>
@@ -413,12 +439,18 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
 
                                 <div class="row" style="padding-bottom:3%;">
                                     <div class="container">
+                                        <div class="col-md-12 text-center" style="padding:3%">                                            
+                                           <input type="button" class="btn btn-primary btn-lg" id="pdf" value="Pasar a pdf" />
+                                        </div>
+                                       
                                         <div class="col-md-12 text-center"><small>DOCUMENÉNTESE ELECTRÓNICAMENTE Y EN CARPETA FÍSICA DEL/LA TRABAJADOR/A</small></div>
+                                        
                                     </div>
                                 </div>
 
                             </div>
-                        </div>                      
+                        </div>      
+                                       
                     </div>                    
                 </div>
             </section>            
@@ -499,6 +531,32 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }else{$("#"+id+"").html(data)}
         }
     })}
+    const req2 = (data, url) => {
+        $.ajax({data: data,type: 'POST',url: url,dataType:'json',
+        success:function(data){
+            // console.log(data.state);
+            if(data.state){
+                console.log(data.data);
+                let val1 = parseInt(data.data[0].rpregunta1) * 100 / 4;
+                let val2 = parseInt(data.data[0].rpregunta2) * 100 / 4;
+                let val3 = parseInt(data.data[0].rpregunta3) * 100 / 4;
+                let val4 = parseInt(data.data[0].rpregunta4) * 100 / 4;
+                sumaCompetencias(val1,val2,val3,val4)
+                $("#orientacionAlCLiente").val(data.data[0].rpregunta1);
+                $("#total1").text(val1);
+                $("#habilidades").val(data.data[0].rpregunta2);
+                $("#total2").text(val2);
+                $("#orientacionAlLogro").val(data.data[0].rpregunta3);
+                $("#total3").text(val3);
+                $("#negociacion").val(data.data[0].rpregunta4);            
+                $("#total4").text(val4);
+            }else{
+                console.log(data.data)
+            }
+            
+        }
+    })  
+    }
     const metas = (data,url,asignada) =>{
         $.ajax({
             data : data,
@@ -521,7 +579,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     req('','getPersonas.php','persona');
     $("#persona").change(function(){
         $('.limpia').val('');
-        if($(this).val()!=0){            
+        $('.limpiaText').text('0');
+        if($(this).val()!=0){      
+            req2({vendedor:$(this).val()},'getEvaluacion.php');      
             metas({vendedor:$(this).val(),opt:1},'getMetas.php',true);
             metas({vendedor:$(this).val(),opt:2},'getMetas.php',false);            
             $("#firmaEvaluado").text($("#persona option:selected").text());
@@ -546,29 +606,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
     $("#calTot").click(function(){ logro_(); });
 
-    const inputFunc = (id) => {
-        $('#'+id+'1').on('input', function() {
-            let val1 = parseInt($('#'+id+'1').val());
-            let val2 = parseInt($('#'+id+'2').val());
-            let total = (val2 * 100) / val1;
-            $("#"+id+'3').val(total);
-            sumaCompetencias('orientacionAlCLiente','habilidades','orientacionAlLogro','negociacion')
-        });
-        $('#'+id+'2').on('input', function() {
-            let val1 = parseInt($('#'+id+'1').val());
-            let val2 = parseInt($('#'+id+'2').val());
-            let total = (val2 * 100) / val1;
-            $("#"+id+'3').val(total);
-            sumaCompetencias('orientacionAlCLiente','habilidades','orientacionAlLogro','negociacion')
-        });
-        
+    const inputFunc = (id,totalv) => {
+        $('#'+id).on('input', function() {
+            let val1 = parseInt($(this).val());            
+            let total = (val1 * 100) / 4;
+            $("#"+totalv).text(total);
+            sumaCompetencias( parseInt($("#total1").text()),parseInt($("#total2").text()),parseInt($("#total3").text()),parseInt($("#total4").text()))
+        });               
     }
-    const sumaCompetencias = (com1,com2,com3,com4) => {
-        let val1 = parseInt($("#"+com1+"3").val());
-        let val2 = parseInt($("#"+com2+"3").val());
-        let val3 = parseInt($("#"+com3+"3").val());
-        let val4 = parseInt($("#"+com4+"3").val());
-        let total = (val1 + val2 + val3 + val4) / 4;
+    const sumaCompetencias = (com1,com2,com3,com4) => {        
+        let total = (com1 + com2 + com3 + com4) / 4;
         $("#resultadoCompetencia").text(Math.round(total));
         $("#totalCompetencia").text(Math.round(total * 0.3));
         let total1 = parseInt($("#totalMeta").text());
@@ -577,11 +624,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         $("#total").text(sumaTotal);
         criterio(sumaTotal);
     }
-    inputFunc('orientacionAlCLiente')
-    inputFunc('habilidades')
-    inputFunc('orientacionAlLogro')
-    inputFunc('negociacion')
-    
+    inputFunc('orientacionAlCLiente','total1')
+    inputFunc('habilidades','total2')
+    inputFunc('orientacionAlLogro','total3')
+    inputFunc('negociacion','total4')    
 
 // merito y demerito
 
@@ -632,6 +678,81 @@ const criterio = (valor) => {
     }
 }    
 });
+
+$("#pdf").on('click',function(e){    
+    let pdfData = {
+        ciclo_evaluacion : v_("year","val")+' - '+v_("year2","val"),
+        fecha_evaluacion : v_("fecha_eva","val"),
+        persona : v_("persona","val"),
+        evaluador : v_("evaluador","val"),
+        cargoEvaluador : v_("cargoEvaluador","val"),
+        ausentismo : v_("ausentismo","val"),
+        compensa : v_("compensa","val"),       
+        fundamentacion1 : v_("fundamentacion1","val"),
+        fundamentacion2 : v_("fundamentacion2","val"),
+        fundamentacion3 : v_("fundamentacion3","val"),
+        fundamentacion4 : v_("fundamentacion4","val"),
+        fundamentacion5 : v_("fundamentacion5","val"),       
+        merito : v_("merito","val"),
+        demerito : v_("demerito","val"),
+        desarrollo : v_("desarrollo","text"),
+        obsmejora : v_("obsmejora","val"),
+        hecho : v_("hecho","val"),
+        objetivo : v_("objetivo","val"),
+        kpi : v_("kpi","val"),
+        mejora : v_("mejora","val")
+    }    
+    $.ajax({        
+        url : "insert_informe.php",        
+        type : "POST",
+        data : pdfData,
+        dataType : 'json',
+        success:function(result){
+            if(result.title == "data"){  
+                let asignados = recorre('asign');              
+                let lograda = recorre('lograda');              
+                let logro = recorre('logro');
+                criterio = {
+                    asign : asignados,
+                    lograda : lograda,
+                    logro : logro,
+                    totalAsign : $("#totalAsignado").val(),
+                    totalLograda : $("#totalLogrado").val(),
+                    totalLogro : $("#porcentajeTotal").val()
+                }
+                   
+
+                location.href='<?php echo _MODULO?>evaluacion/evaluacionPdf.php?id='+result.message+'&criterio='+JSON.stringify(criterio);                
+            }else{
+                swal(result.title, result.message, result.icon);
+            }
+                
+        }
+    });
+    e.preventDefault();
+});
+
+const v_ = (campo,val) =>{
+    let valor ="";
+    if(val == "val"){
+        valor = $("#"+campo).val()
+    }else if(val=="text"){
+        valor = $("#"+campo).text()
+    }else if(val == "select"){        
+        valor = $('select[name="'+campo+'"] option:selected').text();
+
+    }    
+    return valor;
+}
+const recorre = (id) =>{
+    let arreglo = [];
+    let cont = 1;
+    for (let index = 0; index < 12; index++) {
+            arreglo[index] = $("#"+id+"-"+cont).val();
+            cont +=1;        
+    }
+    return arreglo;
+}
 </script>
 </body>
 </html>

@@ -23,10 +23,6 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) header("Location: "._ADMIN."pa
         color:black;       
         background-color:#ababab;
     }
-    
-       
-        
-    
 </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -52,9 +48,12 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) header("Location: "._ADMIN."pa
                 <div class="row">                    
                     <div class="col-sm-12">                      
                         <div class="box box-primary" style="padding-bottom:100px;">
+                        
                           <form>
                             <div class="row">
                                 <div class="col-lg-10 col-md-offset-1" style="margin-top:3%;">
+                                <!-- etiqueta de prueba para react -->
+                                <div id="root"></div>
                                 <?php  
                                     $consulta = "SELECT * FROM matriz_preguntas";
                                     $conexion->consulta($consulta);
@@ -71,6 +70,16 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) header("Location: "._ADMIN."pa
                                                 foreach ($vendedores as $fila) {
                                                     ?>
                                                     <option value="<?php echo $fila['id_vend'];?>"><?php echo utf8_encode($fila['nombre_vend'])." ".utf8_encode($fila['apellido_paterno_vend'])." ".utf8_encode($fila['apellido_materno_vend']);?> </option>
+                                                    <?php
+                                                }
+                                            }
+                                            $queryOperaciones="SELECT * FROM usuario_usuario WHERE id_per=3";
+                                            $conexion->consulta($queryOperaciones);
+                                            $operaciones = $conexion->extraer_registro();
+                                            if(is_array($operaciones)){
+                                                foreach ($operaciones as $fila) {
+                                                    ?>
+                                                    <option value="<?php echo $fila['id_usu'];?>"><?php echo utf8_encode($fila['nombre_usu'])." ".utf8_encode($fila['apellido1_usu'])." ".utf8_encode($fila['apellido2_usu']);?> </option>
                                                     <?php
                                                 }
                                             }
@@ -118,9 +127,9 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) header("Location: "._ADMIN."pa
                                             <tr>
                                                 <td class="claro">CATEGORIA PORCENTUAL DE DESARROLLO</td>
                                                 <td class="claro">0%</td>
-                                                <td class="claro">20%</td>
-                                                <td class="claro">40%</td>
-                                                <td class="claro">70%</td>
+                                                <td class="claro">25%</td>
+                                                <td class="claro">50%</td>
+                                                <td class="claro">75%</td>
                                                 <td class="claro">100%</td>
                                             </tr>
                                         </thead>
@@ -189,8 +198,13 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) header("Location: "._ADMIN."pa
             </section>            
         </div>        
 <?php include_once _INCLUDE."footer_comun.php";?>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <?php include_once _INCLUDE."js_comun.php";?>
 <script>
+    // react
+    // const root = ReactDOM.createRoot(document.getElementById('root'));
+    // root.render(<h1>Hello, world!</h1>);
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 });  
@@ -207,6 +221,7 @@ $(function () {
       });
       event.preventDefault();
     });
+
 </script>
 </body>
 </html>

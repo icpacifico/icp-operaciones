@@ -119,21 +119,14 @@
 	$fila_consulta = $conexion->extraer_registro();
 	
 	/* Data set length after filtering */
-	$sQuery = "
-		SELECT FOUND_ROWS()
-	";
-	$conexion->consulta($sQuery);
+	$conexion->consulta("SELECT FOUND_ROWS()");
 	$fila_consulta2 = $conexion->extraer_registro_unico();
 
 	
 	$iFilteredTotal = $fila_consulta2[0];
 	
 	/* Total data set length */
-	$sQuery = "
-		SELECT COUNT(".$sIndexColumn.")
-		FROM   $sTable
-	";
-	$conexion->consulta($sQuery);
+	$conexion->consulta("SELECT COUNT(".$sIndexColumn.") FROM   $sTable");
 	$fila_consulta3 = $conexion->extraer_registro_unico();
 
 	$iTotal = $fila_consulta3[0];
@@ -147,14 +140,7 @@
 		"iTotalDisplayRecords" => $iFilteredTotal,
 		"aaData" => array()
 	);
-	$consulta = 
-		"
-		SELECT
-			id_viv
-		FROM
-			venta_venta
-		";
-	$conexion->consulta($consulta);
+	$conexion->consulta("SELECT id_viv FROM venta_venta ");
 	$fila_consulta_torre_original = $conexion->extraer_registro();
 	$fila_consulta_torre = array();
 	if(is_array($fila_consulta_torre_original)){
@@ -164,14 +150,7 @@
         }
 	}
 	
-	$consulta = 
-		"
-		SELECT
-			id_ven
-		FROM
-			venta_desestimiento_venta
-		";
-	$conexion->consulta($consulta);
+	$conexion->consulta("SELECT id_ven FROM venta_desestimiento_venta");
 	$fila_consulta_desistimiento_original = $conexion->extraer_registro();
 	$fila_consulta_desistimiento = array();
 	if(is_array($fila_consulta_desistimiento_original)){
@@ -181,14 +160,7 @@
         }
 	}
 
-	$consulta = 
-		"
-		SELECT
-			id_ven
-		FROM
-			pago_pago
-		";
-	$conexion->consulta($consulta);
+	$conexion->consulta("SELECT id_ven FROM pago_pago");
 	$fila_consulta_detalle_original = $conexion->extraer_registro();
 	$fila_consulta_detalle = array();
 	if(is_array($fila_consulta_detalle_original)){
@@ -198,13 +170,7 @@
         }
 	}
 
-	$consulta = 
-		"
-		SELECT
-			id_ven
-		FROM
-			venta_etapa_venta
-		";
+	$consulta ="SELECT id_ven FROM venta_etapa_venta";
 	$conexion->consulta($consulta);
 	$fila_consulta_etapa_original = $conexion->extraer_registro();
 	$fila_consulta_etapa = array();

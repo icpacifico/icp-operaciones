@@ -9,6 +9,10 @@ require "config.php";
   <title>Plataforma Online</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- <link rel="stylesheet" href="<?php echo _ASSETS?>bootstrap5/css/bootstrap.min.css">
+  <script src="<?php echo _ASSETS?>bootstrap5/js/bootstrap.bundle.min.js"></script> -->
+
+
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="<?php echo _ASSETS?>bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
@@ -17,6 +21,8 @@ require "config.php";
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo _ASSETS?>dist/css/AdminLTE.min.css">
+
+  <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/alert/sweet-alert.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?php echo _ASSETS?>dist/css/skins/_all-skins.min.css">
@@ -26,9 +32,7 @@ require "config.php";
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-  <!-- <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/alert/sweet-alert.css"> -->
-  <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/alert_prueba/dist/sweetalert.css">
-
+ 
+  <!-- <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/alert_prueba/dist/sweetalert.css"> -->
   <link rel="stylesheet" href="<?php echo _ASSETS?>dist/css/ajustes.css">
-
-  <script src="<?php echo _ASSETS?>plugins/jQuery/jquery-2.2.3.min.js"></script>
+ 
