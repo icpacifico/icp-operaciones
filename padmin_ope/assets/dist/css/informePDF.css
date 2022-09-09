@@ -32,9 +32,6 @@ vertical-align: middle !important;
     font-weight: 900;
     font-size:1.6em;
 }
-input,select,textarea{
-    border:none !important;
-}
 .fondo{
     background:#FDEBDF;
 } 
