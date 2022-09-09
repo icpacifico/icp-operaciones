@@ -241,7 +241,7 @@ $html .='
                                                 <td colspan="3" class="borde2" style="background:#FDEBDF;">ANOTACIONES DE MÉRITO (20%)</td>
                                                 <td class="borde2 text-center">'.$informe[0]['merito'].'</td>
                                                 </td>
-                                                <td colspan="2" class="borde2"style="background:#FDEBDF;">APLICA AUMENTO DEL 20% AL TOTAL LOGRADO</td>
+                                                <td colspan="2" class="borde2" style="background-color:#FDEBDF !important;">APLICA AUMENTO DEL 20% AL TOTAL LOGRADO</td>
                                             </tr>
                                             <tr>
                                                 <td colspan="3" class="borde2" style="background:#FDEBDF;"> NIVEL DE DESARROLLO ALCANZADO</td>
@@ -304,8 +304,8 @@ $html .='
 </html>';
 
 $mpdf = new mPDF('c','A4');
-$url1 = _ASSETS."bootstrap/css/bootstrap.min.css";
-$url2 = _ASSETS."dist/css/informePDF.css";
+$url2 = _ASSETS."bootstrap/css/bootstrap.min.css";
+$url1 = _ASSETS."dist/css/informePDF.css";
 
 $bootstrap = curl_init($url1);
 curl_setopt($bootstrap, CURLOPT_RETURNTRANSFER, true);

@@ -91,25 +91,25 @@ $html .='
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="borde fondo">NOMBRE PERSONA EVALUADA</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">NOMBRE PERSONA EVALUADA</td>
                                                 <td colspan="4" class="borde">'.$nombreVendedor.'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde fondo">CARGO / FUNCIÓN</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">CARGO / FUNCIÓN</td>
                                                 <td colspan="4" class="borde">'.$informe[0]['cargo_persona'].'</tr>
                                             <tr>
-                                                <td class="borde fondo">NOMBRE EVALUADOR/A</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;" >NOMBRE EVALUADOR/A</td>
                                                 <td colspan="4" class="borde">'.$informe[0]['encargado'].'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde fondo">CARGO / FUNCIÓN</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;" >CARGO / FUNCIÓN</td>
                                                 <td colspan="4" class="borde">'.$cargo.'</td>                                                   
                                             </tr>
                                             <tr>
-                                                <td class="borde fondo"> OBSERVACIONES DE DESEMPEÑO:</td>
-                                                <td class="borde fondo">APLICA AUSENTISMO HASTA POR 60 DÍAS HÁBILES</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;"> OBSERVACIONES DE DESEMPEÑO:</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">APLICA AUSENTISMO HASTA POR 60 DÍAS HÁBILES</td>
                                                 <td class="borde text-center" width="12%">'.$informe[0]['ausentismo'].'</td>
-                                                <td class="borde fondo">APLICA CRITERIO DE COMPENSACIÓN POR 15 DÍAS DE AUSENTISMO CONTINUO</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">APLICA CRITERIO DE COMPENSACIÓN POR 15 DÍAS DE AUSENTISMO CONTINUO</td>
                                                 <td class="borde text-center" width="12%">'.$informe[0]['compensacion'].'</td>
                                             </tr>
                                         </tbody>
@@ -123,155 +123,155 @@ $html .='
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="borde fondo">2.1 META ASIGNADA</td>
-                                                <td class="borde fondo">META ASIGNADA</td>
-                                                <td class="borde fondo">META LOGRADA</td>
-                                                <td class="borde fondo">LOGRO</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">2.1 META ASIGNADA</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">META ASIGNADA</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">META LOGRADA</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">LOGRO</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde fondo">MES 1 ENERO</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">MES 1 ENERO</td>
                                                 <td class="borde redNumbers">'.$criterio->asign[0].'</td>
                                                 <td class="borde redNumbers">'.$criterio->lograda[0].'</td>
                                                 <td class="borde blackNumbers2">'.$criterio->logro[0].'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde fondo">MES 2 FEBRERO</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">MES 2 FEBRERO</td>
                                                 <td class="borde redNumbers">'.$criterio->asign[1].'</td>
                                                 <td class="borde redNumbers">'.$criterio->lograda[1].'</td>
                                                 <td class="borde blackNumbers2">'.$criterio->logro[1].'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde fondo">MES 3 MARZO</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">MES 3 MARZO</td>
                                                 <td class="borde redNumbers">'.$criterio->asign[2].'</td>
                                                 <td class="borde redNumbers">'.$criterio->lograda[2].'</td>
                                                 <td class="borde blackNumbers2">'.$criterio->logro[2].'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde fondo">MES 4 ABRIL</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">MES 4 ABRIL</td>
                                                 <td class="borde redNumbers">'.$criterio->asign[3].'</td>
                                                 <td class="borde redNumbers">'.$criterio->lograda[3].'</td>
                                                 <td class="borde blackNumbers2">'.$criterio->logro[3].'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde fondo">MES 5 MAYO</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">MES 5 MAYO</td>
                                                 <td class="borde redNumbers">'.$criterio->asign[4].'</td>
                                                 <td class="borde redNumbers">'.$criterio->lograda[4].'</td>
                                                 <td class="borde blackNumbers2">'.$criterio->logro[4].'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde fondo">MES 6 JUNIO</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">MES 6 JUNIO</td>
                                                 <td class="borde redNumbers">'.$criterio->asign[5].'</td>
                                                 <td class="borde redNumbers">'.$criterio->lograda[5].'</td>
                                                 <td class="borde blackNumbers2">'.$criterio->logro[5].'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde fondo">MES 7 JULIO</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">MES 7 JULIO</td>
                                                 <td class="borde redNumbers">'.$criterio->asign[6].'</td>
                                                 <td class="borde redNumbers">'.$criterio->lograda[6].'</td>
                                                 <td class="borde blackNumbers2">'.$criterio->logro[6].'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde fondo">MES 8 AGOSTO</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">MES 8 AGOSTO</td>
                                                 <td class="borde redNumbers">'.$criterio->asign[7].'</td>
                                                 <td class="borde redNumbers">'.$criterio->lograda[7].'</td>
                                                 <td class="borde blackNumbers2">'.$criterio->logro[7].'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde fondo">MES 9 SEPTIEMBRE</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">MES 9 SEPTIEMBRE</td>
                                                 <td class="borde redNumbers">'.$criterio->asign[8].'</td>
                                                 <td class="borde redNumbers">'.$criterio->lograda[8].'</td>
                                                 <td class="borde blackNumbers2">'.$criterio->logro[8].'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde fondo">MES 10 OCTUBRE</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">MES 10 OCTUBRE</td>
                                                 <td class="borde redNumbers">'.$criterio->asign[9].'</td>
                                                 <td class="borde redNumbers">'.$criterio->lograda[9].'</td>
                                                 <td class="borde blackNumbers2">'.$criterio->logro[9].'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde fondo">MES 11 NOVIEMBRE</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">MES 11 NOVIEMBRE</td>
                                                 <td class="borde redNumbers">'.$criterio->asign[10].'</td>
                                                 <td class="borde redNumbers">'.$criterio->lograda[10].'</td>
                                                 <td class="borde blackNumbers2">'.$criterio->logro[10].'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde fondo">MES 12 DICIEMBRE</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">MES 12 DICIEMBRE</td>
                                                 <td class="borde redNumbers">'.$criterio->asign[11].'</td>
                                                 <td class="borde redNumbers">'.$criterio->lograda[11].'</td>
                                                 <td class="borde blackNumbers2">'.$criterio->logro[11].'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde fondo">TOTALES</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">TOTALES</td>
                                                 <td class="borde blackNumbers2">'.$criterio->totalAsign.'</td>
                                                 <td class="borde blackNumbers2 ">'.$criterio->totalLograda.'</td>
                                                 <td class="borde blackNumbers2">'.$criterio->totalLogro.'</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="1" class="borde text-left fondo">FUNDAMENTACIÓN</td>                                                    
+                                                <td colspan="1" class="borde text-left" style="background-color:#FDEBDF !important;" >FUNDAMENTACIÓN</td>                                                    
                                                 <td colspan="3" class="borde">'.$informe[0]['funda1'].'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde text-left fondo"><strong>2.2 COMPETENCIA 1</strong> </td>
-                                                <td class="borde fondo">DESARROLLO PROPUESTO</td>
-                                                <td class="borde fondo">AÑO ACTUAL</td>
-                                                <td class="borde fondo">% LOGRO</td>
+                                                <td class="borde text-left" style="background-color:#FDEBDF !important;" ><strong>2.2 COMPETENCIA 1</strong> </td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;" >DESARROLLO PROPUESTO</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;" >AÑO ACTUAL</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;" >% LOGRO</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde text-left fondo">ORIENTACIÓN AL CLIENTE</td>
+                                                <td class="borde text-left" style="background-color:#FDEBDF !important;" >ORIENTACIÓN AL CLIENTE</td>
                                                 <td class="borde redNumbers">4</td>
                                                 <td class="borde redNumbers">'.$criterios[0]['rpregunta1'].'</td>
                                                 <td class="borde blackNumbers limpiaText" id="total1">'.$total1.'</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="1" class="borde text-left fondo" >FUNDAMENTACIÓN</td>                                                    
+                                                <td colspan="1" class="borde text-left" style="background-color:#FDEBDF !important;"  >FUNDAMENTACIÓN</td>                                                    
                                                 <td colspan="3" class="borde">'.$informe[0]['funda2'].'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde text-left fondo"><strong>2.3 COMPETENCIA 2</strong></td>
-                                                <td class="borde fondo">DESARROLLO PROPUESTO</td>
-                                                <td class="borde fondo">AÑO ACTUAL</td>
-                                                <td class="borde fondo">% LOGRO</td>
+                                                <td class="borde text-left" style="background-color:#FDEBDF !important;" ><strong>2.3 COMPETENCIA 2</strong></td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;" >DESARROLLO PROPUESTO</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;" >AÑO ACTUAL</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;" >% LOGRO</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde text-left fondo">HABILIDADES INTERPERSONALES</td>
+                                                <td class="borde text-left" style="background-color:#FDEBDF !important;" >HABILIDADES INTERPERSONALES</td>
                                                 <td class="borde redNumbers">4</td>
                                                 <td class="borde redNumbers">'.$criterios[0]['rpregunta2'].'</td>
                                                 <td class="borde blackNumbers" id="total2">'.$total2.'</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="1" class="borde text-left fondo" >FUNDAMENTACIÓN</td>                                                    
+                                                <td colspan="1" class="borde text-left" style="background-color:#FDEBDF !important;"  >FUNDAMENTACIÓN</td>                                                    
                                                 <td colspan="3" class="borde">'.$informe[0]['funda3'].'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde text-left fondo"><strong>2.4 COMPETENCIA 3</strong></td>
-                                                <td class="borde fondo">DESARROLLO PROPUESTO</td>
-                                                <td class="borde fondo">AÑO ACTUAL</td>
-                                                <td class="borde fondo">% LOGRO</td>
+                                                <td class="borde text-left" style="background-color:#FDEBDF !important;"><strong>2.4 COMPETENCIA 3</strong></td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">DESARROLLO PROPUESTO</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">AÑO ACTUAL</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">% LOGRO</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde text-left fondo">ORIENTACIÓN AL LOGRO</td>
+                                                <td class="borde text-left" style="background-color:#FDEBDF !important;">ORIENTACIÓN AL LOGRO</td>
                                                 <td class="borde redNumbers">4</td>
                                                 <td class="borde redNumbers">'.$criterios[0]['rpregunta3'].'</td>
                                                 <td class="borde blackNumbers limpiaText" id="total3">'.$total3.'</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="1" class="borde text-left fondo" >FUNDAMENTACIÓN</td>                                                    
+                                                <td colspan="1" class="borde text-left" style="background-color:#FDEBDF !important;" >FUNDAMENTACIÓN</td>                                                    
                                                 <td colspan="3" class="borde">'.$informe[0]['funda4'].'</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde text-left fondo"><strong>2.5 COMPETENCIA 4</strong> </td>
-                                                <td class="borde fondo">DESARROLLO PROPUESTO</td>
-                                                <td class="borde fondo">AÑO ACTUAL</td>
-                                                <td class="borde fondo">% LOGRO</td>
+                                                <td class="borde text-left" style="background-color:#FDEBDF !important;"><strong>2.5 COMPETENCIA 4</strong> </td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">DESARROLLO PROPUESTO</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">AÑO ACTUAL</td>
+                                                <td class="borde" style="background-color:#FDEBDF !important;">% LOGRO</td>
                                             </tr>
                                             <tr>
-                                                <td class="borde text-left fondo">NEGOCIACIÓN</td>
+                                                <td class="borde text-left" style="background-color:#FDEBDF !important;">NEGOCIACIÓN</td>
                                                 <td class="borde redNumbers">4</td>
                                                 <td class="borde redNumbers">'.$criterios[0]['rpregunta4'].'</td>
                                                 <td class="borde blackNumbers limpiaText" id="total4">'.$total4.'</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="1" class="borde text-left fondo" >FUNDAMENTACIÓN</td>                                                    
+                                                <td colspan="1" class="borde text-left" style="background-color:#FDEBDF !important;" >FUNDAMENTACIÓN</td>                                                    
                                                 <td colspan="3" class="borde">'.$informe[0]['funda5'].'</td>
                                             </tr>         
 
@@ -281,19 +281,19 @@ $html .='
                                     <table class="table table-bordered text-center " style="width:100%; margin-bottom:50px;">
                                         <tbody>
                                             <tr class="borde2">
-                                                <td colspan="3" class="borde2 fondo">RESULTADOS DE METAS</td>
-                                                <td colspan="3" class="borde2 fondo">RESULTADOS DE COMPETENCIAS</td>
-                                                <td rowspan="2" class="borde2 fondo" style="vertical-align:middle">TOTAL LOGRADO %</td>
+                                                <td colspan="3" class="borde2" style="background-color:#FDEBDF !important;">RESULTADOS DE METAS</td>
+                                                <td colspan="3" class="borde2" style="background-color:#FDEBDF !important;">RESULTADOS DE COMPETENCIAS</td>
+                                                <td rowspan="2" class="borde2" style="background-color:#FDEBDF !important; vertical-align:middle">TOTAL LOGRADO %</td>
                                             </tr>
                                        
                                         
                                             <tr>
-                                                <td class="borde2 fondo">RESULTADOS</td>
-                                                <td class="borde2 fondo">PONDERACION</td>
-                                                <td class="borde2 fondo">TOTAL</td>
-                                                <td class="borde2 fondo">RESULTADOS</td>
-                                                <td class="borde2 fondo">PONDERACION</td>
-                                                <td class="borde2 fondo">TOTAL</td>                                                                                                   
+                                                <td class="borde2" style="background-color:#FDEBDF !important;">RESULTADOS</td>
+                                                <td class="borde2" style="background-color:#FDEBDF !important;">PONDERACION</td>
+                                                <td class="borde2" style="background-color:#FDEBDF !important;">TOTAL</td>
+                                                <td class="borde2" style="background-color:#FDEBDF !important;">RESULTADOS</td>
+                                                <td class="borde2" style="background-color:#FDEBDF !important;">PONDERACION</td>
+                                                <td class="borde2" style="background-color:#FDEBDF !important;">TOTAL</td>                                                                                                   
                                             </tr>
                                             <tr>
                                                 <td class="borde2" id="resultadoMeta">'.$resultadoMeta.'</td>
@@ -305,19 +305,19 @@ $html .='
                                                 <td class="borde2 blackNumbers" rowspan="3" style="font-size:3em;" id="total">'.$total.'</td>                                               
                                             </tr>
                                             <tr>
-                                                <td colspan="3" class="borde2 fondo">ANOTACIONES DEMÉRITO (20%)</td>
+                                                <td colspan="3" class="borde2" style="background-color:#FDEBDF !important;">ANOTACIONES DEMÉRITO (20%)</td>
                                                 <td class="borde2 text-center">'.$informe[0]['demerito'].'</td>
                                                 </td>
-                                                <td colspan="2" class="borde2 fondo" >APLICA REDUCCIÓN DEL 20% AL TOTAL LOGRADO</td>
+                                                <td colspan="2" class="borde2" style="background-color:#FDEBDF !important;" >APLICA REDUCCIÓN DEL 20% AL TOTAL LOGRADO</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="3" class="borde2 fondo">ANOTACIONES DE MÉRITO (20%)</td>
+                                                <td colspan="3" class="borde2" style="background-color:#FDEBDF !important;">ANOTACIONES DE MÉRITO (20%)</td>
                                                 <td class="borde2 text-center">'.$informe[0]['merito'].'</td>
                                                 </td>
-                                                <td colspan="2" class="borde2 fondo">APLICA AUMENTO DEL 20% AL TOTAL LOGRADO</td>
+                                                <td colspan="2" class="borde2" style="background-color:#FDEBDF !important;">APLICA AUMENTO DEL 20% AL TOTAL LOGRADO</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="3" class="borde2 fondo"> NIVEL DE DESARROLLO ALCANZADO</td>
+                                                <td colspan="3" class="borde2" style="background-color:#FDEBDF !important;"> NIVEL DE DESARROLLO ALCANZADO</td>
                                                 <td colspan="4" class="borde2"> <b id="desarrollo" style="font-weight: bold;">'.$informe[0]['criterio'].'</b></td>
                                             </tr>
                                         </tbody>
@@ -331,25 +331,25 @@ $html .='
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td colspan="2" class="borde text-center fondo">OBSERVACIONES GENERALES PARA LA MEJORA</td>
+                                            <td colspan="2" class="borde text-center" style="background-color:#FDEBDF !important;">OBSERVACIONES GENERALES PARA LA MEJORA</td>
                                         </tr>
                                         <tr>
                                             <td colspan="2" class="borde">'.$informe[0]['feedback1'].'</td>
                                         </tr> 
                                         <tr>
-                                            <td class="borde fondo">EVIDENCIAS PARA PREPARAR LA MEJORA (HECHOS ACONTECIDOS EN EL AÑO)</td>
+                                            <td class="borde" style="background-color:#FDEBDF !important;">EVIDENCIAS PARA PREPARAR LA MEJORA (HECHOS ACONTECIDOS EN EL AÑO)</td>
                                             <td class="borde" width="70%">'.$informe[0]['feedback2'].'</td>
                                         </tr>
                                         <tr>
-                                            <td class="fondo borde">OBJETIVOS PARA LA MEJORA CONTINUA (OBJETIVOS SMART)</td>
+                                            <td class="borde" style="background-color:#FDEBDF !important;">OBJETIVOS PARA LA MEJORA CONTINUA (OBJETIVOS SMART)</td>
                                             <td class="borde">'.$informe[0]['feedback3'].'</td>
                                         </tr>
                                         <tr>
-                                            <td class="borde fondo">PLAN PARA LA MEJORA CONTINUA</td>
+                                            <td class="borde" style="background-color:#FDEBDF !important;">PLAN PARA LA MEJORA CONTINUA</td>
                                             <td class="borde">'.$informe[0]['feedback4'].'</td>
                                         </tr>
                                         <tr>
-                                            <td class="borde fondo">KPI´s de Control (Indicadores de Gestión Personal)</td>
+                                            <td class="borde" style="background-color:#FDEBDF !important;">KPI´s de Control (Indicadores de Gestión Personal)</td>
                                             <td class="borde">'.$informe[0]['feedback5'].'</td>
                                         </tr>
                                         </tbody>
