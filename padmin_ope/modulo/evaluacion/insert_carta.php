@@ -19,16 +19,31 @@ function status($title,$message,$icon){
     // validación para obtener todos los valores del formulario
     if(!isset($_POST['trabajador']) || !isset($_POST['carta']) || !isset($_POST['descripcion']) || !isset($_POST['referencia']) || !isset($_POST['fundamentacion']) || !isset($_POST['resolucion'])){
         status("Incompleto!","Porfavor completar el formulario.","warning");
-    }else{       
+    }else{   
+        
+        try {            
+            $registro = conexion::select("SELECT * FROM matriz_carta WHERE trabajador_id = ".$_POST['trabajador']." AND estado = 1");
+            if(isset($registro[0])){
+                status("Prueba de funcionamiento","extrañamente hay datos?".$registro,"success");
+            }else{
+                $query = "INSERT INTO matriz_carta(trabajador_id,estado,anotacion,descripcion,referencia,fundamentacion,resolucion)VALUES(?,?,?,?,?,?,?)";
+                $conexion->consulta_form($query,array($_POST['trabajador'],1,$_POST['carta'],$_POST['descripcion'],$_POST['referencia'],$_POST['fundamentacion'],$_POST['resolucion']));
+                status("Registrado!","Evaluación de desempeño registrada con éxito.","success");                
+            }
+        }catch(Exception $e) {
+            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e->message()." ","error");
+        }catch(PDOException $e) {
+            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e->message()." ","error");           
+        }  
        
         try {
-            $query = "INSERT INTO matriz_carta(trabajador_id,anotacion,descripcion,referencia,fundamentacion,resolucion)VALUES(?,?,?,?,?,?)";
-            $conexion->consulta_form($query,array($_POST['trabajador'],$_POST['carta'],$_POST['descripcion'],$_POST['referencia'],$_POST['fundamentacion'],$_POST['resolucion']));
-            status("Registrado!","Evaluación de desempeño registrada con éxito.","success");
+            // $query = "INSERT INTO matriz_carta(trabajador_id,anotacion,descripcion,referencia,fundamentacion,resolucion)VALUES(?,?,?,?,?,?)";
+            // $conexion->consulta_form($query,array($_POST['trabajador'],$_POST['carta'],$_POST['descripcion'],$_POST['referencia'],$_POST['fundamentacion'],$_POST['resolucion']));
+            // status("Registrado!","Evaluación de desempeño registrada con éxito.","success");
         }catch(Exception $e) {
-            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e->message()." ","danger");
+            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e->message()." ","error");
         }catch(PDOException $e) {
-            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e->message()." ","danger");           
+            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e->message()." ","error");           
         }        
     }   
 ?>
