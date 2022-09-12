@@ -25,7 +25,7 @@ function status($title,$message,$icon){
             $registro = conexion::select("SELECT * FROM matriz_carta WHERE trabajador_id = ".$_POST['trabajador']." AND estado = 1");
             if(isset($registro[0])){
                 if($_POST['carta'] == $registro[0]['anotacion']){
-                    $conexion->consulta_form("UPDATE matriz_carta SET estado = 2 WHERE id = ?",array($registro[0]['id']));
+                    $conexion->consulta_form("UPDATE matriz_carta SET estado = 1 WHERE id = ?",array($registro[0]['id']));
                     $query = "INSERT INTO matriz_carta(trabajador_id,estado,anotacion,descripcion,referencia,fundamentacion,resolucion)VALUES(?,?,?,?,?,?,?)";
                     $conexion->consulta_form($query,array($_POST['trabajador'],1,$_POST['carta'],$_POST['descripcion'],$_POST['referencia'],$_POST['fundamentacion'],$_POST['resolucion']));
                     status("Registrado!","Evaluación de desempeño registrada con éxito.","success");                    

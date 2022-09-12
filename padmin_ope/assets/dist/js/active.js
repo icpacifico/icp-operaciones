@@ -6,7 +6,7 @@ let menuModulo = new Array(
 	 'banco','bodega','bono','carro','condominio','cotizacion','descuento','documento','estacionamiento','etapa','evento','informe','liquidacion','login','mailing','modelo','operacion','pago','parametro','premio','profesion','promesa','propietario','torre','uf','unidad','usuario','vendedor','venta','vivienda','evaluacion'
  )
 let proceso = new Array(
-	'select','select_envios','insert','insert_condominio','supervisor','jefe','cliente','lista','meta','insert_privilegio','detalle','operaciones','carta',''
+	'select','select_envios','insert','insert_condominio','supervisor','jefe','cliente','lista','meta','insert_privilegio','detalle','operaciones','carta','listar_carta',''
  )
 const menuActive = (mod,submod) =>{
     $('.sidebar-menu li').removeClass('active');

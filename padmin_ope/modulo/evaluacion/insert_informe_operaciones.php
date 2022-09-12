@@ -14,11 +14,19 @@ function status($title,$message,$icon){
     echo json_encode($jsondata);
     die();
 }
-try {
-    $query_desarrollo = "SELECT id FROM matriz_desarrollo WHERE id_vendedor=34";
-    $id = conexion::select($query_desarrollo);   
+try {  
+    $merito = "NO";  
+    $demerito = "NO";  
+    $id = conexion::select("SELECT id FROM matriz_desarrollo WHERE id_vendedor=34");   
+    $anotacion = conexion::select("SELECT anotacion FROM matriz_carta WHERE trabajador_id=34 AND estado = 1");   
     // $query_total_competencias = "SELECT (((`rpregunta1` * 100) DIV 4) + ((`rpregunta2` * 100) DIV 4) + ((`rpregunta3` * 100) DIV 4) + ((`rpregunta4` * 100) DIV 4)) DIV 4 as total FROM `matriz_desarrollo` WHERE `id_vendedor`=34";
-
+    if(isset($anotacion[0])){
+        if($anotacion[0]['anotacion'] == "Merito" ){
+            $merito = "SI";
+        }else if($anotacion[0]['anotacion'] == "Demerito"){
+            $demerito = "SI";
+        }
+    }
     $query = "INSERT INTO matriz_informe VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     $conexion->consulta_form($query,array(0,
                                           $id[0]['id'],
@@ -26,8 +34,8 @@ try {
                                           7,
                                           "Sara Noemí Araya Bugueño",
                                           "Colaboradora de Operaciones",
-                                          "NO",
-                                          "NO",
+                                          $merito,
+                                          $demerito,
                                           $_POST['desarrollo'],
                                           $_POST['fundamentacion1'],
                                           $_POST['fundamentacion2'],
