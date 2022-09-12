@@ -241,7 +241,7 @@ $html .='
                                                 <td colspan="3" class="borde2" style="background:#FDEBDF;">ANOTACIONES DE MÉRITO (20%)</td>
                                                 <td class="borde2 text-center">'.$informe[0]['merito'].'</td>
                                                 </td>
-                                                <td colspan="2" class="borde2"style="background:#FDEBDF;">APLICA AUMENTO DEL 20% AL TOTAL LOGRADO</td>
+                                                <td colspan="2" class="borde2" style="background-color:#FDEBDF !important;">APLICA AUMENTO DEL 20% AL TOTAL LOGRADO</td>
                                             </tr>
                                             <tr>
                                                 <td colspan="3" class="borde2" style="background:#FDEBDF;"> NIVEL DE DESARROLLO ALCANZADO</td>
@@ -303,15 +303,31 @@ $html .='
 </body>
 </html>';
 
-$mpdf = new mPDF('c','A4'); 
-// $mpdf->charset_in='UTF-8';
-// $mpdf->allow_charset_conversion=true;
-$url = _ASSETS."bootstrap/css/bootstrap.min.css";
-$url2 = _ASSETS."dist/css/informePDF.css";
-$stylesheet = file_get_contents($url);
-$stylesheet .= file_get_contents($url2);
+$mpdf = new mPDF('c','A4');
+$url2 = _ASSETS."bootstrap/css/bootstrap.min.css";
+$url1 = _ASSETS."dist/css/informePDF.css";
+
+$bootstrap = curl_init($url1);
+curl_setopt($bootstrap, CURLOPT_RETURNTRANSFER, true);
+$stylesheet = curl_exec($bootstrap);
+curl_close($bootstrap); 
+
+$customcss = curl_init($url2);
+curl_setopt($customcss, CURLOPT_RETURNTRANSFER, true);
+$stylesheet .= curl_exec($customcss);
+curl_close($customcss); 
+// $stylesheet = file_get_contents($url);
 $mpdf->writeHTML($stylesheet,1);
 $mpdf->writeHTML($html,2);
+
+// $mpdf->charset_in='UTF-8';
+// $mpdf->allow_charset_conversion=true;
+// $url1 = _ASSETS."bootstrap/css/bootstrap.min.css";
+// $url = _ASSETS."dist/css/informePDF.css";
+// $stylesheet = file_get_contents($url);
+// $stylesheet = file_get_contents($url);
+// $mpdf->writeHTML($stylesheet,1);
+// $mpdf->writeHTML($html,2);
 // $mpdf->AddPage();
 // $mpdf->WriteHTML($html);
 $nombre = 'evaluacion/evaluaciones/eva_'.date('dmYHi').'.pdf';
