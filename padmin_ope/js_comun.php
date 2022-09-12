@@ -20,9 +20,4 @@
 $(function () {
   $('[data-toggle="popover"]').popover()
 })
-// let btn = document.querySelector('button');
-// let click = btn.getAttribute('data-click');
-// const exampleEl = document.getElementById('example')
-// const exampleEl = document.getAttribute('[data-toggle="popover"]');
-// const popover = new bootstrap.Popover(exampleEl, options)
 </script>

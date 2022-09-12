@@ -252,11 +252,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             dataType : 'json',
             data : infoCarta,
             success : function(info){
-                limpiar();
-                if(info.icon == 'success'){
-                    $('body').removeClass('swal-overlay');
-                    $('body').addClass('swal-overlay','background-color: rgba(50,205,50, 0.45)');                   
-                }
+                limpiar();                
                 swal(info.title,info.message,info.icon)
 
             }
