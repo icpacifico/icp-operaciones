@@ -119,8 +119,23 @@ require_once _INCLUDE."head.php";
         </div>
         <!-- /.content-wrapper -->
 <?php include_once _INCLUDE."footer_comun.php";?>
-<!-- .wrapper cierra en el footer -->
-<?php include_once _INCLUDE."js_comun.php";?>
+
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<script src="<?php echo _ASSETS?>bootstrap/js/bootstrap.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/fastclick/fastclick.js"></script>
+<script src="<?php echo _ASSETS?>dist/js/app.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/alert_prueba/dist/sweetalert-dev.js"></script>
+<script src="<?php echo _ASSETS?>dist/js/app.min.js"></script>
+<script src="<?php echo _ASSETS?>dist/js/active.js"></script>
+<!-- Para marcar los active -->
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+</script>
 
 <!-- DataTables -->
 <script src="<?php echo _ASSETS?>plugins/datatables/jquery.dataTables.js"></script>
