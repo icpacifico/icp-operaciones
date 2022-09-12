@@ -1,6 +1,5 @@
 <?php include_once 'config.php';?>
-<script src="<?php echo _ASSETS?>plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="<?php echo _ASSETS?>plugins/jQueryUI/jquery-ui.min.js"></script>
+
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
@@ -18,9 +17,9 @@
 
 <!-- Para marcar los active -->
 <script type="text/javascript">
-// $(function () {
+$(function () {
   $('[data-toggle="popover"]').popover()
-// })
+})
 // let btn = document.querySelector('button');
 // let click = btn.getAttribute('data-click');
 // const exampleEl = document.getElementById('example')

@@ -22,17 +22,18 @@ function status($title,$message,$icon){
     }else{   
         
         try {            
-            $registro = conexion::select("SELECT * FROM matriz_carta WHERE trabajador_id =".$_POST['trabajador']." and estado = 1");
-            if(isset($registro)){
+            $registro = conexion::select("SELECT * FROM matriz_carta WHERE trabajador_id = ".$_POST['trabajador']." AND estado = 1");
+            if(isset($registro[0])){
                 status("Prueba de funcionamiento","extrañamente hay datos?".$registro,"success");
             }else{
-                status("Prueba de funcionamiento","no hay registros","error");
-                
+                $query = "INSERT INTO matriz_carta(trabajador_id,estado,anotacion,descripcion,referencia,fundamentacion,resolucion)VALUES(?,?,?,?,?,?,?)";
+                $conexion->consulta_form($query,array($_POST['trabajador'],1,$_POST['carta'],$_POST['descripcion'],$_POST['referencia'],$_POST['fundamentacion'],$_POST['resolucion']));
+                status("Registrado!","Evaluación de desempeño registrada con éxito.","success");                
             }
         }catch(Exception $e) {
-            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e->message()." ","danger");
+            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e->message()." ","error");
         }catch(PDOException $e) {
-            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e->message()." ","danger");           
+            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e->message()." ","error");           
         }  
        
         try {
@@ -40,9 +41,9 @@ function status($title,$message,$icon){
             // $conexion->consulta_form($query,array($_POST['trabajador'],$_POST['carta'],$_POST['descripcion'],$_POST['referencia'],$_POST['fundamentacion'],$_POST['resolucion']));
             // status("Registrado!","Evaluación de desempeño registrada con éxito.","success");
         }catch(Exception $e) {
-            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e->message()." ","danger");
+            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e->message()." ","error");
         }catch(PDOException $e) {
-            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e->message()." ","danger");           
+            status("Error!","A ocurrido un error grave, contactar al administrador. codigo de error : ".$e->message()." ","error");           
         }        
     }   
 ?>

@@ -55,6 +55,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
     .negritas{
         font-weight: bold;
     } 
+   
 </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -113,7 +114,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                             <tbody>
                                                 <tr style="border:1px solid black">
                                                     <td class="borde fondo negritas" style="border:1px solid black">TRABAJADOR/A</td>
-                                                    <td class="borde" style="border:1px solid black"> <select name="persona" id="persona" class="form-control" autocomplete="off"></td>                                               
+                                                    <td class="borde" style="border:1px solid black"> <select name="persona" id="persona" class="form-control clean" autocomplete="off"></td>                                               
                                                     <td class="borde fondo negritas" style="border:1px solid black">FECHA DE ANOTACIÓN : </td>
                                                     <td class="borde negritas" style="border:1px solid black"> <?php echo Date('d-m-Y');?> </td>
                                                 </tr>                                                                                               
@@ -149,7 +150,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                 </tr>
 
                                                 <tr>
-                                                    <td class="borde"><textarea name="descripcion" class="form-control" id="descripcion" cols="30" rows="3"></textarea></td>
+                                                    <td class="borde"><textarea name="descripcion" class="form-control clean" id="descripcion" cols="30" rows="3"></textarea></td>
                                                 </tr>
 
                                                 <tr>
@@ -160,20 +161,20 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                 </tr>
 
                                                 <tr>
-                                                    <td class="borde"><textarea name="referencia" class="form-control" id="referencia" cols="30" rows="3"></textarea></td>
+                                                    <td class="borde"><textarea name="referencia" class="form-control clean" id="referencia" cols="30" rows="3"></textarea></td>
                                                 </tr>
 
                                                 <tr>
                                                     <td class="borde fondo negritas" >FUNDAMENTACIÓN DE LA DECISIÓN</td>                                                                                              
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde"><textarea name="fundamentacion" class="form-control" id="fundamentacion" cols="30" rows="3"></textarea></td>
+                                                    <td class="borde"><textarea name="fundamentacion" class="form-control clean" id="fundamentacion" cols="30" rows="3"></textarea></td>
                                                 </tr> 
                                                 <tr>
                                                     <td class="borde fondo negritas">RESOLUCIÓN (MÉRITO / DEMÉRITO)</td>                                                                                              
                                                 </tr>
                                                 <tr>
-                                                    <td class="borde"><textarea name="resolucion" class="form-control" id="resolucion" cols="30" rows="3"></textarea></td>
+                                                    <td class="borde"><textarea name="resolucion" class="form-control clean" id="resolucion" cols="30" rows="3"></textarea></td>
                                                 </tr>                                            
                                       
                                             </tbody>
@@ -203,7 +204,11 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
 <?php include_once _INCLUDE."js_comun.php";?>
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', (event) => {   
-      
+    
+    const _v = (propiedad) => {
+        return ($("#"+propiedad).val() != '')?$("#"+propiedad).val():true;
+    }
+    const limpiar = () => $(".clean").val('');
     const req = (url,id) => {
         $.ajax({
             type: 'POST',
@@ -217,24 +222,46 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
     req('getAllPersonas.php','persona');
     $("#guardar").on('click',function(e){
-        let infoCarta = {
-           trabajador : $('#persona').val(),
-           carta :  $('#carta').val(),
-           descripcion : $('#descripcion').val(),
-           referencia :  $('#referencia').val(),
-           fundamentacion : $('#fundamentacion').val(),
-           resolucion : $('#resolucion').val()
-        }
-        $.ajax({
+
+       let infoCarta = {
+            trabajador : _v('persona'),
+            carta :  _v('carta'),
+            descripcion : _v('descripcion'),
+            referencia :  _v('referencia'),
+            fundamentacion : _v('fundamentacion'),
+            resolucion : _v('resolucion')
+           }
+        let errors = [];        
+        if(infoCarta.trabajador == true) errors.push("Nombre trabajador")
+        if(infoCarta.carta  == true) errors.push("Anotacion");
+        if(infoCarta.descripcion  == true) errors.push("Descripción del comportamiento");
+        if(infoCarta.referencia == true) errors.push("Referencia reglamentaria");
+        if(infoCarta.fundamentacion == true) errors.push("Fundamentación de la decisión");
+        if(infoCarta.resolucion == true) errors.push("Resolución");
+        
+        if(errors.length>0){
+            let validaciones ="\n";
+            for (let index = 0; index < errors.length; index++) {                
+                      validaciones += "\n * "+errors[index]+"";
+                }
+            swal("Error!","Porfavor complete las siguientes áreas : "+ validaciones +"","error");
+        }else{
+            $.ajax({
             url : 'insert_carta.php',
             type : 'POST',
             dataType : 'json',
             data : infoCarta,
             success : function(info){
+                limpiar();
+                if(info.icon == 'success'){
+                    $('body').removeClass('swal-overlay');
+                    $('body').addClass('swal-overlay','background-color: rgba(50,205,50, 0.45)');                   
+                }
                 swal(info.title,info.message,info.icon)
 
             }
         });
+        }        
     })
 
 });
