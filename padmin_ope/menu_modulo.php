@@ -2470,6 +2470,17 @@ $id_usuario = $_SESSION["sesion_id_panel"];
 
                                     if($cantidad_opcion > 0): ?>
                                         <li id="evaluacion-carta"><a href="<?php echo _MODULO?>evaluacion/form_carta.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Carta de mérito y demérito</a></li>
+                                    <?php endif;
+                                    $cantidad_opcion = conexion::consulta_total("SELECT usu.id_mod FROM usuario_usuario_proceso AS usu,usuario_proceso AS proceso WHERE 
+                                            usu.id_usu = ".$id_usuario." AND
+                                            usu.id_mod = ".$fila["id_mod"]." AND
+                                            proceso.opcion_pro = 6 AND
+                                            proceso.id_pro = usu.id_pro AND
+                                            proceso.id_mod = ".$fila["id_mod"]." 
+                                            ");
+
+                                    if($cantidad_opcion > 0): ?>
+                                        <li id="evaluacion-listar_carta"><a href="<?php echo _MODULO?>evaluacion/form_listar_carta.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Listado de cartas</a></li>
                                     <?php endif ?>
 
 
