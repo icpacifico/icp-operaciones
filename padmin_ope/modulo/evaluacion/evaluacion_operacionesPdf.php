@@ -7,6 +7,7 @@ $metas = (isset($_GET['metas']))?json_decode($_GET['metas']):0;
 $desarrollo = "";
 $informe = conexion::select("SELECT * FROM matriz_informe WHERE id =".$id);
 $criterios = conexion::select("SELECT * FROM matriz_desarrollo WHERE id =".$informe[0]['id_desarrollo']); 
+$anotacion = conexion::select("SELECT anotacion FROM matriz_carta WHERE trabajador_id=34 AND estado = 1");
 // $total_criterios = conexion::select("SELECT (((`rpregunta1` * 100) DIV 4) + ((`rpregunta2` * 100) DIV 4) + ((`rpregunta3` * 100) DIV 4) + ((`rpregunta4` * 100) DIV 4)) DIV 4 as total FROM `matriz_desarrollo` WHERE `id_vendedor`=34");
 $nombreVendedor = "Margot Andrea Moya Olivares";
 // totales criterio
@@ -19,11 +20,18 @@ $totalCompetencia = round($resultadoCompetencia * 0.3);
 $resultadoMeta = $metas->porcentajeTotal;
 $totalMeta = round($metas->porcentajeTotal * 0.7);
 $total = round($totalCompetencia + $totalMeta);
-if($informe[0]['merito'] == "SI"){
-    $total += 20;
-}else if($informe[0]['demerito'] == "SI"){
-    $total -= 20;
+$merito = "NO";  
+$demerito = "NO"; 
+if(isset($anotacion[0])){
+    if($anotacion[0]['anotacion'] == "Merito" ){
+        $merito = "SI";
+        $total += 20;
+    }else if($anotacion[0]['anotacion'] == "Demerito"){
+        $demerito = "SI";
+        $total -= 20;
+    }
 }
+
 // 
 $cargo = '';
 if($informe[0]['id_cargo']==1)  {
@@ -233,13 +241,13 @@ $html .='
                                             </tr>
                                             <tr>
                                                 <td colspan="3" class="borde2" style="background:#FDEBDF;">ANOTACIONES DEMÉRITO (20%)</td>
-                                                <td class="borde2 text-center">'.$informe[0]['demerito'].'</td>
+                                                <td class="borde2 text-center">'.$demerito.'</td>
                                                 </td>
                                                 <td colspan="2" class="borde2" style="background:#FDEBDF;">APLICA REDUCCIÓN DEL 20% AL TOTAL LOGRADO</td>
                                             </tr>
                                             <tr>
                                                 <td colspan="3" class="borde2" style="background:#FDEBDF;">ANOTACIONES DE MÉRITO (20%)</td>
-                                                <td class="borde2 text-center">'.$informe[0]['merito'].'</td>
+                                                <td class="borde2 text-center">'.$merito.'</td>
                                                 </td>
                                                 <td colspan="2" class="borde2" style="background-color:#FDEBDF !important;">APLICA AUMENTO DEL 20% AL TOTAL LOGRADO</td>
                                             </tr>
@@ -330,7 +338,7 @@ $mpdf->writeHTML($html,2);
 // $mpdf->writeHTML($html,2);
 // $mpdf->AddPage();
 // $mpdf->WriteHTML($html);
-$nombre = 'evaluacion/evaluaciones/eva_'.date('dmYHi').'.pdf';
+$nombre = 'Informe_de_desempeño_operaciones_'.date('dmYHi').'.pdf';
 ob_end_clean();//End Output Buffering
 // $fecha = date('Y-m-d H:i:s');
 $pdf = $mpdf->output($nombre ,'I');

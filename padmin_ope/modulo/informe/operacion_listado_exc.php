@@ -226,7 +226,7 @@ $conexion = new conexion();
 																		esta.nombre_esta,
 																		for_pag.id_for_pag,
 																		for_pag.nombre_for_pag,
-																		pie.valor_pie_ven,
+																		-- pie.valor_pie_ven,
 																		cat.nombre_cat_vend,
 																		ven.descuento_ven,
 																		pre.nombre_pre,
@@ -255,7 +255,7 @@ $conexion = new conexion();
 																		LEFT JOIN venta_venta AS ven ON viv.id_viv = ven.id_viv
 																		LEFT JOIN venta_estado_venta AS estado_venta ON estado_venta.id_est_ven = ven.id_est_ven
 																		LEFT JOIN pago_forma_pago AS for_pag ON for_pag.id_for_pag = ven.id_for_pag
-																		LEFT JOIN venta_pie_venta AS pie ON pie.id_pie_ven = ven.id_pie_ven
+																		-- LEFT JOIN venta_pie_venta AS pie ON pie.id_pie_ven = ven.id_pie_ven
 																		INNER JOIN vivienda_orientacion_vivienda AS ori_viv ON ori_viv.id_ori_viv = viv.id_ori_viv
 																		INNER JOIN modelo_modelo AS mode ON mode.id_mod = viv.id_mod
 																		INNER JOIN torre_torre AS tor ON tor.id_tor = viv.id_tor
