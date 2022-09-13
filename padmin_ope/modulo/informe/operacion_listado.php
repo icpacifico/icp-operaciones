@@ -1094,7 +1094,7 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
                                                                             esta.nombre_esta,
                                                                             for_pag.id_for_pag,
                                                                             for_pag.nombre_for_pag,
-                                                                            pie.valor_pie_ven,
+                                                                            ven.id_pie_ven,
                                                                             cat.nombre_cat_vend,
                                                                             ven.descuento_ven,
                                                                             pre.nombre_pre,
@@ -1113,7 +1113,7 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
                                                                             venta_venta AS ven
                                                                             INNER JOIN venta_estado_venta AS estado_venta ON estado_venta.id_est_ven = ven.id_est_ven
                                                                             INNER JOIN pago_forma_pago AS for_pag ON for_pag.id_for_pag = ven.id_for_pag
-                                                                            LEFT JOIN venta_pie_venta AS pie ON pie.id_pie_ven = ven.id_pie_ven
+                                                                            -- LEFT JOIN venta_pie_venta AS pie ON pie.id_pie_ven = ven.id_pie_ven
                                                                             INNER JOIN vivienda_vivienda AS viv ON viv.id_viv = ven.id_viv
                                                                             INNER JOIN vivienda_orientacion_vivienda AS ori_viv ON ori_viv.id_ori_viv = viv.id_ori_viv
                                                                             INNER JOIN modelo_modelo AS mode ON mode.id_mod = viv.id_mod
@@ -1295,7 +1295,7 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
                                                                                         }
                                                                                         ?>
                                                                                     </td>
-                                                                                    <td><?php echo utf8_encode($fila['valor_pie_ven']); ?></td>
+                                                                                    <td><?php echo utf8_encode($fila['id_pie_ven']); ?></td>
                                                                                     <?php 
 																					if ($fila['id_for_pag']==2) {
 																						$saldo_contado = number_format($fila['monto_credito_ven'], 2, ',', '.');

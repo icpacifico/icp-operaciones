@@ -79,14 +79,14 @@ $conexion = new conexion();
                                                                 pro.apellido_paterno_pro,
                                                                 pro.apellido_materno_pro,
                                                                 pro.rut_pro,
-                                                                pie.valor_pie_ven,
+                                                                -- pie.valor_pie_ven,
                                                                 estado_venta.nombre_est_ven,
                                                                 ban.nombre_ban,
                                                                 ven.id_pie_abo_ven
                                                             FROM 
                                                                 venta_venta AS ven
                                                                 INNER JOIN venta_estado_venta AS estado_venta ON estado_venta.id_est_ven = ven.id_est_ven
-                                                                LEFT JOIN venta_pie_venta AS pie ON pie.id_pie_ven = ven.id_pie_ven
+                                                                -- LEFT JOIN venta_pie_venta AS pie ON pie.id_pie_ven = ven.id_pie_ven
                                                                 INNER JOIN vivienda_vivienda AS viv ON viv.id_viv = ven.id_viv
                                                                 INNER JOIN modelo_modelo AS mode ON mode.id_mod = viv.id_mod
                                                                 INNER JOIN torre_torre AS tor ON tor.id_tor = viv.id_tor
