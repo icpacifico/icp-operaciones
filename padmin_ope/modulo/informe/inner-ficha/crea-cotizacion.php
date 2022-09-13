@@ -511,7 +511,7 @@
                     title: "Excelente!",
                     text: "Información ingresada con éxito!",
                     icon: "success"                                    
-                }).then(()=> window.history.back();return false;);
+                }).then(()=> window.history.back());
             }
             if (data.envio == 2) {
                 swal("Atención!", "Cotización ya ha sido ingresado", "warning");
