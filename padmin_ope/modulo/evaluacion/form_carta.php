@@ -57,6 +57,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
     } 
    
 </style>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -177,7 +178,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                     <td class="borde"><textarea name="resolucion" class="form-control clean" id="resolucion" cols="30" rows="3"></textarea></td>
                                                 </tr>                                            
                                       
-                                            </tbody>
+                                            </tbody>                                           
                                         </table>                                     
                                      
 
