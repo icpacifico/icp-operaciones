@@ -17,6 +17,8 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
       text-align:center;
     }
 </style>
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/buttons.bootstrap.min.css">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -54,7 +56,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                 </div>
                             </div>
                             <div class="container" >
-                                <table class="table table-bordered"  style="margin-bottom:100px;">
+                                <table class="table table-bordered table-hover"  id="example" style="margin-bottom:100px;">
                                     <thead>
                                     <tr>
                                         <th>ID</th>
@@ -102,6 +104,19 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                         <td colspan="9"><h4 style="color:grey;">Aun no hay encuestas por mostrar, para crear una ve a <a href="form_insert.php">Formulario de evaluaciones</a></h4></td>
                                         <?php endif?>
                                     </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Puntos</th>
+                                        <th>% Porcentaje</th>
+                                        <th>Vendedor</th>
+                                        <th>Respuesta 1</th>
+                                        <th>Respuesta 2</th>
+                                        <th>Respuesta 3</th>
+                                        <th>Respuesta 4</th>
+                                        <th>Fecha de creación</th>
+                                    </tr>
+                                    </tfoot>
                                 </table>
                            </div>
                         </div>
@@ -116,5 +131,16 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
         <!-- /.content-wrapper -->
 <?php include_once _INCLUDE."footer_comun.php";?>
 <?php include_once _INCLUDE."js_comun.php";?>
+<script src="<?php echo _ASSETS?>plugins/daterangepicker/moment.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables/jquery.dataTables.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables/datetime-moment.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/dataTables.buttons.min.js"></script>
+<script src="<?php echo _ASSETS?>plugins/datatables/extensions/buttons/buttons.bootstrap.min.js"></script>
+<script>
+   $(document).ready(function () {
+    $('#example').DataTable();
+});
+</script>
 </body>
 </html>

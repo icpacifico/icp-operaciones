@@ -727,15 +727,8 @@ if (!isset($_SESSION["modulo_cotizacion_panel"])) {
                 swal({
                     title: "Excelente!",
                     text: "Información ingresada con éxito!",
-                    type: "success",
-                    showCancelButton: false,
-                    confirmButtonColor: "#9bde94",
-                    confirmButtonText: "Aceptar",
-                    closeOnConfirm: false
-                },
-                function () {
-                    location.href = "form_select.php";
-                });
+                    icon: "success"                                  
+                }).then(()=>location.href = "form_select.php");
             }
             if (data.envio == 2) {
                 swal("Atención!", "Cotización ya ha sido ingresado", "warning");
