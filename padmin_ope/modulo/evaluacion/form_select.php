@@ -32,8 +32,8 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Evaluacion de desempeño al vendedor
-                    <small>Listado</small>
+                    Listado de evaluaciones.
+                    <small>Trabajadores</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="<?php echo _ADMIN?>panel.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -47,11 +47,11 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                     <!-- left column -->
                     <div class="col-sm-12">
                       <!-- general form elements -->
-                        <div class="box box-primary" >
+                        <div class="box box-primary" style="padding-bottom:100px; padding-top:50px;">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-12">
-                                        <h3>Listado de evaluaciones de desempeño.  <small>Vendedores</small></h3>
+                                        <h3>Listado de vendedores.</h3>
                                     </div>
                                 </div>
                             </div>
@@ -118,6 +118,77 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                     </tr>
                                     </tfoot>
                                 </table>
+                                <div class="col-md-12" style="padding:3%">
+                                    <hr>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h3>Listado de Operaciones.</h3>
+                                    </div>
+                                </div>
+                                <table class="table table-bordered table-hover"  id="example2" >
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Puntos</th>
+                                        <th>% Porcentaje</th>
+                                        <th>Operador(a)</th>
+                                        <th>Respuesta 1</th>
+                                        <th>Respuesta 2</th>
+                                        <th>Respuesta 3</th>
+                                        <th>Respuesta 4</th>
+                                        <th>Fecha de creación</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php                                                                  
+                                        $data = conexion::select("SELECT 
+                                                                CONCAT(usu.nombre_usu,' ',usu.apellido1_usu,' ',usu.apellido2_usu) as operador,
+                                                                matriz.id,
+                                                                matriz.puntos,
+                                                                matriz.porcentaje,
+                                                                matriz.rpregunta1,
+                                                                matriz.rpregunta2,
+                                                                matriz.rpregunta3,
+                                                                matriz.rpregunta4,
+                                                                matriz.fecha_creacion                                                                  
+                                                                FROM matriz_desarrollo as matriz 
+                                                                INNER JOIN usuario_usuario as usu 
+                                                                ON matriz.id_vendedor = usu.id_usu
+                                                                WHERE usu.id_per=3");                                          
+                                        if(count($data)>0):
+                                        foreach($data as $val){                               
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $val['id']?></td>
+                                            <td><?php echo $val['puntos']. " Pts"?></td>
+                                            <td><?php echo $val['porcentaje']. " %"?></td>
+                                            <td><?php echo utf8_encode($val['operador'])?></td>
+                                            <td><?php echo $val['rpregunta1']. " Pts"?></td>
+                                            <td><?php echo $val['rpregunta2']. " Pts"?></td>
+                                            <td><?php echo $val['rpregunta3']. " Pts"?></td>
+                                            <td><?php echo $val['rpregunta4']. " Pts"?></td>
+                                            <td><?php echo date_format(date_create($val['fecha_creacion']),'d-m-Y')?></td>
+                                        </tr>
+                                        <?php }?> 
+                                        <?php else: ?>
+                                        <td colspan="9"><h4 style="color:grey;">Aun no hay encuestas por mostrar, para crear una ve a <a href="form_insert.php">Formulario de evaluaciones</a></h4></td>
+                                        <?php endif?>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Puntos</th>
+                                        <th>% Porcentaje</th>
+                                        <th>Operador(a)</th>
+                                        <th>Respuesta 1</th>
+                                        <th>Respuesta 2</th>
+                                        <th>Respuesta 3</th>
+                                        <th>Respuesta 4</th>
+                                        <th>Fecha de creación</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
                            </div>
                         </div>
                       <!-- /.box -->
@@ -140,6 +211,9 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
 <script>
    $(document).ready(function () {
     $('#example').DataTable();
+});
+$(document).ready(function () {
+    $('#example2').DataTable();
 });
 </script>
 </body>
