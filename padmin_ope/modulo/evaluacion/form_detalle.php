@@ -664,18 +664,18 @@ const criterio = (valor) => {
     if(valor >= 100){
         $("#desarrollo").text("SOBRESALIENTE")
     }
-    if(valor >= 75 && valor <100){
-        $("#desarrollo").text("ALTA")
+    if(valor >= 70 && valor <100){
+        $("#desarrollo").text("EN DESARROLLO")
     }
-    if(valor >= 50 && valor <75){
-        $("#desarrollo").text("MODERADA")
+    if(valor <= 69){
+        $("#desarrollo").text("INSUFICIENTE")
     }
-    if(valor >= 25 && valor <50){
-        $("#desarrollo").text("BAJA")
-    }
-    if(valor< 25){
-        $("#desarrollo").text("AUSENCIA")
-    }
+    // if(valor >= 25 && valor <50){
+    //     $("#desarrollo").text("BAJA")
+    // }
+    // if(valor< 25){
+    //     $("#desarrollo").text("AUSENCIA")
+    // }
 }    
 });
 

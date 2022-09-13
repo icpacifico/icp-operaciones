@@ -5,7 +5,7 @@ require "../../config.php";
    try {
         $conexion = new conexion();
         if(isset($_POST['vendedor'])){
-            $response = conexion::select("SELECT * FROM matriz_desarrollo WHERE id_vendedor = ".$_POST['vendedor']."");
+            $response = conexion::select("SELECT * FROM matriz_desarrollo WHERE id_vendedor = ".$_POST['vendedor']." ORDER BY id desc LIMIT 1");
             response($response,true);
         }else{
             response('no es vendedor',false);
