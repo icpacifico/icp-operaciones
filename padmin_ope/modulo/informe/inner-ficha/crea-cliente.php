@@ -474,7 +474,7 @@ function rut_formato( $rut ) {
                     title: "Excelente!",
                     text: "Información ingresada con éxito!",
                     icon: "success"                                   
-                }).then(() => window.history.back(););
+                }).then(() => window.history.back())
             }
             if (data.envio == 2) {
                 swal("Atención!", "Cliente ya ha sido ingresada", "warning");
