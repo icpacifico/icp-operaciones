@@ -346,13 +346,11 @@ $("#pdf").on('click',function(e){
    
     if(total_ <= 69){
         desarrollo = "INSUFICIENTE";
-    }
-    if(total_ >= 70 && total_ <= 99){
+    }else if(total_ >= 70 && total_ <= 99){
         desarrollo = "EN DESARROLLO";
-    }
-    if(total_ >= 100){
+    }else if(total_ >= 100){
         desarrollo = "SOBRESALIENTE";
-    }   
+    }     
     let ciclo = $("#year").val();
     let fecha_eva = $("#fecha_eva").val();
 
@@ -371,26 +369,26 @@ $("#pdf").on('click',function(e){
         kpi : v_("kpi","val"),
         mejora : v_("mejora","val")
     }    
-    $.ajax({        
-        url : "insert_informe_operaciones.php",        
-        type : "POST",
-        data : pdfData,
-        dataType : 'json',
-        success:function(result){
-            if(result.title == "data"){
-                let metas = {
-                    totalAsignado : v_("totalAsignado","val"),
-                    totalAnterior : v_("totalAnterior","val"),
-                    totalLogrado : v_("totalLogrado","val"),
-                    porcentajeTotal : v_("porcentajeTotal","val")
-                };
-                location.href='<?php echo _MODULO?>evaluacion/evaluacion_operacionesPdf.php?id='+result.message+'&metas='+JSON.stringify(metas);                
-            }else{
-                swal(result.title, result.message, result.icon);
-            }
+    // $.ajax({        
+    //     url : "insert_informe_operaciones.php",        
+    //     type : "POST",
+    //     data : pdfData,
+    //     dataType : 'json',
+    //     success:function(result){
+    //         if(result.title == "data"){
+    //             let metas = {
+    //                 totalAsignado : v_("totalAsignado","val"),
+    //                 totalAnterior : v_("totalAnterior","val"),
+    //                 totalLogrado : v_("totalLogrado","val"),
+    //                 porcentajeTotal : v_("porcentajeTotal","val")
+    //             };
+    //             location.href='<?php echo _MODULO?>evaluacion/evaluacion_operacionesPdf.php?id='+result.message+'&metas='+JSON.stringify(metas);                
+    //         }else{
+    //             swal(result.title, result.message, result.icon);
+    //         }
                 
-        }
-    });
+    //     }
+    // });
     e.preventDefault();
 });
 

@@ -385,7 +385,7 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                                 </tr>
                                                 <tr>
                                                     <td colspan="3" class="borde2 fondo"> NIVEL DE DESARROLLO ALCANZADO</td>
-                                                    <td colspan="4" class="borde2 negritas"> <b id="desarrollo">AUSENCIA</b></td>
+                                                    <td colspan="4" class="borde2 negritas"> <b id="desarrollo">INSUFICIENTE</b></td>
                                                 </tr>
                                             </tbody>
                                         </table>
