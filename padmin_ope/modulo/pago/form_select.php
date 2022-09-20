@@ -238,93 +238,60 @@ $_SESSION["modulo_venta_panel"] = 1;
                 swal({
                   title: "Excelente!",
                   text: "Registros eliminados con éxito!",
-                  type: "success",
-                  showCancelButton: false,
-                  confirmButtonColor: "#9bde94",
-                  confirmButtonText: "Aceptar",
-                  closeOnConfirm: false
-                },
-                function(){
-                    location.reload();
-                });
+                  icon: "success"                  
+                }).then(() => location.reload());
             }
             if(data.envio == 3){
                 swal("Error!", "Favor intentar denuevo","error");
-            }
-            /*if(data.envio != ""){
-                alert(data.envio);
-            }*/
+            }            
         }
         function resultado_eliminar(data) {
             if(data.envio == 1){
                 swal({
                   title: "Excelente!",
                   text: "Registro eliminado con éxito!",
-                  type: "success",
-                  showCancelButton: false,
-                  confirmButtonColor: "#9bde94",
-                  confirmButtonText: "Aceptar",
-                  closeOnConfirm: false
-                },
-                function(){
-                    location.reload();
-                });
+                  icon: "success"                  
+                }).then(() => location.reload());
             }
             if(data.envio == 3){
                 swal("Error!", "Favor intentar denuevo","error");
-            }
-            /*if(data.envio != ""){
-                alert(data.envio);
-            }*/
+            }            
         }
         $(document).on( "click",".eliminar" , function() {
             valor = $(this).val();
             swal({
                 title: "Está Seguro?",
                 text: "Desea eliminar el registro seleccionado!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: "Cancelar",
-                closeOnConfirm: false,
-            },
-            function(){
-                $.ajax({
-                    type: 'POST',
-                    url: ("../venta/delete_detalle.php"),
-                    data:"valor="+valor,
-                    dataType:'json',
-                    success: function(data) {
-                        resultado_eliminar(data);
-                    }
-                })
-            });
+                icon: "warning"               
+                }).then(() => {
+                    $.ajax({
+                            type: 'POST',
+                            url: ("../venta/delete_detalle.php"),
+                            data:"valor="+valor,
+                            dataType:'json',
+                            success: function(data) {
+                                resultado_eliminar(data);
+                            }
+                        })
+                });
         });
-
         $('.borra_todo').click(function(){
             valor = $(".check_registro:checked").getCheckboxValues();
             var_check = $(".check_registro:checked").length;
             swal({
                 title: "Está Seguro?",
                 text: "Desea eliminar los registros seleccionados!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: "Cancelar",
-                closeOnConfirm: false
-            },
-            function(){
-                $.ajax({
-                    type: 'POST',
-                    url: ("../venta/delete_todo_detalle.php"),
-                    data:"valor="+valor+"&cantidad="+var_check,
-                    dataType:'json',
-                    success: function(data) {
-                        resultado(data);
-                    }
-                })
+                icon: "warning"                
+            }).then(() =>{
+                    $.ajax({
+                            type: 'POST',
+                            url: ("../venta/delete_todo_detalle.php"),
+                            data:"valor="+valor+"&cantidad="+var_check,
+                            dataType:'json',
+                            success: function(data) {
+                                resultado(data);
+                            }
+                        })
             });
         });
         $('#check_todo').on('change', function(event){
@@ -351,12 +318,8 @@ $_SESSION["modulo_venta_panel"] = 1;
                 }
             })
         });
-
-
         $(document).on( "click",".edita" , function() {
             $('#contenedor_opcion').html('<img src="<?php echo _ASSETS;?>img/loading.gif">');
-             //$('body').tooltip('destroy');
-             
             valor = $(this).val();
             $.ajax({
                 type: 'POST',
@@ -369,8 +332,7 @@ $_SESSION["modulo_venta_panel"] = 1;
             $("html, body").animate({
                 scrollTop: 100
             }, 1000);
-        }); 
-        
+        });         
          $(document).on( "click",".protestar" , function() {
             $('#contenedor_opcion').html('<img src="<?php echo _ASSETS;?>img/loading.gif">');
              //$('body').tooltip('destroy');
@@ -388,51 +350,38 @@ $_SESSION["modulo_venta_panel"] = 1;
                 scrollTop: 100
             }, 1000);
         }); 
-
         $(document).on( "click",".estado" , function() {
             valor = $(this).val();
             swal({
                 title: "Está Seguro?",
                 text: "Desea cambiar el estado del registro seleccionado!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: "Cancelar",
-                closeOnConfirm: false
-            },
-            function(){
-                $.ajax({
-                    type: 'POST',
-                    url: ("../venta/estado_detalle.php"),
-                    data:"valor="+valor,
-                    dataType:'json',
-                    success: function(data) {
-                        resultado_estado(data);                 
-                    }
-                })
-            });
+                icon: "warning"
+                }).then(()=>{
+                    $.ajax({
+                            type: 'POST',
+                            url: ("../venta/estado_detalle.php"),
+                            data:"valor="+valor,
+                            dataType:'json',
+                            success: function(data) {
+                                resultado_estado(data);                 
+                            }
+                        })
+                });
         });
         function resultado_estado(data) {
             if(data.envio == 1){
                 swal({
                   title: "Excelente!",
                   text: "Estado modificado con éxito!",
-                  type: "success",
-                  showCancelButton: false,
-                  confirmButtonColor: "#9bde94",
-                  confirmButtonText: "Aceptar",
-                  closeOnConfirm: false
-                },
-                function(){
-                    location.reload();
-                });
+                  icon: "success"                    
+                }).then(() => location.reload());
             }
             if(data.envio == 3){
                 swal("Error!", "Favor intentar denuevo","error");
             }
         } 
-    } );
+   
+    });
 </script>
 </body>
 </html>
