@@ -1,5 +1,5 @@
 <?php include_once 'config.php';?>
-
+<script src="<?php echo _ASSETS?>plugins/jQueryUI/jquery-ui.min.js"></script>
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
