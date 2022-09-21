@@ -27,4 +27,3 @@ require "config.php";
   <!-- <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/alert_prueba/dist/sweetalert.css"> -->
   <link rel="stylesheet" href="<?php echo _ASSETS?>dist/css/ajustes.css">
   <script src="<?php echo _ASSETS?>plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="<?php echo _ASSETS?>plugins/jQueryUI/jquery-ui.min.js"></script>
