@@ -1789,15 +1789,8 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                 swal({
                     title: "Excelente!",
                     text: "Información ingresada con éxito!",
-                    type: "success",
-                    showCancelButton: false,
-                    confirmButtonColor: "#9bde94",
-                    confirmButtonText: "Aceptar",
-                    closeOnConfirm: false
-                },
-                function () {
-                    location.reload();
-                });
+                    icon: "success"                    
+                }).then(()=>location.reload());
             }
             if (data.envio == 2) {
                 swal("Atención!", "Información ya ha sida ingresada", "warning");
@@ -1891,15 +1884,9 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                 swal({
                   title: "Excelente!",
                   text: "Registro eliminado con éxito!",
-                  type: "success",
-                  showCancelButton: false,
-                  confirmButtonColor: "#9bde94",
-                  confirmButtonText: "Aceptar",
-                  closeOnConfirm: false
-                },
-                function(){
-                    location.reload();
-                });
+                  icon: "success"
+                    
+                }).then(()=>location.reload());
             }
             if(data.envio == 3){
                 swal("Error!", "Favor intentar denuevo","error");
@@ -1913,14 +1900,9 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
             swal({
                 title: "Está Seguro?",
                 text: "Desea eliminar el registro seleccionado!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: "Cancelar",
-                closeOnConfirm: false,
-            },
-            function(){
+                icon: "warning"
+                
+            }).then(()=>{
                 $.ajax({
                     type: 'POST',
                     url: ("delete_observacion.php"),
