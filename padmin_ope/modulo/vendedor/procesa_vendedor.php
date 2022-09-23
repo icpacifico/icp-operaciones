@@ -223,14 +223,9 @@ include_once _INCLUDE."js_comun.php";
                 swal({
                     title: "Excelente!",
                     text: "Asignación ingresada con éxito!",
-                    type: "success",
-                    showCancelButton: false,
-                    confirmButtonColor: "#9bde94",
-                    confirmButtonText: "Aceptar",
-                    closeOnConfirm: false
-                },
-                function () {
-                    //location.href = "form_select.php";
+                    icon: "success"
+                    
+                }).then(()=>{
                     document.getElementById("vendedor").value = '0';
                     location.reload();
                 });
