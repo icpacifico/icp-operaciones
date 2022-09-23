@@ -56,120 +56,24 @@ $fila_consulta_ingreso = array();
 
 
 //------ TOTALES ------
-$consulta = 
-  "
-  SELECT 
-    id_viv
-  FROM
-    vivienda_vivienda
-  WHERE
-    id_est_viv = 2
-  ";
-$conexion->consulta($consulta);
+$conexion->consulta("SELECT id_viv FROM vivienda_vivienda WHERE id_est_viv = 2");
 $total_unidades_vendidas = $conexion->total();
-// $monto_total_venta = $fila["total"];
 
-// Ventas que entraron a operaciones
-// $consulta_ventas_inciadas_oopp = 
-//   "
-//   SELECT 
-//     ven.id_viv
-//   FROM
-//     venta_venta as ven,
-//     venta_etapa_venta as ven_eta
-//   WHERE
-//     ven.id_est_ven > 3 AND
-//     ven.id_ven = ven_eta.id_ven AND
-//     ((ven_eta.id_eta>=".$n_etaco_primer_eta." AND (ven_eta.id_est_eta_ven=2 OR ven_eta.id_est_eta_ven=1)) OR (ven_eta.id_eta>=".$n_etacr_primer_eta." AND (ven_eta.id_est_eta_ven=2 OR ven_eta.id_est_eta_ven=1)))";
-// $conexion->consulta($consulta_ventas_inciadas_oopp);
-// $total_unidades_en_oopp = $conexion->total();
-// las que pasaron la primer etapa
-
-
-
-
-// totales de inidades
-
-
-$consulta = 
-  "
-  SELECT 
-    IFNULL(SUM(monto_ven),0) AS total
-  FROM
-    venta_venta
-  WHERE
-    id_est_ven IN (6,7) AND
-    MONTH(fecha_ven) = '".$mes_actual."' AND
-    YEAR(fecha_ven) = '".$anio_actual."'
-  ";
-$conexion->consulta($consulta);
+$conexion->consulta("SELECT IFNULL(SUM(monto_ven),0) AS total FROM venta_venta WHERE id_est_ven IN (6,7) AND MONTH(fecha_ven) = '".$mes_actual."' AND YEAR(fecha_ven) = '".$anio_actual."'");
 $fila = $conexion->extraer_registro_unico();
 $monto_total_venta_mes_actual = $fila["total"];
 
 // unidades mes actual
-$consulta_unidades_mes = 
-  "
-  SELECT 
-    id_ven
-  FROM
-    venta_venta
-  WHERE
-    (id_est_ven = 6 or id_est_ven = 7) AND
-    MONTH(fecha_ven) = '".$mes_actual."' AND
-    YEAR(fecha_ven) = '".$anio_actual."'
-  ";
-$conexion->consulta($consulta_unidades_mes);
+$conexion->consulta("SELECT id_ven FROM venta_venta WHERE (id_est_ven = 6 or id_est_ven = 7) AND MONTH(fecha_ven) = '".$mes_actual."' AND YEAR(fecha_ven) = '".$anio_actual."'");
 $total_unidades_vendidas_mes_actual = $conexion->total();
 
-
-$consulta = 
-  "
-  SELECT 
-    IFNULL(SUM(valor_viv),0) AS total
-  FROM
-    cotizacion_cotizacion AS cot
-    INNER JOIN vivienda_vivienda AS viv ON viv.id_viv = cot.id_viv
-  WHERE
-    cot.id_est_cot IN (1,4,5,6,7)
-  ";
-$conexion->consulta($consulta);
+$conexion->consulta("SELECT  IFNULL(SUM(valor_viv),0) AS total FROM cotizacion_cotizacion AS cot INNER JOIN vivienda_vivienda AS viv ON viv.id_viv = cot.id_viv WHERE cot.id_est_cot IN (1,4,5,6,7)");
 $fila = $conexion->extraer_registro_unico();
 $monto_total_cotizacion = $fila["total"];
 
 // total escrituras
-$consulta_ventas_escrituras = 
-  "
-  SELECT 
-    id_ven
-  FROM
-    venta_venta
-  WHERE
-    (id_est_ven = 6 or id_est_ven = 7)
-  ";
-$conexion->consulta($consulta_ventas_escrituras);
+$conexion->consulta("SELECT id_ven FROM venta_venta WHERE (id_est_ven = 6 or id_est_ven = 7)");
 $total_ventas_escrituras = $conexion->total();
-
-// total cotizaciones
-// $consulta_ventas_promesa = 
-// "
-// SELECT
-//     ven.id_ven
-// FROM
-//     torre_torre AS tor
-//     INNER JOIN vivienda_vivienda AS viv ON viv.id_tor = tor.id_tor
-//     INNER JOIN venta_venta AS ven ON ven.id_viv = viv.id_viv AND ven.id_est_ven <> 3
-// WHERE NOT
-//     EXISTS(
-//         SELECT 
-//             eta.id_ven
-//         FROM
-//             venta_etapa_venta AS eta
-//         WHERE
-//             ven.id_ven = eta.id_ven
-//     )
-// ";
-
-
 
 $consulta = 
   "
@@ -248,49 +152,6 @@ $fila = $conexion->extraer_registro_unico();
 $bodega_numero = $fila["total"];
 $bodega_numero_vendido = $fila["total_vendido"];
 
-//------ CHEQUES ------
-// $consulta = 
-//   "
-//   SELECT 
-//     IFNULL(SUM(CASE WHEN (pag.id_est_pag = 1) THEN pag.monto_pag ELSE 0 END),0) AS realizado,
-//     IFNULL(SUM(CASE WHEN (pag.id_est_pag = 2) THEN pag.monto_pag ELSE 0 END),0) AS pendiente,
-//     IFNULL(SUM(CASE WHEN (pag.id_est_pag = 3) THEN pag.monto_pag ELSE 0 END),0) AS protestado  
-//   FROM
-//     pago_pago AS pag,
-//     venta_venta AS ven
-//   WHERE
-//   	pag.id_ven = ven.id_ven AND
-//   	ven.id_est_ven <> 3 AND
-//     (pag.id_for_pag = 4 OR
-//     pag.id_for_pag = 8)
-//   ";
-// $conexion->consulta($consulta);
-// $fila = $conexion->extraer_registro_unico();
-// $cheque_realizado = $fila["realizado"];
-// $cheque_pendiente = $fila["pendiente"];
-// $cheque_protestado = $fila["protestado"];
-
-// $consulta = 
-//   "
-//   SELECT 
-//     IFNULL(SUM(CASE WHEN (pag.id_est_pag = 1) THEN pag.monto_pag ELSE 0 END),0) AS realizado,
-//     IFNULL(SUM(CASE WHEN (pag.id_est_pag = 2) THEN pag.monto_pag ELSE 0 END),0) AS pendiente,
-//     IFNULL(SUM(CASE WHEN (pag.id_est_pag = 3) THEN pag.monto_pag ELSE 0 END),0) AS protestado  
-//   FROM
-//     pago_pago AS pag,
-//     venta_venta AS ven
-//   WHERE
-//   	pag.id_ven = ven.id_ven AND
-//   	ven.id_est_ven <> 3 AND
-//     pag.id_for_pag = 3
-//   ";
-// $conexion->consulta($consulta);
-// $fila = $conexion->extraer_registro_unico();
-// $transferencia_realizado = $fila["realizado"];
-// $transferencia_pendiente = $fila["pendiente"];
-// $transferencia_protestado = $fila["protestado"];
-
-
 //------- OPERACION --------
 $consulta = 
     "
@@ -346,35 +207,11 @@ $listas_sin_asig = $conexion->total();
 <div class="row">
 
   <div class="col-md-9">
-    <div class="box box-solid" style="height: 500px">
-     <!--  <div class="box-header with-border">
-        <h3 class="box-title">Progress Bars Different Sizes</h3>
-      </div>  -->           
-      	<div class="box-body">             
-        <!-- <table style="border: none; width: 100%;">
-          <tbody>
-            <tr>
-              <td> -->
-                Gráfico desactivado temporalmente
-              <?php 
-		      include "grafico_condominios.php";
-		      ?>
-             <!--- </td>
-              <td width="50%"> 
-                <dl>
-                  <dt class="text-muted">UNIDADES MES ACTUAL</dt>
-                  <dd class="text-muted" style="font-size:25px;color: #f56954">
-                    <?php 
-                    //echo number_format($total_unidades_vendidas_mes_actual, 0, ',', '.');
-                    ?>
-                  </dd>
-                </dl>
-               
-               </td>
-            </tr>
-          </tbody>
-        </table> -->
-    	</div>       
+    <div class="box box-solid" style="height: 500px">          
+      	<div class="box-body">                     
+                <!-- Gráfico desactivado temporalmente -->
+              <?php include "grafico_condominios.php";?>          
+    	  </div>       
     </div>
   </div> 
 
