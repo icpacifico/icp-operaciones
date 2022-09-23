@@ -100,10 +100,10 @@ if (!isset($_SESSION["modulo_evaluacion_panel"])) {
                                             <td><?php echo $name?></td>
                                             <td><?php echo ($val['estado'] == 1)?'Activo':'Inactivo'?></td>
                                             <td><?php echo $val['anotacion']?></td>
-                                            <td><?php echo $val['descripcion']?></td>
-                                            <td><?php echo $val['referencia']?></td>
-                                            <td><?php echo $val['fundamentacion']?></td>
-                                            <td><?php echo $val['resolucion']?></td>                                            
+                                            <td><?php echo utf8_encode($val['descripcion'])?></td>
+                                            <td><?php echo utf8_encode($val['referencia'])?></td>
+                                            <td><?php echo utf8_encode($val['fundamentacion'])?></td>
+                                            <td><?php echo utf8_encode($val['resolucion'])?></td>                                            
                                             <td><?php echo date_format(date_create($val['fecha_creacion']),'d-m-Y')?></td>
                                         </tr>
                                         <?php }?> 
