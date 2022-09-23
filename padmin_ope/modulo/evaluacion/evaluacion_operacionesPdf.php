@@ -6,8 +6,8 @@ $id = (isset($_GET['id']))?$_GET['id']:0;
 $metas = (isset($_GET['metas']))?json_decode($_GET['metas']):0;
 $desarrollo = "";
 $informe = conexion::select("SELECT * FROM matriz_informe WHERE id =".$id);
-$criterios = conexion::select("SELECT * FROM matriz_desarrollo WHERE id =".$informe[0]['id_desarrollo']); 
-$anotacion = conexion::select("SELECT anotacion FROM matriz_carta WHERE trabajador_id=34 AND estado = 1");
+$criterios = conexion::select("SELECT * FROM matriz_desarrollo WHERE id_vendedor =34 ORDER BY id desc LIMIT 1"); 
+$anotacion = conexion::select("SELECT anotacion FROM matriz_carta WHERE trabajador_id=34 AND estado = 1 ORDER BY id desc LIMIT 1");
 // $total_criterios = conexion::select("SELECT (((`rpregunta1` * 100) DIV 4) + ((`rpregunta2` * 100) DIV 4) + ((`rpregunta3` * 100) DIV 4) + ((`rpregunta4` * 100) DIV 4)) DIV 4 as total FROM `matriz_desarrollo` WHERE `id_vendedor`=34");
 $nombreVendedor = "Margot Andrea Moya Olivares";
 // totales criterio
