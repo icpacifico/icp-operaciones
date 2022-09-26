@@ -217,7 +217,7 @@ if(is_array($fila_consulta)){
 		    WHERE
 		    	ven.fecha_promesa_ven <= '".$fecha_hasta_consulta."' AND
 		    	con.id_con = ".$condo." AND
-				vend.id_vend NOT IN(5,3) AND
+				vend.id_vend NOT IN(5,3,14) AND
 		    	vend.id_est_vend = 1 AND 
 		        his.id_est_ven IN (4,6) AND NOT EXISTS
 		        (
