@@ -606,55 +606,23 @@ if(is_array($fila_consulta)){
 		                    // $contador_promesa = 0;
 		                    if(is_array($fila_consulta_detalle)){
 		                        foreach ($fila_consulta_detalle as $fila_det) {
+									//  var_dump($fila_det);
 		                        	$UF_DESISTIMIENTO_VENTA = 0;
 
-		                        	$UF_DESISTIMIENTO_VENTA = get_uf_disistimiento($fila_det['id_ven']);
-
-		                            $monto_comision_promesa = round(round($fila_det['promesa_monto_comision_ven'],2) * $UF_DESISTIMIENTO_VENTA);
-		                            $monto_comision_escritura = round(round($fila_det['escritura_monto_comision_ven'],2) * $UF_DESISTIMIENTO_VENTA);
-		                            $total_desistimiento = 0;
-
-		                            // if ($fila_det['id_ven'] == 484) {
-
-		                            // 	$promesa_monto_comision_ven_desistimiento = round($fila_det['promesa_monto_comision_ven'],1);
-		                            	
-		                            // 	$monto_comision_promesa = $promesa_monto_comision_ven_desistimiento * 29706.87;
-
-	                             //    }
-
-	                             //    if ($fila_det['id_ven'] == 509) {
-
-		                            // 	$promesa_monto_comision_ven_desistimiento = round($fila_det['promesa_monto_comision_ven'],2);
-		                            	
-		                            // 	$monto_comision_promesa = $promesa_monto_comision_ven_desistimiento * 29753.8;
-
-	                             //    }
-
-		                            
-		                            $consulta = 
-		                                "
-		                                SELECT
-		                                    id_est_ven
-		                                FROM
-		                                    cierre_venta_cierre
-		                                WHERE
-		                                    id_ven = ? AND
-		                                    id_est_ven = ?
-		                                ";
-		                            $conexion->consulta_form($consulta,array($fila_det['id_ven'],4));
-		                            $cantidad_estado_promesa = $conexion->total();
-
-		                            $consulta = 
-		                                "
-		                                SELECT
-		                                    id_est_ven
-		                                FROM
-		                                    cierre_venta_cierre
-		                                WHERE
-		                                    id_ven = ? AND
-		                                    id_est_ven = ?
-		                                ";
-		                            $conexion->consulta_form($consulta,array($fila_det['id_ven'],6));
+		                        	// $UF_DESISTIMIENTO_VENTA =  get_uf_disistimiento($fila_det['id_ven']);
+									$num_promesa_monto_ = (float) $fila_det['promesa_monto_comision_ven'];
+									$num_escritura_monto_ = (float) $fila_det['escritura_monto_comision_ven'];
+		                            $monto_comision_promesa = round(round($num_promesa_monto_,2) *  (float) $valor_uf);
+		                            // $monto_comision_promesa = round(round($num_promesa_monto_,2) *  (float)$UF_DESISTIMIENTO_VENTA);
+		                            $monto_comision_escritura = round(round($num_escritura_monto_,2) * (float) $valor_uf);
+		                            // $monto_comision_escritura = round(round($num_escritura_monto_,2) * (float)$UF_DESISTIMIENTO_VENTA);
+									// echo 'UF_DESISTIMIENTO_VENTA '.(float) $valor_uf.'<br>';
+									// echo 'monto comision promesa '.$num_promesa_monto_.'<br>';
+									// echo 'monto comision escritura '.$num_escritura_monto_.'<br>';
+		                            $total_desistimiento = 0;		                            
+		                            $conexion->consulta_form("SELECT id_est_ven FROM cierre_venta_cierre WHERE id_ven = ? AND id_est_ven = ?",array($fila_det['id_ven'],4));
+		                            $cantidad_estado_promesa = $conexion->total();		                           
+		                            $conexion->consulta_form("SELECT id_est_ven FROM cierre_venta_cierre WHERE id_ven = ? AND id_est_ven = ?",array($fila_det['id_ven'],6));
 		                            $cantidad_estado_escritura = $conexion->total();
 		                            ?>
 		                            <tr>
@@ -663,14 +631,14 @@ if(is_array($fila_consulta)){
 		                                <td></td>
 		                                <td></td>
 		                                <?php  
-		                                if($cantidad_estado_promesa > 0){
+		                                if($monto_comision_promesa > 0){
 		                                    $total_desistimiento = $total_desistimiento + $monto_comision_promesa;
 		                                    ?>
 		                                    <td><?php echo number_format($fila_det['promesa_monto_comision_ven'], 2, ',', '.');?></td>
 		                                    <td><?php echo number_format($monto_comision_promesa, 0, ',', '.');?></td>
 		                                    <?php
 		                                }
-		                                if($cantidad_estado_escritura > 0){
+		                                if($monto_comision_escritura > 0){
 		                                    $total_desistimiento = $total_desistimiento + $monto_comision_escritura;
 		                                    ?>
 		                                    <td><?php echo number_format($fila_det['escritura_monto_comision_ven'], 2, ',', '.');?></td>
