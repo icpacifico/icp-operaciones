@@ -588,7 +588,7 @@ if(is_array($fila_consulta)){
 		                                WHERE
 		                                    ven_cie.id_ven = ven.id_ven AND
 		                                    ven_cie.id_est_ven = 3
-		                            ) AND  
+		                            ) AND NOT
 		                            EXISTS(
 		                                SELECT 
 		                                    ven_cie.id_ven_cie
