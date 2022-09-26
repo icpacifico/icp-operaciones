@@ -8,7 +8,7 @@ include _INCLUDE."class/conexion.php";
 // instanciación de objeto de base de datos
 $conexion = new conexion();
 // SUELDO BASE
-$sueldoBase = 380000;
+$sueldoBase = 400000;
 
 $cont = 0;
 // fechas desde y hasta para calcular cierre y mes y año
