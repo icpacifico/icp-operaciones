@@ -97,7 +97,7 @@ class conexion
 		try {
 			self::$ejecutar = self::$conexionDB->prepare($consulta);		    
 		    self::$ejecutar->execute($valor);		   
-		}catch (PDOException $e){ self::status(3, $e->getMessage());}
+		}catch (PDOException $e){ self::status("Error Grave!",self::codeError($e),"error");}
 	}
 	//-------EJECUTA UNA CONSULTA A LA BASE DE DATOS SIN PARAMETRO
 	public function consulta($consulta){
