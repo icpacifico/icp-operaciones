@@ -1752,13 +1752,9 @@ if(!isset($_SESSION["sesion_filtro_condominio_panel"])){
                     Swal.fire({
                     title: "Excelente!",
                     text: "Información ingresada con éxito!",
-                    icon: "success",
-                    showCloseButton: true,
-                    showCancelButton: true,
-                    confirmButtonText: 'Aceptar',
-                    confirmButtonColor: '#9bde94'
-                    // }).then(() => {
-                    //     location.reload();
+                    icon: "success"
+                    }).then(() => {
+                        location.reload();
                     })
                     break;
                 case 2:

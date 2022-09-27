@@ -18,7 +18,7 @@ $conexion->consulta_form($consulta,array($id_ven));
 $fila = $conexion->extraer_registro_unico();
 $id_for_pag = utf8_encode($fila['id_for_pag']);
 $nombre_viv = utf8_encode($fila['nombre_viv']);
-$fecha_promesa_ven = utf8_encode($fila['fecha_promesa_ven']);
+$fecha_promesa_ven = $fila['fecha_promesa_ven'];
 if ($fecha_promesa_ven<>null) $fecha_liq_com = date("d-m-Y",strtotime($fecha_promesa_ven));
 $consultahay = "SELECT monto_liq_uf_ven,monto_liq_pesos_ven,fecha_liq_ven FROM venta_liquidado_venta WHERE id_ven = ?";
 $conexion->consulta_form($consultahay,array($id_ven));

@@ -7,7 +7,7 @@ if(!isset($_SESSION["sesion_usuario_panel"])){
 }
 include _INCLUDE."class/conexion.php";
 $conexion = new conexion();
-
+try{
 $id_ven = isset($_POST["id"]) ? utf8_decode($_POST["id"]) : 0;
 $monto_liq_uf = isset($_POST["monto_liq_uf"]) ? utf8_decode($_POST["monto_liq_uf"]) : 0;
 $monto_liq_pesos = isset($_POST["monto_liq_pesos"]) ? utf8_decode($_POST["monto_liq_pesos"]) : 0;
@@ -24,7 +24,7 @@ $fecha_alzamiento_ven = isset($_POST["fecha_alzamiento_ven"]) ? utf8_decode($_PO
 $fecha_cargo_301_ven = isset($_POST["fecha_cargo_301_ven"]) ? utf8_decode($_POST["fecha_cargo_301_ven"]) : null;
 $fecha_abono_330_ven = isset($_POST["fecha_abono_330_ven"]) ? utf8_decode($_POST["fecha_abono_330_ven"]) : null;
 
-$fecha_liq_com = isset($_POST["fecha_liq_com"]) ? utf8_decode($_POST["fecha_liq_com"]) : null;
+$fecha_liq_com = isset($_POST["fecha_liq_com"]) ? ($_POST["fecha_liq_com"]) : null;
 
 $conexion->consulta_form("SELECT ven.id_for_pag FROM venta_venta as ven WHERE ven.id_ven = ?",array($id_ven));
 $filafor = $conexion->extraer_registro_unico();
@@ -41,6 +41,8 @@ if ($monto_liq_uf=='') $monto_liq_uf = null;
 if ($monto_liq_pesos=='') $monto_liq_pesos = null;
 if ($fecha_liq_com<>null && $fecha_liq_com<>'') {
 	$fecha_liq_com = date("Y-m-d",strtotime($fecha_liq_com));
+	$consulta = "UPDATE venta_venta SET fecha_promesa_ven = ? WHERE id_ven = ?";
+	$conexion->consulta_form($consulta,array($fecha_liq_com,$id_ven));
 } else {
 	$fecha_liq_com = null;
 }
@@ -546,8 +548,15 @@ if ($ciudad_notaria<>0 && $ciudad_notaria<>'') {
 		}
 	}
 }
+}catch(Exception $e){
+	$jsondata['envio'] = $e->getMessage();
+    echo json_encode($jsondata);
+}catch(PDOException $e){
+	$jsondata['envio'] = $e->getMessage();
+    echo json_encode($jsondata);
+}
 
 $jsondata['envio'] = 1;
 echo json_encode($jsondata);
-// exit();
+exit();
 ?>

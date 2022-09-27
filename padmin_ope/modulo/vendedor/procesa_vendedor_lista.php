@@ -197,17 +197,12 @@ include_once _INCLUDE."js_comun.php";
                 swal({
                     title: "Excelente!",
                     text: "Asignación ingresada con éxito!",
-                    type: "success",
-                    showCancelButton: false,
-                    confirmButtonColor: "#9bde94",
-                    confirmButtonText: "Aceptar",
-                    closeOnConfirm: false
-                },
-                function () {
-                    //location.href = "form_select.php";
-                    document.getElementById("vendedor").value = '0';
+                    icon: "success"
+                    
+                }).then(()=>{
+					document.getElementById("vendedor").value = '0';
                     location.reload();
-                });
+				});
             }
             if (data.envio == 2) {
                 swal("Atención!", "Usuario ya ha sido ingresado", "warning");

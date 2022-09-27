@@ -210,15 +210,9 @@ if (!isset($_SESSION["modulo_vendedor_panel"])) {
                 swal({
                   title: "Excelente!",
                   text: "Registros eliminados con éxito!",
-                  type: "success",
-                  showCancelButton: false,
-                  confirmButtonColor: "#9bde94",
-                  confirmButtonText: "Aceptar",
-                  closeOnConfirm: false
-                },
-                function(){
-                    location.reload();
-                });
+                  icon: "success"
+                    
+                }).then(()=>location.reload());
             }
             if(data.envio == 3){
                 swal("Error!", "Favor intentar denuevo","error");
@@ -232,15 +226,8 @@ if (!isset($_SESSION["modulo_vendedor_panel"])) {
                 swal({
                   title: "Excelente!",
                   text: "Registro eliminado con éxito!",
-                  type: "success",
-                  showCancelButton: false,
-                  confirmButtonColor: "#9bde94",
-                  confirmButtonText: "Aceptar",
-                  closeOnConfirm: false
-                },
-                function(){
-                    location.reload();
-                });
+                  icon: "success"                    
+                }).then(()=>location.reload());
             }
             if(data.envio == 3){
                 alert(data.error_consulta);
@@ -255,14 +242,8 @@ if (!isset($_SESSION["modulo_vendedor_panel"])) {
             swal({
                 title: "Está Seguro?",
                 text: "Desea eliminar el registro seleccionado!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: "Cancelar",
-                closeOnConfirm: false,
-            },
-            function(){
+                icon: "warning"                
+            }).then(()=>{
                 $.ajax({
                     type: 'POST',
                     url: ("delete.php"),
@@ -281,14 +262,9 @@ if (!isset($_SESSION["modulo_vendedor_panel"])) {
             swal({
                 title: "Está Seguro?",
                 text: "Desea eliminar los registros seleccionados!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: "Cancelar",
-                closeOnConfirm: false
-            },
-            function(){
+                icon: "warning"
+                
+            }).then(()=>{
                 $.ajax({
                     type: 'POST',
                     url: ("delete_todo.php"),
@@ -347,14 +323,9 @@ if (!isset($_SESSION["modulo_vendedor_panel"])) {
             swal({
                 title: "Está Seguro?",
                 text: "Desea cambiar el estado del registro seleccionado!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: "Cancelar",
-                closeOnConfirm: false
-            },
-            function(){
+                icon: "warning"
+                
+            }).then(()=>{
                 $.ajax({
                     type: 'POST',
                     url: ("estado.php"),
@@ -371,15 +342,9 @@ if (!isset($_SESSION["modulo_vendedor_panel"])) {
                 swal({
                   title: "Excelente!",
                   text: "Estado modificado con éxito!",
-                  type: "success",
-                  showCancelButton: false,
-                  confirmButtonColor: "#9bde94",
-                  confirmButtonText: "Aceptar",
-                  closeOnConfirm: false
-                },
-                function(){
-                    location.reload();
-                });
+                  icon: "success"
+                    
+                }).then(()=>location.reload());
             }
             if(data.envio == 3){
                 swal("Error!", "Favor intentar denuevo","error");

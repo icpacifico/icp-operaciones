@@ -1586,7 +1586,7 @@ if(is_array($fila_consulta)){
 					$count+=1;
 				}
 			}
-			if(isset($contenedorc[0])){
+			if(isset($contenedor[0])){
 				$consulta = "INSERT INTO bonos(nombre,porcentaje,monto,id_vendedor,id_cierre,mes) VALUES(?,?,?,?,?,?)";
 				for ($i=0; $i < count($contenedor); $i++) { $conexion->consulta_form($consulta,array($contenedor[$i][0] , $contenedor[$i][1], $contenedor[$i][2], $contenedor[$i][3], $ultimo_id, $contenedor[$i][4]));}
 			}
