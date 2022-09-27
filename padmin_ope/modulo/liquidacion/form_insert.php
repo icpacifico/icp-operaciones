@@ -272,14 +272,9 @@ unset($_SESSION["numero_item"]);
             swal({
                 title: "Está Seguro?",
                 text: "Desea cerrar el mes seleccionado!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: "Cancelar",
-                closeOnConfirm: true,
-            },
-            function(){                                       
+                icon: "warning"                        
+                
+            }).then(()=>{
                 $.ajax({
                     type: 'POST',
                     url: ("insert.php"),                    
@@ -310,14 +305,9 @@ unset($_SESSION["numero_item"]);
                 swal({
                     title: "Excelente!",
                     text: "Cierre de mes realizado correctamente",
-                    type: "success",
-                    showCancelButton: false,
-                    confirmButtonColor: "#9bde94",
-                    confirmButtonText: "Aceptar",
-                    closeOnConfirm: false                },
-                function () {
-                    location.href = "form_select.php";
-                });
+                    icon: "success"
+                    
+                }).then(()=>location.href = "form_select.php");
             }
             if (data.envio == 3) {
                 swal("Error!", "Favor intentar denuevo o contáctese con administrador", "error");

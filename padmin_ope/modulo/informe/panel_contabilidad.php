@@ -494,6 +494,11 @@ $acumulado_etapa_factura = $conexion->total();
 				    xAxis: {
 				        categories: [
 				        <?php
+                $tvpc = '';
+                $tvec = '';
+                $tvlc = '';
+                $tvdc = '';
+                $tvdic = '';
 				        $consulta_con = 
 						    "
 						    SELECT
@@ -823,16 +828,7 @@ $acumulado_etapa_factura = $conexion->total();
         </ul>
       </div>
     </div>          
-  </div>
-  <div class="col-md-3">          
-    <!-- <div class="box box-solid">                       
-      <div class="box-body">
-        <ul class="nav nav-stacked">
-          <li><a href="<?php //echo _MODULO?>informe/grafico.php" target="_blank">Gráficos <i style="margin-left: 60%;font-size: 25px;" class="fa fa-bar-chart"></i></a>
-        </ul>
-      </div>
-    </div>          --> 
-  </div>                              
+  </div>                                
 </div>
 <div class="row">
   <div class="col-md-12">          
@@ -844,51 +840,7 @@ $acumulado_etapa_factura = $conexion->total();
 
       </div>
     </div>          
-  </div>
-  <!-- <div class="col-md-6">          
-    <div class="box box-solid">                       
-      <div class="box-body">
-        <table style="border: none; width: 100%">
-          <?php  
-          //$total_pago = $cheque_realizado + $transferencia_realizado;
-          ?>
-          <tr>
-            <td width="50%"><h3 class="text-muted text-left">Pagos Recibidos</h3></td>
-            <td width="50%"><h3 class="text-muted text-right" style="color: #f56954">$<?php //echo number_format($total_pago, 0, ',', '.');?></h3></td>
-          </tr>
-        </table>
-        <table class="table table-bordered">
-          
-          <tr>
-            <td>Cheques Cobrados</td>
-            <td>Cheques Por Cobrar</td>
-            <td>Cheques Protestados</td>
-          </tr>
-            
-          
-          <tr>
-            <td>$<?php //echo number_format($cheque_realizado, 0, ',', '.');?></td>
-            <td>$<?php //echo number_format($cheque_pendiente, 0, ',', '.');?></td>
-            <td>$<?php //echo number_format($cheque_protestado, 0, ',', '.');?></td>
-          </tr>
-
-          <tr>
-            <td>Transferencia Cobrados</td>
-            <td>Transferencia Por Cobrar</td>
-            <td>Transferencia Anulada</td>
-          </tr>
-            
-          
-          <tr>
-            <td>$<?php //echo number_format($transferencia_realizado, 0, ',', '.');?></td>
-            <td>$<?php //echo number_format($transferencia_pendiente, 0, ',', '.');?></td>
-            <td>$<?php //echo number_format($transferencia_protestado, 0, ',', '.');?></td>
-          </tr>
-        </table>
-      </div>
-    </div>           
-  </div>    --> 
-         
+  </div>        
 </div>
 <div class="row">
   
@@ -921,17 +873,6 @@ $acumulado_etapa_factura = $conexion->total();
       </a>          
     </div>
   </div>
-  <!-- <div class="col-md-3"> 
-    <div class="info-box">
-      <a href="<?php echo _MODULO?>informe/vendedor_historial_liquidacion.php" target="_blank" data-slug="">
-        <span class="info-box-icon bg-aqua"><i class="fa fa-usd"></i></span>
-        <div class="info-box-content">
-          <span class="info-box-text">Vendedor</span>
-          <span class="info-box-number"><?php //echo number_format($total_monto_ingreso, 0, ',', '.');?></span> 
-        </div> 
-      </a>          
-    </div>
-  </div> -->
   <div class="col-md-3"> 
     <div class="info-box">
       <a href="<?php echo _MODULO?>informe/operacion_listado.php" target="_blank" data-slug="">

@@ -8,7 +8,7 @@ include _INCLUDE."class/conexion.php";
 // instanciación de objeto de base de datos
 $conexion = new conexion();
 // SUELDO BASE
-$sueldoBase = 380000;
+$sueldoBase = 400000;
 
 $cont = 0;
 // fechas desde y hasta para calcular cierre y mes y año
@@ -217,7 +217,7 @@ if(is_array($fila_consulta)){
 		    WHERE
 		    	ven.fecha_promesa_ven <= '".$fecha_hasta_consulta."' AND
 		    	con.id_con = ".$condo." AND
-				vend.id_vend NOT IN(5,3) AND
+				vend.id_vend NOT IN(5,3,14) AND
 		    	vend.id_est_vend = 1 AND 
 		        his.id_est_ven IN (4,6) AND NOT EXISTS
 		        (
@@ -588,7 +588,7 @@ if(is_array($fila_consulta)){
 		                                WHERE
 		                                    ven_cie.id_ven = ven.id_ven AND
 		                                    ven_cie.id_est_ven = 3
-		                            ) AND  
+		                            ) AND 
 		                            EXISTS(
 		                                SELECT 
 		                                    ven_cie.id_ven_cie
@@ -606,55 +606,20 @@ if(is_array($fila_consulta)){
 		                    // $contador_promesa = 0;
 		                    if(is_array($fila_consulta_detalle)){
 		                        foreach ($fila_consulta_detalle as $fila_det) {
+									//  var_dump($fila_det);
 		                        	$UF_DESISTIMIENTO_VENTA = 0;
 
-		                        	$UF_DESISTIMIENTO_VENTA = get_uf_disistimiento($fila_det['id_ven']);
-
-		                            $monto_comision_promesa = round(round($fila_det['promesa_monto_comision_ven'],2) * $UF_DESISTIMIENTO_VENTA);
-		                            $monto_comision_escritura = round(round($fila_det['escritura_monto_comision_ven'],2) * $UF_DESISTIMIENTO_VENTA);
-		                            $total_desistimiento = 0;
-
-		                            // if ($fila_det['id_ven'] == 484) {
-
-		                            // 	$promesa_monto_comision_ven_desistimiento = round($fila_det['promesa_monto_comision_ven'],1);
-		                            	
-		                            // 	$monto_comision_promesa = $promesa_monto_comision_ven_desistimiento * 29706.87;
-
-	                             //    }
-
-	                             //    if ($fila_det['id_ven'] == 509) {
-
-		                            // 	$promesa_monto_comision_ven_desistimiento = round($fila_det['promesa_monto_comision_ven'],2);
-		                            	
-		                            // 	$monto_comision_promesa = $promesa_monto_comision_ven_desistimiento * 29753.8;
-
-	                             //    }
-
-		                            
-		                            $consulta = 
-		                                "
-		                                SELECT
-		                                    id_est_ven
-		                                FROM
-		                                    cierre_venta_cierre
-		                                WHERE
-		                                    id_ven = ? AND
-		                                    id_est_ven = ?
-		                                ";
-		                            $conexion->consulta_form($consulta,array($fila_det['id_ven'],4));
-		                            $cantidad_estado_promesa = $conexion->total();
-
-		                            $consulta = 
-		                                "
-		                                SELECT
-		                                    id_est_ven
-		                                FROM
-		                                    cierre_venta_cierre
-		                                WHERE
-		                                    id_ven = ? AND
-		                                    id_est_ven = ?
-		                                ";
-		                            $conexion->consulta_form($consulta,array($fila_det['id_ven'],6));
+		                        	$UF_DESISTIMIENTO_VENTA =  get_uf_disistimiento($fila_det['id_ven']);
+									$num_promesa_monto_ = (float) $fila_det['promesa_monto_comision_ven'];
+									$num_escritura_monto_ = (float) $fila_det['escritura_monto_comision_ven'];
+		                            // $monto_comision_promesa = round(round($num_promesa_monto_,2) *  (float) $valor_uf);
+		                            $monto_comision_promesa = round(round($num_promesa_monto_,2) *  (float)$UF_DESISTIMIENTO_VENTA);
+		                            // $monto_comision_escritura = round(round($num_escritura_monto_,2) * (float) $valor_uf);
+		                            $monto_comision_escritura = round(round($num_escritura_monto_,2) * (float)$UF_DESISTIMIENTO_VENTA);									
+		                            $total_desistimiento = 0;		                            
+		                            $conexion->consulta_form("SELECT id_est_ven FROM cierre_venta_cierre WHERE id_ven = ? AND id_est_ven = ?",array($fila_det['id_ven'],4));
+		                            $cantidad_estado_promesa = $conexion->total();		                           
+		                            $conexion->consulta_form("SELECT id_est_ven FROM cierre_venta_cierre WHERE id_ven = ? AND id_est_ven = ?",array($fila_det['id_ven'],6));
 		                            $cantidad_estado_escritura = $conexion->total();
 		                            ?>
 		                            <tr>
@@ -1029,8 +994,7 @@ if(is_array($fila_consulta)){
 								$consulta_meta = $conexion->extraer_registro();
 								// verifico que tenga metas asignadas
 								if(is_array($consulta_meta)){
-										$numero_meta = $consulta_meta[0]['valor_met_ven'];
-										
+										$numero_meta = $consulta_meta[0]['valor_met_ven'];										
 										$query = '
 										SELECT 
 										COUNT(DISTINCT(venta.id_ven)) as numeroVentas
@@ -1089,17 +1053,14 @@ if(is_array($fila_consulta)){
 											<?php 
 										
 										     if(count($contendorBonos)>0){
-												for ($i=0; $i < count($contendorBonos); $i++) { 
-													
-														
+												for ($i=0; $i < count($contendorBonos); $i++) {																											
 															$C2 = array(
 																'nombre' => 'Bono C2',
 																'porcentaje' => $resultado,
 																'monto' => $bonoC2,
 																'id_vendedor' => $fila["id_vend"],
 																'mes' =>  $nombre_mes[0]['nombre_mes']
-															 );
-															
+															 );															
 												}
 											 }else{
 												$C2 = array(
@@ -1110,14 +1071,6 @@ if(is_array($fila_consulta)){
 													'mes' =>  $nombre_mes[0]['nombre_mes']
 												 );
 											 }
-											
-											
-											
-
-
-										// }else{
-
-									// }
 								}
 							
 							/*
@@ -1194,11 +1147,7 @@ if(is_array($fila_consulta)){
 									// total de ventas de los últimos 6 meses dependiendo de si es junio o diciembre
 									$total_ventas = $consulta_ventas_total[0]['numeroVentas'];
 
-									$resultadoc3 = ($total_ventas / $total_metas) * 100;
-									// echo 'numero de ventas total : '.$total_ventas;
-									// echo 'numero de metas total : '.$total_metas;
-									// echo 'resultado : '.$resultadoc3." <br>";									
-																											
+									$resultadoc3 = ($total_ventas / $total_metas) * 100;														
 										// if($resultadoc3>=100){
 											switch ($resultadoc3) {
 												case ($resultadoc3<100):
@@ -1923,29 +1872,7 @@ if($cantidad_venta_totales > 0){
     ?>
     <div class="col-sm-1" style="padding-top: 20px;">
         <button type="button" class="btn btn-primary pull-center" id="guarda">Cerrar Mes</button>
-    </div>
-	<!-- proceso de carga para loading -->
-			<!-- <div id="sending" class="col-lg-12" style="display:none;">
-				<h3>Procesando...</h3>
-				<div class="progress">
-					<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" data-progress="0" style="width: 0%;">
-						0%
-					</div>
-				</div>
-
-				<div class="counter-sending">
-					(<span id="done">0</span>/<span id="total">0</span>)
-				</div>
-		
-				<div class="execute-time-content">
-					Tiempo transcurrido: <span class="execute-time">0 segundos</span>
-				</div>
-		
-				<div class="end-process" style="display:none;">
-					<div class="alert alert-success">El proceso ha sido completado.</div>
-				</div>    
-			</div> -->
-	
+    </div>	
     <?php
 }
 
