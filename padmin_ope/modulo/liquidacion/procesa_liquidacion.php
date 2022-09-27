@@ -994,8 +994,7 @@ if(is_array($fila_consulta)){
 								$consulta_meta = $conexion->extraer_registro();
 								// verifico que tenga metas asignadas
 								if(is_array($consulta_meta)){
-										$numero_meta = $consulta_meta[0]['valor_met_ven'];
-										
+										$numero_meta = $consulta_meta[0]['valor_met_ven'];										
 										$query = '
 										SELECT 
 										COUNT(DISTINCT(venta.id_ven)) as numeroVentas
@@ -1054,17 +1053,14 @@ if(is_array($fila_consulta)){
 											<?php 
 										
 										     if(count($contendorBonos)>0){
-												for ($i=0; $i < count($contendorBonos); $i++) { 
-													
-														
+												for ($i=0; $i < count($contendorBonos); $i++) {																											
 															$C2 = array(
 																'nombre' => 'Bono C2',
 																'porcentaje' => $resultado,
 																'monto' => $bonoC2,
 																'id_vendedor' => $fila["id_vend"],
 																'mes' =>  $nombre_mes[0]['nombre_mes']
-															 );
-															
+															 );															
 												}
 											 }else{
 												$C2 = array(
@@ -1075,14 +1071,6 @@ if(is_array($fila_consulta)){
 													'mes' =>  $nombre_mes[0]['nombre_mes']
 												 );
 											 }
-											
-											
-											
-
-
-										// }else{
-
-									// }
 								}
 							
 							/*
@@ -1159,11 +1147,7 @@ if(is_array($fila_consulta)){
 									// total de ventas de los últimos 6 meses dependiendo de si es junio o diciembre
 									$total_ventas = $consulta_ventas_total[0]['numeroVentas'];
 
-									$resultadoc3 = ($total_ventas / $total_metas) * 100;
-									// echo 'numero de ventas total : '.$total_ventas;
-									// echo 'numero de metas total : '.$total_metas;
-									// echo 'resultado : '.$resultadoc3." <br>";									
-																											
+									$resultadoc3 = ($total_ventas / $total_metas) * 100;														
 										// if($resultadoc3>=100){
 											switch ($resultadoc3) {
 												case ($resultadoc3<100):
@@ -1888,29 +1872,7 @@ if($cantidad_venta_totales > 0){
     ?>
     <div class="col-sm-1" style="padding-top: 20px;">
         <button type="button" class="btn btn-primary pull-center" id="guarda">Cerrar Mes</button>
-    </div>
-	<!-- proceso de carga para loading -->
-			<!-- <div id="sending" class="col-lg-12" style="display:none;">
-				<h3>Procesando...</h3>
-				<div class="progress">
-					<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" data-progress="0" style="width: 0%;">
-						0%
-					</div>
-				</div>
-
-				<div class="counter-sending">
-					(<span id="done">0</span>/<span id="total">0</span>)
-				</div>
-		
-				<div class="execute-time-content">
-					Tiempo transcurrido: <span class="execute-time">0 segundos</span>
-				</div>
-		
-				<div class="end-process" style="display:none;">
-					<div class="alert alert-success">El proceso ha sido completado.</div>
-				</div>    
-			</div> -->
-	
+    </div>	
     <?php
 }
 
