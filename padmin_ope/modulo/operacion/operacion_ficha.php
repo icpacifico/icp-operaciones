@@ -605,8 +605,7 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                 	<!-- puntos de las etapas -->
                                                     <div class="col-md-12">
                                                     	<ul class="etapas">
-                                                            <?php  
-
+                                                            <?php
                                                             $consulta = 
                                                                 "
                                                                 SELECT 
@@ -633,17 +632,13 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                                 $numero_real_etapa_actual = $fila["numero_real_eta"];
                                                                 $id_cat_eta_actual = $fila["id_cat_eta"];
                                                             }
-                                                            
-                                                            
-
+                                                                                                                        
                                                             if(isset($_SESSION["sesion_etapa_filtro_operacion_panel"])){
                                                                 $filtro_etapa = $_SESSION["sesion_etapa_filtro_operacion_panel"];
                                                             }
                                                             else{
                                                                 $filtro_etapa = $id_etapa_actual;
                                                             }
-
-
                                                             
                                                             $filtro_etapa_forma_pago = $id_forma_pago_actual;
                                                             $filtro_departamento = $departamento;
@@ -651,7 +646,6 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                             $_SESSION["sesion_departamento_operacion_panel"] = $filtro_departamento;
                                                             $_SESSION["sesion_venta_operacion_panel"] = $filtro_venta;
                                                             $_SESSION["sesion_etapa_operacion_panel"] = $filtro_etapa;
-
                                                             
                                                             $consulta = 
                                                                 "
@@ -673,7 +667,6 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                             $fecha_desde_etapa = $fila["fecha_desde_eta_ven"];
                                                             $fecha_hasta_etapa = $fila["fecha_hasta_eta_ven"];
                                                             $_SESSION["codigo_venta_etapa_panel"] = $id_etapa_venta;
-
 
                                                             $consulta = 
                                                                 "
@@ -1090,6 +1083,7 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                                             </div>
                                                                             
                                                                             <?php
+                                                                             $no_cierre = 0;
                                                                             $consulta = 
                                                                                 "
                                                                                 SELECT 
@@ -1133,7 +1127,7 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 
                                                                                     // EXEPCIONES
                                                                                     $noedita = "";
-                                                                                    $no_cierre = 0;
+                                                                                   
 
 																					// campos no obligatorios - Factura Valor y Número
 																					if ($fila["id_cam_eta"]==61 || $fila["id_cam_eta"]==53 || $fila["id_cam_eta"]==62 || $fila["id_cam_eta"]==26) {
@@ -1403,15 +1397,15 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                                                     $fila_consulta = $conexion->extraer_registro();
                                                                                     if(is_array($fila_consulta)){
                                                                                         foreach ($fila_consulta as $fila) {
-                                                                                            if($fila["id_cam_eta"] == 2){
-                                                                                                $clase = "numero";
-                                                                                            }
-                                                                                            else if($fila["id_cam_eta"] == 3){
-                                                                                                $clase = "datepicker";
-                                                                                            }
-                                                                                            else{
-                                                                                                $clase = "";
-                                                                                            }
+                                                                                            // if($fila["id_cam_eta"] == 2){
+                                                                                            //     $clase = "numero";
+                                                                                            // }
+                                                                                            // else if($fila["id_cam_eta"] == 3){
+                                                                                            //     $clase = "datepicker";
+                                                                                            // }
+                                                                                            // else{
+                                                                                            //     $clase = "";
+                                                                                            // }
                                                                                             ?>
                                                                                             
                                                                                             <tr>
