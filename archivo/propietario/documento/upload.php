@@ -719,7 +719,8 @@ class UploadHandler
             preg_split('/[^0-9]+/', $_SERVER['HTTP_CONTENT_RANGE']) : null;
         $size =  $content_range ? $content_range[3] : null;
         $files = array();
-		include '../../../class/conexion.php';
+        require "../../../padmin_ope/config.php";
+		include '../../../padmin_ope/class/conexion.php';
 		$conexion = new conexion();
         if ($upload && is_array($upload['tmp_name'])) {
             // param_name is an array identifier like "files[]",
@@ -760,7 +761,8 @@ class UploadHandler
     }
 
     public function delete($print_response = true) {
-		include '../../../class/conexion.php';
+        require "../../../padmin_ope/config.php";
+		include '../../../padmin_ope/class/conexion.php';
 		$conexion = new conexion();
         $file_name = $this->get_file_name_param();
         $consulta = "DELETE FROM documento_propietario_documento WHERE nombre_doc_pro = '".$file_name."' AND id_pro = '".$_SESSION["codigo_propietario_panel"]."'";
