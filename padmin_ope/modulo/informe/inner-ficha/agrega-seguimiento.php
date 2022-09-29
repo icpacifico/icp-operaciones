@@ -370,15 +370,9 @@
                 swal({
                     title: "Excelente!",
                     text: "Información actualizada con éxito!",
-                    type: "success",
-                    showCancelButton: false,
-                    confirmButtonColor: "#9bde94",
-                    confirmButtonText: "Aceptar",
-                    closeOnConfirm: false
-                },
-                function () {
-                    window.history.back();return false;
-                });
+                    icon: "success"
+                    
+                }).then(()=>window.history.back());
             }
             if (data.envio == 2) {
                 swal("Atención!", "Información ya ha sido ingresada", "warning");
