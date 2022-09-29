@@ -101,9 +101,9 @@ class UploadHandler
                     'jpeg_quality' => 80
                 ),
                 */
-                // 'thumbnail' => array(
-                //     'max_width' => 80,
-                //     'max_height' => 80
+                //'thumbnail' => array(
+                   // 'max_width' => 80,
+                  //  'max_height' => 80
                 // )
             )
         );
@@ -339,9 +339,7 @@ class UploadHandler
 
     function get_config_bytes($val) {
         $val = trim($val);
-        // echo $val."<----1 ";
         $last = strtolower($val[strlen($val)-1]);
-        // echo $last."<----2 ";
         switch($last) {
             case 'g':
                 $val = intval($val) * 1024;
@@ -432,12 +430,9 @@ class UploadHandler
         while(is_dir($this->get_upload_path($name))) {
             $name = $this->upcount_name($name);
         }
-
-        // Keep an existing filename if this is part of a chunked upload:
         if($content_range) {
         	$uploaded_bytes = $this->fix_integer_overflow(intval($content_range[1]));
         }
-        
         while(is_file($this->get_upload_path($name))) {
             if ($uploaded_bytes === $this->get_file_size(
                     $this->get_upload_path($name))) {
@@ -723,7 +718,8 @@ class UploadHandler
             preg_split('/[^0-9]+/', $_SERVER['HTTP_CONTENT_RANGE']) : null;
         $size =  $content_range ? $content_range[3] : null;
         $files = array();
-		include '../../../../class/conexion.php';
+        require "../../../../padmin_ope/config.php";
+		include '../../../../padmin_ope/class/conexion.php';
 		$conexion = new conexion();
         if ($upload && is_array($upload['tmp_name'])) {
             // param_name is an array identifier like "files[]",
@@ -764,7 +760,8 @@ class UploadHandler
     }
 
     public function delete($print_response = true) {
-		include '../../../../class/conexion.php';
+        require "../../../../padmin_ope/config.php";
+		include '../../../../padmin_ope/class/conexion.php';
 		$conexion = new conexion();
         $file_name = $this->get_file_name_param();
         $consulta = "DELETE FROM venta_etapa_documento_venta WHERE nombre_eta_doc_ven = '".$file_name."' AND id_eta_ven = '".$_SESSION["codigo_venta_etapa_panel"]."'";
