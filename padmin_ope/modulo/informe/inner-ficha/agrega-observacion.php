@@ -75,7 +75,7 @@
     </div>
 </div>
 
-<script src="<?php echo _ASSETS?>plugins/alert/sweet-alert.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="<?php echo _ASSETS?>plugins/validate/jquery.validate.js"></script>
 <script src="<?php echo _ASSETS?>plugins/validate/jquery.numeric.js"></script>
 <script type="text/javascript">
