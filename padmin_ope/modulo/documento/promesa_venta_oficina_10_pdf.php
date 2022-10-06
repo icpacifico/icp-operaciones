@@ -669,5 +669,4 @@ $nombre = 'documentos/promesa_'.date('dmYHi').'.pdf';
 ob_end_clean();//End Output Buffering
 // $fecha = date('Y-m-d H:i:s');
 $pdf = $mpdf->output($nombre ,'I');
-
 ?>
