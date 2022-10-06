@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php 
 ob_start();//Enables Output Buffering
 session_start(); 
