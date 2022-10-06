@@ -81,7 +81,7 @@ try {
 					";
 				$conexion->consulta($consulta);
 				$fila_ban = $conexion->extraer_registro_unico();
-				$id_tor	= utf8_encode($fila_ban['id_tor']);
+				$id_tor	= $fila_ban['id_tor'];
 
 
 				//SÓLO BODEGA O ESTACIONAMIENTO
@@ -136,7 +136,7 @@ try {
 							";
 						$conexion->consulta($consulta);
 						$fila_ban = $conexion->extraer_registro_unico();
-						$id_mod	= utf8_encode($fila_ban['id_mod']);
+						$id_mod	= $fila_ban['id_mod'];
 
 						$consulta = 
 							"
@@ -149,7 +149,7 @@ try {
 							";
 						$conexion->consulta($consulta);
 						$fila_ban = $conexion->extraer_registro_unico();
-						$id_ori_viv	= utf8_encode($fila_ban['id_ori_viv']);
+						$id_ori_viv	= $fila_ban['id_ori_viv'];
 
 						$inserta = "INSERT INTO vivienda_vivienda VALUES (0,1,'".$id_tor."','".$id_mod."','".$id_ori_viv."',1,'".$piso."','".$vivienda."','".$valor."','".$metro."','".$metro_terraza."','".$metro_total."','".$bono_vendedor."','".$prorrateo."','".$rol_viv."')";
 						//echo $inserta."<br>";
