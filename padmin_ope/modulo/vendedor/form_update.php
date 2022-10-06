@@ -178,11 +178,9 @@ $conexion = new conexion();
     </form>
 </div>
 
-<?php //include_once _INCLUDE."js_comun.php";?>
+<?php include_once _INCLUDE."js_comun.php";?>
 
 <!-- sweet alert -->
-<script src="<?php echo _ASSETS?>plugins/alert/sweet-alert.js"></script>
-
 
 <script src="<?php echo _ASSETS?>plugins/validate/jquery.validate.js"></script>
 <script src="<?php echo _ASSETS?>plugins/validate/jquery.numeric.js"></script>
