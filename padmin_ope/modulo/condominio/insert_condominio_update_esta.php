@@ -186,14 +186,8 @@ $(document).ready(function(){
 	swal({
 	  title: "Excelente!",
 	  text: "Estructura de condominio ingresada con éxito!",
-	  type: "success",
-	  showCancelButton: false,
-	  confirmButtonColor: "#9bde94",
-	  confirmButtonText: "Aceptar",
-	  closeOnConfirm: false
-	},
-	function(){
-		location.href = "form_select.php";
-	});
+	  icon: "success"
+		
+	}).then(()=>location.href = "form_select.php");
 });
 </script>
