@@ -194,6 +194,6 @@ $(document).ready(function(){
 	  title: "Excelente!",
 	  text: "Estructura de condominio ingresada con éxito!",
 	  icon: "success"		
-	}).then(()=>location.href = "form_select.php");
+	}).then(()=> window.location.replace("form_select.php"));
 });
 </script>
