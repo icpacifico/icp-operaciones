@@ -133,15 +133,8 @@ if (!isset($_SESSION["modulo_condominio_panel"])) {
                 swal({
                     title: "Excelente!",
                     text: "Información ingresada con éxito!",
-                    type: "success",
-                    showCancelButton: false,
-                    confirmButtonColor: "#9bde94",
-                    confirmButtonText: "Aceptar",
-                    closeOnConfirm: false
-                },
-                function () {
-                    location.href = "form_select.php";
-                });
+                    icon: "success"                    
+                }).then(()=>location.href = "form_select.php");
             }
             if (data.envio == 2) {
                 swal("Atención!", "Cuenta ya ha sido ingresada", "warning");
@@ -151,29 +144,8 @@ if (!isset($_SESSION["modulo_condominio_panel"])) {
                 alert(data.error_consulta);
                 swal("Error!", "Favor intentar denuevo o contáctese con administrador", "error");
                 $('#contenedor_boton').html('<button type="submit" class="btn btn-primary pull-right">Registrar</button>');
-            }
-            // if(data.envio != ""){
-            //  alert(data.envio);
-            // }
-        } 
-        
-        // $('#formulario').submit(function () {
-        //     if ($("#formulario").validate().form() == true){
-        //         $('#contenedor_boton').html('<img src="../../assets/img/loading.gif">');
-        //         var dataString = $('#formulario').serialize();
-        //         $.ajax({
-        //             data: dataString,
-        //             type: 'POST',
-        //             url: $(this).attr('action'),
-        //             dataType: 'json',
-        //             success: function (data) {
-        //                 resultado(data);
-        //             }
-        //         })
-        //     }
-            
-        //     return false;
-        // });
+            }           
+        }               
     });
 </script>
 
