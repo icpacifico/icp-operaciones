@@ -193,8 +193,7 @@ $(document).ready(function(){
 	swal({
 	  title: "Excelente!",
 	  text: "Estructura de condominio ingresada con éxito!",
-	  icon: "success"
-		
+	  icon: "success"		
 	}).then(()=>location.href = "form_select.php");
 });
 </script>
