@@ -338,7 +338,7 @@
 <script src="<?php echo _ASSETS?>plugins/datepicker/bootstrap-datepicker.js"></script>
 <script src="<?php echo _ASSETS?>plugins/datepicker/locales/bootstrap-datepicker.es.js"></script>
 <script src="<?php echo _ASSETS?>plugins/select2/select2.full.min.js"></script>
-<script src="<?php echo _ASSETS?>plugins/alert/sweet-alert.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- <script src="<?php echo _ASSETS?>plugins/validate/jquery.validate.js"></script> -->
 <script src="<?php echo _ASSETS?>plugins/validate/jquery.numeric.js"></script>
 <script type="text/javascript">
@@ -407,15 +407,8 @@
                 swal({
                     title: "Excelente!",
                     text: "Información actualizada con éxito!",
-                    type: "success",
-                    showCancelButton: false,
-                    confirmButtonColor: "#9bde94",
-                    confirmButtonText: "Aceptar",
-                    closeOnConfirm: false
-                },
-                function () {
-                    window.history.back();return false;
-                });
+                    icon: "success"                    
+                }).then(()=>window.history.back());
             }
             if (data.envio == 2) {
                 swal("Atención!", "Información ya ha sido ingresada", "warning");

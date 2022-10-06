@@ -416,15 +416,9 @@ $atrasos_totales = $eventos_atrasados_dia + $eventos_atrasados_hora;
         swal({
             title: "Está Seguro?",
             text: "Desea cambiar el estado del evento seleccionado!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
-            confirmButtonText: 'Aceptar',
-            cancelButtonText: "Cancelar",
-            closeOnConfirm: false
-        },
-        function(){
-            $.ajax({
+            icon: "warning"            
+        }).then(()=>{
+          $.ajax({
                 type: 'POST',
                 url: ("modulo/evento/estado.php"),
                 data:"valor="+valor,
@@ -440,15 +434,9 @@ $atrasos_totales = $eventos_atrasados_dia + $eventos_atrasados_hora;
             swal({
               title: "Excelente!",
               text: "Estado modificado con éxito!",
-              type: "success",
-              showCancelButton: false,
-              confirmButtonColor: "#9bde94",
-              confirmButtonText: "Aceptar",
-              closeOnConfirm: false
-            },
-            function(){
-                location.reload();
-            });
+              icon: "success"
+                
+            }).then(()=>location.reload());
         }
         if(data.envio == 3){
             swal("Error!", "Favor intentar denuevo","error");
