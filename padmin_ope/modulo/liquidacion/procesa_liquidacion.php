@@ -573,8 +573,7 @@ if(is_array($fila_consulta)){
 		                            INNER JOIN venta_desestimiento_venta AS des_ven ON des_ven.id_ven = ven.id_ven
 		                            -- INNER JOIN uf_uf AS uf ON uf.fecha_uf = DATE(des_ven.fecha_des_ven)
 		                            INNER JOIN uf_uf AS uf ON uf.fecha_uf = DATE(ven.fecha_ven)
-		                        WHERE
-								    ven.id_ven = 780 AND
+		                        WHERE								    
 		                            tor.id_con = ? AND
 		                            vend.id_vend = ? AND
 		                            des_ven.fecha_des_ven > '".$fecha_desde_consulta."' AND
