@@ -574,6 +574,7 @@ if(is_array($fila_consulta)){
 		                            -- INNER JOIN uf_uf AS uf ON uf.fecha_uf = DATE(des_ven.fecha_des_ven)
 		                            INNER JOIN uf_uf AS uf ON uf.fecha_uf = DATE(ven.fecha_ven)
 		                        WHERE
+								    ven.id_ven = 780 AND
 		                            tor.id_con = ? AND
 		                            vend.id_vend = ? AND
 		                            des_ven.fecha_des_ven > '".$fecha_desde_consulta."' AND
