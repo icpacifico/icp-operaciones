@@ -642,6 +642,7 @@ if(is_array($fila_consulta)){
 		                                FROM 
 		                                    cierre_venta_cierre AS ven_cie
 		                                WHERE
+										    ven_cie.id_ven = 780 AND
 		                                    ven_cie.id_ven = ven.id_ven AND
 		                                    (ven_cie.id_est_ven = 4 OR ven_cie.id_est_ven = 6)
 		                            )		                            
