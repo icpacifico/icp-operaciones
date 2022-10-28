@@ -29,7 +29,7 @@
 <div class="col-sm-12" style="margin-top: 10px;">
  <div class="box box-warning">
     <div class="box-header with-border">
-        <h3 class="box-title"><i class="fa fa-check" aria-hidden="true"></i> Pasar a Promesa      </h3>
+        <h3 class="box-title"><i class="fa fa-check" style="color:green" aria-hidden="true"></i> Pasar a Promesa      </h3>
         <button class="btn btn-link btn-sm pull-right cerrar-formulario" data-toggle="tooltip" data-original-title="Cerrar"><i class="fa fa-times" aria-hidden="true"></i></button>
     </div>
     <!-- /.box-header -->
@@ -70,28 +70,33 @@
             WHERE
                 cot.id_cot = ?
             ";
-        $conexion->consulta_form($consulta,array($id_cot));
+        $conexion->consulta_form($consulta,array($id_cot));        
         $fila = $conexion->extraer_registro_unico();
-        $id_con = utf8_encode($fila['id_con']);
-        $nombre_con = utf8_encode($fila['nombre_con']);
-        $id_viv = utf8_encode($fila['id_viv']);
-        $nombre_viv = utf8_encode($fila['nombre_viv']);
-        $valor_viv = utf8_encode($fila['valor_viv']);
-        $id_can_cot = utf8_encode($fila['id_can_cot']);
-        $nombre_can_cot = utf8_encode($fila['nombre_can_cot']);
-        $rut_pro = utf8_encode($fila['rut_pro']);
-        $id_pro = utf8_encode($fila['id_pro']);
-        $nombre_pro = utf8_encode($fila['nombre_pro']);
-        $apellido_paterno_pro = utf8_encode($fila['apellido_paterno_pro']);
-        $apellido_materno_pro = utf8_encode($fila['apellido_materno_pro']);
-        $correo_pro = utf8_encode($fila['correo_pro']);
-        $fono_pro = utf8_encode($fila['fono_pro']);
-        $id_tor = utf8_encode($fila['id_tor']);
-        $nombre_tor = utf8_encode($fila['nombre_tor']);
-        $id_mod = utf8_encode($fila['id_mod']);
-        $nombre_mod = utf8_encode($fila['nombre_mod']);
-        $fecha_cot = date("d-m-Y",strtotime($fila['fecha_cot']));
-        
+
+
+        $id_con = utf8_encode($fila['id_con']); // id condominio
+        $nombre_con = utf8_encode($fila['nombre_con']); // nombre condominio
+        $id_viv = utf8_encode($fila['id_viv']); // id vivienda
+        $nombre_viv = utf8_encode($fila['nombre_viv']); // nombre vivienda (relamente es el numero)
+        $valor_viv = utf8_encode($fila['valor_viv']); // valor vivienda
+        $id_can_cot = utf8_encode($fila['id_can_cot']); // id canal de cotizacion
+        $nombre_can_cot = utf8_encode($fila['nombre_can_cot']); // nombre de canal de cotizacion
+        $rut_pro = utf8_encode($fila['rut_pro']); // rut de cliente
+        $id_pro = utf8_encode($fila['id_pro']); // id de cliente
+        $nombre_pro = utf8_encode($fila['nombre_pro']); // nombre de cliente
+        $apellido_paterno_pro = utf8_encode($fila['apellido_paterno_pro']); // apellido paterno cliente
+        $apellido_materno_pro = utf8_encode($fila['apellido_materno_pro']); // apellido materno cliente
+        $correo_pro = utf8_encode($fila['correo_pro']); // correo cliente
+        $fono_pro = utf8_encode($fila['fono_pro']); // telefono cliente
+        $id_tor = utf8_encode($fila['id_tor']); // id de torre
+        $nombre_tor = utf8_encode($fila['nombre_tor']); // nombre de torre
+        $id_mod = utf8_encode($fila['id_mod']); // id de modelo
+        $nombre_mod = utf8_encode($fila['nombre_mod']); // nombre de modelo
+        $fecha_cot = date("d-m-Y",strtotime($fila['fecha_cot'])); // fecha de cotizacion
+
+
+        // parametros predefinidos para cada proyecto de condominio
+        // valor2_par = 4 = Precio Descuento Depto
         $consulta = "SELECT valor_par FROM parametro_parametro WHERE valor2_par = ? AND id_con = ? ";
         $conexion->consulta_form($consulta,array(4,$id_con));
         $fila = $conexion->extraer_registro_unico();
@@ -99,6 +104,7 @@
         $total_descuento = ($valor_viv * $porcentaje_descuento) / 100;
         $total_vivienda = $valor_viv - $total_descuento;
 
+        // valor2_par = 12 = Monto Reserva
         $consulta ="SELECT valor_par FROM parametro_parametro WHERE valor2_par = ? AND id_con = ?";
         $conexion->consulta_form($consulta,array(12,$id_con));
         $fila = $conexion->extraer_registro_unico();
@@ -123,6 +129,9 @@
 					<div class="container">
 	                    <div class="col-sm-4 text-right">
 	                        <?php
+
+                            // datos de bodega si existe
+
 	                        $consulta ="SELECT nombre_bod FROM bodega_bodega WHERE id_viv = ?";
 	                        $conexion->consulta_form($consulta,array($id_viv));
 	                        $fila_consulta = $conexion->extraer_registro();
@@ -139,6 +148,9 @@
 	                    </div>
 	                    <div class="col-sm-4 text-right">
 	                        <?php
+
+                            // datos de estacionamiento
+
 	                        $consulta = " SELECT nombre_esta FROM estacionamiento_estacionamiento WHERE id_viv = ?";
 	                        $conexion->consulta_form($consulta,array($id_viv));
 	                        $fila_consulta = $conexion->extraer_registro();
@@ -158,21 +170,19 @@
                     
                 </div>
                 <div class="container">
+
 					<div class="row">
 						<hr class="col-sm-12">
-							<div class="col-sm-12 text-center">
-								
+							<div class="col-sm-12 text-center">								
 								<h4><b style="margin-right:1%;">Aplicar Descuento</b>
-								<input type="checkbox" id="desc" value="no">
-								</h4>
-								
-								
-											
-							</div>
-						
+								    <input type="checkbox" id="desc" value="no">
+								</h4>																											
+							</div>						
 					</div>
+
+
                 	<div class="row descuento">	
-					<hr class="col-sm-12">				
+					  <hr class="col-sm-12">				
                         <div class="col-sm-12 text-center">
                             <h4><b>* Tipos de descuentos disponiples para aplicar</b> <b><small>Monto Reserva (UF): <?php echo $monto_reserva;?></small></b></h4>                            
                         </div>                       
@@ -190,7 +200,7 @@
                     <div class="row descuento" style="margin-bottom:20px;">                       
 	                    <div class="col-sm-4 col-sm-offset-2 text-center" id="alTotal">
                             <div class="col-sm-12">
-                                <label for="monto_vivienda">Descuento al total (<?php echo number_format($total_vivienda, 2, ',', '.');?>) <i class="fa fa-check-square-o bg-success" aria-hidden="true"></i><br><small>*descuento al valor total del precio.</small></label>
+                                <label for="monto_vivienda">Descuento al precio <i class="fa fa-check-square-o bg-success" aria-hidden="true"></i><br><small>*descuento al valor total del precio.</small></label>
                             </div>
                             <div class="col-sm-3 col-sm-offset-3">
                                 <div class="form-group">                                    
@@ -205,9 +215,10 @@
 	                        </div>
 	                    </div>
                     </div>
-                    <hr class="col-sm-12">
-                    <div class="row">   
 
+                    <hr class="col-sm-12">
+
+                    <div class="row">   
                         <div class="col-sm-4 text-right">
                             <div class="form-group">
                                 <label for="fecha">Fecha:</label>
@@ -354,39 +365,25 @@
         $('.numero').numeric();
         
         $(document).on( "click","#procesar_boton" , function() {
-			let opc2 = $( "input[id=desc]:checked" ).val();
-            let opt = $( "input[name=inlineRadioOptions]:checked" ).val();
-            let monto_viv = '';
-            let vivienda = parseInt("<?php echo $valor_viv;?>");
-            let alPrecio = parseInt($("#alPrecio").val());
-            let abono = $("#abonoInmobiliario").val();
-			if(opc2!="no"){
-				opt = "3";
-				monto_viv = vivienda;
-                abono = 0;
-			}else{
-				if(opt == "1"){
-               		monto_viv = vivienda;
-                      
-				}else{
-					monto_viv = vivienda - alPrecio;
-                    abono = 0;
-				}
-			}             
+			let opc2 = $( "input[id=desc]:checked" ).val(); // checkbox para mostrar opciones de descuento
+            let opt = $( "input[name=inlineRadioOptions]:checked" ).val(); // checkbox que indica las dos opciones disponibles de descuento            
+            let vivienda = parseInt("<?php echo $valor_viv;?>"); //valor de la vivienda según la cotización
+            let alPrecio = parseInt($("#alPrecio").val()); // valor de descuento al precio
+            let abono = parseInt($("#abonoInmobiliario").val()); // valor de descuento al pie
+			        
             var procesa = {  
                     id: "<?php echo $id_cot;?>",  
                     id_vivienda : "<?php echo $id_viv;?>", 
                     id_condominio:  "<?php echo $id_con;?>",
-                    valor_viv:  "<?php echo $valor_viv;?>",
-                    monto_vivienda:  monto_viv,
-                    fecha:  $('#fecha').val(),
-                    precio_descuento:  opt,                   
+                    valor_viv:  "<?php echo $valor_viv;?>",                    
+                    fecha:  $('#fecha').val(),                                 
                     forma_pago:  $("#forma_pago").val(),
                     pie:  $("#pie").val(),
                     premio:  $("#premio").val(),                    
-                    aplica_pie:   opt, // 1 = abono inmobiliario ; 2 = desc al precio
+                    tipo_descuento: opt, // 1 = abono inmobiliario ; 2 = desc al precio
                     estacionamiento: [],
                     bodega:[],
+                    descuento_al_precio : alPrecio,
                     abonoInmobiliario : abono
                 };           
             $.ajax({
@@ -490,7 +487,7 @@
 			// radio button functions
 
 		const visible = (a) => $("#"+a+"").css('visibility','visible');
-		const hidden = (a) => $("#"+a+"").css('visibility','hidden');
+		const hidden = (a) => $("#"+a+"").css('visibility','hidden');desc
 
 		const classVisible = (a) => $("."+a+"").css('display','block');
 		const classHidden = (a) => $("."+a+"").css('display','none');
@@ -509,10 +506,12 @@
 		});
 
 		$('input[id=desc]').change(function() {
-			// this will contain a reference to the checkbox   
+			// checkbox para escoger si se aplica descuento o no   
 			if (this.checked) {
+                // si se aplica descuento se muestran todos los campos que contengan la clase descuento
 				classVisible('descuento');
 			} else {
+                 // si no se aplica descuento los campos se ocultan
 				classHidden('descuento');
 			}
 		});
