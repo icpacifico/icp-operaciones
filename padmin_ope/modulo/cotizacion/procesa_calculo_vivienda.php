@@ -4,19 +4,26 @@ require "../../config.php";
 include _INCLUDE."class/conexion.php";
 $conexion = new conexion(); 
 
-$id_cot = $_POST["id"];
-$id_vivienda = $_POST["id_vivienda"];
-$id_condominio = $_POST["id_condominio"];
-$valor_viv = $_POST["valor_viv"];
-$monto_vivienda = $_POST["monto_vivienda"];
-$fecha = $_POST["fecha"];
-$precio_descuento = $_POST["precio_descuento"];
-$forma_pago = $_POST["forma_pago"];
-$pie = $_POST["pie"];
-$premio = $_POST["premio"];
-$aplica_pie = $_POST["aplica_pie"];
-$abonoInmobiliario = $_POST["abonoInmobiliario"]; 
-$monto_pie_sin_reserva = 0;
+$id_cot = $_POST["id"]; //id cotizacion
+$id_vivienda = $_POST["id_vivienda"]; // id_vivienda
+$id_condominio = $_POST["id_condominio"]; // id_condominio
+$valor_viv = $_POST["valor_viv"]; // valor original de la vivienda
+$fecha = $_POST["fecha"]; // fecha para ver valor uf
+$forma_pago = $_POST["forma_pago"]; // id de forma de pago
+$premio = $_POST["premio"]; // premio si es que aplica
+$pie = $_POST["pie"]; // pie de la venta
+
+$tipo_descuento = $_POST['tipo_descuento'];
+$descuento_al_precio = $_POST['descuento_al_precio'];
+$abonoInmobiliario = $_POST["abonoInmobiliario"];  // valor del abono inmobiliario
+
+
+// $monto_vivienda = $_POST["monto_vivienda"]; 
+// $precio_descuento = $_POST["precio_descuento"]; 
+
+// $aplica_pie = $_POST["aplica_pie"]; 
+
+$monto_pie_sin_reserva = 0; //??? (innecesario)
 /*
 $aplica_pie = 1 es abono inmobiliario, osea descuento al pie
 $aplica_pie = 2 es descuento al precio total
@@ -28,46 +35,15 @@ $aplica_pie = 2 es descuento al precio total
 		<hr>
 	</div>
 <?php
-if (empty($monto_vivienda) || $monto_vivienda > $valor_viv || empty($fecha) || empty($precio_descuento) || empty($forma_pago) || empty($pie) || empty($aplica_pie)) {
+if (empty($valor_viv) || empty($fecha) ||  empty($forma_pago) || empty($pie)) {
     ?>
     <div class="col-sm-12" style="margin-top: 20px;">
         <span class="label label-danger" style="font-size: 16px;">* Falta Información por Completar</span>
         <?php
-        if (empty($monto_vivienda)) {
-            ?>
-            <h6>- Precio Departamento</h6>
-            <?php
-        }
-        if ($monto_vivienda>$valor_viv) {
-            ?>
-            <h6>- El valor ingresado a la Vivienda no puede ser mayor al de lista.</h6>
-            <?php
-        }
-        if (empty($fecha)) {
-            ?>
-            <h6>- Fecha</h6>
-            <?php
-        }
-        if (empty($precio_descuento)) {
-            ?>
-            <h6>- Precio con Descuento</h6>
-            <?php
-        }
-        if (empty($forma_pago)) {
-            ?>
-            <h6>- Forma de Pago</h6>
-            <?php
-        }
-        if (empty($pie)) {
-            ?>
-            <h6>- PIE (%)</h6>
-            <?php
-        }
-        if (empty($aplica_pie)) {
-            ?>
-            <h6>- Descuento Aplica PIE</h6>
-            <?php
-        }
+        if (empty($valor_viv)) echo '<h6>- Precio Departamento</h6>';              
+        if (empty($fecha)) echo '<h6>- Fecha</h6>';                   
+        if (empty($forma_pago)) echo '<h6>- Forma de Pago</h6>';           
+        if (empty($pie)) echo '<h6>- PIE (%)</h6>';                        
         ?>
     </div>
     
@@ -80,13 +56,20 @@ $monto_bodega = 0;
 $total_descuento = 0;
 $monto_reserva = 0;
 $monto_descuento = 0;
+$cantidad_estacionamiento = 0;
+$cantidad_bodega = 0;
 
+
+// valor2_par = 12 = Monto Reserva
 $conexion->consulta_form("SELECT valor_par FROM parametro_parametro WHERE valor2_par = ? AND id_con = ?",array(12,$id_condominio));
 $fila = $conexion->extraer_registro_unico();
 $monto_reserva = utf8_encode($fila['valor_par']);
+
+
+//  obtencion de valor uf por la fecha entregada
 $fecha_uf = date("Y-m-d",strtotime($fecha));
 $conexion->consulta_form("SELECT valor_uf FROM uf_uf WHERE fecha_uf = ?",array($fecha_uf));
-$cantidad_uf = $conexion->total();
+$cantidad_uf = $conexion->total(); // el metodo total da un numero de registros que arrojo la consulta
     if($cantidad_uf == 0){
         ?>
         <div class="col-sm-12" style="margin-top: 20px;">
@@ -97,8 +80,12 @@ $cantidad_uf = $conexion->total();
     }
 $fila = $conexion->extraer_registro_unico();
 $valor_uf = utf8_encode($fila['valor_uf']);
-$cantidad_estacionamiento = 0;
-$cantidad_bodega = 0;
+
+
+
+
+// ******* SUMA DE VALORES EN ESTACIONAMIENTO Y BODEGAS ADICIONALES
+
 if( isset($_POST["estacionamiento"])){
 	$cantidad_estacionamiento = count($_POST["estacionamiento"]);
 }
@@ -115,37 +102,26 @@ if($cantidad_bodega > 0){
     $fila = $conexion->extraer_registro_unico();
     $monto_bodega = $fila["suma"];
 }
-if($precio_descuento == 1){//descuento al valor lista parámetro   
-    $conexion->consulta_form("SELECT valor_par FROM parametro_parametro WHERE valor2_par = ? AND id_con = ? ",array(4,$id_condominio));
-    $fila = $conexion->extraer_registro_unico();
-    $porcentaje_descuento = $fila['valor_par'];
-    $total_precio_descuento = ($valor_viv * $porcentaje_descuento) / 100; //aca usa el valor viv, el original
-}
+
+
+// ********** FORMA DE PAGO
+
 $conexion->consulta_form("SELECT nombre_for_pag FROM pago_forma_pago WHERE id_for_pag = ? ",array($forma_pago));
 $fila = $conexion->extraer_registro_unico();
 $forma_pago = utf8_encode($fila['nombre_for_pag']);
 
-// $consulta = "SELECT valor_pie_ven FROM venta_pie_venta WHERE id_pie_ven = ?";
-// $conexion->consulta_form($consulta,array($pie));
-// $fila = $conexion->extraer_registro_unico();
 
-$monto_vivienda_total = $monto_vivienda + $monto_bodega + $monto_estacionamiento;
-// $monto_vivienda_total = $valor_viv + $monto_bodega + $monto_estacionamiento;
-// $porc_pie = $fila['valor_pie_ven'];
+$monto_vivienda_total = $valor_viv + $monto_bodega + $monto_estacionamiento;
 $porc_pie = ($pie * 100) / $monto_vivienda_total; // valor del pie convertido en porcentaje
 ?>
 <div class="col-md-4">
-	<?php 
-	if ($aplica_pie==1) {
-	?>
+	<?php  if ($tipo_descuento == 1) { ?>
+		
 	<div class="info"><b>Precio Depto:</b> <?php echo number_format($valor_viv, 2, ',', '.'); ?></div>
-	<?php
-	} else if($aplica_pie==2 && ($precio_descuento == 1)) {
-	 ?>
-	<div class="info">--</div>
-	<?php } else {
-	?>
-	<div class="info"><b>Precio Depto:</b> <?php echo number_format($monto_vivienda, 2, ',', '.'); ?></div>	
+
+	<?php } else if($tipo_descuento == 2) {  ?>
+				
+	<div class="info"><b>Precio Depto:</b> <?php echo number_format(($valor_viv - $descuento_al_precio), 2, ',', '.'); ?></div>	
 	<?php } ?>	
 	<div class="info"><b>Fecha Promesa:</b> <?php echo date("d/m/Y",strtotime($fecha)); ?></div>
 	<div class="info"><b>Valor UF:</b> <?php echo number_format($valor_uf, 2, ',', '.'); ?></div>
@@ -209,72 +185,39 @@ if($cantidad_bodega > 0){
 
 
 <h5>Descuentos Y Pié</h5>
-<?php
 
-$monto_vivienda_descuento = $monto_vivienda;
-$monto_vivienda_descuento_final = $monto_vivienda_descuento + $monto_bodega + $monto_estacionamiento;
-//-------- CALCULOS DE MONTOS
-if($precio_descuento == 1){  //si aplica precio con descuento
-    // echo "DESCUENTOS <br>";
-    if($precio_descuento == 1 && $aplica_pie == 1){
-        // $total_precio_descuento_peso = $total_precio_descuento * $valor_uf;
-        ?>
+
+<?php  if($tipo_descuento == 1){ ?>
+
 		<div class="info"><b>Abono Inmobiliaria:</b> <?php echo number_format($abonoInmobiliario, 2, ',', '.');?> UF</div>
+             
+        <?php   } else if($tipo_descuento == 2){ ?>
+
+		<div class="info"><b>Monto Depto con Descuentos:</b> <?php echo number_format(($valor_viv - $descuento_al_precio), 2, ',', '.');?> UF</div>
+
         <?php       
-    }       
-    if($aplica_pie == 2){
-        $monto_vivienda_descuento = $valor_viv - $total_precio_descuento - $monto_descuento; //parte del valor real de la vivienda
-        ?>
-		<div class="info"><b>Monto Depto con Descuentos:</b> <?php echo number_format($monto_vivienda_descuento, 2, ',', '.');?> UF</div>
-        <?php
-        // echo "Monto Depto con Descuentos ".number_format($monto_vivienda_descuento, 2, ',', '.')." UF <br>";
     }
 
-    $descuentos_pie = $total_precio_descuento + $monto_descuento;
-
-    
-} 
-//cuando hizo descuento manual
-else { 
-	if ($valor_viv>$monto_vivienda) {
-		$descuento_manual = $valor_viv - $monto_vivienda;
-		if($aplica_pie == 1){
-		?>
-		<div class="info"><b>Abono Inmobiliaria:</b> <?php echo number_format($abonoInmobiliario, 2, ',', '.');?> UF</div>
-		<?php
-		}
-		if($aplica_pie == 2){
-	        $monto_vivienda_descuento = $valor_viv - $descuento_manual;
-	        ?>
-			<div class="info"><b>Monto Depto con Descuento:</b> <?php echo number_format($monto_vivienda_descuento, 2, ',', '.');?> UF</div>
-	        <?php	        
-	    }
-
-	}
-}
 if($cantidad_estacionamiento > 0){?>
 	<div class="info"><b>Monto Total Est. Adicionales:</b> <?php echo number_format($monto_estacionamiento, 2, ',', '.');?> UF</div>
 <?php }if($cantidad_bodega > 0){?>
 	<div class="info"><b>Monto Total Bodegas Adicionales:</b> <?php echo number_format($monto_bodega, 2, ',', '.');?> UF</div>
 <?php }?>
 <div class="info"><b>Monto Reserva:</b> <?php echo number_format($monto_reserva, 2, ',', '.');?> UF</div>
-<?php if($aplica_pie == 1){ //descuenta al pie  
+<?php if($tipo_descuento == 1){ //descuento de abono inmobiliario  
 
     // pie = valor vivienda * (%pie / 100) 
     $monto_pie = $monto_vivienda_total * ($porc_pie / 100);
     // $monto_pie_sin_reserva = $monto_pie - $monto_reserva;
-	if($precio_descuento == 1){ 
-    	$monto_pie_con_descuento = $monto_pie - $descuentos_pie;
-    } else {
-    	$monto_pie_con_descuento = $monto_pie - $descuento_manual;
-    }
+	
+    $monto_pie_con_descuento = $monto_pie - $abonoInmobiliario;
 	// $monto_pie_con_descuento_sin_reserva = $monto_pie_con_descuento - $monto_reserva;
 	$monto_pie_con_descuento_sin_reserva = $pie - $monto_reserva - $abonoInmobiliario;
     ?>   
 	<div class="info"><b>Monto Pie Con Descuento:</b> <?php echo number_format($monto_pie_con_descuento_sin_reserva, 2, ',', '.');?> UF</div>
 	<?php
 } else { //el pie no tiene descuentos
-	$monto_pie = $monto_vivienda_descuento_final * ($porc_pie / 100);
+	$monto_pie = $monto_vivienda_total * ($porc_pie / 100);
 	$monto_pie_sin_reserva = $monto_pie - $monto_reserva;
 	?>
 	<div class="info"><b>Monto Pie (Sin Reserva):</b> <?php echo number_format($monto_pie_sin_reserva, 2, ',', '.');?> UF</div>
@@ -283,7 +226,7 @@ if($cantidad_estacionamiento > 0){?>
 
 if ($cantidad_estacionamiento > 0 || $cantidad_bodega > 0) {
 	?>
-	<div class="info"><b>Valor Venta Total:</b> <?php echo number_format($monto_vivienda_descuento_final, 2, ',', '.');?> UF</div>
+	<div class="info"><b>Valor Venta Total:</b> <?php echo number_format($monto_vivienda_total, 2, ',', '.');?> UF</div>
 	<?php
 }
 ?>
