@@ -542,10 +542,66 @@ if(is_array($fila_consulta)){
 		                    
 		                    <tr>
 		                        <td class="active" colspan="12"><b>Desistimiento</b></td>
-		                    </tr>
+		                    </tr>							
 		                    <?php  
 		                    $total_desistimiento_acumulado = 0;
-		                    $consulta = 
+		                    // $consulta = 
+		                    //     "
+		                    //     SELECT
+		                    //         vend.id_vend,
+		                    //         vend.nombre_vend,
+		                    //         vend.apellido_paterno_vend,
+		                    //         vend.apellido_materno_vend,
+		                    //         ven.id_ven,
+		                    //         CONCAT(pro.nombre_pro,' ', pro.apellido_paterno_pro) as cliente, 
+		                    //         ven.id_est_ven,
+		                    //         ven.monto_ven,
+		                    //         ven.promesa_monto_comision_ven,
+		                    //         ven.escritura_monto_comision_ven,
+		                    //         ven.total_comision_ven,
+		                    //         ven.promesa_bono_precio_ven,
+		                    //         ven.escritura_bono_precio_ven,
+		                    //         ven.total_bono_precio_ven,
+		                    //         viv.nombre_viv,
+		                    //         uf.valor_uf
+		                    //     FROM
+		                    //         vendedor_vendedor AS vend
+		                    //         INNER JOIN venta_venta AS ven ON ven.id_vend = vend.id_vend
+		                    //         INNER JOIN vivienda_vivienda AS viv ON viv.id_viv = ven.id_viv
+		                    //         INNER JOIN propietario_propietario AS pro ON pro.id_pro = ven.id_pro
+		                    //         INNER JOIN torre_torre AS tor ON tor.id_tor = viv.id_tor
+		                    //         INNER JOIN venta_desestimiento_venta AS des_ven ON des_ven.id_ven = ven.id_ven
+		                    //         -- INNER JOIN uf_uf AS uf ON uf.fecha_uf = DATE(des_ven.fecha_des_ven)
+		                    //         INNER JOIN uf_uf AS uf ON uf.fecha_uf = DATE(ven.fecha_ven)
+		                    //     WHERE								    
+		                    //         tor.id_con = ? AND
+		                    //         vend.id_vend = ? AND
+		                    //         des_ven.fecha_des_ven > '".$fecha_desde_consulta."' AND
+		                    //         des_ven.fecha_des_ven <= '".$fecha_hasta_consulta."' AND
+		                    //         des_ven.id_tip_des = 1 AND
+		                    //         ven.id_est_ven = 3 AND NOT 
+		                    //         EXISTS(
+		                    //             SELECT 
+		                    //                 ven_cie.id_ven_cie
+		                    //             FROM 
+		                    //                 cierre_venta_cierre AS ven_cie
+		                    //             WHERE
+		                    //                 ven_cie.id_ven = ven.id_ven AND
+		                    //                 ven_cie.id_est_ven = 3
+		                    //         ) AND 
+		                    //         EXISTS(
+		                    //             SELECT 
+		                    //                 ven_cie.id_ven_cie
+		                    //             FROM 
+		                    //                 cierre_venta_cierre AS ven_cie
+		                    //             WHERE
+		                    //                 ven_cie.id_ven = ven.id_ven AND
+		                    //                 (ven_cie.id_est_ven = 4 OR ven_cie.id_est_ven = 6)
+		                    //         )
+
+		                            
+		                    //     ";
+								$consulta = 
 		                        "
 		                        SELECT
 		                            vend.id_vend,
@@ -573,34 +629,22 @@ if(is_array($fila_consulta)){
 		                            INNER JOIN venta_desestimiento_venta AS des_ven ON des_ven.id_ven = ven.id_ven
 		                            -- INNER JOIN uf_uf AS uf ON uf.fecha_uf = DATE(des_ven.fecha_des_ven)
 		                            INNER JOIN uf_uf AS uf ON uf.fecha_uf = DATE(ven.fecha_ven)
-		                        WHERE
-								    ven.id_ven = 780 AND
+		                        WHERE								    
 		                            tor.id_con = ? AND
 		                            vend.id_vend = ? AND
 		                            des_ven.fecha_des_ven > '".$fecha_desde_consulta."' AND
 		                            des_ven.fecha_des_ven <= '".$fecha_hasta_consulta."' AND
 		                            des_ven.id_tip_des = 1 AND
-		                            ven.id_est_ven = 3 AND NOT 
+		                            ven.id_est_ven = 3 AND 
 		                            EXISTS(
 		                                SELECT 
 		                                    ven_cie.id_ven_cie
 		                                FROM 
 		                                    cierre_venta_cierre AS ven_cie
-		                                WHERE
-		                                    ven_cie.id_ven = ven.id_ven AND
-		                                    ven_cie.id_est_ven = 3
-		                            ) AND 
-		                            EXISTS(
-		                                SELECT 
-		                                    ven_cie.id_ven_cie
-		                                FROM 
-		                                    cierre_venta_cierre AS ven_cie
-		                                WHERE
+		                                WHERE										    
 		                                    ven_cie.id_ven = ven.id_ven AND
 		                                    (ven_cie.id_est_ven = 4 OR ven_cie.id_est_ven = 6)
-		                            )
-
-		                            
+		                            )		                            
 		                        ";
 		                    $conexion->consulta_form($consulta,array($fila['id_con'],$fila['id_vend']));
 		                    $fila_consulta_detalle = $conexion->extraer_registro();
