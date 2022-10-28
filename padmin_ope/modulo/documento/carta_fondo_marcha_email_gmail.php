@@ -4,18 +4,9 @@ include 'mpdf/mpdf.php';
 require "../../config.php"; 
 include _INCLUDE."class/conexion.php";
 $conexion = new conexion();
-
 require '../../class/phpmailer_new/PHPMailerAutoload.php';
-// require '../../class/phpmailer/class.phpmailer.php';
 
-$id = $_GET["id"];
-// $nombre = 'liquidacion_reserva_'.$id_res.'-'.date('d-m-Y');
-
-// header('Content-type: application/vnd.ms-excel');
-// header("Content-Disposition: attachment;filename=".$nombre.".xls");
-// header("Pragma: no-cache");
-// header("Expires: 0");
-
+	$id = $_GET["id"];
 	$consulta = "SELECT valor_par FROM parametro_parametro WHERE id_par = ?";
 	$conexion->consulta_form($consulta,array(14));
 	$fila = $conexion->extraer_registro_unico();
@@ -58,8 +49,7 @@ $id = $_GET["id"];
 	$correo_pro = utf8_encode($fila["correo_pro"]);
 	$nombre_con = $fila["nombre_con"];
 	$id_con = $fila["id_con"];
-	$prorrateo_viv = $fila["prorrateo_viv"];
-	//$correo_pro = "brunomailcasa@gmail.com";
+	$prorrateo_viv = $fila["prorrateo_viv"];	
 
 	$consultapar = 
         "
@@ -164,7 +154,7 @@ $id = $_GET["id"];
 	    		<p style="text-align: justify;">La Serena, '.utf8_encode($dia).' de '.utf8_encode($nombre_mes).' '.utf8_encode($anio).'</p><br>
 				<p>Estimado(a), '.ucwords(mb_strtolower(utf8_encode($nombre_pro." ".$nombre2_pro." ".$apellido_paterno_pro." ".$apellido_materno_pro))).'<br>
 				</p><br>
-				<p style="text-align: justify;">Junto con saludar, le hago presente que al momento de recepcionar su nuevo departamento y según ley N° 19.537 de Copropiedad Inmobiliaria referida en Reglamento de Copropiedad Ud. debe cancelar por concepto de "Fondo de puesta en Marcha" un valor de <b>$ '.$total_prorrateo_depto.'</b></p><br>
+				<p style="text-align: justify;">Junto con saludar y según lo informado en el Cierre de Negocios firmado por usted al momento de promesar su departamento, Ud. debe cancelar por concepto de “Fondo de puesta en Marcha” un valor de <b>$ '.$total_prorrateo_depto.'</b>. Dicho monto se debe pagar antes de la entrega y está definido según la ley N° 19.537 de Copropiedad Inmobiliaria referida en Reglamento de Copropiedad.</p><br>
 				<p>Reglamento de Copropiedad indica:</p>
 				<p style="text-align: justify;"><u><b>ARTÍCULO VIGÉSIMO PRIMERO:</b></u> Sin perjuicio de los pagos a que se refieren los artículos anteriores, los propietarios erogarán a prorrata de sus cuotas, los dineros necesarios para la formación de los siguientes fondos:</p> 
 				<p style="text-align: justify;">A) "Fondo Común de Reserva", que se integrará según se establece en el artículo tercero transitorio del presente reglamento y servirá para atender las reparaciones de los bienes de dominio común o a gastos comunes urgentes o imprevistos, el que se formará e incrementará con el porcentaje de recargo sobre los gastos comunes que en sesión extraordinaria fije la asamblea de copropietarios, con el producto de las multas e intereses que deben pagar los copropietarios. Los recursos de este fondo se mantendrán en depósito en una cuenta corriente bancaria o en una cuenta de ahorro, o se invertirán en instrumentos financieros que operen en el mercado de capitales, previo acuerdo del Comité de Administración.</p>
@@ -208,16 +198,12 @@ $mail_automatico->Username = "sociales@icpacifico.cl";
 //Password to use for SMTP authentication
 $mail_automatico->Password = "xjxenhjbncxefdmh";
 //Set who the message is to be sent from
-$mail_automatico->setFrom('sociales@icpacifico.cl', 'Pruebas de envío');
+$mail_automatico->setFrom('sociales@icpacifico.cl', 'Operaciones');
 
-
-$correo_pro = "oahumada@icpacifico.cl";
-$correo_empresa2 = "mmoya@icpacifico.cl";
-// $correo_empresa2 = "mmoya@icpacifico.cl";
 
 if ($correo_pro<>'') {
 	$mail_automatico->AddAddress($correo_pro);
-	$mail_automatico->AddCC($correo_empresa2);
+	$mail_automatico->AddCC("mmoya@icpacifico.cl");
 	$mail_automatico->AddReplyTo($correo_empresa2);
 	$mail_automatico->Subject = "Inmobiliaria Costanera Pacífico - Carta Fondo Puesta en Marcha";
 	$mail_automatico->Body = $html;
