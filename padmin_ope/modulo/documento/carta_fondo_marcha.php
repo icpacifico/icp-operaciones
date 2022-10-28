@@ -4,14 +4,6 @@ require "../../config.php";
 include _INCLUDE."class/conexion.php";
 $conexion = new conexion();
 $id = $_GET["id"];
-
-// $nombre = 'liquidacion_reserva_'.$id_res.'-'.date('d-m-Y');
-
-// header('Content-type: application/vnd.ms-excel');
-// header("Content-Disposition: attachment;filename=".$nombre.".xls");
-// header("Pragma: no-cache");
-// header("Expires: 0");
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -96,8 +88,7 @@ $id = $_GET["id"];
 </head>
 <body>
 	<a class="btn no-print" href="carta_fondo_marcha_word.php?id=<?php echo $id; ?>" target="_blank">Word</a>
-	<a class="btn no-print" href="carta_fondo_marcha_pdf.php?id=<?php echo $id; ?>" target="_blank">PDF</a>
-	<a class="btn no-print" href="carta_fondo_marcha_email.php?id=<?php echo $id; ?>" target="_blank">Enviar por mail</a>
+	<a class="btn no-print" href="carta_fondo_marcha_pdf.php?id=<?php echo $id; ?>" target="_blank">PDF</a>	
 	<a class="btn no-print" href="carta_fondo_marcha_email_gmail.php?id=<?php echo $id; ?>" target="_blank">Enviar por mail</a>
 	<?php  
 
