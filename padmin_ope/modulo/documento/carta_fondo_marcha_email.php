@@ -196,7 +196,6 @@ $mail_automatico->FromName = "Inmobiliaria Costanera Pacífico";
 $mail_automatico->Timeout=60;
 
 
-// $correo_empresa = "bruno@proyectarse.com";
 $correo_empresa2 = "mmoya@icpacifico.cl";
 
 if ($correo_pro<>'') {

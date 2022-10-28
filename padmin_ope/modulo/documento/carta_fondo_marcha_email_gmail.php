@@ -211,8 +211,8 @@ $mail_automatico->Password = "xjxenhjbncxefdmh";
 $mail_automatico->setFrom('sociales@icpacifico.cl', 'Pruebas de envío');
 
 
-$correo_pro = "brunomailcasa@gmail.com";
-$correo_empresa2 = "bruno@timudev.cl";
+$correo_pro = "oahumada@icpacifico.cl";
+$correo_empresa2 = "mmoya@icpacifico.cl";
 // $correo_empresa2 = "mmoya@icpacifico.cl";
 
 if ($correo_pro<>'') {
