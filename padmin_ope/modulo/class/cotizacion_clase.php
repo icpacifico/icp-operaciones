@@ -283,7 +283,33 @@ class cotizacion
 		return $tiene_promesa;
 	}
 
-	public function cotizacion_insert_venta($id_viv,$id_pro,$id_ban,$id_pie_ven,$id_for_pag,$id_des,$id_pre,$id_pie_abo_ven,$id_tip_pag,$id_est_ven,$fecha_ven,$fecha_promesa_ven,$monto_reserva_ven,$descuento_manual_ven,$descuento_precio_ven,$descuento_adicional_ven,$descuento_ven,$pie_cancelado_ven,$pie_cobrar_ven,$monto_estacionamiento_ven,$monto_bodega_ven,$monto_vivienda_ven,$monto_vivienda_ingreso_ven,$monto_ven,$cotizacion_ven,$precio_descuento)
+	public function cotizacion_insert_venta($id_viv,
+											$id_pro,
+											$id_ban,
+											$id_pie_ven,
+											$id_for_pag,
+											$id_des,
+											$id_pre,
+											$id_pie_abo_ven,
+											$id_tip_pag,
+											$id_est_ven,
+											$fecha_ven,
+											$fecha_promesa_ven,
+											$monto_reserva_ven,
+											$descuento_manual_ven,
+											$descuento_precio_ven,
+											$descuento_adicional_ven,
+											$descuento_ven,
+											$pie_cancelado_ven,
+											$pie_cobrar_ven,
+											$monto_estacionamiento_ven,
+											$monto_bodega_ven,
+											$monto_vivienda_ven,
+											$monto_vivienda_ingreso_ven,
+											$monto_ven,
+											$cotizacion_ven,
+											$precio_descuento
+											)
 	{
 		$conexion = new conexion();
 		$id_cat_vend_supervisor = 0;

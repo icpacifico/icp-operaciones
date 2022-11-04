@@ -365,6 +365,8 @@
         $('.numero').numeric();
         
         $(document).on( "click","#procesar_boton" , function() {
+
+
 			let opc2 = $( "input[id=desc]:checked" ).val(); // checkbox para mostrar opciones de descuento
             let opt = $( "input[name=inlineRadioOptions]:checked" ).val(); // checkbox que indica las dos opciones disponibles de descuento            
             let vivienda = parseInt("<?php echo $valor_viv;?>"); //valor de la vivienda según la cotización
@@ -375,7 +377,7 @@
                     id: "<?php echo $id_cot;?>",  
                     id_vivienda : "<?php echo $id_viv;?>", 
                     id_condominio:  "<?php echo $id_con;?>",
-                    valor_viv:  "<?php echo $valor_viv;?>",                    
+                    valor_viv:  vivienda,                    
                     fecha:  $('#fecha').val(),                                 
                     forma_pago:  $("#forma_pago").val(),
                     pie:  $("#pie").val(),
@@ -421,15 +423,17 @@
             }
             
         }
-
+        // boton para pasar de cotizacion a promesa
         $(document).on( "click","#guardar" , function() {   
             let opt = $( "input[name=inlineRadioOptions]:checked" ).val();
             let opc2 = $( "input[id=desc]:checked" ).val();
             let monto_viv = '';
+            let pie = $("#pie").val();
             let vivienda = parseInt("<?php echo $valor_viv;?>");
             let alPrecio = parseInt($("#alPrecio").val());
-            let abono = $("#abonoInmobiliario").val();
-            let descuento_porcentaje=0;
+            let abono = parseInt($("#abonoInmobiliario").val());
+            // $porc_pie = ($pie * 100) / $monto_vivienda_total; // valor del pie convertido en porcentaje
+            let porcentaje_descuento=0;
             if(opc2!="no"){
                 opt = "3";
 				monto_viv = vivienda;
@@ -437,10 +441,10 @@
             }else{
 
                 if(opt == "1"){
-                    descuento_porcentaje = abono;
+                    porcentaje_descuento = (pie * 100) / vivienda;
                     monto_viv = vivienda;
                 }else{
-                    descuento_porcentaje = alPrecio;
+                    porcentaje_descuento = alPrecio;
                     monto_viv = vivienda - alPrecio;
                 } 
 
@@ -458,13 +462,12 @@
                     id_condominio:  "<?php echo $id_con;?>",
                     id_pro: "<?php echo $id_pro;?>",
                     monto_reserva: "<?php echo $monto_reserva;?>",
-                    porcentaje_descuento: descuento_porcentaje,
+                    porcentaje_descuento: porcentaje_descuento,
                     valor_viv:  "<?php echo $valor_viv;?>",
                     monto_vivienda:  monto_viv,
-                    fecha:  $('#fecha').val(),
-                    precio_descuento:  opt,                   
+                    fecha:  $('#fecha').val(),                                    
                     forma_pago:  $("#forma_pago").val(),
-                    pie:  $("#pie").val(),
+                    pie:  pie,
                     premio:  $("#premio").val(),                    
                     aplica_pie:   $( "input[name=inlineRadioOptions]:checked" ).val(), // 1 = abono inmobiliario ; 2 = desc al precio
                     estacionamiento: estacionamiento,
