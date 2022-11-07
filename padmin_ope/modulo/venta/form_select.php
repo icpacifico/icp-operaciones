@@ -316,15 +316,9 @@ if ($_SESSION["sesion_id_panel"]==30) { //le oculta al vendedor los botontes tab
                 swal({
                   title: "Excelente!",
                   text: "Registros eliminados con éxito!",
-                  type: "success",
-                  showCancelButton: false,
-                  confirmButtonColor: "#9bde94",
-                  confirmButtonText: "Aceptar",
-                  closeOnConfirm: false
-                },
-                function(){
-                    location.reload();
-                });
+                  icon: "success"
+                    
+                }).then(()=> location.reload() );
             }
             if(data.envio == 3){
                 swal("Error!", "Favor intentar denuevo","error");
@@ -338,15 +332,9 @@ if ($_SESSION["sesion_id_panel"]==30) { //le oculta al vendedor los botontes tab
                 swal({
                   title: "Excelente!",
                   text: "Registro eliminado con éxito!",
-                  type: "success",
-                  showCancelButton: false,
-                  confirmButtonColor: "#9bde94",
-                  confirmButtonText: "Aceptar",
-                  closeOnConfirm: false
-                },
-                function(){
-                    location.reload();
-                });
+                  icon: "success"
+                   
+                }).then(()=>  location.reload());
             }
             if(data.envio == 3){
                 swal("Error!", "Favor intentar denuevo","error");
@@ -360,14 +348,9 @@ if ($_SESSION["sesion_id_panel"]==30) { //le oculta al vendedor los botontes tab
             swal({
                 title: "Está Seguro?",
                 text: "Desea eliminar el registro seleccionado!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: "Cancelar",
-                closeOnConfirm: false,
-            },
-            function(){
+                icon: "warning"
+                
+            }).then(()=>{
                 $.ajax({
                     type: 'POST',
                     url: ("delete.php"),
@@ -386,14 +369,9 @@ if ($_SESSION["sesion_id_panel"]==30) { //le oculta al vendedor los botontes tab
             swal({
                 title: "Está Seguro?",
                 text: "Desea eliminar los registros seleccionados!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: "Cancelar",
-                closeOnConfirm: false
-            },
-            function(){
+                icon: "warning"
+                
+            }).then(()=>{
                 $.ajax({
                     type: 'POST',
                     url: ("delete_todo.php"),
@@ -543,14 +521,9 @@ if ($_SESSION["sesion_id_panel"]==30) { //le oculta al vendedor los botontes tab
             swal({
                 title: "Está Seguro?",
                 text: "Desea pasar a operación el registro seleccionado!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: "Cancelar",
-                closeOnConfirm: false
-            },
-            function(){
+                icon: "warning"
+               
+            }).then(()=>{
                 $.ajax({
                     type: 'POST',
                     url: ("insert_operacion.php"),
@@ -585,14 +558,9 @@ if ($_SESSION["sesion_id_panel"]==30) { //le oculta al vendedor los botontes tab
             swal({
                 title: "Está Seguro?",
                 text: "Desea cambiar el estado del registro seleccionado!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: "Cancelar",
-                closeOnConfirm: false
-            },
-            function(){
+                icon: "warning"
+                
+            }).then(()=>{
                 $.ajax({
                     type: 'POST',
                     url: ("estado.php"),
@@ -610,15 +578,9 @@ if ($_SESSION["sesion_id_panel"]==30) { //le oculta al vendedor los botontes tab
                 swal({
                   title: "Excelente!",
                   text: "Venta actualizada con éxito!",
-                  type: "success",
-                  showCancelButton: false,
-                  confirmButtonColor: "#9bde94",
-                  confirmButtonText: "Aceptar",
-                  closeOnConfirm: false
-                },
-                function(){
-                    location.reload();
-                });
+                  icon: "success"
+                    
+                }).then(()=> location.reload());
             }
             if(data.envio == 3){
                 swal("Error!", "Favor intentar denuevo","error");
@@ -630,15 +592,8 @@ if ($_SESSION["sesion_id_panel"]==30) { //le oculta al vendedor los botontes tab
                 swal({
                   title: "Excelente!",
                   text: "Estado modificado con éxito!",
-                  type: "success",
-                  showCancelButton: false,
-                  confirmButtonColor: "#9bde94",
-                  confirmButtonText: "Aceptar",
-                  closeOnConfirm: false
-                },
-                function(){
-                    location.reload();
-                });
+                  icon: "success"                    
+                }).then(()=> location.reload() );
             }
             if(data.envio == 3){
                 swal("Error!", "Favor intentar denuevo","error");

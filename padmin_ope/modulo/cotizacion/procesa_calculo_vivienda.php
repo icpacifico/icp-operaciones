@@ -16,13 +16,6 @@ $pie = $_POST["pie"]; // pie de la venta
 $tipo_descuento = $_POST['tipo_descuento'];
 $descuento_al_precio = $_POST['descuento_al_precio'];
 $abonoInmobiliario = $_POST["abonoInmobiliario"];  // valor del abono inmobiliario
-
-
-// $monto_vivienda = $_POST["monto_vivienda"]; 
-// $precio_descuento = $_POST["precio_descuento"]; 
-
-// $aplica_pie = $_POST["aplica_pie"]; 
-
 $monto_pie_sin_reserva = 0; //??? (innecesario)
 /*
 $aplica_pie = 1 es abono inmobiliario, osea descuento al pie
