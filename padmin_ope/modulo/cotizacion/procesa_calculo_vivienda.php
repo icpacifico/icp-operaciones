@@ -205,7 +205,7 @@ if($cantidad_estacionamiento > 0){?>
 	
     $monto_pie_con_descuento = $monto_pie - $abonoInmobiliario;
 	// $monto_pie_con_descuento_sin_reserva = $monto_pie_con_descuento - $monto_reserva;
-	$monto_pie_con_descuento_sin_reserva = $pie - $monto_reserva - $abonoInmobiliario;
+	$monto_pie_con_descuento_sin_reserva = $pie - $abonoInmobiliario;
     ?>   
 	<div class="info"><b>Monto Pie Con Descuento:</b> <?php echo number_format($monto_pie_con_descuento_sin_reserva, 2, ',', '.');?> UF</div>
 	<?php
