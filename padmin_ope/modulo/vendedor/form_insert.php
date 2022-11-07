@@ -228,9 +228,8 @@ if (!isset($_SESSION["modulo_vendedor_panel"])) {
                 swal({
                     title: "Excelente!",
                     text: "Información ingresada con éxito!",
-                    icon: "success"
-                    
-                }).then(()=>location.href = "form_select.php");
+                    icon: "success"                    
+                });
             }
             if (data.envio == 2) {
                 swal("Atención!", "Usuario ya ha sido ingresado", "warning");
