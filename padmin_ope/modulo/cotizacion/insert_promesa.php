@@ -81,13 +81,14 @@ if($aplica_pie == 1) $descuento_precio = (($valor_viv * $porc_pie) / 100) + $abo
  *  
  * el descuento manual se genera con la resta del valor de la vivienda y 
  * el valor de la vivienda con descuento al PRECIO cuando este aplica
+ *  descuento manual = (valor vivienda - valor vivienda con descuento)
  * cuando no aplica el descuento al PRECIO se resta el valor de la vivienda consigo misma dando 0 de resultado
  * 
  * **********************************************/
 
 
 $descuento_ven = ($descuento_manual>0) ? $descuento_manual : $descuento_precio; 
-// $descuento_ven = $abonoInmobiliario; 
+
 
 $monto_vivienda_descuento = ($aplica_pie == 2) ? $valor_viv - $descuento_ven : $monto_vivienda;
 
@@ -105,7 +106,7 @@ $valor_pie = ($pie * 100) / $monto_vivienda_total;
 // monto pie es calculado con el valor vivienda multiplicado con el percentaje de valor pie
 $monto_pie = $monto_vivienda_total * (round($valor_pie) / 100);
 
-$monto_pie_sin_reserva = $monto_pie - $monto_reserva;
+$monto_pie_sin_reserva = round($monto_pie - $abonoInmobiliario);
 // $monto_pie_sin_reserva = $monto_pie - $monto_reserva - $abonoInmobiliario;
 
 if($aplica_pie == 2){ //no aplica
@@ -113,7 +114,8 @@ if($aplica_pie == 2){ //no aplica
 	$pie_cobrar = 0;
 }
 else{	
-	$pie_cancelado = $monto_pie_sin_reserva - $descuento_ven; //le resta el descuento que traiga
+	// $pie_cancelado = $monto_pie_sin_reserva - $descuento_ven; //le resta el descuento que traiga
+	$pie_cancelado = $monto_pie_sin_reserva; //le resta el descuento que traiga
 	$pie_cobrar = 0;
 }
 

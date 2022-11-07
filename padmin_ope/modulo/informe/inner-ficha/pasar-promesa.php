@@ -463,7 +463,7 @@
                     id_pro: "<?php echo $id_pro;?>",
                     monto_reserva: "<?php echo $monto_reserva;?>",
                     porcentaje_descuento: porcentaje_descuento,
-                    valor_viv:  "<?php echo $valor_viv;?>",
+                    valor_viv:  vivienda,
                     monto_vivienda:  monto_viv,
                     fecha:  $('#fecha').val(),                                    
                     forma_pago:  $("#forma_pago").val(),
