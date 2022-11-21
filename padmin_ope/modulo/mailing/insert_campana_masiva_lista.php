@@ -21,7 +21,7 @@ $ids = isset($_POST["ids"]) ? utf8_encode($_POST["ids"]) : 0;
 $ids_cant = isset($_POST["ids_cant"]) ? utf8_encode($_POST["ids_cant"]) : 0;
 
 $asunto = isset($_POST["asunto"]) ? utf8_decode($_POST["asunto"]) : "";
-$enlace_imagen = isset($_POST["enlace_imagen"]) ? utf8_decode($_POST["enlace_imagen"]) : "";
+$enlace_imagen = isset($_POST["enlace_imagen"]) ? $_POST["enlace_imagen"] : "";
 $tipo_mail = isset($_POST["tipo_mail"]) ? utf8_decode($_POST["tipo_mail"]) : "";
 
 $fecha = date("Y-m-d H:i:s");
