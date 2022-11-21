@@ -124,15 +124,8 @@ $conexion = new conexion();
                 swal({
                     title: "Excelente!",
                     text: "Campaña ingresada con éxito!",
-                    type: "success",
-                    showCancelButton: false,
-                    confirmButtonColor: "#9bde94",
-                    confirmButtonText: "Aceptar",
-                    closeOnConfirm: true
-                },
-                function () {
-                    location.href = "form_select.php";
-                });
+                    type: "success"                    
+                }).then(()=> location.href = "form_select.php";);
             }
             if (data.envio == 2) {
                 swal("Atención!", "Información ya ha sido ingresada", "warning");

@@ -1571,13 +1571,8 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                 swal({
                   title: "Excelente!",
                   text: "Registro eliminado con éxito!",
-                  type: "success",
-                  showCancelButton: false,
-                  confirmButtonColor: "#9bde94",
-                  confirmButtonText: "Aceptar",
-                  closeOnConfirm: false
-                },
-                function(){
+                  type: "success"                    
+                }).then(()=>{
                     location.reload();
                 });
             }
@@ -1593,14 +1588,9 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
             swal({
                 title: "Está Seguro?",
                 text: "Desea eliminar el registro seleccionado!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: "Cancelar",
-                closeOnConfirm: false,
-            },
-            function(){
+                type: "warning"
+                
+            }).then(()=>{
                 $.ajax({
                     type: 'POST',
                     url: ("../cotizacion/delete.php"),
@@ -1619,14 +1609,8 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
             swal({
                 title: "Está Seguro?",
                 text: "Desea eliminar el registro seleccionado!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: "Cancelar",
-                closeOnConfirm: false,
-            },
-            function(){
+                type: "warning"                
+            }).then(()=>{
                 $.ajax({
                     type: 'POST',
                     url: ("../venta/delete_detalle.php"),
@@ -1645,15 +1629,8 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                 swal({
                   title: "Excelente!",
                   text: "Registro actualizado con éxito!",
-                  type: "success",
-                  showCancelButton: false,
-                  confirmButtonColor: "#9bde94",
-                  confirmButtonText: "Aceptar",
-                  closeOnConfirm: false
-                },
-                function(){
-                    location.reload();
-                });
+                  type: "success"                    
+                }).then(()=> location.reload());
             }
             if(data.envio == 3){
                 swal("Error!", "Favor intentar denuevo","error");
@@ -1667,14 +1644,9 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
             swal({
                 title: "Está Seguro?",
                 text: "Recalculará comsiones de la venta!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: "Cancelar",
-                closeOnConfirm: false,
-            },
-            function(){
+                type: "warning"
+                
+            }).then(()=>{
                 $.ajax({
                     type: 'POST',
                     url: ("../venta/recalcula_venta.php"),
