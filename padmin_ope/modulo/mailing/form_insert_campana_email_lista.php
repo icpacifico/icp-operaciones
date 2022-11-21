@@ -36,18 +36,18 @@ $conexion = new conexion();
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="asunto">Asunto Mail:</label>
-                        <input type="text" name="asunto" class="form-control" id="asunto"/>
+                        <input type="text" name="asunto" class="form-control" id="asunto" required />
                     </div>
                     <div class="form-group">
                         <label for="enlace_imagen">Link de la Imagen:</label>
-                        <input type="text" name="enlace_imagen" class="form-control" id="enlace_imagen"/>
+                        <input type="text" name="enlace_imagen" class="form-control" id="enlace_imagen" required />
                     </div>
                     
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="tipo_mail">Plantilla a enviar:</label>
-                        <select class="form-control send" id="tipo_mail" name="tipo_mail"> 
+                        <select class="form-control send" id="tipo_mail" name="tipo_mail" required> 
                             <option value="">Seleccione Plantilla</option>
                             <?php  
                             $consulta = "SELECT * FROM campana_plantilla_campana WHERE id_est_cam_pla = 1 ORDER BY id_cam_pla";
@@ -65,7 +65,7 @@ $conexion = new conexion();
                     </div>
                     <div class="form-group">
                         <label for="enlace_imagen">Cantidad de Listas:</label>
-                        <input type="text" readonly name="ids_cant" id="ids_cant" class="form-control" value="<?php echo $cantidad_emp;?>"></input>
+                        <input type="text" readonly name="ids_cant" id="ids_cant" class="form-control" value="<?php echo $cantidad_emp;?>" required></input>
                     </div>
                 </div>
             </div>

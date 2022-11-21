@@ -249,8 +249,8 @@ class mailing
 							CURLOPT_CUSTOMREQUEST => "POST",
 							CURLOPT_POSTFIELDS => $fields,
 							CURLOPT_HTTPHEADER => array(
-							"authorization: Bearer "._ACCESS_TOKEN,
-							"content-type: application/json"
+							'Authorization: Bearer '._ACCESS_TOKEN,
+							'Content-Type: application/json'
 							),
 						));
 
