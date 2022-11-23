@@ -11,13 +11,7 @@ include _INCLUDE."class/conexion.php";
 $conexion = new conexion();
 
 
-// id del vendedor al cual se le quitaran y reasignaran los clientes
-$id = 10; //Maria Jose Callejas
-$idis = conexion::select("SELECT id_pro FROM vendedor_propietario_vendedor WHERE id_vend=".$id);
-$ruts = conexion::select("SELECT rut_pro as rut FROM vendedor_rutpropietario_vendedor WHERE id_vend=".$id);
-$count = 0;
-$containerRut = array();
-$containerId = array();
+
 
 try {
 
@@ -29,6 +23,32 @@ try {
      *
      */
      #Acumular
+    //  ELIMINAR REPETIDOS
+    $ruts = "DELETE t1 FROM vendedor_rutpropietario_vendedor t1
+    INNER JOIN vendedor_rutpropietario_vendedor t2 
+    WHERE t1.id_rutpro_vend > t2.id_rutpro_vend AND t1.rut_pro = t2.rut_pro;";
+
+    $ides = "DELETE t1 FROM vendedor_propietario_vendedor t1
+    INNER JOIN vendedor_propietario_vendedor t2 
+    WHERE t1.id_pro_vend > t2.id_pro_vend AND t1.id_pro = t2.id_pro;";
+
+    $conexion->consulta($ruts);
+    $conexion->consulta($ides);
+
+    // ejecucion de la solcucion definitiva
+    $solucionRut ="ALTER TABLE vendedor_rutpropietario_vendedor ADD UNIQUE (rut_pro);";
+    $solucionID ="ALTER TABLE vendedor_propietario_vendedor ADD UNIQUE (id_pro);";
+     
+    $conexion->consulta($solucionRut);
+    $conexion->consulta($solucionID);
+
+    // id del vendedor al cual se le quitaran y reasignaran los clientes
+    $id = 10; //Maria Jose Callejas
+    $idis = conexion::select("SELECT id_pro FROM vendedor_propietario_vendedor WHERE id_vend=".$id);
+    $ruts = conexion::select("SELECT rut_pro as rut FROM vendedor_rutpropietario_vendedor WHERE id_vend=".$id);
+    $count = 0;
+    $containerRut = array();
+    $containerId = array();
 
     foreach($ruts as $rut){
         array_push($containerRut,$rut['rut']);                          
