@@ -4,10 +4,17 @@ require "../../config.php";
 if (!isset($_SESSION["sesion_usuario_panel"])) {
     header("Location: "._ADMIN."index.php");
 }
-$nombre = 'ICP_SPA_LISTADO_CIERRE_NEGOCIO_'.date('d-m-Y');
+// header('Content-type: application/vnd.ms-excel');
+// header("Content-Disposition: attachment;filename=".$nombre.".xls");
 
-header('Content-type: application/vnd.ms-excel');
-header("Content-Disposition: attachment;filename=".$nombre.".xls");
+// $nombre = 'ICP_SPA_LISTADO_CIERRE_NEGOCIO_'.date('d-m-YH:m:s').'.xls';
+header("Pragma: public");
+header("Expires: 0");
+$nombre = 'ICP_LISTADO_CIERRE_NEGOCIO'.date('dmYHms').'.xls';
+header("Content-Type: application/xls"); 
+header("Content-Disposition: attachment; filename=$nombre");
+header("Pragma: no-cache");
+header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,37 +52,13 @@ $conexion = new conexion();
                     <div class="nav-tabs-custom">
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_1">
-                                    <div class="box-body" style="padding-top: 0">
-                                        <!-- <div class="row">
-                                            <div class="col-sm-12 filtros">
-                                                <div class="row">
-                                                    <div class="col-sm-5"> -->
-
-                                                        <?php  
-                                                        $consulta = "SELECT id_con, nombre_con, fecha_venta_con FROM condominio_condominio ORDER BY nombre_con";
-                                                        $conexion->consulta($consulta);
-                                                        $fila_consulta_condominio_original = $conexion->extraer_registro();
-                                                        if(is_array($fila_consulta_condominio_original)){
-                                                            foreach ($fila_consulta_condominio_original as $fila) {
-                                                             
-                                                            }
-                                                        }
-                                                        ?>
-                                                    <!-- </div>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                        <!-- <div class="row"> -->
-                                            <!-- <div class="col-sm-12" id="contenedor_filtro"> -->
-                                                <!-- <h6 class="pull-right" style="font-style: italic; color:#ccc; font-size: 13px"> -->
-                                                    <?php 
+                                    <div class="box-body" style="padding-top: 0">                                        
+												<?php                                                       
+													$conexion->consulta("SELECT id_con, nombre_con, fecha_venta_con FROM condominio_condominio ORDER BY nombre_con");
+													$fila_consulta_condominio_original = $conexion->extraer_registro();																									
                                                     $filtro_consulta = '';
                                                     $filtro_consulta_cierre = '';
-                                                    $elimina_filtro = 0;
-                                                    
-                                                    
-
-
+                                                    $elimina_filtro = 0;                                                                                                        
                                                     if(isset($_SESSION["sesion_filtro_condominio_panel"])){
                                                         $it = new RecursiveIteratorIterator(new RecursiveArrayIterator($fila_consulta_condominio_original));
                                                         $fila_consulta_condominio = array();
@@ -91,22 +74,12 @@ $conexion = new conexion();
                                                                     $texto_filtro = $fila_consulta_condominio[$key + 1];
                                                                 }
                                                             }
-                                                        }
-                                                        ?>
-                                                        <!-- <span class="label label-primary"><?php //echo utf8_encode($texto_filtro);?></span>   -->
-                                                        <?php
-                                                        $filtro_consulta .= " AND viv.id_tor = ".$_SESSION["sesion_filtro_condominio_panel"];
-                                                        // $filtro_consulta_cierre .= " AND cie.id_con = ".$_SESSION["sesion_filtro_condominio_panel"];
-                                                    }
-                                                    else{
+                                                        }                                                        
+                                                        $filtro_consulta .= " AND viv.id_tor = ".$_SESSION["sesion_filtro_condominio_panel"];                                                        
+                                                    }else{
       
                                                     }
-                                                    ?>
-                                                    
-                                                <!-- </i> -->
-                                              <!-- </h6> -->
-                                            <!-- </div> -->
-                                        <!-- </div> -->
+                                                    ?>                                                   
                                         <div class="col-md-12">
                                             <div class="row" id="contenedor_tabla">
                                                 <div class="box">                                                    
@@ -115,25 +88,26 @@ $conexion = new conexion();
 														<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Condominio</th>
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Condominio</th>
                                                                     <!-- <th>Modelo</th> -->
-                                                                    <th>Depto</th>
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Depto</th>
                                                                     <!-- <th>Orientación</th> -->
                                                                     <!-- <th>Vendedor</th> -->
                                                                     <!-- <th>Categoría</th> -->
-                                                                    <th>Cliente</th>
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Cliente</th>
                                                                     <!-- <th>Fecha Venta</th> -->
                                                                     <!-- <th>Est. Adic.</th> -->
                                                                     <!-- <th>Forma Pago</th> -->
                                                                     <!-- <th>Banco/Tipo Pago</th> -->
-                                                                    <th>Valor Depto.</th>
-                                                                    <th>Pie Cancelado</th>
-                                                                    <th>Abono Inmobiliaria</th>
-                                                                    <th>Pie por Cobrar</th>
-                                                                    <th>Saldo Pie</th>
-                                                                    <th>Crédito Hipotecario</th>
-                                                                    <th>Total</th>
-                                                                    <th>Valor Final Inmob.</th>
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Valor Depto.</th>
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Pie Cancelado</th>
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Abono Inmobiliaria</th>
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Pie por Cobrar</th>
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Saldo Pie</th>
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Crédito Hipotecario</th>
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Total</th>
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Valor Final Inmob.</th>
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Carta de resguardo.</th>
                                                                     
                                                                     <!-- <th>Premio</th> -->
                                                                     
@@ -177,7 +151,7 @@ $conexion = new conexion();
 																		esta.nombre_esta,
 																		for_pag.id_for_pag,
 																		for_pag.nombre_for_pag,
-																		pie.valor_pie_ven,
+																		-- pie.valor_pie_ven,
 																		cat.nombre_cat_vend,
 																		ven.descuento_ven,
 																		pre.nombre_pre,
@@ -221,8 +195,7 @@ $conexion = new conexion();
 																		viv.id_viv > 0
 																		".$filtro_consulta."
 																	ORDER BY 
-																		viv.id_tor, viv.id_pis, viv.nombre_viv ASC"; 
-                                                                // echo $consulta;
+																		viv.id_tor, viv.id_pis, viv.nombre_viv ASC";                                                                 
                                                                 $conexion->consulta($consulta);
                                                                 $fila_consulta = $conexion->extraer_registro();
                                                                 if(is_array($fila_consulta)){
@@ -301,18 +274,18 @@ $conexion = new conexion();
 														                    $conexion->consulta($consulta_des);
 														                    $fila_des = $conexion->extraer_registro_unico();
 														                    $nombre_tip_des = utf8_encode($fila_des["nombre_tip_des"]);
-														                    $fondo_fila = "style='background-color: #e7e7e7'";
+														                    $fondo_fila = "bgcolor='#e7e7e7'";
 																		}
                                                                         
                                                                         ?>
                                                                         <tr <?php echo $fondo_fila; ?>>
-                                                                            <td><?php echo utf8_encode($fila['nombre_con']); ?></td>
+                                                                            <td align="center"><?php echo utf8_encode($fila['nombre_con']); ?></td>
                                                                             <!-- <td><?php //echo utf8_encode($fila['nombre_mod']); ?></td> -->
-                                                                            <td><?php echo utf8_encode($fila['nombre_viv']); ?></td>
+                                                                            <td align="center"><?php echo utf8_encode($fila['nombre_viv']); ?></td>
                                                                             <!-- <td><?php //echo utf8_encode($fila['nombre_ori_viv']); ?></td> -->
                                                                             <!-- <td style="text-align: left;"><?php //echo utf8_encode($fila['nombre_vend']." ".$fila['apellido_paterno_vend']." ".$fila['apellido_materno_vend']); ?></td> -->
                                                                             <!-- <td><?php //echo utf8_encode($fila['nombre_cat_vend']); ?></td> -->
-                                                                            <td style="text-align: left;"><?php echo strtoupper(utf8_encode($fila['nombre_pro']." ".$fila['apellido_paterno_pro']." ".$fila['apellido_materno_pro'])); ?></td>
+                                                                            <td align="center"><?php echo strtoupper(utf8_encode($fila['nombre_pro']." ".$fila['apellido_paterno_pro']." ".$fila['apellido_materno_pro'])); ?></td>
                                                                             <!-- <td><?php //echo $fecha_venta; ?></td> -->
                                                                             <!-- <td><?php //echo utf8_encode($fila['nombre_esta']); ?></td> -->
                                                                             <!-- <td><?php //echo utf8_encode($fila['nombre_for_pag']); ?></td> -->
@@ -343,7 +316,7 @@ $conexion = new conexion();
 																				}
 																			}
 																			?>
-                                                                            <td>
+                                                                            <td align="center">
                                                                             	<?php 
                                                                             	if ($estado_viv==2) {
                                                                             		echo number_format($monto_ven, 2, ',', '.');
@@ -465,8 +438,8 @@ $conexion = new conexion();
 														                        }
 														                    }
                                                                              ?>
-                                                                            <td><?php echo number_format($pie_pagado_efectivo, 2, ',', '.');?></td>
-                                                                            <td><?php 
+                                                                            <td align="center"><?php echo number_format($pie_pagado_efectivo, 2, ',', '.');?></td>
+                                                                            <td align="center"><?php 
                                                                             	if ($estado_viv==2) {
                                                                             		if ($id_pie_abo_ven==1) {
                                                                             			echo number_format($fila['descuento_ven'], 2, ',', '.');
@@ -479,7 +452,7 @@ $conexion = new conexion();
 																			$pie_por_cobrar = $pie_cancelado + $fila["pie_cobrar_ven"] - $total_uf;
 																			 ?>
 																			 <!-- Pie por cobrar -->
-                                                                            <td><?php echo number_format($pie_pagado_porcobrar, 2, ',', '.');?></td>
+                                                                            <td align="center"><?php echo number_format($pie_pagado_porcobrar, 2, ',', '.');?></td>
 
                                                                             <?php 
 																			if ($fila["monto_credito_real_ven"]<>0) {
@@ -496,13 +469,13 @@ $conexion = new conexion();
 																			if ($fila['id_est_ven']<>3) {
 																				if ($fila['id_for_pag']==1) {
 																				?>
-																					<td><?php echo number_format($saldo_pie, 2, ',', '.');?></td>
-																					<td><?php echo $credito_hipo; ?></td>
+																					<td align="center"><?php echo number_format($saldo_pie, 2, ',', '.');?></td>
+																					<td align="center"><?php echo $credito_hipo; ?></td>
 																				<?php
 																				} else {
 																					$saldo_total = $saldo_pie + $credito_suma;
 																					?>
-																					<td class="borde centrado"><?php echo number_format($saldo_total, 2, ',', '.'); ?></td>
+																					<td align="center" class="borde centrado"><?php echo number_format($saldo_total, 2, ',', '.'); ?></td>
 																					<td></td>
 																				<?php
 																				}
@@ -516,63 +489,21 @@ $conexion = new conexion();
 																			?>
 
 																			<td><?php echo number_format($total, 2, ',', '.');?></td>
-
+																			
 																			<?php
 																			// Valor final inmob.
 																			if ($fila['id_est_ven']<>3) {
 																			 	$total_general_total = ($fila["monto_vivienda_ven"] + $fila["monto_estacionamiento_ven"] + $fila["monto_bodega_ven"]) - $fila["descuento_ven"];
 																				?>
-																				<td><?php echo number_format($total_general_total, 2, ',', '.');?></td>
+																				<td align="center"><?php echo number_format($total_general_total, 2, ',', '.');?></td>
 																				<?php
 																			} else {
 																				?>
 																				<td>0,00</td>
 																				<?php
-																			}
-
-                   //                                                          $saldo_credito = 0;
-                   //                                                          $saldo_contado = 0;
-                   //                                                          if ($estado_viv==2) {
-																			// 	if ($fila['id_for_pag']==2) {
-																			// 		$saldo_contado = number_format($fila['monto_credito_ven'], 2, ',', '.');
-																			// 		$saldo_credito = 0;
-																			// 	} else {
-	                  //                                                           	if ($fila['monto_credito_real_ven']<>'' && $fila['monto_credito_real_ven']<>0) {
-	                  //                                                           		$saldo_credito = number_format($fila['monto_credito_real_ven'], 2, ',', '.');
-	                  //                                                           	} else {
-	                  //                                                           		$saldo_credito = number_format($fila['monto_credito_ven'], 2, ',', '.');
-	                  //                                                           	}
-	                  //                                                           	$saldo_contado = 0;
-																			// 	}
-																			// }
-																			?>
-                                                                            <!-- <td> -->
-                                                                            	<?php 
-                                                                            	//echo $saldo_credito;
-                                                                            	?>
-                                                                            <!-- </td> -->
-                                                                            <!-- <td> -->
-                                                                            	<?php 
-                                                                            	//echo $saldo_contado;
-                                                                            	?>
-                                                                            <!-- </td> -->
-                                                                            <!-- <td><?php //echo utf8_encode($fila['nombre_pre']); ?></td> -->
-                                                                            
-                                                                            <!-- <td><?php //echo number_format($monto_desestimiento, 2, ',', '.');?></td> -->
-                                                                            <!-- <td> -->
-                                                                            	<?php 
-                                                                            // if ($estado_viv==2) {
-                                                                            // 	echo utf8_encode($fila['nombre_est_ven']);
-                                                                            // 	// echo $nombre_tip_des;
-                                                                            // } else {
-                                                                            // 	echo "Disponible";
-                                                                            // }
-                                                                            ?>
-                                                                            	
-                                                                            <!-- </td> -->
-                                                                            <!-- <td><?php //echo $nombre_tip_des; ?></td> -->
-                                                                            <!-- <td><?php //echo utf8_encode($etapa_nombre); ?></td> -->
-                                                                            <!-- <td><?php //echo utf8_encode($etapa_estado); ?></td> -->
+																			}                
+																			?>  
+																			<td align="center"><?php echo $credito_hipo; ?></td>                                                                    
                                                                         </tr>
                                                                         <?php
                                                                         
