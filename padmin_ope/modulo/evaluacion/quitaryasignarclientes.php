@@ -23,133 +23,116 @@ try {
      *
      */
      #Acumular
-    //  ELIMINAR REPETIDOS
-    $ruts = "DELETE t1 FROM vendedor_rutpropietario_vendedor t1
-    INNER JOIN vendedor_rutpropietario_vendedor t2 
-    WHERE t1.id_rutpro_vend > t2.id_rutpro_vend AND t1.rut_pro = t2.rut_pro;";
-
-    // $ides = "DELETE t1 FROM vendedor_propietario_vendedor t1
-    // INNER JOIN vendedor_propietario_vendedor t2 
-    // WHERE t1.id_pro_vend > t2.id_pro_vend AND t1.id_pro = t2.id_pro;";
-
-    $conexion->consulta($ruts);
-    // $conexion->consulta($ides);
-
-    // ejecucion de la solcucion definitiva
-    // $solucionRut ="ALTER TABLE vendedor_rutpropietario_vendedor ADD UNIQUE (rut_pro);";
-    // $solucionID ="ALTER TABLE vendedor_propietario_vendedor ADD UNIQUE (id_pro);";
-     
-    // $conexion->consulta($solucionRut);
-    // $conexion->consulta($solucionID);
+ 
 
     // // id del vendedor al cual se le quitaran y reasignaran los clientes
-    // $id = 10; //Maria Jose Callejas
-    // $idis = conexion::select("SELECT id_pro FROM vendedor_propietario_vendedor WHERE id_vend=".$id);
-    // $ruts = conexion::select("SELECT rut_pro as rut FROM vendedor_rutpropietario_vendedor WHERE id_vend=".$id);
-    // $count = 0;
-    // $containerRut = array();
-    // $containerId = array();
+    $id = 10; //Maria Jose Callejas
+    $idis = conexion::select("SELECT id_pro FROM vendedor_propietario_vendedor WHERE id_vend=".$id);
+    $ruts = conexion::select("SELECT rut_pro as rut FROM vendedor_rutpropietario_vendedor WHERE id_vend=".$id);
+    $count = 0;
+    $containerRut = array();
+    $containerId = array();
 
-    // foreach($ruts as $rut){
-    //     array_push($containerRut,$rut['rut']);                          
-    // }    
-    // foreach($idis as $ID)
-    // {       
-    //     array_push($containerId,$ID['id_pro']);                          
-    // }    
+    foreach($ruts as $rut){
+        array_push($containerRut,$rut['rut']);                          
+    }    
+    foreach($idis as $ID)
+    {       
+        array_push($containerId,$ID['id_pro']);                          
+    }    
     
 
-    // # 10-11-2022 
-    // # vendedores disponibles para traspaso de clientes
-    // # Kriss - Jeannisse y Erica
+    # 10-11-2022 
+    # vendedores disponibles para traspaso de clientes
+    # Kriss - Jeannisse y Erica
 
-    // /**
-    //  * 
-    //  * EL siguiente proceso es dividir la cartera de clientes por el total de ejecutivos 
-    //  * a los cuales se les reasignaran los clientes
-    //  * 
-    //  */
-
-
-    // #repartir ruts
-
-    // $total = COUNT($containerRut);    
-    // $division = round($total / 3);
-    // $division2 = $division*2;
-
-    // # primer tercio de clientes
-    // # 0 -> primerTercio
-    // # kriss -> 15      
-
-    // for ($i=0; $i < $division ; $i++) { 
-    //     #borrar registro   
-    //     $conexion->consulta_form('DELETE FROM vendedor_rutpropietario_vendedor WHERE rut_pro=?',array($containerRut[$i]));
-    //     #reasignar
-    //     $conexion->consulta_form('INSERT INTO vendedor_rutpropietario_vendedor(id_vend,rut_pro)VALUES(?,?)',array(15,$containerRut[$i]));
-    // }
-
-    // # segundo tercio de clientes
-    // # primerTercio -> segundoTercio
-    // # jeannisse -> 13
-
-    // for ($i=$division; $i < $division2 ; $i++) { 
-    //     #borrar registro   
-    //     $conexion->consulta_form('DELETE FROM vendedor_rutpropietario_vendedor WHERE rut_pro=?',array($containerRut[$i]));
-    //     #reasignar
-    //     $conexion->consulta_form('INSERT INTO vendedor_rutpropietario_vendedor(id_vend,rut_pro)VALUES(?,?)',array(13,$containerRut[$i]));
-    // }
-
-    // # tercer tercio de clientes
-    // # segundoTercio -> el total
-    // # erica -> 20
-
-    // for ($i=$division2; $i < $total ; $i++) { 
-    //     #borrar registro   
-    //     $conexion->consulta_form('DELETE FROM vendedor_rutpropietario_vendedor WHERE rut_pro=?',array($containerRut[$i]));
-    //     #reasignar
-    //     $conexion->consulta_form('INSERT INTO vendedor_rutpropietario_vendedor(id_vend,rut_pro)VALUES(?,?)',array(20,$containerRut[$i]));
-    // }
+    /**
+     * 
+     * EL siguiente proceso es dividir la cartera de clientes por el total de ejecutivos 
+     * a los cuales se les reasignaran los clientes
+     * 
+     */
 
 
-    // #repartir aidis 
+    #repartir ruts
+
+    $total = COUNT($containerRut);    
+    $division = round($total / 3);
+    $division2 = $division*2;
+
+    # primer tercio de clientes
+    # 0 -> primerTercio
+    # kriss -> 15      
+
+    for ($i=0; $i < $division ; $i++) { 
+        #borrar registro   
+        $conexion->consulta_form('DELETE FROM vendedor_rutpropietario_vendedor WHERE rut_pro=?',array($containerRut[$i]));
+        #reasignar
+        $conexion->consulta_form('INSERT INTO vendedor_rutpropietario_vendedor(id_vend,rut_pro)VALUES(?,?)',array(15,$containerRut[$i]));
+    }
+
+    # segundo tercio de clientes
+    # primerTercio -> segundoTercio
+    # jeannisse -> 13
+
+    for ($i=$division; $i < $division2 ; $i++) { 
+        #borrar registro   
+        $conexion->consulta_form('DELETE FROM vendedor_rutpropietario_vendedor WHERE rut_pro=?',array($containerRut[$i]));
+        #reasignar
+        $conexion->consulta_form('INSERT INTO vendedor_rutpropietario_vendedor(id_vend,rut_pro)VALUES(?,?)',array(13,$containerRut[$i]));
+    }
+
+    # tercer tercio de clientes
+    # segundoTercio -> el total
+    # erica -> 20
+
+    for ($i=$division2; $i < $total ; $i++) { 
+        #borrar registro   
+        $conexion->consulta_form('DELETE FROM vendedor_rutpropietario_vendedor WHERE rut_pro=?',array($containerRut[$i]));
+        #reasignar
+        $conexion->consulta_form('INSERT INTO vendedor_rutpropietario_vendedor(id_vend,rut_pro)VALUES(?,?)',array(20,$containerRut[$i]));
+    }
 
 
-    // $totalID = COUNT($containerId);   
-    // $divisionID = round($totalID / 3);
-    // $divisionID2 = $divisionID*2;
+    #repartir aidis 
 
-    // # primer tercio de clientes
-    // # 0 -> primerTercio
-    // # kriss -> 15
 
-    // for ($i=0; $i < $divisionID ; $i++) { 
-    //     #borrar registro   
-    //     $conexion->consulta_form('DELETE FROM vendedor_propietario_vendedor WHERE id_pro=?',array($containerId[$i]));
-    //     #reasignar
-    //     $conexion->consulta_form('INSERT INTO vendedor_propietario_vendedor(id_vend,id_pro)VALUES(?,?)',array(15,$containerId[$i]));
-    // }
+    $totalID = COUNT($containerId);   
+    $divisionID = round($totalID / 3);
+    $divisionID2 = $divisionID*2;
 
-    // # segundo tercio de clientes
-    // # primerTercio -> segundoTercio
-    // # jeannisse -> 13
+    # primer tercio de clientes
+    # 0 -> primerTercio
+    # kriss -> 15
 
-    // for ($i=$divisionID; $i < $divisionID2 ; $i++) { 
-    //    #borrar registro   
-    //    $conexion->consulta_form('DELETE FROM vendedor_propietario_vendedor WHERE id_pro=?',array($containerId[$i]));
-    //    #reasignar
-    //    $conexion->consulta_form('INSERT INTO vendedor_propietario_vendedor(id_vend,id_pro)VALUES(?,?)',array(13,$containerId[$i]));
-    // }
+    for ($i=0; $i < $divisionID ; $i++) { 
+        #borrar registro   
+        $conexion->consulta_form('DELETE FROM vendedor_propietario_vendedor WHERE id_pro=?',array($containerId[$i]));
+        #reasignar
+        $conexion->consulta_form('INSERT INTO vendedor_propietario_vendedor(id_vend,id_pro)VALUES(?,?)',array(15,$containerId[$i]));
+    }
 
-    // # tercer tercio de clientes
-    // # segundoTercio -> el total
-    // # erica ->20
+    # segundo tercio de clientes
+    # primerTercio -> segundoTercio
+    # jeannisse -> 13
 
-    // for ($i=$divisionID2; $i < $totalID ; $i++) { 
-    //    #borrar registro   
-    //    $conexion->consulta_form('DELETE FROM vendedor_propietario_vendedor WHERE id_pro=?',array($containerId[$i]));
-    //    #reasignar
-    //    $conexion->consulta_form('INSERT INTO vendedor_propietario_vendedor(id_vend,id_pro)VALUES(?,?)',array(20,$containerId[$i]));
-    // }
+    for ($i=$divisionID; $i < $divisionID2 ; $i++) { 
+       #borrar registro   
+       $conexion->consulta_form('DELETE FROM vendedor_propietario_vendedor WHERE id_pro=?',array($containerId[$i]));
+       #reasignar
+       $conexion->consulta_form('INSERT INTO vendedor_propietario_vendedor(id_vend,id_pro)VALUES(?,?)',array(13,$containerId[$i]));
+    }
+
+    # tercer tercio de clientes
+    # segundoTercio -> el total
+    # erica ->20
+
+    for ($i=$divisionID2; $i < $totalID ; $i++) { 
+       #borrar registro   
+       $conexion->consulta_form('DELETE FROM vendedor_propietario_vendedor WHERE id_pro=?',array($containerId[$i]));
+       #reasignar
+       $conexion->consulta_form('INSERT INTO vendedor_propietario_vendedor(id_vend,id_pro)VALUES(?,?)',array(20,$containerId[$i]));
+    }
     
 
 } catch (\Throwable $th) {
