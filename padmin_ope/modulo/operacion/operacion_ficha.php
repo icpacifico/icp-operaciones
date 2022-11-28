@@ -1910,17 +1910,14 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
         });
         
 
-        $('#formulario').submit(function () {
-        	// alert("1");
-            if ($("#formulario").validate().form() == true){
-            	// alert("2");
+        $('#formulario').submit(function () {        	
+            if ($("#formulario").validate().form() == true){            	
                 $('#contenedor_cierre_etapa').html('<img src="../../assets/img/loading.gif">');
                 var dataString = $('#formulario').serialize();
                 $.ajax({
                     data: dataString,
                     type: 'POST',
-                	url: 'insert_cierre.php',
-                    // url: $(this).attr('action'),
+                	url: 'insert_cierre.php',                    
                     dataType: 'json',
                     success: function (data) {
                         resultado(data);

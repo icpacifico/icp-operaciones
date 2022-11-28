@@ -35,6 +35,22 @@ header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 <body class="hold-transition skin-blue layout-top-nav">
 <div class="wrapper">
 <?php 
+function diferencia($a,$b)
+{
+	$bb = explode(",",$b)[0];
+	$bbresto = !empty(explode(",",$b)[1]) ? explode(",",$b)[1] : '01';
+	$newbb = $bb.'.'.$bbresto;
+	// echo 'dato de entrada ('.$newbb.') <br>';
+	$aa = doubleval($a);
+	$bbb = floatval($newbb);
+	// echo 'dato de salida : '.(string)$bbb;
+	$multi = $aa * 0.9;
+	// echo 'multiplicacion : '.(string)$multi.' = '.(string)$aa.'* 0.9 <br>';	
+	$result = $multi - $bbb;
+	// echo 'Resta : '.(string)$result.' = '.(string)$multi.' - (carta de resguardo)'.(string)$bb;	
+	
+	return (string)$result;
+}
 include _INCLUDE."class/conexion.php";
 $conexion = new conexion();
  ?>
@@ -108,11 +124,9 @@ $conexion = new conexion();
                                                                     <th align="center" height="50" bgcolor="#6fd513">Total</th>
                                                                     <th align="center" height="50" bgcolor="#6fd513">Valor Final Inmob.</th>
                                                                     <th align="center" height="50" bgcolor="#6fd513">Carta de resguardo.</th>
-                                                                    
-                                                                    <!-- <th>Premio</th> -->
-                                                                    
-                                                                    <!-- <th>Desistimiento</th> -->
-                                                                    
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Banco.</th>
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Diferencia UF Cobertura Banco.</th>                                                              
+                                                                    <!-- <th>Premio</th> -->                                                                                                                                                                                                        
                                                                     <!-- <th>Estado Venta</th> -->
                                                                     <!-- <th>Motivo Desistimiento</th> -->
                                                                     <!-- <th>Etapa Actual</th> -->
@@ -121,9 +135,8 @@ $conexion = new conexion();
                                                             </thead>
                                                             <tbody>
                                                                 <?php
-                                                                $acumulado_monto = 0;
-                                                                
-                                                                
+																$nombre_banco = "";
+                                                                $acumulado_monto = 0;                                                                
                                                                 $consulta = 
                                                                     "
                                                                     SELECT 
@@ -200,6 +213,7 @@ $conexion = new conexion();
                                                                 $fila_consulta = $conexion->extraer_registro();
                                                                 if(is_array($fila_consulta)){
                                                                     foreach ($fila_consulta as $fila) {
+																		$nombre_banco = $fila['nombre_ban'];
                                                                     	$estado_viv = $fila['id_est_viv'];
                                                                     	$fecha_venta = '';
                                                                     	if ($estado_viv==2) {
@@ -254,31 +268,10 @@ $conexion = new conexion();
 	                                                                    } else {
 	                                                                    	$etapa_nombre = "";
 																			$etapa_estado = "";
-	                                                                    }
-
-	                                                                    $fondo_fila = "";
-
-	                                                                    $nombre_tip_des = "";
-																		if ($fila['id_est_ven']==3) {
-																			$consulta_des = 
-														                        "
-														                        SELECT
-														                            tip_des.nombre_tip_des
-														                        FROM
-														                            venta_desestimiento_venta AS des,
-														                            desistimiento_tipo_desistimiento AS tip_des
-														                        WHERE
-														                            des.id_ven = " .$fila["id_ven"]. " AND 
-														                            des.id_tip_des = tip_des.id_tip_des
-														                        ";
-														                    $conexion->consulta($consulta_des);
-														                    $fila_des = $conexion->extraer_registro_unico();
-														                    $nombre_tip_des = utf8_encode($fila_des["nombre_tip_des"]);
-														                    $fondo_fila = "bgcolor='#e7e7e7'";
-																		}
-                                                                        
+	                                                                    }	                                                                    
+                                                                        if ($fila['id_est_ven']!=3){
                                                                         ?>
-                                                                        <tr <?php echo $fondo_fila; ?>>
+                                                                        <tr>
                                                                             <td align="center"><?php echo utf8_encode($fila['nombre_con']); ?></td>
                                                                             <!-- <td><?php //echo utf8_encode($fila['nombre_mod']); ?></td> -->
                                                                             <td align="center"><?php echo utf8_encode($fila['nombre_viv']); ?></td>
@@ -301,20 +294,14 @@ $conexion = new conexion();
                                                                             <!-- </td> -->
                                                                             <!-- valor depto -->
                                                                             <?php 
-                                                                            $id_pie_abo_ven = $fila["id_pie_abo_ven"];
-																			if ($fila['id_est_ven']==3) {
-																				$monto_desestimiento = $fila['monto_ven'];
-																				$monto_ven = 0;
-																			} else {
-                                                                            	$monto_desestimiento = 0;
+                                                                                $id_pie_abo_ven = $fila["id_pie_abo_ven"];																			
                                                                             	$monto_ven = $fila['monto_ven'];
                                                                             	$total_general = $fila["monto_vivienda_ven"] - $fila["descuento_ven"];
 																				if ($id_pie_abo_ven==1) {
 																					$monto_ven = $fila["monto_vivienda_ven"];
 																				} else {
 																					$monto_ven = $total_general;
-																				}
-																			}
+																				}																			
 																			?>
                                                                             <td align="center">
                                                                             	<?php 
@@ -332,6 +319,7 @@ $conexion = new conexion();
 																			$pie_cancelado = 0;
 																			$pie_por_cobrar = 0;
 																			$pie_pagado_porcobrar = 0;
+																			
 														                    $consulta = 
 														                        "
 														                        SELECT 
@@ -364,8 +352,7 @@ $conexion = new conexion();
 														                    if(is_array($fila_consulta)){
 														                        foreach ($fila_consulta as $filapago) {
 																					$valor_uf_efectivo = 0;
-																					$pie_agado_efectivo = 0;
-														                        	
+																					$pie_agado_efectivo = 0;														                        	
 														                            if ($filapago["fecha_real_pag"]=="0000-00-00" || $filapago["fecha_real_pag"]==null) { //abonos no cancelados aún
 														                                $fecha_real_mostrar = "";
 
@@ -399,21 +386,11 @@ $conexion = new conexion();
 																						}
 
 																						$pie_pagado_porcobrar = $pie_pagado_porcobrar + $abono_uf;
+																						
 
-														                            }
-														                            else{
+														                            }else{
 														                                $fecha_real_mostrar = date("d/m/Y",strtotime($filapago["fecha_real_pag"]));
-														                                
-														                                $consulta = 
-														    							"
-																						    SELECT
-																						        valor_uf
-																						    FROM
-																						        uf_uf
-																						    WHERE
-																						        fecha_uf = ?
-																						    ";
-																						$conexion->consulta_form($consulta,array($filapago["fecha_real_pag"]));
+																						$conexion->consulta_form("SELECT valor_uf FROM uf_uf WHERE fecha_uf = ?",array($filapago["fecha_real_pag"]));
 																						$cantidad_uf = $conexion->total();
 																						if($cantidad_uf > 0){
 																							$filauf = $conexion->extraer_registro_unico();
@@ -430,7 +407,8 @@ $conexion = new conexion();
 																							$valor_uf_efectivo = 0;
 																						} 
 
-																						$pie_pagado_efectivo = $pie_pagado_efectivo + $abono_uf;          
+																						$pie_pagado_efectivo = $pie_pagado_efectivo + $abono_uf;  
+																						
 														                            }
 														                            $total_abono = $total_abono + $monto_pag;
 																					$total_uf = $total_uf + $abono_uf;
@@ -455,11 +433,14 @@ $conexion = new conexion();
                                                                             <td align="center"><?php echo number_format($pie_pagado_porcobrar, 2, ',', '.');?></td>
 
                                                                             <?php 
+																			$saldo_total = 0;
 																			if ($fila["monto_credito_real_ven"]<>0) {
-																				$credito_hipo = number_format($fila["monto_credito_real_ven"], 2, ',', '.');
+																				
+																				$credito_hipo = $fila["monto_credito_real_ven"];
 																				$credito_suma = $fila["monto_credito_real_ven"];
 																			} else {
-																				$credito_hipo = number_format($fila["monto_credito_ven"], 2, ',', '.');
+																				
+																				$credito_hipo = $fila["monto_credito_ven"];
 																				$credito_suma = $fila["monto_credito_ven"];
 																			}
 															
@@ -470,7 +451,7 @@ $conexion = new conexion();
 																				if ($fila['id_for_pag']==1) {
 																				?>
 																					<td align="center"><?php echo number_format($saldo_pie, 2, ',', '.');?></td>
-																					<td align="center"><?php echo $credito_hipo; ?></td>
+																					<td align="center"><?php echo number_format($credito_hipo, 2, ',', '.');?></td>
 																				<?php
 																				} else {
 																					$saldo_total = $saldo_pie + $credito_suma;
@@ -491,9 +472,14 @@ $conexion = new conexion();
 																			<td><?php echo number_format($total, 2, ',', '.');?></td>
 																			
 																			<?php
+																			$diferenciaUf = 0;
+																			$total = 0.0;
+																			
 																			// Valor final inmob.
+																			
 																			if ($fila['id_est_ven']<>3) {
 																			 	$total_general_total = ($fila["monto_vivienda_ven"] + $fila["monto_estacionamiento_ven"] + $fila["monto_bodega_ven"]) - $fila["descuento_ven"];
+																				$total = (double) $total_general_total;
 																				?>
 																				<td align="center"><?php echo number_format($total_general_total, 2, ',', '.');?></td>
 																				<?php
@@ -501,12 +487,25 @@ $conexion = new conexion();
 																				?>
 																				<td>0,00</td>
 																				<?php
-																			}                
+																			}																			          
+																																						
 																			?>  
-																			<td align="center"><?php echo $credito_hipo; ?></td>                                                                    
+																			<!-- carta de resguardo -->
+																			<td align="center"><?php echo number_format($credito_hipo, 2, ',', '.'); ?></td>    
+																			<!-- Banco -->
+																			<td align="center"><?php echo utf8_encode($nombre_banco); ?></td>                                                                    
+																			<!-- diferencia uf cobertura banco -->
+																			<?php 
+																			$val = 0;
+																			if($fila["monto_credito_real_ven"]<>0){
+																				$val =$fila["monto_credito_real_ven"];
+																			}else{
+																				$val =$fila["monto_credito_ven"];
+																			}?>
+																			<td align="center"><?php echo diferencia($total,$val); ?></td>     
                                                                         </tr>
                                                                         <?php
-                                                                        
+																		}
                                                                     }
                                                                 }
                                                                 ?>   
