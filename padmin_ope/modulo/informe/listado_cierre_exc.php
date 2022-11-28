@@ -35,21 +35,20 @@ header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 <body class="hold-transition skin-blue layout-top-nav">
 <div class="wrapper">
 <?php 
-function diferencia($a,$b)
-{
-	$bb = explode(",",$b)[0];
-	$bbresto = !empty(explode(",",$b)[1]) ? explode(",",$b)[1] : '01';
+function conversion($val){
+	$bb = explode(",",$val)[0];
+	$bbresto = !empty(explode(",",$val)[1]) ? explode(",",$val)[1] : '01';
 	$newbb = $bb.'.'.$bbresto;
-	// echo 'dato de entrada ('.$newbb.') <br>';
-	$aa = doubleval($a);
-	$bbb = floatval($newbb);
-	// echo 'dato de salida : '.(string)$bbb;
-	$multi = $aa * 0.9;
-	// echo 'multiplicacion : '.(string)$multi.' = '.(string)$aa.'* 0.9 <br>';	
-	$result = $multi - $bbb;
-	// echo 'Resta : '.(string)$result.' = '.(string)$multi.' - (carta de resguardo)'.(string)$bb;	
-	
-	return (string)$result;
+	$bbb = floatval($newbb);	
+	return $bbb;
+}
+function diferencia($a,$b){
+	 return (string)abs(round((doubleval($a) * 0.9) - conversion($b),2));
+}
+function calculoSaldoUf($total,$pieCancelado,$saldoPie,$cartaResguardo){
+	$carta = conversion($cartaResguardo);
+	$resp = abs(round($total - round($pieCancelado,2) - round($saldoPie,2) - $carta,2));	
+	return (string)$resp;
 }
 include _INCLUDE."class/conexion.php";
 $conexion = new conexion();
@@ -126,6 +125,7 @@ $conexion = new conexion();
                                                                     <th align="center" height="50" bgcolor="#6fd513">Carta de resguardo.</th>
                                                                     <th align="center" height="50" bgcolor="#6fd513">Banco.</th>
                                                                     <th align="center" height="50" bgcolor="#6fd513">Diferencia UF Cobertura Banco.</th>                                                              
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Saldo UF.</th>                                                              
                                                                     <!-- <th>Premio</th> -->                                                                                                                                                                                                        
                                                                     <!-- <th>Estado Venta</th> -->
                                                                     <!-- <th>Motivo Desistimiento</th> -->
@@ -272,27 +272,13 @@ $conexion = new conexion();
                                                                         if ($fila['id_est_ven']!=3){
                                                                         ?>
                                                                         <tr>
+																			<!-- Nombre del condominio  -->
                                                                             <td align="center"><?php echo utf8_encode($fila['nombre_con']); ?></td>
-                                                                            <!-- <td><?php //echo utf8_encode($fila['nombre_mod']); ?></td> -->
+																			<!-- Nombre del departamento -->
                                                                             <td align="center"><?php echo utf8_encode($fila['nombre_viv']); ?></td>
-                                                                            <!-- <td><?php //echo utf8_encode($fila['nombre_ori_viv']); ?></td> -->
-                                                                            <!-- <td style="text-align: left;"><?php //echo utf8_encode($fila['nombre_vend']." ".$fila['apellido_paterno_vend']." ".$fila['apellido_materno_vend']); ?></td> -->
-                                                                            <!-- <td><?php //echo utf8_encode($fila['nombre_cat_vend']); ?></td> -->
+                                                                            <!-- Nombre del cliente -->
                                                                             <td align="center"><?php echo strtoupper(utf8_encode($fila['nombre_pro']." ".$fila['apellido_paterno_pro']." ".$fila['apellido_materno_pro'])); ?></td>
-                                                                            <!-- <td><?php //echo $fecha_venta; ?></td> -->
-                                                                            <!-- <td><?php //echo utf8_encode($fila['nombre_esta']); ?></td> -->
-                                                                            <!-- <td><?php //echo utf8_encode($fila['nombre_for_pag']); ?></td> -->
-                                                                            <!-- <td> -->
-                                                                                <?php
-                                                                                // if ($fila['id_for_pag'] == 1) {
-                                                                                //     echo utf8_encode($fila['nombre_ban']);
-                                                                                // }
-                                                                                // else if ($fila['id_for_pag'] == 2){
-                                                                                //     echo utf8_encode($fila['nombre_tip_pag']);
-                                                                                // }
-                                                                                ?>
-                                                                            <!-- </td> -->
-                                                                            <!-- valor depto -->
+                                                                                                                                                      
                                                                             <?php 
                                                                                 $id_pie_abo_ven = $fila["id_pie_abo_ven"];																			
                                                                             	$monto_ven = $fila['monto_ven'];
@@ -303,6 +289,7 @@ $conexion = new conexion();
 																					$monto_ven = $total_general;
 																				}																			
 																			?>
+																			<!-- Valor del departamento -->
                                                                             <td align="center">
                                                                             	<?php 
                                                                             	if ($estado_viv==2) {
@@ -416,7 +403,9 @@ $conexion = new conexion();
 														                        }
 														                    }
                                                                              ?>
+																			 <!-- Pie Cancelado -->
                                                                             <td align="center"><?php echo number_format($pie_pagado_efectivo, 2, ',', '.');?></td>
+																			<!-- Abono Inmobiliario -->
                                                                             <td align="center"><?php 
                                                                             	if ($estado_viv==2) {
                                                                             		if ($id_pie_abo_ven==1) {
@@ -449,7 +438,7 @@ $conexion = new conexion();
 																			$saldo_pie = $total - ($credito_suma + $pie_pagado_porcobrar + $pie_pagado_efectivo);
 																			if ($fila['id_est_ven']<>3) {
 																				if ($fila['id_for_pag']==1) {
-																				?>
+																				?>																				    
 																					<td align="center"><?php echo number_format($saldo_pie, 2, ',', '.');?></td>
 																					<td align="center"><?php echo number_format($credito_hipo, 2, ',', '.');?></td>
 																				<?php
@@ -460,11 +449,6 @@ $conexion = new conexion();
 																					<td></td>
 																				<?php
 																				}
-																			} else {
-																				?>
-																				<td></td>
-																				<td></td>
-																				<?php
 																			}
 
 																			?>
@@ -493,16 +477,14 @@ $conexion = new conexion();
 																			<!-- carta de resguardo -->
 																			<td align="center"><?php echo number_format($credito_hipo, 2, ',', '.'); ?></td>    
 																			<!-- Banco -->
-																			<td align="center"><?php echo utf8_encode($nombre_banco); ?></td>                                                                    
+																			<td align="center"><?php echo utf8_encode($nombre_banco); ?></td>                                                                    																			
+																			<?php $val = ($fila["monto_credito_real_ven"]<>0) ? $fila["monto_credito_real_ven"] : $fila["monto_credito_ven"];?>
 																			<!-- diferencia uf cobertura banco -->
-																			<?php 
-																			$val = 0;
-																			if($fila["monto_credito_real_ven"]<>0){
-																				$val =$fila["monto_credito_real_ven"];
-																			}else{
-																				$val =$fila["monto_credito_ven"];
-																			}?>
-																			<td align="center"><?php echo diferencia($total,$val); ?></td>     
+																			<td align="center"><?php echo diferencia($total,$val); ?></td>
+																			<!-- Saldo UF    total - pie cancelado - saldo pie - carta de resguardo -->
+																			
+																			
+																			<td align="center"><?php echo calculoSaldoUf($total,$pie_pagado_efectivo,$saldo_pie,$val)?></td>
                                                                         </tr>
                                                                         <?php
 																		}
