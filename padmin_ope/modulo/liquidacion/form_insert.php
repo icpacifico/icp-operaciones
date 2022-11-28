@@ -310,7 +310,7 @@ unset($_SESSION["numero_item"]);
                 }).then(()=>location.href = "form_select.php");
             }
             if (data.envio == 3) {
-                swal("Error!", "Favor intentar denuevo o contáctese con administrador", "error");
+                swal("Error!", "Favor intentar nuevamente o contáctese con administrador", "error");
                 $('#contenedor_boton').html('<button type="submit" class="btn btn-primary pull-right">Registrar</button>');
             }
         }
