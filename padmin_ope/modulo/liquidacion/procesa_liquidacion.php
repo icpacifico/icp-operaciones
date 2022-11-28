@@ -181,7 +181,7 @@ $consulta_condominios =
         condominio_condominio
     WHERE
         id_est_con = 1 AND
-        id_con > 4
+        id_con > 6
     ";
 $conexion->consulta($consulta_condominios);
 $cantidad_cond = $conexion->total();
