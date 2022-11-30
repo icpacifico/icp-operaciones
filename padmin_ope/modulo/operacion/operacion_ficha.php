@@ -494,8 +494,7 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                 						<h4>Etapas Crédito</h4>
 		                                                				<?php
 		                                                				$consulta_cate = 
-				                                                            "
-				                                                            SELECT DISTINCT(etapa_categoria_etapa.id_cat_eta),
+				                                                            "SELECT DISTINCT(etapa_categoria_etapa.id_cat_eta),
 				                                                                etapa_categoria_etapa.nombre_cat_eta,
 				                                                                etapa_categoria_etapa.orden_cat_eta
 				                                                            FROM 
@@ -549,8 +548,7 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 		                                                				<?php
 
 		                                                				$consulta_cate = 
-				                                                            "
-				                                                            SELECT DISTINCT(etapa_categoria_etapa.id_cat_eta),
+				                                                            "SELECT DISTINCT(etapa_categoria_etapa.id_cat_eta),
 				                                                                etapa_categoria_etapa.nombre_cat_eta,
 				                                                                etapa_categoria_etapa.orden_cat_eta
 				                                                            FROM 
@@ -571,8 +569,7 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 																				<h5 class="font-weight-bold mb-1">> <?php echo utf8_encode($fila['nombre_cat_eta']);?></h5>
 																				<?php
 																				$consulta_eta = 
-						                                                            "
-						                                                            SELECT 
+						                                                            "SELECT 
 						                                                            	nombre_eta,
 						                                                                alias_eta,
 						                                                                numero_eta

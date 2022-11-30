@@ -17,107 +17,108 @@ require_once _INCLUDE."head_informe.php";
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+
 <style type="text/css">
-.container-fluid .content .filtros .form-control {
-    display: block;
-    width: 100%;
-    height: 24px;
-    padding: 8px 4px;
-    font-size: 12px;
-    line-height: 1.3;
-    height: 35px;
-}
+    .container-fluid .content .filtros .form-control {
+        display: block;
+        width: 100%;
+        height: 24px;
+        padding: 8px 4px;
+        font-size: 12px;
+        line-height: 1.3;
+        height: 35px;
+    }
 
-.container-fluid .content .input-group .form-control.chico {
-    display: block;
-    width: 100%;
-    /*height: 24px;*/
-    padding: 3px 4px;
-    font-size: 12px;
-    line-height: 1.3;
-    height: 24px;
-}
+    .container-fluid .content .input-group .form-control.chico {
+        display: block;
+        width: 100%;
+        /*height: 24px;*/
+        padding: 3px 4px;
+        font-size: 12px;
+        line-height: 1.3;
+        height: 24px;
+    }
 
-.container-fluid .content .filtros .form-control.chico {
-    display: block;
-    width: 100%;
-    padding: 3px 4px;
-    font-size: 12px;
-    line-height: 1.3;
-    height: 24px;
-}
+    .container-fluid .content .filtros .form-control.chico {
+        display: block;
+        width: 100%;
+        padding: 3px 4px;
+        font-size: 12px;
+        line-height: 1.3;
+        height: 24px;
+    }
 
-.filtros .input-group-addon {
-    padding: 4px 12px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1;
-    color: #555;
-    text-align: center;
-    background-color: #eee;
-    border: 1px solid #ccc;
-    border-radius: 0px;
-}
+    .filtros .input-group-addon {
+        padding: 4px 12px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1;
+        color: #555;
+        text-align: center;
+        background-color: #eee;
+        border: 1px solid #ccc;
+        border-radius: 0px;
+    }
 
-#contenedor_filtro .label {
-    display: inline;
-    padding: .6em .8em .6em;
-    font-size: 80%;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: .25em;
-}
+    #contenedor_filtro .label {
+        display: inline;
+        padding: .6em .8em .6em;
+        font-size: 80%;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
 
-.bg-grays{
-  background-color: #e8f0f5;
-}
+    .bg-grays{
+    background-color: #e8f0f5;
+    }
 
-.filtros label {
-    display: inline-block;
-    max-width: 100%;
-    margin-bottom: 0px;
-    font-weight: 600;
-    font-size: 90%;
-}
+    .filtros label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 0px;
+        font-weight: 600;
+        font-size: 90%;
+    }
 
-h4.titulo_informe{
-  margin-top: 0;
-}
+    h4.titulo_informe{
+    margin-top: 0;
+    }
 
-.form-group.filtrar {
-    margin-bottom: 0px;
-    padding-top: 20px;
-}
+    .form-group.filtrar {
+        margin-bottom: 0px;
+        padding-top: 20px;
+    }
 
-.container-fluid .content .form-control {
-    display: inline-block;
-    width: auto;
-}
+    .container-fluid .content .form-control {
+        display: inline-block;
+        width: auto;
+    }
 
-.info-box-number2 {
-    display: inline-block;
-    font-weight: normal;
-    font-size: 15px;
-    margin-top: 10px;
-}
+    .info-box-number2 {
+        display: inline-block;
+        font-weight: normal;
+        font-size: 15px;
+        margin-top: 10px;
+    }
 
-.bg-verde{
-	background-color: #DCE7BF;
-	text-align:center;
-}
+    .bg-verde{
+        background-color: #DCE7BF;
+        text-align:center;
+    }
 
-.bg-verdeclaro{
-	background-color: #E6EED2;
-}
+    .bg-verdeclaro{
+        background-color: #E6EED2;
+    }
 
-.tabla{
-	font-size: 1.2rem;
-	max-width: 150%;
-	width: 150%;
-}
+    .tabla{
+        font-size: 1.2rem;
+        max-width: 150%;
+        width: 150%;
+    }
 </style>
 <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/datepicker/datepicker3.css">
 </head>
@@ -868,6 +869,15 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                                                         $uf_fecha_pago_credito_real = $fila_uf["valor_uf"];
                                                                                     }
                                                                                 }
+                                                                                $total_monto_ven_credito = 0;
+                                                                                $total_carta_resguardo_credito = 0;
+                                                                                $total_uf_alzamiento_credito=0;
+                                                                                $total_equivalente_alzamiento_credito=0;
+                                                                                $total_valor_liquidado_peso_credito=0;
+                                                                                $total_valor_liquidado_uf_credito=0;
+                                                                                $total_uf_pagado_credito=0;
+                                                                                $acumulado_factura=0;
+                                                                                $acumulado_nc=0;
 
                                                                                 $total_monto_ven_credito = $total_monto_ven_credito + $fila['monto_vivienda_ven'];
                                                                                 $total_carta_resguardo_credito = $total_carta_resguardo_credito + $valor_carta_resguardo_credito;
@@ -924,12 +934,17 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 	                                                                                $dias = (strtotime($fecha_solicitud_pago_credito)-strtotime($fecha_pago_credito_real))/86400;
 	                                                                                $dias = abs($dias); 
 	                                                                                $dias = floor($dias);
+                                                                                    $total_diferencia_dias=0;
 	                                                                                $total_diferencia_dias = $total_diferencia_dias + $dias;
 	                                                                                echo $dias;
                                                                                      ?>
                                                                                     </td>
                                                                                     <?php 
 																					// $dif_monto = $valor_carta_resguardo_credito - $valor_liquidado_uf;
+                                                                                    $total_dif_monto_credito = 0;
+                                                                                    $total_pagado_resumen=0;
+                                                                                    $total_pagado_resumen_credito=0;
+                                                                                    $total_saldo_uf_credito=0;
 																					$dif_monto = $valor_carta_resguardo_credito - $fila['monto_vivienda_ven'];
 																					$total_dif_monto_credito = $total_dif_monto_credito + $dif_monto;
                                                                                      ?>
@@ -975,7 +990,11 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                                                 $valor_uf_alzamiento = ($fila['monto_vivienda_ven'] * 0.9) - $valor_carta_resguardo_contado;
 
                                                                                 $equivalente_alzamiento = $valor_uf_alzamiento * $uf_alzamiento;
-
+                                                                                $total_monto_ven_contado=0;
+                                                                                $total_carta_resguardo_contado=0;
+                                                                                $total_uf_alzamiento_contado=0;
+                                                                                $total_equivalente_alzamiento_contado=0;
+                                                                                $total_uf_pagado_contado=0;
                                                                                 $total_monto_ven_contado = $total_monto_ven_contado + $fila['monto_vivienda_ven'];
                                                                                 $total_carta_resguardo_contado = $total_carta_resguardo_contado + $valor_carta_resguardo_contado;
                                                                                 $total_uf_alzamiento_contado = $total_uf_alzamiento_contado + $valor_uf_alzamiento;
@@ -1010,6 +1029,8 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                                                     <td><?php echo number_format($fila['monto_ven'], 2, ',', '.');?></td><!-- valor inmobob-->
                                                                                     <td></td>
                                                                                     <?php 
+                                                                                    $total_pagado_resumen_contado=0;
+                                                                                    $total_saldo_uf_contado=0;
                                                                                     $total_pagado_resumen = $valor_liquidado_uf + $uf_pagado;
                                                                                     $saldo_uf = $fila['monto_ven'] - $total_pagado_resumen;
                                                                                     $total_pagado_resumen_contado = $total_pagado_resumen_contado + $total_pagado_resumen;
@@ -1025,8 +1046,10 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                                                 </tr>
                                                                                 <?php
                                                                             }
-                                                                            $total_alzado = $total_alzado + $alzado;
-                                                                            $total_pagado = $total_pagado + $pagado;
+                                                                            $total_alzado=0;
+                                                                            $total_pagado=0;
+                                                                            $total_alzado += $alzado;
+                                                                            $total_pagado += $pagado;
                                                                         }
                                                                     }
 

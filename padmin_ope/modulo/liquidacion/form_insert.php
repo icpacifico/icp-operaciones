@@ -29,60 +29,60 @@ unset($_SESSION["numero_item"]);
 <link rel="stylesheet" href="<?php echo _ASSETS?>plugins/datepicker/datepicker3.css">
 <noscript><link rel="stylesheet" href="<?php echo _ASSETS?>plugins/upload/css/jquery.fileupload-ui-noscript.css"></noscript>
 <style type="text/css">
-.callout {
-    border-radius: 3px;
-    margin: 0 0 20px 0;
-    padding: 8px 30px 8px 15px;
-    border-left: 5px solid #eee;
-}
+    .callout {
+        border-radius: 3px;
+        margin: 0 0 20px 0;
+        padding: 8px 30px 8px 15px;
+        border-left: 5px solid #eee;
+    }
 
-.callout h4{
-    margin-bottom: 0;
-}
+    .callout h4{
+        margin-bottom: 0;
+    }
 
-.vehiculo label.sel {
+    .vehiculo label.sel {
 
-}
+    }
 
 
-.select2-container--default .select2-selection--single {
-    background-color: #fff;
-    border: 1px solid #d2d6de;
-    border-radius: 0px;
-}
+    .select2-container--default .select2-selection--single {
+        background-color: #fff;
+        border: 1px solid #d2d6de;
+        border-radius: 0px;
+    }
 
-.select2-container .select2-selection--single {
-    box-sizing: border-box;
-    cursor: pointer;
-    display: block;
-    height: 34px;
-    user-select: none;
-    -webkit-user-select: none;
-}
+    .select2-container .select2-selection--single {
+        box-sizing: border-box;
+        cursor: pointer;
+        display: block;
+        height: 34px;
+        user-select: none;
+        -webkit-user-select: none;
+    }
 
-.table>tbody>tr>td, 
-.table>tbody>tr>th, 
-.table>tfoot>tr>td, 
-.table>tfoot>tr>th, 
-.table>thead>tr>td, 
-.table>thead>tr>th {
-    padding: 4px 8px;
-    line-height: 1.3;
-    vertical-align: top;
-    border-top: 1px solid #ddd;
-}
+    .table>tbody>tr>td, 
+    .table>tbody>tr>th, 
+    .table>tfoot>tr>td, 
+    .table>tfoot>tr>th, 
+    .table>thead>tr>td, 
+    .table>thead>tr>th {
+        padding: 4px 8px;
+        line-height: 1.3;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+    }
 
-.bg-gray {
-    color: #000;
-    background-color: #f5f5f5 !important;
-}
+    .bg-gray {
+        color: #000;
+        background-color: #f5f5f5 !important;
+    }
 
-#mensaj1{
-    display: none;
-}
-#mensaj2{
-    display: none;
-}
+    #mensaj1{
+        display: none;
+    }
+    #mensaj2{
+        display: none;
+    }
 </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
