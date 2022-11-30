@@ -68,33 +68,33 @@ $conexion = new conexion();
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_1">
                                     <div class="box-body" style="padding-top: 0">                                        
-												<?php                                                       
-													$conexion->consulta("SELECT id_con, nombre_con, fecha_venta_con FROM condominio_condominio ORDER BY nombre_con");
-													$fila_consulta_condominio_original = $conexion->extraer_registro();																									
-                                                    $filtro_consulta = '';
-                                                    $filtro_consulta_cierre = '';
-                                                    $elimina_filtro = 0;                                                                                                        
-                                                    if(isset($_SESSION["sesion_filtro_condominio_panel"])){
-                                                        $it = new RecursiveIteratorIterator(new RecursiveArrayIterator($fila_consulta_condominio_original));
-                                                        $fila_consulta_condominio = array();
-                                                        foreach($it as $v) {
-                                                            $fila_consulta_condominio[]=$v;
-                                                        }
-                                                        $elimina_filtro = 1;
-                                                        
-                                                        if(is_array($fila_consulta_condominio)){
-                                                            foreach ($fila_consulta_condominio as $fila) {
-                                                                if(in_array($_SESSION["sesion_filtro_condominio_panel"],$fila_consulta_condominio)){
-                                                                    $key = array_search($_SESSION["sesion_filtro_condominio_panel"], $fila_consulta_condominio);
-                                                                    $texto_filtro = $fila_consulta_condominio[$key + 1];
-                                                                }
-                                                            }
-                                                        }                                                        
-                                                        $filtro_consulta .= " AND viv.id_tor = ".$_SESSION["sesion_filtro_condominio_panel"];                                                        
-                                                    }else{
-      
-                                                    }
-                                                    ?>                                                   
+									<?php                                                       
+										$conexion->consulta("SELECT id_con, nombre_con, fecha_venta_con FROM condominio_condominio ORDER BY nombre_con");
+										$fila_consulta_condominio_original = $conexion->extraer_registro();																									
+										$filtro_consulta = '';
+										$filtro_consulta_cierre = '';
+										$elimina_filtro = 0;                                                                                                        
+										if(isset($_SESSION["sesion_filtro_condominio_panel"])){
+											$it = new RecursiveIteratorIterator(new RecursiveArrayIterator($fila_consulta_condominio_original));
+											$fila_consulta_condominio = array();
+											foreach($it as $v) {
+												$fila_consulta_condominio[]=$v;
+											}
+											$elimina_filtro = 1;
+											
+											if(is_array($fila_consulta_condominio)){
+												foreach ($fila_consulta_condominio as $fila) {
+													if(in_array($_SESSION["sesion_filtro_condominio_panel"],$fila_consulta_condominio)){
+														$key = array_search($_SESSION["sesion_filtro_condominio_panel"], $fila_consulta_condominio);
+														$texto_filtro = $fila_consulta_condominio[$key + 1];
+													}
+												}
+											}                                                        
+											$filtro_consulta .= " AND viv.id_tor = ".$_SESSION["sesion_filtro_condominio_panel"];                                                        
+										}else{
+
+										}
+										?>                                                   
                                         <div class="col-md-12">
                                             <div class="row" id="contenedor_tabla">
                                                 <div class="box">                                                    
@@ -126,6 +126,11 @@ $conexion = new conexion();
                                                                     <th align="center" height="50" bgcolor="#6fd513">Banco.</th>
                                                                     <th align="center" height="50" bgcolor="#6fd513">Diferencia UF Cobertura Banco.</th>                                                              
                                                                     <th align="center" height="50" bgcolor="#6fd513">Saldo UF.</th>                                                              
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Monto Liquidación UF.</th>                                                              
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Fecha Liquidación.</th>                                                              
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Fecha Solicitud Alzamiento.</th>                                                              
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Fecha Solicitud Carta de Resguardo.</th>                                                              
+                                                                    <th align="center" height="50" bgcolor="#6fd513">Fecha Emisión Carta de Resguardo.</th>                                                              
                                                                     <!-- <th>Premio</th> -->                                                                                                                                                                                                        
                                                                     <!-- <th>Estado Venta</th> -->
                                                                     <!-- <th>Motivo Desistimiento</th> -->
@@ -456,11 +461,40 @@ $conexion = new conexion();
 																			<td><?php echo number_format($total, 2, ',', '.');?></td>
 																			
 																			<?php
+																			$montoLiqu = 0;
+																			$fechaLiqu = "";
+																			$fechaAlzamiento="";
+																			$solicitudCartaResguardo="";
+																			$emisionCartaResguardo="";
+
+																			// monto y fecha liquidos
+                                                                              $conexion->consulta("SELECT * FROM venta_liquidado_venta WHERE id_ven =".$fila["id_ven"]);
+																			  $fila_consulta = $conexion->extraer_registro();
+																			  if(is_array($fila_consulta)){																				
+																				$montoLiqu = $fila_consulta[0]["monto_liq_uf_ven"];
+																				$fechaLiqu = $fila_consulta[0]["fecha_liq_ven"];
+																			  }
+																			  
+																			//  fecha de alzamiento 
+																			  $conexion->consulta("SELECT * FROM venta_etapa_venta WHERE id_ven = ".$fila["id_ven"]." AND id_eta = 35");
+																			  $fecha_alzamiento = $conexion->extraer_registro();
+																			  if(is_array($fecha_alzamiento)) $fechaAlzamiento = explode(' ',$fecha_alzamiento[0]['fecha_desde_eta_ven'])[0];
+																	
+																			  //  fecha de solicitud CARTA Resguardo (ECR11)
+																			  $conexion->consulta("SELECT * FROM venta_etapa_venta WHERE id_ven = ".$fila["id_ven"]." AND id_eta = 32");
+																			  $solicitud_fecha = $conexion->extraer_registro();
+																			  if(is_array($solicitud_fecha)) $solicitudCartaResguardo = explode(' ',$solicitud_fecha[0]['fecha_desde_eta_ven'])[0];
+																			 
+																			  //  fecha de Emisión CARTA Resguardo (ECR12)
+																			  $conexion->consulta("SELECT * FROM venta_etapa_venta WHERE id_ven = ".$fila["id_ven"]." AND id_eta = 33");
+																			  $emision_carta = $conexion->extraer_registro();
+																			  if(is_array($emision_carta)) $emisionCartaResguardo = explode(' ',$emision_carta[0]['fecha_desde_eta_ven'])[0];
+																		
+																				
 																			$diferenciaUf = 0;
 																			$total = 0.0;
 																			
-																			// Valor final inmob.
-																			
+																			// Valor final inmob.																			
 																			if ($fila['id_est_ven']<>3) {
 																			 	$total_general_total = ($fila["monto_vivienda_ven"] + $fila["monto_estacionamiento_ven"] + $fila["monto_bodega_ven"]) - $fila["descuento_ven"];
 																				$total = (double) $total_general_total;
@@ -481,10 +515,18 @@ $conexion = new conexion();
 																			<?php $val = ($fila["monto_credito_real_ven"]<>0) ? $fila["monto_credito_real_ven"] : $fila["monto_credito_ven"];?>
 																			<!-- diferencia uf cobertura banco -->
 																			<td align="center"><?php echo diferencia($total,$val); ?></td>
-																			<!-- Saldo UF    total - pie cancelado - saldo pie - carta de resguardo -->
-																			
-																			
-																			<td align="center"><?php echo calculoSaldoUf($total,$pie_pagado_efectivo,$saldo_pie,$val)?></td>
+																			<!-- Saldo UF    total - pie cancelado - saldo pie - carta de resguardo -->																																						
+																			<td align="center"><?php echo (calculoSaldoUf($total,$pie_pagado_efectivo,$saldo_pie,$val) == '0.01')? '0':calculoSaldoUf($total,$pie_pagado_efectivo,$saldo_pie,$val);?></td>
+																			<!-- Monto Liquidación -->
+																			<td align="center"><?php echo $montoLiqu;?></td>
+																			<!-- Fecha Liquidación -->
+																			<td align="center"><?php echo $fechaLiqu;?></td>
+																			<!-- Fecha Alzamiento -->
+																			<td align="center"><?php echo $fechaAlzamiento;?></td>
+																			<!-- Fecha solicitud carta de resguardo -->
+																			<td align="center"><?php echo $solicitudCartaResguardo;?></td>
+																			<!-- Fecha emisión carta de resguardo -->
+																			<td align="center"><?php echo $emisionCartaResguardo;?></td>
                                                                         </tr>
                                                                         <?php
 																		}
@@ -498,9 +540,7 @@ $conexion = new conexion();
                                                                     
                                                                     <td>$<?php //echo number_format($acumulado_monto, 2, ',', '.'); ?></td>
                                                                 </tr> 
-                                                            </tfoot> -->
-                                                            
-                                                            
+                                                            </tfoot> -->                                                                                                                        
                                                         </table>
                                                     </div>
                                                     <!-- /.box-body -->
@@ -518,7 +558,6 @@ $conexion = new conexion();
                 <!-- /.box -->
         </div>
     </section>
-
       <!-- Main content -->
    	
     <!-- /.content -->
