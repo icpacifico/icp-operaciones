@@ -468,6 +468,7 @@ $conexion = new conexion();
 																			$emisionCartaResguardo="";
 
 																			// monto y fecha liquidos
+																			if(isset($fila["id_ven"])){
                                                                               $conexion->consulta("SELECT * FROM venta_liquidado_venta WHERE id_ven =".$fila["id_ven"]);
 																			  $fila_consulta = $conexion->extraer_registro();
 																			  if(is_array($fila_consulta)){																				
@@ -490,7 +491,7 @@ $conexion = new conexion();
 																			  $emision_carta = $conexion->extraer_registro();
 																			  if(is_array($emision_carta)) $emisionCartaResguardo = explode(' ',$emision_carta[0]['fecha_desde_eta_ven'])[0];
 																		
-																				
+																			}
 																			$diferenciaUf = 0;
 																			$total = 0.0;
 																			
@@ -518,15 +519,15 @@ $conexion = new conexion();
 																			<!-- Saldo UF    total - pie cancelado - saldo pie - carta de resguardo -->																																						
 																			<td align="center"><?php echo (calculoSaldoUf($total,$pie_pagado_efectivo,$saldo_pie,$val) == '0.01')? '0':calculoSaldoUf($total,$pie_pagado_efectivo,$saldo_pie,$val);?></td>
 																			<!-- Monto Liquidación -->
-																			<td align="center"><?php echo $montoLiqu;?></td>
+																			<td align="center"><?php echo ($montoLiqu)?$montoLiqu:'';?></td>
 																			<!-- Fecha Liquidación -->
-																			<td align="center"><?php echo $fechaLiqu;?></td>
+																			<td align="center"><?php echo ($fechaLiqu)?$fechaLiqu:'';?></td>
 																			<!-- Fecha Alzamiento -->
-																			<td align="center"><?php echo $fechaAlzamiento;?></td>
+																			<td align="center"><?php echo ($fechaAlzamiento)?$fechaAlzamiento:'';?></td>
 																			<!-- Fecha solicitud carta de resguardo -->
-																			<td align="center"><?php echo $solicitudCartaResguardo;?></td>
+																			<td align="center"><?php echo ($solicitudCartaResguardo)?$solicitudCartaResguardo:'';?></td>
 																			<!-- Fecha emisión carta de resguardo -->
-																			<td align="center"><?php echo $emisionCartaResguardo;?></td>
+																			<td align="center"><?php echo ($emisionCartaResguardo)?$emisionCartaResguardo:'';?></td>
                                                                         </tr>
                                                                         <?php
 																		}
