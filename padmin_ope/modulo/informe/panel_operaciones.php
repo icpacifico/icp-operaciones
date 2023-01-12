@@ -306,6 +306,7 @@ $cantidad_abiertas = $conexion->total();
           			<li><a href="<?php echo _MODULO?>informe/escrituras_listado.php?tor=4" target="_blank">Exportar Escrituras Pacífico 2800 Etapa I</a></li>
           			<li><a href="<?php echo _MODULO?>informe/escrituras_listado.php?tor=5" target="_blank">Exportar Escrituras Pacífico 2800 Etapa II</a></li>
           			<li><a href="<?php echo _MODULO?>informe/escrituras_listado.php?tor=6" target="_blank">Exportar Escrituras Pacífico 3100 Etapa I</a></li>
+                <li><a href="<?php echo _MODULO?>informe/escrituras_listado.php?tor=7" target="_blank">Exportar Escrituras Pacífico 3100 Etapa II</a></li>
 					<li><a href="<?php echo _MODULO?>informe/condominio_departamento_listado_exc.php" target="_blank">Listado de Ventas & Clientes</a></li>
 	  			</ul>
 	  		</div>
