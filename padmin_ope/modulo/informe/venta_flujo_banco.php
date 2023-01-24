@@ -517,7 +517,7 @@ require "../helpers/get_pagos_contados.php";
 	                                                                    $fecha_hoy = date("Y-m-d");
 	                                                                    
 	                                                                    $consulta = "
-	                                                                        SELECT
+	                                                                        SELECT DISTINCT																	
 	                                                                            viv.nombre_viv,
 	                                                                            ven.monto_vivienda_ven,
 	                                                                            ven.monto_ven,
