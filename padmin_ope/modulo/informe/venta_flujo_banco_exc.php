@@ -198,7 +198,7 @@ $nombre_ban = utf8_encode($fila_banco["nombre_ban"]);
     $fecha_hoy = date("Y-m-d");
     
     $consulta = "
-        SELECT
+        SELECT DISTINCT
             viv.nombre_viv,
             ven.monto_vivienda_ven,
             ven.monto_ven,
@@ -301,7 +301,7 @@ $nombre_ban = utf8_encode($fila_banco["nombre_ban"]);
 			$pie_pagado_efectivo = 0;
             $consulta = 
                 "
-                SELECT 
+                SELECT DISTINCT
                     pag.id_pag,
                     cat_pag.nombre_cat_pag,
                     -- ban.nombre_ban,
