@@ -469,6 +469,7 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
 	                                                                    	$contador_depto++;
 
 	                                                                    	$estado_venta = "";
+                                                                        
 	                                                                    	$fecha_envio_carta = "";
 	                                                                    	$a_contab = "";
 	                                                                    	$cr_aprobada = "";

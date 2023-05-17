@@ -561,8 +561,8 @@ $id = $_GET["id"];
 				<br><br>
 				<!-- <img src="<?php // echo _ASSETS."img/firma_manuel.jpg";?>" width="290"> -->
 				<p style="line-height: 22px; margin-top: 0">Atte.,<br>
-				Jennifer Mondaca Jeraldo.<br>
-				Gerente de Ventas y OO.PP.</p>				
+				Marta Olivares Castro.<br>
+				Subgerente de Ventas y OO.PP.</p>				
 	    	</td>
 	    	
 	    </tr>
