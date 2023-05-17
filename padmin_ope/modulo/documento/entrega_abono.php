@@ -302,7 +302,7 @@ $id = $_GET["id"];
 	    			</tr>
 	    			<tr>
 	    				<td style="width: 20%">De: </td>
-	    				<td>Jenifer Mondaca Jeraldo</td>
+	    				<td>Marta Olivares Castro</td>
 	    			</tr>
 	    			<tr>
 	    				<td style="width: 20%">Ref.</td>
