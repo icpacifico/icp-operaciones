@@ -311,7 +311,7 @@ header("Content-Disposition: attachment; filename= $nombre.doc");
 	    			</tr>
 	    			<tr>
 	    				<td style="width: 20%">De: </td>
-	    				<td>Jenifer Mondaca Jeraldo</td>
+	    				<td>Marta Olivares Castro</td>
 	    			</tr>
 	    			<tr>
 	    				<td style="width: 20%">Ref.</td>
@@ -570,7 +570,7 @@ header("Content-Disposition: attachment; filename= $nombre.doc");
 				<br><br>
 				<!-- <img src="http://00ppsav.cl/padmin_ope/assets/img/firma_manuel.jpg" width="290" height="126"> -->
 				<p style="line-height: 22px; margin-top: 0">Atte.,<br>
-				Jennifer Mondaca Jeraldo.<br>
+				Marta Olivares Castro.<br>
 				Gerente de Ventas y OO.PP.</p>							
 	    	</td>
 	    	
