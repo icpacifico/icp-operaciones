@@ -628,6 +628,7 @@ require_once _INCLUDE."menu_modulo_no_aside.php";
                                                                                         }
 
                                                                                     } else {
+											$id_ven = $filaventa['id_ven'];
                                                                                         $nombre_propietario = "--";
                                                                                         $rut_propietario = "--";                                                                                       
                                                                                         $total_prorrateo_depto = ($fila['prorrateo_viv'] * $porcentaje_prorrateo) / 100;
